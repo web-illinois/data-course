@@ -1,0 +1,33 @@
+﻿@page "/courses"
+@layout SidebarLayout
+
+<PageTitle>Courses</PageTitle>
+
+<ilw-content>
+    <h1>Courses</h1>
+    @if (_useCourses.HasValue && _useCourses.Value)
+    {
+        <p>
+           Courses are a group of sections / classes that have a common body of knowledge that is covered. Courses at the university have a rubric and course number, while courses at online platforms like Coursera may or may not have rubrics and course numbers.
+        </p>
+        <p>
+            A valid course must contain one or more sections. A course may have only one section.
+        </p>
+        <p>
+            A section is an individual term-based class. It may be synchronous or asynchronous, online or on-campus.
+        </p>
+
+        <SearchGenericItem @ref="@_searchGenericItem" GenericItems="@CourseList" ItemTitle="Course" EditClicked="ChooseCourse" SearchClicked="GetCourses"></SearchGenericItem>
+
+        <h2>Create a new course</h2>
+        <button class="ilw-button" @onclick="SetNewCourse">Create Course</button>
+        <h2>Import a course from Electronic Data Warehouse</h2>
+        <button class="ilw-button" @onclick="ImportCourse">Import Course</button>
+    } else if (_useCourses.HasValue && !_useCourses.Value)
+    {
+        <p>
+            Your area does not use courses. Go to the Configuration section to enable courses.
+        </p>
+    }
+
+</ilw-content>

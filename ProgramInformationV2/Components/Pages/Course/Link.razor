@@ -1,0 +1,18 @@
+﻿@page "/course/link"
+@layout SidebarLayout
+
+<PageTitle>Course - Link Information</PageTitle>
+
+<ilw-content>
+    <h1>Link Information</h1>
+</ilw-content>
+
+@if (CourseItem != null)
+{
+    <UrlText Title="Summary Link (URL)" FieldItems="FieldItems" @bind-Value="CourseItem.Url"></UrlText>
+    <UrlText Title="Apply Now / Get More Information Link (URL)" FieldItems="FieldItems" @bind-Value="CourseItem.ExternalUrl"></UrlText>
+    <ImageControl @ref="@_imageCourseImage" Title="Image URL" FieldItems="FieldItems" @bind-Value="CourseItem.ImageUrl" ItemId="@CourseItem.Id"></ImageControl>
+    <MediumText Title="Image Alt Text" FieldItems="FieldItems" @bind-Value="CourseItem.ImageAltText"></MediumText>
+    <UrlText Title="Video URL" FieldItems="FieldItems" @bind-Value="CourseItem.VideoUrl"></UrlText>
+    <button class="ilw-button" @onclick="Save" @onblur="Layout.RemoveMessage">Save Changes</button>
+}

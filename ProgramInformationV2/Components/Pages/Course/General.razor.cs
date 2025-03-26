@@ -6,17 +6,22 @@ using ProgramInformationV2.Search.Getters;
 using ProgramInformationV2.Search.Setters;
 using FieldType = ProgramInformationV2.Data.DataModels.FieldType;
 
-namespace ProgramInformationV2.Components.Pages.Program {
+namespace ProgramInformationV2.Components.Pages.Course {
 
     public partial class General {
         private string _id = "";
 
+        public ProgramInformationV2.Search.Models.Course CourseItem { get; set; } = default!;
         public IEnumerable<FieldItem> FieldItems { get; set; } = default!;
 
         [CascadingParameter]
         public SidebarLayout Layout { get; set; } = default!;
 
-        public Search.Models.Program ProgramItem { get; set; } = default!;
+        [Inject]
+        protected CourseGetter CourseGetter { get; set; } = default!;
+
+        [Inject]
+        protected CourseSetter CourseSetter { get; set; } = default!;
 
         [Inject]
         protected FieldManager FieldManager { get; set; } = default!;
@@ -24,37 +29,30 @@ namespace ProgramInformationV2.Components.Pages.Program {
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
 
-        [Inject]
-        protected ProgramGetter ProgramGetter { get; set; } = default!;
-
-        [Inject]
-        protected ProgramSetter ProgramSetter { get; set; } = default!;
-
         public async Task Save() {
             Layout.RemoveDirty();
-            _ = await ProgramSetter.SetProgram(ProgramItem);
+            _ = await CourseSetter.SetCourse(CourseItem);
             if (string.IsNullOrEmpty(_id)) {
-                _id = ProgramItem.Id;
+                _id = CourseItem.Id;
+                Layout.SetSidebar(SidebarEnum.Course, CourseItem.Title);
                 await Layout.SetCacheId(_id);
             }
         }
 
         protected override async Task OnInitializedAsync() {
-            var title = "New Program";
             if (string.IsNullOrWhiteSpace(_id)) {
                 var sourceCode = await Layout.CheckSource();
                 _id = await Layout.GetCachedId();
                 if (!string.IsNullOrWhiteSpace(_id)) {
-                    ProgramItem = await ProgramGetter.GetProgram(_id);
-                    title = ProgramItem.Title;
+                    CourseItem = await CourseGetter.GetCourse(_id);
+                    Layout.SetSidebar(SidebarEnum.Course, CourseItem.Title);
                 } else {
-                    ProgramItem = new Search.Models.Program() {
+                    CourseItem = new ProgramInformationV2.Search.Models.Course {
                         Source = sourceCode
                     };
                 }
-                FieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new ProgramGroup(), FieldType.General);
+                FieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new CourseGroup(), FieldType.General);
             }
-            Layout.SetSidebar(SidebarEnum.Program, title);
             await base.OnInitializedAsync();
         }
     }

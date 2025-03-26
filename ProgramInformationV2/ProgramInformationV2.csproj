@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="Components\Layouts\**" />
+    <Compile Remove="Components\Pages\Courses\**" />
     <Content Remove="Components\Layouts\**" />
+    <Content Remove="Components\Pages\Courses\**" />
     <EmbeddedResource Remove="Components\Layouts\**" />
+    <EmbeddedResource Remove="Components\Pages\Courses\**" />
     <None Remove="Components\Layouts\**" />
+    <None Remove="Components\Pages\Courses\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,10 +39,7 @@
 
   <ItemGroup>
     <Folder Include="Components\Pages\ContactUs\" />
-    <Folder Include="Components\Pages\Course\" />
     <Folder Include="Components\Pages\Audit\" />
-    <Folder Include="Components\Pages\Section\" />
-    <Folder Include="Components\Pages\RequirementSet\" />
   </ItemGroup>
 
 </Project>

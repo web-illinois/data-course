@@ -16,7 +16,6 @@ namespace ProgramInformationV2.Data.FieldList {
                 new() { Title = "Course Length", CategoryType = CategoryType.Course, FieldType = FieldType.General },
                 new() { Title = "Course Cost", CategoryType = CategoryType.Course, FieldType = FieldType.General },
                 new() { Title = "Enrollment Date", CategoryType = CategoryType.Course, FieldType = FieldType.General },
-                new() { Title = "Use Sections", CategoryType = CategoryType.Course, FieldType = FieldType.General },
                 new() { Title = "Summary Link (URL)", CategoryType = CategoryType.Course, FieldType = FieldType.Link },
                 new() { Title = "Apply Now / Get More Information Link (URL)", CategoryType = CategoryType.Course, FieldType = FieldType.Link },
                 new() { Title = "Image URL", CategoryType = CategoryType.Course, FieldType = FieldType.Link },

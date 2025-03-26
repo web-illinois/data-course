@@ -1,0 +1,12 @@
+﻿@page "/course/overview"
+@layout SidebarLayout
+
+<PageTitle>Course - Overview</PageTitle>
+
+<ilw-content>
+    <h1>Overview</h1>
+
+    <RichTextEditor @ref="_rteDescription" Title="Details" FieldItems="_fieldItems"></RichTextEditor>
+    <RichTextEditor @ref="_rteWhoShouldApply" Title="External Details" FieldItems="_fieldItems"></RichTextEditor>
+    <button class="ilw-button" @onclick="Save" @onblur="Layout.RemoveMessage">Save Changes</button>
+</ilw-content>

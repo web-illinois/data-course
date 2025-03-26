@@ -17,6 +17,7 @@ namespace ProgramInformationV2.Data.DataContext {
             Debug.WriteLine($"{_id} context created.");
         }
 
+        public DbSet<CourseImportEntry> CourseImportEntries { get; set; }
         public DbSet<FieldSource> FieldSources { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<SecurityEntry> SecurityEntries { get; set; }

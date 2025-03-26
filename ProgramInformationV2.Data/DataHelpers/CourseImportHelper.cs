@@ -1,0 +1,21 @@
+﻿using ProgramInformationV2.Data.DataContext;
+using ProgramInformationV2.Data.DataModels;
+
+namespace ProgramInformationV2.Data.DataHelpers {
+
+    public class CourseImportHelper(ProgramRepository programRepository) {
+        private readonly ProgramRepository _programRepository = programRepository;
+
+        public async Task<int> Load(string rubric, string courseNumber, string urlPattern, bool importTitleAndDescriptionOnly, bool includeSections, string sourceCode) {
+            var sourceId = _programRepository.Read(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode))?.Id ?? 0;
+            return await _programRepository.CreateAsync(new CourseImportEntry {
+                Rubric = rubric,
+                CourseNumber = courseNumber,
+                UrlPattern = urlPattern,
+                IncludeTitleAndDescriptionOnly = importTitleAndDescriptionOnly,
+                IncludeSections = includeSections,
+                SourceId = sourceId,
+            });
+        }
+    }
+}

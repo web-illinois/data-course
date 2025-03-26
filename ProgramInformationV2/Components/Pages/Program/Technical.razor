@@ -6,12 +6,12 @@
 <ilw-content>
     <h1>Technical Information</h1>
 </ilw-content>
-    @if (ProgramItem != null)
-    {
-        <ilw-content>
-        <p>ID: <em>@ProgramItem.Id</em></p>
-        </ilw-content>
-        <StatusOnSite @bind-Value="ProgramItem.IsActive"></StatusOnSite>
-        <MediumText Title="URL Fragment" FieldItems="FieldItems" @bind-Value="ProgramItem.Url"></MediumText>
-        <button class="ilw-button" @onclick="Save" @onblur="Layout.RemoveMessage">Save Changes</button>
-    }
+@if (ProgramItem != null)
+{
+    <ilw-content>
+    <p>ID: <em>@ProgramItem.Id</em></p>
+    </ilw-content>
+    <StatusOnSite @bind-Value="ProgramItem.IsActive"></StatusOnSite>
+    <MediumText Title="URL Fragment" FieldItems="FieldItems" @bind-Value="ProgramItem.Url"></MediumText>
+    <button class="ilw-button" @onclick="Save" @onblur="Layout.RemoveMessage">Save Changes</button>
+}

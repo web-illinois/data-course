@@ -1,0 +1,21 @@
+﻿@page "/course/general"
+@layout SidebarLayout
+
+<PageTitle>Course - General Information</PageTitle>
+
+<ilw-content>
+    <h1>General Information</h1>
+</ilw-content>
+
+@if (CourseItem != null) {
+    <MediumText Title="Title" FieldItems="FieldItems" @bind-Value="CourseItem.CourseTitle"></MediumText>
+    <SmallText Title="Rubric" FieldItems="FieldItems" @bind-Value="CourseItem.Identifier.Rubric"></SmallText>
+    <SmallText Title="Course Number" FieldItems="FieldItems" @bind-Value="CourseItem.Identifier.CourseNumber"></SmallText>
+    <LargeText Title="Summary" FieldItems="FieldItems" @bind-Value="CourseItem.SummaryText"></LargeText>
+    <LargeText Title="Description" FieldItems="FieldItems" @bind-Value="CourseItem.Description"></LargeText>
+    <LargeText Title="Information" FieldItems="FieldItems" @bind-Value="CourseItem.Information"></LargeText>
+    <SmallText Title="Course Length" FieldItems="FieldItems" @bind-Value="CourseItem.Length"></SmallText>
+    <SmallText Title="Course Cost" FieldItems="FieldItems" @bind-Value="CourseItem.Cost"></SmallText>
+    <SmallText Title="Enrollment Date" FieldItems="FieldItems" @bind-Value="CourseItem.EnrollmentDate"></SmallText>
+    <button class="ilw-button" @onclick="Save" @onblur="Layout.RemoveMessage">Save Changes</button>
+}

@@ -1,0 +1,44 @@
+﻿@page "/course/filters"
+@layout SidebarLayout
+
+<PageTitle>Courses - Filters</PageTitle>
+
+<ilw-content>
+    <h1>Filters</h1>
+    <p>Edit the program’s filters below by toggling them on and off. This will allow users to search filters for the programs they’re interested in based on the departments, tags, and skills/topics selected below.</p>
+    @if (DepartmentTags != null && SkillTags != null && Tags != null)
+    {
+        @if (DepartmentTags.Count() > 0)
+        {
+            <h2>Departments</h2>
+            <p>Departments are the academic units inside your area. Each department handles a broad range of academic studies aroudn a certain topic (Astronomy, Electrical Engineering, Linguistics, Educational Policy). These may be official units, or unofficial categories that are handled by your main college.</p>
+            @foreach (var tag in DepartmentTags)
+            {
+                <FilterToggle Filter="@tag"></FilterToggle>
+            }
+        }
+
+        @if (SkillTags.Count() > 0)
+        {
+            <h2>Skills/Topics</h2>
+            <p>Skills / Topics are what the student is going to expect to gain by enrolling in the program. This may or may not correspond with the department list. For example, <em>Financial Management</em> may be a topic that is handled by multiple departments in the Gies College of Business (Accounting and Finance). The skill / topic should be student-focused.</p>
+            @foreach (var tag in SkillTags)
+            {
+                <FilterToggle Filter="@tag"></FilterToggle>
+            }
+        }
+
+        @if (Tags.Count() > 0)
+        {
+            <h2>Tags</h2>
+            <p>Tags are determined by your college and department and will vary. This may include self-paced degrees, certification, etc.</p>
+            @foreach (var tag in Tags)
+            {
+                <FilterToggle Filter="@tag"></FilterToggle>
+            }
+        }
+
+
+        <button class="ilw-button" @onclick="Save" @onblur="Layout.RemoveMessage">Save Changes</button>
+    }
+</ilw-content>

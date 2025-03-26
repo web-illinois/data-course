@@ -1,0 +1,17 @@
+﻿@page "/course/technical"
+@layout SidebarLayout
+
+<PageTitle>Courses - Technical Information</PageTitle>
+
+<ilw-content>
+    <h1>Technical Information</h1>
+</ilw-content>
+@if (CourseItem != null)
+{
+    <ilw-content>
+        <p>ID: <em>@CourseItem.Id</em></p>
+    </ilw-content>
+    <StatusOnSite @bind-Value="CourseItem.IsActive"></StatusOnSite>
+    <MediumText Title="URL Fragment" FieldItems="FieldItems" @bind-Value="CourseItem.Url"></MediumText>
+    <button class="ilw-button" @onclick="Save" @onblur="Layout.RemoveMessage">Save Changes</button>
+}

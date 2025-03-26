@@ -1,0 +1,32 @@
+﻿@page "/course/sectionlist"
+@layout SidebarLayout
+
+<PageTitle>Courses - Section List</PageTitle>
+
+<ilw-content>
+    <h1>Section List</h1>
+    @if (_useSections.HasValue && _useSections.Value)
+    {
+        <div class="ils-input-entry">
+            <label for="section">Select a Section</label>
+            <select id="section" name="credential" @bind="SectionId">
+                <option value="">Select</option>
+                @foreach (var sectionItem in CourseItem.Sections)
+                {
+                    <option value="@sectionItem.Id">@sectionItem.Title</option>
+                })
+            </select>
+        </div>
+        <button class="ilw-button" @onclick="EditSection">Edit Section</button>
+        <button class="ilw-button" @onclick="DeleteSection">Delete Section</button>
+
+        <h2>Create a New Section</h2>
+        <button class="ilw-button" @onclick="CreateSection">Create Section</button>
+
+    }
+    else if (_useSections.HasValue && !_useSections.Value)
+    {
+        <p>Your area does not use sections. Go to the Configuration section to enable sections.</p>
+    }
+
+</ilw-content>

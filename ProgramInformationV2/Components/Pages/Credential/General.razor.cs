@@ -11,7 +11,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
     public partial class General {
         private string _id = "";
 
-        public Search.Models.Credential CredentialItem { get; set; } = new Search.Models.Credential();
+        public Search.Models.Credential CredentialItem { get; set; } = default!;
         public IEnumerable<FieldItem> FieldItems { get; set; } = default!;
 
         [CascadingParameter]
@@ -47,8 +47,10 @@ namespace ProgramInformationV2.Components.Pages.Credential {
                     CredentialItem = await ProgramGetter.GetCredential(_id);
                     title = CredentialItem.Title;
                 } else {
-                    CredentialItem.Source = sourceCode;
-                    CredentialItem.ProgramId = await Layout.GetCachedParentId();
+                    CredentialItem = new Search.Models.Credential() {
+                        Source = sourceCode,
+                        ProgramId = await Layout.GetCachedParentId()
+                    };
                 }
                 FieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new CredentialGroup(), FieldType.General);
             }

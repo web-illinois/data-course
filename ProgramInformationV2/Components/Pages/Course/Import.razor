@@ -1,0 +1,69 @@
+﻿@page "/courses/import"
+@layout SidebarLayout
+
+<PageTitle>Import a Course</PageTitle>
+
+<ilw-content>
+    <h1>Import a Course</h1>
+    @if (_useCourses.HasValue && _useCourses.Value)
+    {
+        <p>
+            This will schedule a course import from the Electronic Data Warehouse.
+        </p>
+        <p>
+            Note that this will overwrite any course information you have added already unless you choose “Yes” under ‘Import Title and Description Only?’.
+        </p>
+
+        <div class="ils-input-entry">
+            <label for="rubric">Rubric</label>
+            <input id="rubric" type="text" @bind="Rubric" />
+        </div>
+
+        <div class="ils-input-entry">
+            <label for="coursenumber">Course Number</label>
+            <input id="coursenumber" type="text" @bind="CourseNumber" />
+        </div>
+
+        <div class="ils-input-entry">
+            <label for="url">Url Template</label>
+            <input id="url" type="text" @bind="UrlTemplate" class="ils-input-long" />
+        </div>
+
+        <div class="ils-input-entry">
+            <div class="ils-input-entry-compact">
+                <label for="sections">Include Sections?</label>
+                <div class="ils-toggle-slider">
+                    <input id="sections" type="checkbox" @bind="IncludeSections" role="switch" />
+                    <span>
+                        <span class="ils-container"></span>
+                        <span aria-hidden="true" class="ils-text-on">Yes</span>
+                        <span aria-hidden="true" class="ils-text-off">No</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="ils-input-entry">
+            <div class="ils-input-entry-compact">
+                <label for="titleonly">Import Title and Description Only?</label>
+                <div class="ils-toggle-slider">
+                    <input id="titleonly" type="checkbox" @bind="ImportTitleAndDescriptionOnly" role="switch" />
+                    <span>
+                        <span class="ils-container"></span>
+                        <span aria-hidden="true" class="ils-text-on">Yes</span>
+                        <span aria-hidden="true" class="ils-text-off">No</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <button class="ilw-button" @onclick="SendImport" @onblur="Layout.RemoveMessage">Schedule Import</button>
+    }
+    else if (_useCourses.HasValue && !_useCourses.Value)
+    {
+        <p>
+            Your area does not use courses. Go to the Configuration section to enable courses.
+        </p>
+    }
+
+</ilw-content>
