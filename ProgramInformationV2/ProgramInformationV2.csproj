@@ -39,7 +39,6 @@
 
   <ItemGroup>
     <Folder Include="Components\Pages\ContactUs\" />
-    <Folder Include="Components\Pages\Audit\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
 

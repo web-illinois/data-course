@@ -33,6 +33,7 @@ namespace ProgramInformationV2.Components.Pages.RequirementSet {
             _ = await RequirementSetSetter.SetRequirementSet(RequirementSetItem);
             await Layout.SetSidebar(SidebarEnum.RequirementSet, RequirementSetItem.InternalTitle);
             await Layout.SetCacheId(RequirementSetItem.Id);
+            await Layout.Log(CategoryType.RequirementSet, FieldType.General, RequirementSetItem);
             await Layout.AddMessage("Requirement Set saved successfully.");
         }
 

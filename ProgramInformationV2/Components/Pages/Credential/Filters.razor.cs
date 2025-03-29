@@ -36,6 +36,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             CredentialItem.TagList = Tags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
             Layout.RemoveDirty();
             _ = await ProgramSetter.SetCredential(CredentialItem);
+            await Layout.Log(CategoryType.Credential, FieldType.Filters, CredentialItem);
             await Layout.AddMessage("Credential saved successfully.");
         }
 

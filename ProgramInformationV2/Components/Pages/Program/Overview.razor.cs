@@ -43,6 +43,7 @@ namespace ProgramInformationV2.Components.Pages.Program {
                 ProgramItem.WhoShouldApply = await _rteWhoShouldApply.GetValue();
             }
             _ = await ProgramSetter.SetProgram(ProgramItem);
+            await Layout.Log(CategoryType.Program, FieldType.Overview, ProgramItem);
             await Layout.AddMessage("Program saved successfully.");
         }
 

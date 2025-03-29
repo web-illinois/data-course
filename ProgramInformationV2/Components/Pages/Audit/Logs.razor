@@ -1,0 +1,27 @@
+﻿@page "/audit/changed"
+@layout SidebarLayout
+
+<PageTitle>Audit - History</PageTitle>
+
+<ilw-content>
+<h1>History</h1>
+</ilw-content>
+
+@if (LogItems != null)
+{
+    <ilw-content>
+        <table>
+            @foreach (var log in LogItems)
+            {
+                <tr>
+                    <td>@log.DateCreated</td>
+                    <td>@log.Title</td>
+                    <td>@log.CategoryType</td>
+                    <td>@log.FieldType</td>
+                    <td>@log.SubjectId</td>
+                    <td>@log.ChangedByNetId</td>
+                </tr>
+            }
+        </table>
+    </ilw-content>
+}

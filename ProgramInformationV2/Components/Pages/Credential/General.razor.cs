@@ -32,6 +32,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             _ = await ProgramSetter.SetCredential(CredentialItem);
             await Layout.SetCacheId(CredentialItem.Id);
             await Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.Title);
+            await Layout.Log(CategoryType.Credential, FieldType.General, CredentialItem);
             await Layout.AddMessage("Credential saved successfully.");
         }
 

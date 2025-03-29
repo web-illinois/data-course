@@ -80,7 +80,8 @@
                                  new ("Credentials", "/configuration/fieldsused/credentials"),
                                  new ("Courses", "/configuration/fieldsused/courses"),
                                  new ("Sections", "/configuration/fieldsused/sections"),
-                                 new ("Requirement Sets", "/configuration/fieldsused/requirementsets") } }
+                                 new ("Requirement Sets", "/configuration/fieldsused/requirementsets") } },
+            { SidebarEnum.Audit, new() { new ("Access Logs", "/audit/changed") } }
         };
 
         public static List<PageLink>? GetBreadcrumbs(SidebarEnum s) => _breadcrumbs.TryGetValue(s, out var value) ? value : null;

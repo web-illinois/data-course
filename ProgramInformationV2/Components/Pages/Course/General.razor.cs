@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using ProgramInformationV2.Components.Layout;
+using ProgramInformationV2.Data.DataModels;
 using ProgramInformationV2.Data.FieldList;
 using ProgramInformationV2.Data.PageList;
 using ProgramInformationV2.Search.Getters;
@@ -32,6 +33,7 @@ namespace ProgramInformationV2.Components.Pages.Course {
             _ = await CourseSetter.SetCourse(CourseItem);
             await Layout.SetCacheId(CourseItem.Id);
             await Layout.SetSidebar(SidebarEnum.Course, CourseItem.Title);
+            await Layout.Log(CategoryType.Course, FieldType.General, CourseItem);
             await Layout.AddMessage("Course saved successfully.");
         }
 

@@ -41,6 +41,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
                 CredentialItem.Notes = await _rteProgramNotes.GetValue();
             }
             _ = await ProgramSetter.SetCredential(CredentialItem);
+            await Layout.Log(CategoryType.Credential, FieldType.Overview, CredentialItem);
             await Layout.AddMessage("Credential saved successfully.");
         }
 

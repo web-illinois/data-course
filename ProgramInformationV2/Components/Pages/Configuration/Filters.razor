@@ -24,7 +24,7 @@
         <h2>@FilterType</h2>
         @for (int i = 0; i < FilterTags.Count; i++)
         {
-            <FilterEditor @bind-Value="@FilterTags[i]" MoveUpCallback="e => MoveUp(e)" MoveDownCallback="e => MoveDown(e)" RemoveCallback="e => Remove(e)" />
+            <FilterEditor Id="@i" @bind-Value="@FilterTags[i]" MoveUpCallback="e => MoveUp(e)" MoveDownCallback="e => MoveDown(e)" RemoveCallback="e => Remove(e)" />
         }
 
     <h3>Add New Filter</h3>

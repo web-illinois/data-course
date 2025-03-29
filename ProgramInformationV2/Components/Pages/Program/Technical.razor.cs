@@ -31,12 +31,14 @@ namespace ProgramInformationV2.Components.Pages.Program {
         public async Task Delete() {
             Layout.RemoveDirty();
             var result = await ProgramSetter.DeleteProgram(ProgramItem.Id);
+            await Layout.Log(CategoryType.Program, FieldType.Technical, ProgramItem, "Deletion");
             await Layout.AddMessage(result);
         }
 
         public async Task Save() {
             Layout.RemoveDirty();
             _ = await ProgramSetter.SetProgram(ProgramItem);
+            await Layout.Log(CategoryType.Program, FieldType.Technical, ProgramItem);
             await Layout.AddMessage("Program saved successfully.");
         }
 

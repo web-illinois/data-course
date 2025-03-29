@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using ProgramInformationV2.Components.Controls;
 using ProgramInformationV2.Components.Layout;
+using ProgramInformationV2.Data.DataModels;
 using ProgramInformationV2.Data.PageList;
 using ProgramInformationV2.Search.Getters;
 using ProgramInformationV2.Search.Models;
@@ -54,6 +55,7 @@ namespace ProgramInformationV2.Components.Pages.RequirementSet {
             Layout.RemoveDirty();
             RequirementSetItem.CourseRequirements = CourseRequirements;
             _ = await RequirementSetSetter.SetRequirementSet(RequirementSetItem);
+            await Layout.Log(CategoryType.RequirementSet, FieldType.CourseList, RequirementSetItem);
             await Layout.AddMessage("Requirement Set saved successfully.");
         }
 

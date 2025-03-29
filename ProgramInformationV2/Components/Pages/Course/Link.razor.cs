@@ -36,6 +36,7 @@ namespace ProgramInformationV2.Components.Pages.Course {
                 _ = await _imageCourseImage.SaveFileToPermanent();
             }
             _ = await CourseSetter.SetCourse(CourseItem);
+            await Layout.Log(CategoryType.Course, FieldType.Link, CourseItem);
             await Layout.AddMessage("Course saved successfully.");
         }
 

@@ -36,6 +36,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
                 _ = await _imageUrl.SaveFileToPermanent();
             }
             _ = await ProgramSetter.SetCredential(CredentialItem);
+            await Layout.Log(CategoryType.Credential, FieldType.Link, CredentialItem);
             await Layout.AddMessage("Credential saved successfully.");
         }
 

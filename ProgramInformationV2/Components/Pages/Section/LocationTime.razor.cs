@@ -31,6 +31,7 @@ namespace ProgramInformationV2.Components.Pages.Section {
         public async Task Save() {
             Layout.RemoveDirty();
             _ = await CourseSetter.SetSection(SectionItem);
+            await Layout.Log(CategoryType.Section, FieldType.Location_Time, SectionItem);
             await Layout.AddMessage("Section saved successfully.");
         }
 

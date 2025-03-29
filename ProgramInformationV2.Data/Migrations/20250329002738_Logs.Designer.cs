@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProgramInformationV2.Data.DataContext;
 
@@ -11,9 +12,11 @@ using ProgramInformationV2.Data.DataContext;
 namespace ProgramInformationV2.Data.Migrations
 {
     [DbContext(typeof(ProgramContext))]
-    partial class ProgramContextModelSnapshot : ModelSnapshot
+    [Migration("20250329002738_Logs")]
+    partial class Logs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,10 +154,6 @@ namespace ProgramInformationV2.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("SourceId");
@@ -216,7 +215,7 @@ namespace ProgramInformationV2.Data.Migrations
                             IsOwner = true,
                             IsPublic = false,
                             IsRequested = false,
-                            LastUpdated = new DateTime(2025, 3, 28, 20, 42, 57, 708, DateTimeKind.Local).AddTicks(5335),
+                            LastUpdated = new DateTime(2025, 3, 28, 19, 27, 38, 2, DateTimeKind.Local).AddTicks(1663),
                             SourceId = -1
                         });
                 });
@@ -284,7 +283,7 @@ namespace ProgramInformationV2.Data.Migrations
                             CreatedByEmail = "jonker@illinois.edu",
                             IsActive = false,
                             IsTest = true,
-                            LastUpdated = new DateTime(2025, 3, 28, 20, 42, 57, 708, DateTimeKind.Local).AddTicks(5172),
+                            LastUpdated = new DateTime(2025, 3, 28, 19, 27, 38, 2, DateTimeKind.Local).AddTicks(1550),
                             RequestDeletion = false,
                             RequestDeletionByEmail = "",
                             Title = "Test Entry",

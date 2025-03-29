@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using ProgramInformationV2.Components.Layout;
+using ProgramInformationV2.Data.DataModels;
 using ProgramInformationV2.Data.PageList;
 using ProgramInformationV2.Search.Getters;
 using ProgramInformationV2.Search.Models;
@@ -44,6 +45,7 @@ namespace ProgramInformationV2.Components.Pages.Section {
         public async Task Save() {
             Layout.RemoveDirty();
             _ = await CourseSetter.SetSection(SectionItem);
+            await Layout.Log(CategoryType.Section, FieldType.Faculty, SectionItem);
             await Layout.AddMessage("Section saved successfully.");
         }
 

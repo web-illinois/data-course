@@ -41,15 +41,19 @@ builder.Services.AddSingleton<CacheHolder>();
 builder.Services.AddScoped<SourceHelper>();
 builder.Services.AddScoped<FilterHelper>();
 builder.Services.AddScoped<CourseImportHelper>();
+builder.Services.AddScoped<LogHelper>();
 builder.Services.AddScoped<FieldManager>();
 builder.Services.AddScoped<ProgramFieldItemMultipleDelete>();
 builder.Services.AddSingleton(b => OpenSearchFactory.CreateClient(builder.Configuration["SearchUrl"], builder.Configuration["SearchAccessKey"], builder.Configuration["SearchSecretAccessKey"], bool.Parse(builder.Configuration["SearchDebug"] ?? "false")));
+builder.Services.AddSingleton(b => OpenSearchFactory.CreateLowLevelClient(builder.Configuration["SearchUrl"], builder.Configuration["SearchAccessKey"], builder.Configuration["SearchSecretAccessKey"], bool.Parse(builder.Configuration["SearchDebug"] ?? "false")));
 builder.Services.AddScoped<ProgramGetter>();
 builder.Services.AddScoped<ProgramSetter>();
 builder.Services.AddScoped<CourseGetter>();
 builder.Services.AddScoped<CourseSetter>();
 builder.Services.AddScoped<RequirementSetGetter>();
 builder.Services.AddScoped<RequirementSetSetter>();
+builder.Services.AddScoped<JsonHelper>();
+builder.Services.AddScoped<BulkEditor>();
 
 var app = builder.Build();
 

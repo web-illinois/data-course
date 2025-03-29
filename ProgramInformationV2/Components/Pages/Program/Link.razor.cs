@@ -42,6 +42,7 @@ namespace ProgramInformationV2.Components.Pages.Program {
                 _ = await _imageDetailProgramImage.SaveFileToPermanent();
             }
             _ = await ProgramSetter.SetProgram(ProgramItem);
+            await Layout.Log(CategoryType.Program, FieldType.Link, ProgramItem);
             await Layout.AddMessage("Program saved successfully.");
         }
 

@@ -33,6 +33,7 @@ namespace ProgramInformationV2.Components.Pages.Section {
             _ = await CourseSetter.SetSection(SectionItem);
             await Layout.SetCacheId(SectionItem.Id);
             await Layout.SetSidebar(SidebarEnum.Section, SectionItem.Title);
+            await Layout.Log(CategoryType.Section, FieldType.General, SectionItem);
             await Layout.AddMessage("Section saved successfully.");
         }
 

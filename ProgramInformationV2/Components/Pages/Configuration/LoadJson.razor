@@ -1,0 +1,21 @@
+﻿@page "/configuration/loadjson"
+@layout SidebarLayout
+
+<PageTitle>Save JSON file</PageTitle>
+
+<ilw-content>
+    <h1>Load JSON file</h1>
+    <ilw-content>
+        <div class="ils-input-entry">
+            <label for="filetype">Upload for</label>
+            <select id="filetype" type="text" @bind="FileType">
+                <option value=""></option>
+                <option value="Programs">Programs</option>
+                <option value="Courses">Courses</option>
+                <option value="RequirementSets">Requirement Sets</option>
+            </select>
+        </div>
+    </ilw-content>
+    <InputFile OnChange="@LoadFile" />
+    <p><button class="ilw-button" @onclick="Load" @onblur="Layout.RemoveMessage">Load JSON File</button></p>
+</ilw-content>

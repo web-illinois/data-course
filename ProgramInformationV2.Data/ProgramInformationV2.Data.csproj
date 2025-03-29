@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProgramInformationV2.Search\ProgramInformationV2.Search.csproj" />
+  </ItemGroup>
+
 </Project>

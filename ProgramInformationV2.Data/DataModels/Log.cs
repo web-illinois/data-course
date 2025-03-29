@@ -10,12 +10,18 @@ namespace ProgramInformationV2.Data.DataModels {
         public string Data { get; set; } = "";
         public string DateCreated => LastUpdated.ToString("f");
         public bool EmailSent { get; set; }
+        public FieldType FieldType { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
 
+        public virtual Source Source { get; set; } = default!;
+
         public int SourceId { get; set; }
+
         public string SubjectId { get; set; } = "";
+
+        public string Title { get; set; } = "";
     }
 }

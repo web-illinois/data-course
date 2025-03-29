@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.JSInterop;
 using ProgramInformationV2.Data.Cache;
+using ProgramInformationV2.Data.DataHelpers;
+using ProgramInformationV2.Data.DataModels;
 using ProgramInformationV2.Data.PageList;
 using ProgramInformationV2.Helpers;
+using ProgramInformationV2.Search.Models;
 
 namespace ProgramInformationV2.Components.Layout {
 
@@ -24,6 +27,9 @@ namespace ProgramInformationV2.Components.Layout {
 
         [Inject]
         protected IJSRuntime JsRuntime { get; set; } = default!;
+
+        [Inject]
+        protected LogHelper LogHelper { get; set; } = default!;
 
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
@@ -56,6 +62,10 @@ namespace ProgramInformationV2.Components.Layout {
         }
 
         public async Task<string> GetNetId() => await AuthenticationStateProvider.GetUser();
+
+        public async Task Log(CategoryType categoryType, FieldType fieldType, BaseObject data, string subject = "") {
+            _ = await LogHelper.Log(CategoryType.Course, FieldType.Filters, await GetNetId(), await CheckSource(), data, subject);
+        }
 
         public void RemoveDirty() => IsDirty = false;
 

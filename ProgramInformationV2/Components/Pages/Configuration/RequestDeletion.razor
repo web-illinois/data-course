@@ -5,6 +5,7 @@
 
 <ilw-content>
     <h1>Request Deletion</h1>
-    <p>Request deletion of your current source below. Note that deleting a source cannot be undone.</p>
-    <p><button class="ilw-button" @onclick="DeleteSource" @onblur="Layout.RemoveMessage">Request Deletion</button></p>
+
+    <DeleteNotice DeleteClicked="DeleteSource" ItemTitle="@("Source " + _sourceCode)"></DeleteNotice>
+
 </ilw-content>

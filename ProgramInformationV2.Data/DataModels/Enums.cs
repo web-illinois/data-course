@@ -17,7 +17,9 @@
         Location_Time,
         Transcriptable,
         Faculty,
-        Technical
+        Technical,
+        Filters,
+        CourseList
     }
 
     public enum ScreenType {

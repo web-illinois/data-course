@@ -31,6 +31,7 @@ namespace ProgramInformationV2.Components.Pages.RequirementSet {
         public async Task Save() {
             Layout.RemoveDirty();
             _ = await RequirementSetSetter.SetRequirementSet(RequirementSetItem);
+            await Layout.Log(CategoryType.RequirementSet, FieldType.Technical, RequirementSetItem);
             await Layout.AddMessage("Requirement Set saved successfully.");
         }
 

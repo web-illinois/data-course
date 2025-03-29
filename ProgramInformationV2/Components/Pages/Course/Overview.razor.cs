@@ -42,6 +42,7 @@ namespace ProgramInformationV2.Components.Pages.Course {
                 CourseItem.ExternalDetails = await _rteWhoShouldApply.GetValue();
             }
             _ = await CourseSetter.SetCourse(CourseItem);
+            await Layout.Log(CategoryType.Course, FieldType.Overview, CourseItem);
             await Layout.AddMessage("Course saved successfully.");
         }
 

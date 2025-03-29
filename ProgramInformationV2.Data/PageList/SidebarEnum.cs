@@ -12,6 +12,7 @@
         Course,
         Section,
         Configuration,
+        Audit,
         FieldsUsed
     }
 }

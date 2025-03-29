@@ -2,6 +2,7 @@
 using ProgramInformationV2.Components.Controls;
 using ProgramInformationV2.Components.Layout;
 using ProgramInformationV2.Data.DataHelpers;
+using ProgramInformationV2.Data.DataModels;
 using ProgramInformationV2.Data.PageList;
 using ProgramInformationV2.Search.Getters;
 using ProgramInformationV2.Search.Models;
@@ -45,6 +46,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             Layout.RemoveDirty();
             CredentialItem.RequirementSetIds = ChosenRequirementSetList.Select(r => r.Id);
             _ = await ProgramSetter.SetCredential(CredentialItem);
+            await Layout.Log(CategoryType.Credential, FieldType.CourseList, CredentialItem);
             await Layout.AddMessage("Credential saved successfully.");
         }
 

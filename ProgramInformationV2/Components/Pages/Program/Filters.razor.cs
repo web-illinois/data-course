@@ -40,6 +40,7 @@ namespace ProgramInformationV2.Components.Pages.Program {
             ProgramItem.TagList = Tags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? new List<string>();
             Layout.RemoveDirty();
             await Layout.AddMessage("Program saved successfully.");
+            await Layout.Log(CategoryType.Program, FieldType.Filters, ProgramItem);
             _ = await ProgramSetter.SetProgram(ProgramItem);
         }
 

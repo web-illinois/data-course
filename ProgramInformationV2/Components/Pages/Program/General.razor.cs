@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using ProgramInformationV2.Components.Layout;
+using ProgramInformationV2.Data.DataModels;
 using ProgramInformationV2.Data.FieldList;
 using ProgramInformationV2.Data.PageList;
 using ProgramInformationV2.Search.Getters;
@@ -33,6 +34,7 @@ namespace ProgramInformationV2.Components.Pages.Program {
             _ = await ProgramSetter.SetProgram(ProgramItem);
             await Layout.SetCacheId(ProgramItem.Id);
             await Layout.SetSidebar(SidebarEnum.Program, ProgramItem.Title);
+            await Layout.Log(CategoryType.Program, FieldType.General, ProgramItem);
             await Layout.AddMessage("Program saved successfully.");
         }
 

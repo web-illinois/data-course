@@ -1,0 +1,20 @@
+﻿@page "/configuration/savejson"
+@layout SidebarLayout
+
+<PageTitle>Save JSON file</PageTitle>
+
+<ilw-content>
+    <h1>Save JSON file</h1>
+    <ilw-content>
+        <div class="ils-input-entry">
+            <label for="filetype">Downloaded From</label>
+            <select id="filetype" type="text" @bind="FileType">
+                <option value=""></option>
+                <option value="Programs">Programs</option>
+                <option value="Courses">Courses</option>
+                <option value="RequirementSets">Requirement Sets</option>
+            </select>
+        </div>
+    </ilw-content>
+    <p><button class="ilw-button" @onclick="Save" @onblur="Layout.RemoveMessage">Save JSON File</button></p>
+</ilw-content>

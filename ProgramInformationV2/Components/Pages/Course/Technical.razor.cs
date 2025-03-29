@@ -30,6 +30,7 @@ namespace ProgramInformationV2.Components.Pages.Course {
         public async Task Save() {
             Layout.RemoveDirty();
             _ = await CourseSetter.SetCourse(CourseItem);
+            await Layout.Log(CategoryType.Course, FieldType.Technical, CourseItem);
             await Layout.AddMessage("Course saved successfully.");
         }
 

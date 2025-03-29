@@ -34,11 +34,14 @@ namespace ProgramInformationV2.Components.Pages.Course {
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         public async Task Save() {
-            CourseItem.DepartmentList = DepartmentTags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? new List<string>();
-            CourseItem.SkillList = SkillTags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? new List<string>();
-            CourseItem.TagList = Tags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? new List<string>();
+            CourseItem.DepartmentList = DepartmentTags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
+            CourseItem.SkillList = SkillTags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
+            CourseItem.TagList = Tags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
             Layout.RemoveDirty();
+
+            await Layout.Log(CategoryType.Course, FieldType.Filters, CourseItem);
             _ = await CourseSetter.SetCourse(CourseItem);
+
             await Layout.AddMessage("Course saved successfully.");
         }
 

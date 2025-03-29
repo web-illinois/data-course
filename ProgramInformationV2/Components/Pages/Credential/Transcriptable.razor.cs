@@ -30,6 +30,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
         public async Task Save() {
             Layout.RemoveDirty();
             _ = await ProgramSetter.SetCredential(CredentialItem);
+            await Layout.Log(CategoryType.Credential, FieldType.Transcriptable, CredentialItem);
             await Layout.AddMessage("Credential saved successfully.");
         }
 
