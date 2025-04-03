@@ -28,6 +28,9 @@ namespace ProgramInformationV2.Components.Pages.Credential {
         public List<GenericItem> RequirementSetList { get; set; } = default!;
 
         [Inject]
+        protected CredentialGetter CredentialGetter { get; set; } = default!;
+
+        [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
@@ -98,7 +101,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             if (string.IsNullOrWhiteSpace(id)) {
                 NavigationManager.NavigateTo("/");
             }
-            CredentialItem = await ProgramGetter.GetCredential(id);
+            CredentialItem = await CredentialGetter.GetCredential(id);
             ChosenRequirementSetList = await RequirementSetGetter.GetRequirementSetsChosen(CredentialItem.RequirementSetIds);
             await Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.Title);
             await GetRequirementSet();

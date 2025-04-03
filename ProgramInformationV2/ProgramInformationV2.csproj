@@ -37,8 +37,4 @@
     <ProjectReference Include="..\ProgramInformationV2.Search\ProgramInformationV2.Search.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Components\Pages\ContactUs\" />
-  </ItemGroup>
-
 </Project>

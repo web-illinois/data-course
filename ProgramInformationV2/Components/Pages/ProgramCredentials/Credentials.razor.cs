@@ -21,6 +21,9 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
         public SidebarLayout Layout { get; set; } = default!;
 
         [Inject]
+        protected CredentialGetter CredentialGetter { get; set; } = default!;
+
+        [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
@@ -37,7 +40,7 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
         }
 
         protected async Task GetCredentials() {
-            CredentialList = await ProgramGetter.GetAllCredentialsBySource(_sourceCode, _searchGenericItem == null ? "" : _searchGenericItem.SearchItem);
+            CredentialList = await CredentialGetter.GetAllCredentialsBySource(_sourceCode, _searchGenericItem == null ? "" : _searchGenericItem.SearchItem);
             StateHasChanged();
         }
 

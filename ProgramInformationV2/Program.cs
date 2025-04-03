@@ -51,6 +51,7 @@ builder.Services.AddScoped<ProgramFieldItemMultipleDelete>();
 builder.Services.AddSingleton(b => OpenSearchFactory.CreateClient(builder.Configuration["SearchUrl"], builder.Configuration["SearchAccessKey"], builder.Configuration["SearchSecretAccessKey"], bool.Parse(builder.Configuration["SearchDebug"] ?? "false")));
 builder.Services.AddSingleton(b => OpenSearchFactory.CreateLowLevelClient(builder.Configuration["SearchUrl"], builder.Configuration["SearchAccessKey"], builder.Configuration["SearchSecretAccessKey"], bool.Parse(builder.Configuration["SearchDebug"] ?? "false")));
 builder.Services.AddScoped<ProgramGetter>();
+builder.Services.AddScoped<CredentialGetter>();
 builder.Services.AddScoped<ProgramSetter>();
 builder.Services.AddScoped<CourseGetter>();
 builder.Services.AddScoped<CourseSetter>();

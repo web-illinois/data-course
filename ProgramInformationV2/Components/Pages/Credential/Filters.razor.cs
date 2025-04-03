@@ -22,6 +22,9 @@ namespace ProgramInformationV2.Components.Pages.Credential {
         public IEnumerable<TagSource>? Tags => FilterTags?.Where(f => f.Key == TagType.Tag).SelectMany(x => x);
 
         [Inject]
+        protected CredentialGetter CredentialGetter { get; set; } = default!;
+
+        [Inject]
         protected FilterHelper FilterHelper { get; set; } = default!;
 
         [Inject]
@@ -45,7 +48,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             var sourceCode = await Layout.CheckSource();
             FilterTags = await FilterHelper.GetAllFilters(sourceCode);
             var id = await Layout.GetCachedId();
-            CredentialItem = await ProgramGetter.GetCredential(id);
+            CredentialItem = await CredentialGetter.GetCredential(id);
             foreach (var tag in FilterTags.SelectMany(x => x)) {
                 if (CredentialItem.DepartmentList.Contains(tag.Title) && tag.TagType == TagType.Department) {
                     tag.EnabledBySource = true;

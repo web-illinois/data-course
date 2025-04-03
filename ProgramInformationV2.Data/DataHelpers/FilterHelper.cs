@@ -5,9 +5,9 @@ using ProgramInformationV2.Search.Helpers;
 
 namespace ProgramInformationV2.Data.DataHelpers {
 
-    public class FilterHelper(ProgramRepository programRepository, BulkEditor bulkEditor) {
-        private readonly BulkEditor _bulkEditor = bulkEditor;
-        private readonly ProgramRepository _programRepository = programRepository;
+    public class FilterHelper(ProgramRepository? programRepository, BulkEditor? bulkEditor) {
+        private readonly BulkEditor? _bulkEditor = bulkEditor;
+        private readonly ProgramRepository _programRepository = programRepository ?? throw new ArgumentNullException("programRepository");
 
         public async Task<IEnumerable<IGrouping<TagType, TagSource>>> GetAllFilters(string source) =>
             await _programRepository.ReadAsync(c => c.TagSources.Include(c => c.Source).Where(ts => ts.Source != null && ts.Source.Code == source).OrderBy(ts => ts.Order).GroupBy(rv => rv.TagType));
@@ -33,14 +33,16 @@ namespace ProgramInformationV2.Data.DataHelpers {
                     _ = await _programRepository.CreateAsync(tag);
                 } else {
                     _ = await _programRepository.UpdateAsync(tag);
-                    if (tag.Title != tag.OldTitle) {
+                    if (tag.Title != tag.OldTitle && _bulkEditor != null) {
                         await _bulkEditor.UpdateTags(sourceName, tag.TagTypeSourceName, tag.OldTitle, tag.Title);
                     }
                 }
             }
-            foreach (var tag in tagsForDeletion) {
-                _ = await _programRepository.DeleteAsync(tag);
-                await _bulkEditor.DeleteTags(sourceName, tag.TagTypeSourceName, tag.OldTitle);
+            if (_bulkEditor != null) {
+                foreach (var tag in tagsForDeletion) {
+                    _ = await _programRepository.DeleteAsync(tag);
+                    await _bulkEditor.DeleteTags(sourceName, tag.TagTypeSourceName, tag.OldTitle);
+                }
             }
             return true;
         }

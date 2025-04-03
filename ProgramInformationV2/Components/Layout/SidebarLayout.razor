@@ -14,12 +14,14 @@
 <main id="app-main">
     <Breadcrumb @ref="BreadcrumbControl" />
     <ilw-columns mode="sidebar-left" gap="44px" width="page">
-        <div>
+        <div class="application-sidebar">
             <Sidebar @ref="SidebarControl"/>
-            <LoginInformation />
-            <ilw-content>
-                <p>Source: @SourceCode</p>
-            </ilw-content>
+            <div class="bottom-content">
+                <LoginInformation />
+                <ilw-content>
+                    <p>Source: @SourceCode</p>
+                </ilw-content>
+            </div>
         </div>
         <div>
             @Body

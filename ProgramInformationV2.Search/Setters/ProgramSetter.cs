@@ -35,7 +35,8 @@ namespace ProgramInformationV2.Search.Setters {
             if (string.IsNullOrWhiteSpace(credential.ProgramId)) {
                 program.Source = credential.Source;
                 program.Id = credential.Id + "-program";
-                program.Title = credential.Title + " Program";
+                program.Title = credential.Title;
+                program.Title = credential.Url;
                 program.IsActive = credential.IsActive;
                 program.Credentials.Add(credential);
             } else {

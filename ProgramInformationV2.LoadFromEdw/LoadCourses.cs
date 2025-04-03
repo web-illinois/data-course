@@ -19,7 +19,7 @@ namespace ProgramInformationV2.LoadFromEdw {
             foreach (var rubric in rubricList.Split(',').Select(r => r.Trim().ToUpper())) {
                 Console.WriteLine("----------------------------------");
                 Console.WriteLine($"Rubric: {rubric}");
-                var itemGroups = XmlImporter.GetAllCoursesBySemester(rubric);
+                var itemGroups = XmlImporter.GetAllCoursesBySemester(rubric, "");
                 Console.WriteLine($"Rubric loaded - number of courses: {itemGroups.Count()}");
 
                 foreach (var itemGroup in itemGroups) {

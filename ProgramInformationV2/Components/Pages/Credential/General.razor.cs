@@ -16,6 +16,9 @@ namespace ProgramInformationV2.Components.Pages.Credential {
         public SidebarLayout Layout { get; set; } = default!;
 
         [Inject]
+        protected CredentialGetter CredentialGetter { get; set; } = default!;
+
+        [Inject]
         protected FieldManager FieldManager { get; set; } = default!;
 
         [Inject]
@@ -40,7 +43,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             var sourceCode = await Layout.CheckSource();
             var id = await Layout.GetCachedId();
             if (!string.IsNullOrWhiteSpace(id)) {
-                CredentialItem = await ProgramGetter.GetCredential(id);
+                CredentialItem = await CredentialGetter.GetCredential(id);
                 await Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.Title);
             } else {
                 CredentialItem = new Search.Models.Credential() {

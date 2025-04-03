@@ -19,6 +19,9 @@ namespace ProgramInformationV2.Components.Pages.RequirementSet {
         public ProgramInformationV2.Search.Models.RequirementSet RequirementSetItem { get; set; } = default!;
 
         [Inject]
+        protected CredentialGetter CredentialGetter { get; set; } = default!;
+
+        [Inject]
         protected FieldManager FieldManager { get; set; } = default!;
 
         [Inject]
@@ -59,7 +62,7 @@ namespace ProgramInformationV2.Components.Pages.RequirementSet {
                 NavigationManager.NavigateTo("/");
             }
             RequirementSetItem = await RequirementSetGetter.GetRequirementSet(id);
-            CredentialsUsingRequirementSet = await ProgramGetter.GetAllCredentialsByRequirementId(id);
+            CredentialsUsingRequirementSet = await CredentialGetter.GetAllCredentialsByRequirementId(id);
             await Layout.SetSidebar(SidebarEnum.RequirementSet, RequirementSetItem.InternalTitle);
             FieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new RequirementSetGroup(), FieldType.General);
             await base.OnInitializedAsync();

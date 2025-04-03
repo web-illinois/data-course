@@ -21,6 +21,9 @@ namespace ProgramInformationV2.Components.Pages.Credential {
         public SidebarLayout Layout { get; set; } = default!;
 
         [Inject]
+        protected CredentialGetter CredentialGetter { get; set; } = default!;
+
+        [Inject]
         protected FieldManager FieldManager { get; set; } = default!;
 
         [Inject]
@@ -51,7 +54,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             if (string.IsNullOrWhiteSpace(id)) {
                 NavigationManager.NavigateTo("/");
             }
-            CredentialItem = await ProgramGetter.GetCredential(id);
+            CredentialItem = await CredentialGetter.GetCredential(id);
             _rteDescription.InitialValue = CredentialItem.Description;
             _rteProgramNotes.InitialValue = CredentialItem.Notes;
             FieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new CredentialGroup(), FieldType.Overview);

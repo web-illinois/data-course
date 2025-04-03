@@ -1,51 +1,90 @@
 ﻿using OpenSearch.Client;
+using ProgramInformationV2.Search.JsonThinModels;
 using ProgramInformationV2.Search.Models;
 
 namespace ProgramInformationV2.Search.Getters {
 
     public class ProgramGetter(OpenSearchClient? openSearchClient) : BaseGetter<Program>(openSearchClient) {
 
-        public async Task<List<GenericItem>> GetAllCredentialsBySource(string source, string search) {
-            var response = string.IsNullOrWhiteSpace(search) ?
-                await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString()).Query(q => q.Match(m => m.Field(fld => fld.Source).Query(source)))) :
-                await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
-                    .Query(m => m.Match(m => m.Field(fld => fld.Source).Query(source))
-                        && (m.Match(m => m.Field(fld => fld.Title).Query(search)) || m.Match(m => m.Field(fld => fld.Credentials.Select(ft => ft.Title)).Query(search)))));
-            LogDebug(response);
-            return response.IsValid ? response.Documents.SelectMany(c => c.Credentials).Select(r => r.GetGenericItem()).OrderBy(g => g.Title).ToList() : new List<GenericItem>();
-        }
-
-        public async Task<List<GenericItem>> GetAllCredentialsByRequirementId(string requirementId) {
-            var response =
-                await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString()).Query(q => q.Bool(b => b.Filter(f => f.Term(t => t.Field(fld => fld.Credentials.Select(c => c.RequirementSetIds)).Value(requirementId))))));
-            LogDebug(response);
-            return response.IsValid ? response.Documents.SelectMany(c => c.Credentials).Where(c => c.RequirementSetIds.Contains(requirementId)).Select(r => r.GetGenericItem()).OrderBy(g => g.Title).ToList() : new List<GenericItem>();
-        }
-
         public async Task<List<GenericItem>> GetAllProgramsBySource(string source, string search) {
-            var response = string.IsNullOrWhiteSpace(search) ?
-                await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString()).Query(q => q.Match(m => m.Field(fld => fld.Source).Query(source)))) :
-                await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
-                    .Query(m => m.Match(m => m.Field(fld => fld.Source).Query(source)) && m.Match(m => m.Field(fld => fld.Title).Query(search))));
+            var response = await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
+                    .Query(q => q
+                    .Bool(b => b
+                    .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)))
+                    .Must(m => string.IsNullOrWhiteSpace(search) ? m.MatchAll() : m.Match(m => m.Field(fld => fld.Title).Query(search))))));
             LogDebug(response);
-            return response.IsValid ? response.Documents.Select(r => r.GetGenericItem()).OrderBy(g => g.Title).ToList() : new List<GenericItem>();
+            return response.IsValid ? [.. response.Documents.Select(r => r.GetGenericItem()).OrderBy(g => g.Title)] : [];
         }
 
-        public async Task<Credential> GetCredential(string credentialId) {
-            var program = await GetProgramByCredential(credentialId);
-            return program.Credentials?.SingleOrDefault(c => c.Id == credentialId) ?? new Credential();
-        }
-
-        public async Task<Program> GetProgram(string id) {
+        public async Task<Program> GetProgram(string id, bool activeOnly = false) {
             var response = await _openSearchClient.GetAsync<Program>(id);
             LogDebug(response);
-            return response.IsValid ? response.Source : new Program();
+            return !response.IsValid || response.Source == null
+                ? new Program()
+                : activeOnly && !response.Source.IsActive
+                ? new Program()
+                : response.Source;
+        }
+
+        public async Task<Program> GetProgram(string source, string fragment) {
+            var response = await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
+                    .Query(q => q
+                    .Bool(b => b
+                    .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)),
+                            f => f.Term(m => m.Field(fld => fld.IsActive).Value(true)))
+                    .Must(m => m.Match(m => m.Field(fld => fld.Fragment).Query(fragment))))));
+            LogDebug(response);
+            return response.IsValid ? response.Documents?.FirstOrDefault() ?? new Program() : new Program();
         }
 
         public async Task<Program> GetProgramByCredential(string credentialId) {
-            var response = await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString()).Query(q => q.Match(m => m.Field(fld => fld.CredentialIdList).Query(credentialId))));
+            var response = await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
+                    .Query(q => q.Match(m => m.Field(fld => fld.CredentialIdList).Query(credentialId))));
             LogDebug(response);
             return response.IsValid ? response.Documents.FirstOrDefault() ?? new Program() : new Program();
+        }
+
+        public async Task<SearchObject<Program>> GetPrograms(string source, IEnumerable<string> tags, IEnumerable<string> tags2, IEnumerable<string> tags3, IEnumerable<string> skills, string search, IEnumerable<string> departments, IEnumerable<string> formats, IEnumerable<string> credentials, int skip, int size) {
+            var response = await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
+                    .From(skip)
+                    .Size(size)
+                    .Query(q => q
+                    .Bool(b => b
+                    .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)),
+                        f => f.Term(m => m.Field(fld => fld.IsActive).Value(true)),
+                        f => tags.Any() ? f.Terms(m => m.Field(fld => fld.TagList).Terms(tags)) : f.MatchAll(),
+                        f => tags2.Any() ? f.Terms(m => m.Field(fld => fld.TagList).Terms(tags2)) : f.MatchAll(),
+                        f => tags3.Any() ? f.Terms(m => m.Field(fld => fld.TagList).Terms(tags3)) : f.MatchAll(),
+                        f => credentials.Any()
+                             ? formats.Count() == 1 ?
+                                (formats.Single() == "online" ? f.Terms(m => m.Field(fld => fld.CredentialsOnlineList).Terms(credentials))
+                                : formats.Single() == "oncampus" ? f.Terms(m => m.Field(fld => fld.CredentialsOncampusList).Terms(credentials))
+                                : formats.Single() == "offcampus" ? f.Terms(m => m.Field(fld => fld.CredentialsOffcampusList).Terms(credentials))
+                                : formats.Single() == "hybrid" ? f.Terms(m => m.Field(fld => fld.CredentialsHybridList).Terms(credentials))
+                                : f.Terms(m => m.Field(fld => fld.CredentialsFullList).Terms(credentials)))
+                              : f.Terms(m => m.Field(fld => fld.CredentialsFullList).Terms(credentials)) : f.MatchAll(),
+                        f => formats.Any() ? f.Terms(m => m.Field(fld => fld.Formats).Terms(formats)) : f.MatchAll(),
+                        f => departments.Any() ? f.Terms(m => m.Field(fld => fld.DepartmentList).Terms(departments)) : f.MatchAll(),
+                        f => skills.Any() ? f.Terms(m => m.Field(fld => fld.SkillList).Terms(skills)) : f.MatchAll())
+                    .Must(m => !string.IsNullOrWhiteSpace(search) ? m.Match(m => m.Field(fld => fld.Title).Query(search)) : m.MatchAll())))
+                    .Suggest(a => a.Phrase("didyoumean", p => p.Text(search).Field(fld => fld.Title))));
+            LogDebug(response);
+
+            List<Program> documents = response.IsValid ? [.. response.Documents] : [];
+            documents.ForEach(documents => documents.PrepareForJson());
+            return new SearchObject<Program>() {
+                Error = !response.IsValid ? response.ServerError.Error.ToString() : "",
+                DidYouMean = response.Suggest.Values.FirstOrDefault()?.ToString() ?? "",
+                Total = (int) response.Total,
+                Items = documents
+            };
+        }
+
+        public async Task<List<string>> GetSuggestions(string source, string search, int take) {
+            var response = await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
+                    .Query(m => m.Match(m => m.Field(fld => fld.Source).Query(source)) && m.Match(m => m.Field(fld => fld.Title).Query(search))));
+            LogDebug(response);
+            return new List<string>();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace ProgramInformationV2.Data.CourseImport {
         private static readonly int _yearsLookBack = 5;
         private static readonly int _yearsLookForward = 1;
 
-        public static IEnumerable<IGrouping<string, CourseUrl>> GetAllCoursesBySemester(string rubric, string courseNumber = "") {
+        public static IEnumerable<IGrouping<string, CourseUrl>> GetAllCoursesBySemester(string rubric, string courseNumber) {
             var returnValue = new List<CourseUrl>();
 
             var urls = new List<Tuple<string, string, int>>();

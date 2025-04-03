@@ -13,7 +13,7 @@ namespace ProgramInformationV2.Data.CourseImport {
                 CourseTitle = scheduleCourse.Title,
                 Description = scheduleCourse.Description,
                 ExternalUrl = $"https://courses.illinois.edu/schedule/terms/{scheduleCourse.Rubric}/{scheduleCourse.CourseNumber}",
-                IsActive = false
+                IsActive = true
             };
             if (includeSections) {
                 course.Sections = [.. scheduleCourse.Sections.Select(s => new Section {
@@ -30,7 +30,8 @@ namespace ProgramInformationV2.Data.CourseImport {
                     Room = s.RoomNumber,
                     DaysOfWeekList = Convert(s.DaysOfTheWeek),
                     FormatType = s.Type == "Online" ? FormatType.Online : FormatType.On__Campus,
-                    FacultyNameList = s.Instructors == null ? [] : [.. s.Instructors.Select(i => new SectionFaculty { Name = i })]
+                    FacultyNameList = s.Instructors == null ? [] : [.. s.Instructors.Select(i => new SectionFaculty { Name = i })],
+                    IsActive = true
                 })];
             }
             return course;
