@@ -9,7 +9,6 @@ namespace ProgramInformationV2.Search.Getters {
         public async Task<List<GenericItem>> GetAllProgramsBySource(string source, string search) {
             var response = await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
                     .Size(1000)
-                    .Sort(srt => srt.Ascending(f => f.Title))
                     .Query(q => q
                     .Bool(b => b
                     .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)))
@@ -56,7 +55,6 @@ namespace ProgramInformationV2.Search.Getters {
         public async Task<SearchObject<Program>> GetPrograms(string source, string search, IEnumerable<string> tags, IEnumerable<string> tags2, IEnumerable<string> tags3, IEnumerable<string> skills, IEnumerable<string> departments, IEnumerable<string> formats, IEnumerable<string> credentials) {
             var response = await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
                     .Size(1000)
-                    .Sort(srt => srt.Ascending(f => f.Title))
                     .Query(q => q
                     .Bool(b => b
                     .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)),

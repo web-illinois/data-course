@@ -12,6 +12,7 @@ namespace ProgramInformationV2.Search.Getters {
         public async Task<List<GenericItem>> GetAllCoursesBySource(string source, string search) {
             var response = await _openSearchClient.SearchAsync<Course>(s => s.Index(UrlTypes.Courses.ConvertToUrlString())
                 .Size(10000)
+                .Sort(srt => srt.Ascending(f => f.TitleSortKeyword))
                 .Query(q => q
                 .Bool(b => b
                 .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)))
