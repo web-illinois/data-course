@@ -1,17 +1,17 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Newtonsoft.Json;
+using ProgramInformationV2.LoadFromEdw;
 using Models = ProgramInformationV2.Search.Models;
 
 Console.WriteLine("Starting load");
 
-/*
-
 var searchUrl = "https://search-sitefinity-search-2022-mxlf4grqurtcjtyyk4gaar6inq.us-east-2.es.amazonaws.com/";
 if (args.Length == 3 && args[0].Equals("courseload")) {
     await LoadCourses.Run(args[1], args[2], searchUrl);
+} else {
+    await LoadCourses.Run("CI", "coe", searchUrl);
 }
-
- */
+return;
 
 // This section is a one-time translation of the old program data to the new program data
 

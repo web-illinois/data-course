@@ -40,7 +40,7 @@ namespace ProgramInformationV2.Search.Getters {
                 Error = response.Error,
                 DidYouMean = response.DidYouMean,
                 Total = credentialList.Count,
-                Items = credentialList
+                Items = credentialList.OrderBy(c => c.Title).ToList()
             };
         }
 
@@ -75,10 +75,6 @@ namespace ProgramInformationV2.Search.Getters {
                 RequirementSets = await _requirementSetGetter.GetRequirementSets(credential.RequirementSetIds)
             };
             return returnValue;
-        }
-
-        public async Task<List<string>> GetSuggestions(string source, string search, int take) {
-            return [];
         }
     }
 }

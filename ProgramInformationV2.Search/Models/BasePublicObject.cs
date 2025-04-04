@@ -3,8 +3,6 @@
     public abstract class BasePublicObject : BaseObject {
         public string Description { get; set; } = "";
 
-        public dynamic Suggest => new { input = Title, contexts = new { source = Source } };
-
         public string Url { get; set; } = "";
 
         public static string ConvertVideoToEmbed(string href) {

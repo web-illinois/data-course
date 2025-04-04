@@ -23,7 +23,6 @@ namespace ProgramInformationV2.Search.Models {
         [Keyword]
         public IEnumerable<string> CredentialIdList => Credentials.Where(c => c.IsActive).Select(c => c.Id);
 
-        [Keyword]
         public List<Credential> Credentials { get; set; } = default!;
 
         [Keyword]

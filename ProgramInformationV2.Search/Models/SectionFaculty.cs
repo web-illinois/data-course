@@ -1,8 +1,11 @@
-﻿namespace ProgramInformationV2.Search.Models {
+﻿using OpenSearch.Client;
+
+namespace ProgramInformationV2.Search.Models {
 
     public class SectionFaculty : IEquatable<SectionFaculty> {
         public string Name { get; set; } = "";
 
+        [Keyword]
         public string NetId { get; set; } = "";
 
         public bool ShowInProfile { get; set; }

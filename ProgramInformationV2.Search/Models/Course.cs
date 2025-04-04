@@ -16,6 +16,7 @@ namespace ProgramInformationV2.Search.Models {
 
         public string Cost { get; set; } = "";
 
+        [Keyword]
         public string CourseNumber { get; set; } = "";
 
         public string CourseTitle { get; set; } = "";
@@ -23,7 +24,10 @@ namespace ProgramInformationV2.Search.Models {
         public string CreditHours { get; set; } = "";
 
         public List<DayOfWeek> DaysOfWeekList { get; set; } = default!;
+
+        [Keyword]
         public string DaysOfWeekString => DaysOfWeekList.ConvertDaysToString();
+
         public string DefaultBuilding { get; set; } = "";
         public string DefaultRoom { get; set; } = "";
         public string DefaultTime { get; set; } = "";
@@ -37,7 +41,10 @@ namespace ProgramInformationV2.Search.Models {
         public string ExternalUrl { get; set; } = "";
         public string Faculty { get; set; } = "";
         public List<SectionFaculty> FacultyNameList { get; set; } = default!;
+
+        [Keyword]
         public IEnumerable<string> Formats => FormatValues.Select(t => t.ConvertToSingleString());
+
         public IEnumerable<FormatType> FormatValues { get; set; } = [];
         public string ImageAltText { get; set; } = "";
         public string ImageUrl { get; set; } = "";
@@ -48,15 +55,22 @@ namespace ProgramInformationV2.Search.Models {
         public int MaximumCreditHours { get; set; }
         public int MinimumCreditHours { get; set; }
         public string Prerequisite { get; set; } = "";
+
+        [Keyword]
         public string Rubric { get; set; } = "";
+
         public string ScheduleInformation { get; set; } = "";
+
         public List<Section> Sections { get; set; }
+
         public string SummaryText { get; set; } = "";
+
         public Terms Term { get; set; }
+
+        [Keyword]
         public IEnumerable<string> Terms => TermValues.Select(t => t.ConvertToSingleString());
 
         public IEnumerable<Terms> TermValues { get; set; } = [];
-
         public string VideoUrl { get; set; } = "";
         internal override string CreateId => Id = string.IsNullOrWhiteSpace(Rubric) && string.IsNullOrWhiteSpace(CourseNumber) ? Source + "-" + Guid.NewGuid().ToString() : Source + "-" + Rubric + "-" + CourseNumber;
 

@@ -78,7 +78,7 @@ namespace ProgramInformationV2.Function {
         [OpenApiParameter(name: "q", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A full text search string -- it will search the title and description for the search querystring.")]
         [OpenApiParameter(name: "period", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Either 'upcoming' (future courses), 'current' (courses that are going on now), or 'open' (courses that are going on now or in the future).")]
         [OpenApiParameter(name: "formats", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Either 'On-Campus', 'Online', 'Off-Campus', or 'Hybrid'. Can choose multiple by separating them with the characters '[-]'")]
-        [OpenApiParameter(name: "rubrics", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "The course rubric.")]
+        [OpenApiParameter(name: "rubric", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "The course rubric.")]
         [OpenApiParameter(name: "terms", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Either 'Fall', 'Spring', 'Summer', or 'Winter'. Can choose multiple by separating them with the characters '[-]'")]
         [OpenApiParameter(name: "take", In = ParameterLocation.Query, Required = false, Type = typeof(int), Description = "How many courses do you want? Defaults to 0.")]
         [OpenApiParameter(name: "skip", In = ParameterLocation.Query, Required = false, Type = typeof(int), Description = "A skip value to help with pagination. Defaults to 1000.")]
@@ -95,7 +95,7 @@ namespace ProgramInformationV2.Function {
             var departments = requestHelper.GetArray(req, "departments");
             var query = requestHelper.GetRequest(req, "q", false);
             var formats = requestHelper.GetArray(req, "formats");
-            var rubric = requestHelper.GetRequest(req, "rubrics", false);
+            var rubric = requestHelper.GetRequest(req, "rubric", false);
             var terms = requestHelper.GetArray(req, "terms");
             var take = requestHelper.GetInteger(req, "take", 1000);
             var skip = requestHelper.GetInteger(req, "skip");
@@ -125,7 +125,7 @@ namespace ProgramInformationV2.Function {
             var take = requestHelper.GetInteger(req, "take", 10);
             requestHelper.Validate();
             var response = req.CreateResponse(HttpStatusCode.OK);
-            await response.WriteAsJsonAsync(await _courseGetter.GetSuggestions(source, search, take));
+            //await response.WriteAsJsonAsync(await _courseGetter.GetSuggestions(source, search, take));
             return response;
         }
     }

@@ -29,6 +29,7 @@ namespace ProgramInformationV2.LoadFromEdw {
                         Console.WriteLine($"Course {itemGroup.Key} not found in system");
                     } else {
                         var course = ScheduleTranslator.Translate(scheduledCourse, source, true);
+                        course.Url = $"https://education.illinois.edu/course/{course.Rubric}/{course.CourseNumber}";
                         var courseId = await courseLoader.SetCourse(course);
                         Console.WriteLine($"Course Imported: {courseId}.");
                     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using ProgramInformationV2.Components.Controls;
 using ProgramInformationV2.Components.Layout;
 using ProgramInformationV2.Data.DataHelpers;
@@ -29,6 +30,9 @@ namespace ProgramInformationV2.Components.Pages.Credential {
 
         [Inject]
         protected CredentialGetter CredentialGetter { get; set; } = default!;
+
+        [Inject]
+        protected IJSRuntime JsRuntime { get; set; } = default!;
 
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
@@ -71,17 +75,18 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             NavigationManager.NavigateTo("/requirementset/general", true);
         }
 
-        protected async Task CreateNewPublicRequirementSet() {
-            await SetQuickCacheLink();
-            NavigationManager.NavigateTo("/requirementset/general", true);
-        }
-
         protected void Down(int i) {
             Layout.SetDirty();
             ChosenRequirementSetList.MoveItemDown(ChosenRequirementSetList[i]);
         }
 
         protected async Task Edit(string requirementId) {
+            if (Layout.IsDirty) {
+                if (!await JsRuntime.InvokeAsync<bool>("confirm", $"You have unsaved changes. Are you sure?")) {
+                    return;
+                }
+            }
+            Layout.RemoveDirty();
             await SetQuickCacheLink();
             await Layout.SetCacheId(requirementId);
             NavigationManager.NavigateTo("/requirementset/technical", true);

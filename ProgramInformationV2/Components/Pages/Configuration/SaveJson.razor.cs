@@ -27,12 +27,28 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
                 var source = await Layout.CheckSource();
                 await Layout.AddMessage("JSON file being prepared -- this may take a while.");
                 Enum.TryParse(FileType, out UrlTypes urlType);
-
-                var jsonText = await JsonHelper.GetJson(source, urlType);
-                var fileStream = new MemoryStream(Encoding.ASCII.GetBytes(jsonText));
-                using var streamRef = new DotNetStreamReference(fileStream);
-                await JsRuntime.InvokeVoidAsync("downloadFileFromStream", $"{source}_{DateTime.Now.ToString("yyyy_MM_dd")}_{FileType.ToLowerInvariant()}.json", streamRef);
-                await Layout.AddMessage("JSON file downloaded successfully.");
+                var jsonTextFull = await JsonHelper.GetJsonFull(source, urlType);
+                if (jsonTextFull.Length < 4000000) {
+                    var fileStream = new MemoryStream(Encoding.ASCII.GetBytes(jsonTextFull));
+                    using var streamRef = new DotNetStreamReference(fileStream);
+                    await JsRuntime.InvokeVoidAsync("downloadFileFromStream", $"{source}_{DateTime.Now.ToString("yyyy_MM_dd")}_{FileType.ToLowerInvariant()}.json", streamRef);
+                    await Layout.AddMessage("JSON file downloaded successfully.");
+                } else {
+                    var i = 0;
+                    var continueLoop = true;
+                    while (continueLoop) {
+                        var jsonText = await JsonHelper.GetJson(source, urlType, i);
+                        if (jsonText == "[]" || jsonText.Length < 20) {
+                            continueLoop = false;
+                        } else {
+                            i++;
+                            var fileStream = new MemoryStream(Encoding.ASCII.GetBytes(jsonText));
+                            using var streamRef = new DotNetStreamReference(fileStream);
+                            await JsRuntime.InvokeVoidAsync("downloadFileFromStream", $"{source}_{DateTime.Now.ToString("yyyy_MM_dd")}_{FileType.ToLowerInvariant()}_{i}.json", streamRef);
+                        }
+                    }
+                    await Layout.AddMessage("JSON file downloaded successfully -- split into parts because of size.");
+                }
             }
         }
 

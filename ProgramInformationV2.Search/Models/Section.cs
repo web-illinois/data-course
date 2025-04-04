@@ -20,6 +20,7 @@ namespace ProgramInformationV2.Search.Models {
 
         public string Building { get; set; } = "";
 
+        [Keyword]
         public string CourseId { get; set; } = "";
 
         public string CreditHours { get; set; } = "";
@@ -30,6 +31,7 @@ namespace ProgramInformationV2.Search.Models {
 
         public List<DayOfWeek> DaysOfWeekList { get; set; } = default!;
 
+        [Keyword]
         public string DaysOfWeekString => DaysOfWeekList.ConvertDaysToString();
 
         [Keyword]

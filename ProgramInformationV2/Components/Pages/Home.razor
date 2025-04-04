@@ -15,7 +15,7 @@
             {
                 <ilw-card>
                     <h3 id="sourcelabel-initial">Choose a Source</h3>
-                    <p>A source is a collection of programs, credentials, and courses on a web page. This is an artificial designation that may be by college (College of Education), department (Computer Science), or a subsection of a college (Gies Online Courses).</p>
+                    <p>You have access to multiple sources, so you must choose a source before editing programs, credentials, etc.</p>
                     <div slot="footer">
                     <select aria-labelledby="sourcelabel-initial" @onchange="(ChangeEventArgs e) => ChangeSource(e)">
                         <option value=""></option>
@@ -44,7 +44,7 @@ else if (Sources != null)
 {
     <ilw-content width="page">
         <h2>Active Source: <em>@SelectedSourceTitle</em></h2>
-        <ilw-grid innerwidth="300px">
+        <ilw-grid innerwidth="300px" padding="35px 0">
             @if (UsePrograms)
             {
                 <ilw-card>
@@ -86,7 +86,7 @@ else if (Sources != null)
         {
             <ilw-card>
                 <h3 id="sourcelabel">Choose another Source</h3>
-                <p>You have access to multiple sources, so you may choose a different source here</p>
+                <p>You have access to multiple sources, so you may choose a different source here.</p>
                 <div slot="footer">
                 <select aria-labelledby="sourcelabel" @onchange="(ChangeEventArgs e) => ChangeSource(e)">
                     @foreach (var source in Sources)

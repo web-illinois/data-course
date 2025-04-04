@@ -94,7 +94,7 @@ namespace ProgramInformationV2.Function {
             var take = requestHelper.GetInteger(req, "take", 10);
             requestHelper.Validate();
             var response = req.CreateResponse(HttpStatusCode.OK);
-            await response.WriteAsJsonAsync(await _programGetter.GetSuggestions(source, search, take));
+            // await response.WriteAsJsonAsync(await _programGetter.GetSuggestions(source, search, take));
             return response;
         }
     }

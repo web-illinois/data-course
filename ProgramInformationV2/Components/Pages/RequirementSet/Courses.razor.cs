@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using ProgramInformationV2.Components.Controls;
 using ProgramInformationV2.Components.Layout;
 using ProgramInformationV2.Data.DataHelpers;
@@ -33,6 +34,9 @@ namespace ProgramInformationV2.Components.Pages.RequirementSet {
         protected CourseGetter CourseGetter { get; set; } = default!;
 
         [Inject]
+        protected IJSRuntime JsRuntime { get; set; } = default!;
+
+        [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
@@ -45,6 +49,12 @@ namespace ProgramInformationV2.Components.Pages.RequirementSet {
         protected SourceHelper SourceHelper { get; set; } = default!;
 
         public async Task EditCourse(string courseId) {
+            if (Layout.IsDirty) {
+                if (!await JsRuntime.InvokeAsync<bool>("confirm", $"You have unsaved changes. Are you sure?")) {
+                    return;
+                }
+            }
+            Layout.RemoveDirty();
             await SetQuickCacheLink();
             await Layout.SetCacheId(courseId);
             NavigationManager.NavigateTo("/course/general", true);
@@ -71,8 +81,8 @@ namespace ProgramInformationV2.Components.Pages.RequirementSet {
                     Title = _searchGenericItem.SelectedItemTitle,
                     ParentId = RequirementSetItem.Id,
                 });
-                Layout.SetDirty();
                 StateHasChanged();
+                Layout.SetDirty();
             }
         }
 

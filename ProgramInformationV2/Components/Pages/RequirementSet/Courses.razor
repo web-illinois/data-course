@@ -5,6 +5,7 @@
 
 <ilw-content>
     <h1>Courses</h1>
+    <p>A requirement set may contain courses. Courses are automatically sorted in alphabetical order. Courses may have an optional description assigned to them which can clarify information (need to take a specific section, requires special approval, etc.). </p>
 </ilw-content>
 
 @if (_useCourses.HasValue && _useCourses.Value)
@@ -18,7 +19,7 @@
                     <p><a @onclick="() => EditCourse(course.v.CourseId)">@course.v.Title</a></p>
                     <div class="note">
                         <label for="note-@course.i">Note: </label>
-                        <input id="netid-@course.i" class="ils-input-long" type="text" @bind="@course.v.Description">
+                        <input id="note-@course.i" class="ils-input-long" type="text" @bind="@course.v.Description">
                     </div>
                     <div class="button-group">
                         <button class="ilw-button" @onclick="() => RemoveCourse(course.i)">Remove</button>
@@ -28,18 +29,12 @@
         </ilw-content>
     }
 
-    <div class="search-box">
-        <ilw-content class="search-header">
+    <div>
+        <ilw-content>
             <h2>Add Courses</h2>
         </ilw-content>
         <div>
-            <SearchGenericItem @ref="@_searchGenericItem" GenericItems="@CourseList" ActionButtonTitle="Add to Requirement Set" ItemTitle="Course" EditClicked="ChooseCourse" SearchClicked="GetCourses"></SearchGenericItem>
-        </div>
-        <div class="search-box-right">
-            <ilw-content>
-                <h3>Quick Launch</h3>
-            </ilw-content>
-            <button class="ilw-button" @onclick="CreateNewCourse">Create New Course</button>
+            <SearchGenericItem @ref="@_searchGenericItem" GenericItems="@CourseList" ActionButtonTitle="Add to Requirement Set" AddButtonTitle="Create New Course" ItemTitle="Course" EditClicked="ChooseCourse" SearchClicked="GetCourses" AddClicked="CreateNewCourse"></SearchGenericItem>
         </div>
     </div>
 

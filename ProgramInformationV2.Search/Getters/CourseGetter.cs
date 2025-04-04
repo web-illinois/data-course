@@ -64,17 +64,18 @@ namespace ProgramInformationV2.Search.Getters {
                         f => skills.Any() ? f.Terms(m => m.Field(fld => fld.SkillList).Terms(skills)) : f.MatchAll(),
                         f => formats.Any() ? f.Terms(m => m.Field(fld => fld.Formats).Terms(formats)) : f.MatchAll(),
                         f => rubric.Any() ? f.Term(m => m.Field(fld => fld.Rubric).Value(rubric)) : f.MatchAll(),
-                        f => terms.Any() ? f.Terms(m => m.Field(fld => fld.TermValues).Terms(terms)) : f.MatchAll(),
+                        f => terms.Any() ? f.Terms(m => m.Field(fld => fld.Terms).Terms(terms)) : f.MatchAll(),
                         f => isUpcoming ? f.Term(m => m.Field(fld => fld.IsUpcoming).Value(true)) : f.MatchAll(),
                         f => isCurrent ? f.Term(m => m.Field(fld => fld.IsCurrent).Value(true)) : f.MatchAll())
                     .Must(m => !string.IsNullOrWhiteSpace(search) ? m.Match(m => m.Field(fld => fld.Title).Query(search)) : m.MatchAll())))
+                    .Sort(srt => srt.Ascending(f => f.TitleSortKeyword))
                     .Suggest(a => a.Phrase("didyoumean", p => p.Text(search).Field(fld => fld.Title))));
             LogDebug(response);
 
             List<Course> documents = response.IsValid ? [.. response.Documents] : [];
             return new SearchObject<Course>() {
                 Error = !response.IsValid ? response.ServerError.Error.ToString() : "",
-                DidYouMean = response.Suggest.Values.FirstOrDefault()?.ToString() ?? "",
+                DidYouMean = response.Suggest["didyoumean"].FirstOrDefault()?.Options?.FirstOrDefault()?.Text ?? "",
                 Total = (int) response.Total,
                 Items = documents
             };
@@ -94,12 +95,8 @@ namespace ProgramInformationV2.Search.Getters {
             if (string.IsNullOrWhiteSpace(sectionId)) {
                 return new();
             }
-            var program = await GetCourseBySection(sectionId);
-            return program.Sections?.SingleOrDefault(c => c.Id == sectionId) ?? new Section();
-        }
-
-        public async Task<List<string>> GetSuggestions(string source, string search, int take) {
-            return [];
+            var course = await GetCourseBySection(sectionId);
+            return course.Sections?.SingleOrDefault(c => c.Id == sectionId) ?? new Section();
         }
     }
 }

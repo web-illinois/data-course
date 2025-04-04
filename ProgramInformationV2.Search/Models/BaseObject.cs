@@ -5,11 +5,13 @@ using OpenSearch.Client;
 namespace ProgramInformationV2.Search.Models {
 
     public abstract class BaseObject {
+        protected static readonly string _editLink = "https://test-itp-program.azurewebsites.net/quicklink/";
         private static readonly string[] _badHtmlItems = ["<br>", "<p></p>", "<p><br></p>", "<p>&nbsp;</p>", "&nbsp;"];
-        protected static readonly string _editLink = "https://test-itp-program.azurewebsites.net/quicklink/"; // this is the base URL for the edit link
+
         public DateTime CreatedOn { get; set; }
 
         public abstract string EditLink { get; }
+
         public string Fragment { get; set; } = "";
 
         [Keyword]
@@ -23,7 +25,6 @@ namespace ProgramInformationV2.Search.Models {
         [JsonIgnore]
         public virtual bool IsIdValid => !string.IsNullOrWhiteSpace(Id) && !string.IsNullOrWhiteSpace(Source) && Id.StartsWith(Source + "-");
 
-        public bool IsSystemTagged { get; set; }
         public DateTime LastUpdated { get; set; }
 
         public string LastUpdatedBy { get; set; } = "";
@@ -34,6 +35,9 @@ namespace ProgramInformationV2.Search.Models {
         public string Source { get; set; } = "";
 
         public string Title { get; set; } = "";
+
+        [Keyword]
+        public string TitleSortKeyword => Title;
 
         internal virtual string CreateId => Source + "-" + Guid.NewGuid().ToString();
 
