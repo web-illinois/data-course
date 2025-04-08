@@ -45,21 +45,8 @@ namespace ProgramInformationV2.Search.Getters {
         }
 
         public async Task<CredentialWithRequirementSets> GetCredentialWithRequirementSet(string credentialId) {
-            var credential = (await _programGetter.GetProgramByCredential(credentialId)).Credentials?.SingleOrDefault(c => c.Id == credentialId) ?? new Credential();
-            if (!credential.IsActive) {
-                return new();
-            }
-            var requirementSets = await _requirementSetGetter.GetRequirementSets(credential.RequirementSetIds);
-            var returnValue = new CredentialWithRequirementSets {
-                Credential = credential,
-                RequirementSets = []
-            };
-            foreach (var reqId in credential.RequirementSetIds) {
-                if (requirementSets.Any(r => r.Id == reqId)) {
-                    returnValue.RequirementSets.Add(requirementSets.First(r => r.Id == reqId));
-                }
-            }
-            return returnValue;
+            var credential = (await _programGetter.GetProgramByCredential(credentialId)).Credentials?.SingleOrDefault(c => c.Id == credentialId) ?? new();
+            return await AddRequirementSets(credential);
         }
 
         public async Task<CredentialWithRequirementSets> GetCredentialWithRequirementSet(string source, string fragment) {
@@ -71,6 +58,10 @@ namespace ProgramInformationV2.Search.Getters {
                     .Must(m => m.Match(m => m.Field(fld => fld.Credentials.Select(c => c.Fragment)).Query(fragment))))));
             LogDebug(response);
             var credential = response.IsValid ? response.Documents?.FirstOrDefault()?.Credentials.FirstOrDefault(c => c.Fragment == fragment) ?? new() : new();
+            return await AddRequirementSets(credential);
+        }
+
+        private async Task<CredentialWithRequirementSets> AddRequirementSets(Credential credential) {
             if (!credential.IsActive) {
                 return new();
             }
