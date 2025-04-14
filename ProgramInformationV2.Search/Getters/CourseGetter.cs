@@ -4,10 +4,7 @@ using ProgramInformationV2.Search.Models;
 
 namespace ProgramInformationV2.Search.Getters {
 
-    public class CourseGetter : BaseGetter<Course> {
-
-        public CourseGetter(OpenSearchClient? openSearchClient) : base(openSearchClient) {
-        }
+    public class CourseGetter(OpenSearchClient? openSearchClient) : BaseGetter<Course>(openSearchClient) {
 
         public async Task<List<GenericItem>> GetAllCoursesBySource(string source, string search) {
             var response = await _openSearchClient.SearchAsync<Course>(s => s.Index(UrlTypes.Courses.ConvertToUrlString())
