@@ -54,8 +54,8 @@ namespace ProgramInformationV2.Search.Getters {
                     .Query(q => q
                     .Bool(b => b
                     .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)),
-                            f => f.Term(m => m.Field(fld => fld.IsActive).Value(true)))
-                    .Must(m => m.Match(m => m.Field(fld => fld.Credentials.Select(c => c.Fragment)).Query(fragment))))));
+                            f => f.Term(m => m.Field(fld => fld.IsActive).Value(true)),
+                            f => f.Term(m => m.Field(fld => fld.Credentials.Select(c => c.Fragment)).Value(fragment))))));
             LogDebug(response);
             var credential = response.IsValid ? response.Documents?.FirstOrDefault()?.Credentials.FirstOrDefault(c => c.Fragment == fragment) ?? new() : new();
             return await AddRequirementSets(credential);

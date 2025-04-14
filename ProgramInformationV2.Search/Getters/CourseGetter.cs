@@ -35,8 +35,8 @@ namespace ProgramInformationV2.Search.Getters {
                     .Query(q => q
                     .Bool(b => b
                     .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)),
-                            f => f.Term(m => m.Field(fld => fld.IsActive).Value(true)))
-                    .Must(m => m.Match(m => m.Field(fld => fld.Fragment).Query(fragment))))));
+                            f => f.Term(m => m.Field(fld => fld.IsActive).Value(true)),
+                            f => f.Term(m => m.Field(fld => fld.Fragment).Value(fragment))))));
             LogDebug(response);
             return response.IsValid ? response.Documents?.FirstOrDefault() ?? new() : new();
         }
