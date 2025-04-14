@@ -13,6 +13,10 @@ namespace ProgramInformationV2.Components.Pages {
         public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
 
         public int NumberOfSources { get; set; }
+
+        [SupplyParameterFromQuery]
+        public bool RedirectIfNoSource { get; set; } = false;
+
         public string SelectedSource { get; set; } = "";
         public string SelectedSourceTitle { get; set; } = "";
         public bool UseCourses { get; set; }
@@ -36,6 +40,7 @@ namespace ProgramInformationV2.Components.Pages {
             SelectedSourceTitle = Sources[SelectedSource];
             var email = await UserHelper.GetUser(AuthenticationStateProvider);
             CacheHolder.SetCacheSource(email, SelectedSource);
+            RedirectIfNoSource = false;
             await ChangeBoxes();
         }
 

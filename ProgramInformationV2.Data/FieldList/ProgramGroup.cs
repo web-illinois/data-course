@@ -6,7 +6,7 @@ namespace ProgramInformationV2.Data.FieldList {
 
         public ProgramGroup() {
             CategoryType = CategoryType.Program;
-            Instructions = "Customize the fields used for programs.";
+            Instructions = "Customize the fields used for programs. You can add custom instructions for each field based on your use case.";
             FieldTypeInstructions = new Dictionary<FieldType, string> {
                 [FieldType.General] = "General information about the program.",
                 [FieldType.Link] = "Control what links, images, and videos are added to the program page.",

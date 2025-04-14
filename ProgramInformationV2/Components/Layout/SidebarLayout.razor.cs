@@ -39,7 +39,7 @@ namespace ProgramInformationV2.Components.Layout {
         public async Task<string> CheckSource(bool redirectIfNoSource = true) {
             var source = CacheHolder.GetCacheSource(await AuthenticationStateProvider.GetUser());
             if (string.IsNullOrWhiteSpace(source) && redirectIfNoSource) {
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("/?redirectIfNoSource=true");
             }
             return source ?? "";
         }

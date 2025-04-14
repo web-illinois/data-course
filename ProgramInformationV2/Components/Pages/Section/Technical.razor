@@ -10,7 +10,7 @@
 @if (SectionItem != null)
 {
     <StatusOnSite @bind-Value="SectionItem.IsActive"></StatusOnSite>
-    <MediumText Title="URL Fragment" FieldItems="FieldItems" @bind-Value="SectionItem.Url"></MediumText>
+    <MediumText Title="URL Fragment" FieldItems="FieldItems" @bind-Value="SectionItem.Fragment"></MediumText>
     <ul class="ilw-buttons" id="save-group">
         <li>
             <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>

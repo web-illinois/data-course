@@ -6,7 +6,7 @@ namespace ProgramInformationV2.Data.FieldList {
 
         public RequirementSetGroup() {
             CategoryType = CategoryType.RequirementSet;
-            Instructions = "Customize the fields used for requirement sets. Note that you need to have credentials enabled to use requirement sets effectively.";
+            Instructions = "Customize the fields used for requirement sets. Note that you need to have credentials enabled to use requirement sets effectively. You can add custom instructions for each field based on your use case.";
             FieldTypeInstructions = new Dictionary<FieldType, string> {
                 [FieldType.General] = "General information about the requirement set like credit hours.",
                 [FieldType.Technical] = "Technical details used for internal purposes."

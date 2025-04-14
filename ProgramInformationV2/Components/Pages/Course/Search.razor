@@ -8,7 +8,7 @@
     @if (_useCourses.HasValue && _useCourses.Value)
     {
         <p>
-           Courses are a group of sections / classes that have a common body of knowledge that is covered. Courses at the university have a rubric and course number, while courses at online platforms like Coursera may or may not have rubrics and course numbers.
+            Courses are a group of sections / classes that have a common body of knowledge that is covered. Courses at the university have a rubric and course number, while courses at online platforms like Coursera may or may not have rubrics and course numbers.
         </p>
         <p>
             A valid course must contain one or more sections. A course may have only one section.
@@ -27,6 +27,11 @@
     {
         <p>
             Your area does not use courses. Go to the Configuration section to enable courses.
+        </p>
+    } else
+    {
+        <p>
+            Fetching courses, please be patient.
         </p>
     }
 

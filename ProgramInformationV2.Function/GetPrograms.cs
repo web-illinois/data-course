@@ -61,22 +61,29 @@ namespace ProgramInformationV2.Function {
         [OpenApiParameter(name: "credentials", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "The credential type (BS, MS, EdM, PhD, Certificate, etc.) Can choose multiple by separating them with the characters '[-]'")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IEnumerable<Program>), Description = "All programs that meet the search criteria. If you filter by credentials, it will filter the credential list for each program.")]
         public async Task<HttpResponseData> Search([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequestData req) {
-            _logger.LogInformation("Called ProgramSearch.");
-            var requestHelper = RequestHelperFactory.Create();
-            requestHelper.Initialize(req);
-            var source = requestHelper.GetRequest(req, "source");
-            var tags = requestHelper.GetArray(req, "tags");
-            var tags2 = requestHelper.GetArray(req, "tags2");
-            var tags3 = requestHelper.GetArray(req, "tags3");
-            var skills = requestHelper.GetArray(req, "skills");
-            var query = requestHelper.GetRequest(req, "q", false);
-            var departments = requestHelper.GetArray(req, "departments");
-            var formats = requestHelper.GetArray(req, "formats");
-            var credentials = requestHelper.GetArray(req, "credentials");
-            requestHelper.Validate();
-            var response = req.CreateResponse(HttpStatusCode.OK);
-            await response.WriteAsJsonAsync(await _programGetter.GetPrograms(source, query, tags, tags2, tags3, skills, departments, formats, credentials));
-            return response;
+            _logger.LogInformation("Called ProgramSearch to check deployment.");
+            try {
+                var requestHelper = RequestHelperFactory.Create();
+                requestHelper.Initialize(req);
+                var source = requestHelper.GetRequest(req, "source");
+                var tags = requestHelper.GetArray(req, "tags");
+                var tags2 = requestHelper.GetArray(req, "tags2");
+                var tags3 = requestHelper.GetArray(req, "tags3");
+                var skills = requestHelper.GetArray(req, "skills");
+                var query = requestHelper.GetRequest(req, "q", false);
+                var departments = requestHelper.GetArray(req, "departments");
+                var formats = requestHelper.GetArray(req, "formats");
+                var credentials = requestHelper.GetArray(req, "credentials");
+                requestHelper.Validate();
+                var response = req.CreateResponse(HttpStatusCode.OK);
+                await response.WriteAsJsonAsync(await _programGetter.GetPrograms(source, query, tags, tags2, tags3, skills, departments, formats, credentials));
+                return response;
+            } catch (Exception ex) {
+                _logger.LogInformation(ex.ToString());
+                var response = req.CreateResponse(HttpStatusCode.OK);
+                await response.WriteAsJsonAsync(ex.ToString());
+                return response;
+            }
         }
 
         [Function("ProgramSuggest")]

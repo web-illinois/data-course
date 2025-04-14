@@ -13,3 +13,8 @@ main#app-main p.help-text {
     width: fit-content;
     margin: 0 0 30px 0;
 }
+
+#app-main ul.ilw-buttons {
+    justify-content: left;
+    column-gap: 16px;
+}

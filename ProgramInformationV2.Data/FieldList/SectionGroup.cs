@@ -6,7 +6,7 @@ namespace ProgramInformationV2.Data.FieldList {
 
         public SectionGroup() {
             CategoryType = CategoryType.Section;
-            Instructions = "Customize the fields used for sections.";
+            Instructions = "Customize the fields used for sections. Note that you need to have courses enabled to use sections appropriately, and sections are usually used in conjunction with Electronic Data Warehouse banner data. You can add custom instructions for each field based on your use case.";
             FieldTypeInstructions = new Dictionary<FieldType, string> {
                 [FieldType.General] = "General information about the source.",
                 [FieldType.Location_Time] = "This information is date and room information",

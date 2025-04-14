@@ -8,3 +8,11 @@
     .application-sidebar .bottom-content {
         align-self: end;
     }
+
+.bold-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding: .7rem .625rem .7rem 1.25rem;
+    background: var(--il-storm-lighter-4);
+    border-bottom: 1px solid var(--il-storm-lighter-3);
+}

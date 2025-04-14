@@ -6,7 +6,7 @@ namespace ProgramInformationV2.Data.FieldList {
 
         public CredentialGroup() {
             CategoryType = CategoryType.Credential;
-            Instructions = "Customize the fields used for credentials.";
+            Instructions = "Customize the fields used for credentials. You can add custom instructions for each field based on your use case.";
             FieldTypeInstructions = new Dictionary<FieldType, string> {
                 [FieldType.General] = "General information about the credential.",
                 [FieldType.Link] = "Control what links, images, and videos are added to the credential page.",

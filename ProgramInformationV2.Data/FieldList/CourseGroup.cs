@@ -6,7 +6,7 @@ namespace ProgramInformationV2.Data.FieldList {
 
         public CourseGroup() {
             CategoryType = CategoryType.Course;
-            Instructions = "Customize the fields used for courses.";
+            Instructions = "Customize the fields used for courses. You can add custom instructions for each field based on your use case.";
             FieldTypeInstructions = new Dictionary<FieldType, string> {
                 [FieldType.General] = "General information about the course.",
                 [FieldType.Link] = "Control what links, images, and videos are added to the course page.",

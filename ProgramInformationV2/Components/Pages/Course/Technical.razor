@@ -9,7 +9,7 @@
 @if (CourseItem != null)
 {
     <StatusOnSite @bind-Value="CourseItem.IsActive"></StatusOnSite>
-    <MediumText Title="URL Fragment" FieldItems="FieldItems" @bind-Value="CourseItem.Url"></MediumText>
+    <MediumText Title="URL Fragment" FieldItems="FieldItems" @bind-Value="CourseItem.Fragment"></MediumText>
     <ilw-content>
         <ul class="ilw-buttons" id="save-group">
             <li>

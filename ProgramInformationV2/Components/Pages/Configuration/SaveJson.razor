@@ -1,20 +1,21 @@
 ﻿@page "/configuration/savejson"
 @layout SidebarLayout
 
-<PageTitle>Save JSON file</PageTitle>
+<PageTitle>Configuration - Save Information to JSON</PageTitle>
 
 <ilw-content>
-    <h1>Save JSON file</h1>
-    <ilw-content>
-        <div class="ils-input-entry">
-            <label for="filetype">Downloaded From</label>
-            <select id="filetype" type="text" @bind="FileType">
-                <option value=""></option>
-                <option value="Programs">Programs</option>
-                <option value="Courses">Courses</option>
-                <option value="RequirementSets">Requirement Sets</option>
-            </select>
-        </div>
-    </ilw-content>
+    <h1>Save Information to JSON</h1>
+    <p>JSON (JavaScript Object Notation) is an open standard format that uses human-readable text to store and transmit data. If you need to make bulk changes, you can save these JSON files, make changes to the JSON files, and then load the JSON files back to the server. You can also use this to back up your programs, courses, and requirement sets.</p>
+    <p>You may save program data (including credentials), course data (including sections), and requirement sets. This will save the file into your download folder automatically.</p>
+    <p>Note that this may take a while to run, and if the files are especially large, it may split the file into multiple sections.</p>
+    <div class="ils-input-entry">
+        <label for="filetype">File type</label>
+        <select id="filetype" type="text" @bind="FileType">
+            <option value=""></option>
+            <option value="Programs">Programs</option>
+            <option value="Courses">Courses</option>
+            <option value="RequirementSets">Requirement Sets</option>
+        </select>
+    </div>
     <p><button class="ilw-button" @onclick="Save" @onblur="Layout.RemoveMessage">Save JSON File</button></p>
 </ilw-content>

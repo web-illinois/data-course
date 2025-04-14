@@ -15,6 +15,16 @@ namespace ProgramInformationV2.Function {
         private readonly FilterHelper _filterHelper = filterHelper;
         private readonly ILogger<GetPrograms> _logger = logger;
 
+        [Function("Check")]
+        [OpenApiOperation(operationId: "Check", tags: "Check Information", Description = "Get check information.")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<TagList>), Description = "Standard response")]
+        public async Task<HttpResponseData> Check([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequestData req) {
+            _logger.LogInformation("Called Check.");
+            var response = req.CreateResponse(HttpStatusCode.OK);
+            await response.WriteAsJsonAsync("Check");
+            return response;
+        }
+
         [Function("Tags")]
         [OpenApiOperation(operationId: "Tags", tags: "Get Tag Information", Description = "Get tag information.")]
         [OpenApiParameter(name: "source", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **source** parameter given to you, can use 'test' to test.")]

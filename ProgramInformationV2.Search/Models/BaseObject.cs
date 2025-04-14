@@ -12,6 +12,7 @@ namespace ProgramInformationV2.Search.Models {
 
         public abstract string EditLink { get; }
 
+        [Keyword]
         public string Fragment { get; set; } = "";
 
         [Keyword]

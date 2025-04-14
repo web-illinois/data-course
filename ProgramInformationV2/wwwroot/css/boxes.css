@@ -1,6 +1,6 @@
 ilw-content .requirement-box, ilw-content .credential-box, ilw-content .security-box {
     display: grid;
-    border: 2px solid var(--il-blue);
+    border: 1px solid var(--il-blue);
     padding: 10px;
     margin: 10px 0;
     column-gap: 40px;
