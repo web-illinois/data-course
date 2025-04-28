@@ -23,10 +23,10 @@ namespace ProgramInformationV2.Data.FieldList {
                 new() { Title = "Suggested Enrollment Date", CategoryType = CategoryType.Credential, FieldType = FieldType.General },
                 new() { Title = "Credential Type", CategoryType = CategoryType.Credential, FieldType = FieldType.General },
                 new() { Title = "Course Format", CategoryType = CategoryType.Credential, FieldType = FieldType.General },
-                new() { Title = "Summary Link (URL)", CategoryType = CategoryType.Credential, FieldType = FieldType.Link, InitialDescription = "This link is where your credential page information will live, it is the live page link. You will need to copy this from your CMS (such as Sitefinity)." },
-                new() { Title = "Apply Now / Get More Information Link (URL)", CategoryType = CategoryType.Credential, FieldType = FieldType.Link, InitialDescription = "Link to campus credential details or to apply for credential." },
-                new() { Title = "Image URL", CategoryType = CategoryType.Credential, FieldType = FieldType.Link, InitialDescription = "This should link to an image that you would like featured on the program finder. You must add alternative text when linking an image." },
-                new() { Title = "Image Alt Text", CategoryType = CategoryType.Credential, FieldType = FieldType.Link, InitialDescription = "Alternative text for the image." },
+                new() { Title = "Link URL", CategoryType = CategoryType.Credential, FieldType = FieldType.Link, InitialDescription = "This link is where your credential page information will live, it is the live page link. You will need to copy this from your CMS (such as Sitefinity)." },
+                new() { Title = "Apply Now / Get More Information Link URL", CategoryType = CategoryType.Credential, FieldType = FieldType.Link, InitialDescription = "Link to campus credential details or to apply for credential." },
+                new() { Title = "Credential Image", CategoryType = CategoryType.Credential, FieldType = FieldType.Link, InitialDescription = "This should link to an image that you would like featured on the program finder. You must add alternative text when linking an image." },
+                new() { Title = "Credential Image Alt Text", CategoryType = CategoryType.Credential, FieldType = FieldType.Link, InitialDescription = "Alternative text for the image." },
                 new() { Title = "Description", CategoryType = CategoryType.Credential, FieldType = FieldType.Overview, InitialDescription = "This text should describe the credential. It will be on the credential page." },
                 new() { Title = "Is This Credential Transcriptable", CategoryType = CategoryType.Credential, FieldType = FieldType.Transcriptable },
                 new() { Title = "Transcriptable Name", CategoryType = CategoryType.Credential, FieldType = FieldType.Transcriptable, InitialDescription = "The name the credential will appear as on transcripts." },
@@ -35,7 +35,7 @@ namespace ProgramInformationV2.Data.FieldList {
                 new() { Title = "Disclaimer Text", CategoryType = CategoryType.Credential, FieldType = FieldType.Transcriptable, InitialDescription = "Detail any disclaimers that are necessary to add" },
                 new() { Title = "Display Order", CategoryType = CategoryType.Credential, FieldType = FieldType.Technical, InitialDescription = "Enter a number to indicate where this credential should be listed in the program finder." },
                 new() { Title = "URL Fragment", CategoryType = CategoryType.Credential, FieldType = FieldType.Technical, InitialDescription = "Note that the URL fragment is used to make searching for this item easier and to meet SEO standards. This needs to be unique and consist of lower-case letters, numbers, dashes, and the '/' character. Do not use this if you cannot meet these requirements and rely on the ID to be a unique identifier." },
-                new() { Title = "Id", CategoryType = CategoryType.Credential, FieldType = FieldType.Technical, InitialDescription = "The ID of the item, which may be used in a CMS to pull the item and display it on a webpage." },
+                new() { Title = "ID", CategoryType = CategoryType.Credential, FieldType = FieldType.Technical, InitialDescription = "The ID of the item, which may be used in a CMS to pull the item and display it on a webpage." },
                 new() { Title = "Edit Link", CategoryType = CategoryType.Credential, FieldType = FieldType.Technical, InitialDescription = "This is a quick link to edit this item directly." }
             ];
         }
