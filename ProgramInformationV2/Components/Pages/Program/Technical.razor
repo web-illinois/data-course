@@ -11,6 +11,7 @@
     <StatusOnSite @bind-Value="ProgramItem.IsActive"></StatusOnSite>
     <MediumText Title="URL Fragment" FieldItems="FieldItems" @bind-Value="ProgramItem.Fragment"></MediumText>
     <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+    <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
     <div class="information-to-copy">
         <ilw-content class="header"><h2>Information to Copy</h2></ilw-content>
         <IdList Title="Id" FieldItems="FieldItems" Id="@ProgramItem.Id"></IdList>

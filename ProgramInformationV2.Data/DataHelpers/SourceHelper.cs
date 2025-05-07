@@ -44,9 +44,19 @@ namespace ProgramInformationV2.Data.DataHelpers {
             return false;
         }
 
+        public async Task<string> GetBaseUrlFromSource(string sourceCode) {
+            var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
+            return source?.BaseUrl ?? "";
+        }
+
         public async Task<Dictionary<string, string>> GetSources(string netId) => await _programRepository.ReadAsync(c => c.SecurityEntries.Include(se => se.Source).Where(se => se.IsActive && !se.IsRequested && se.Email == netId).ToDictionary(se => se.Source?.Code ?? "", se2 => se2.Source?.Title ?? ""));
 
         public async Task<IEnumerable<Tuple<string, string>>> GetSourcesAndOwners() => await _programRepository.ReadAsync(c => c.Sources.Where(s => s.IsActive).OrderBy(s => s.Title).Select(s => new Tuple<string, string>(s.CreatedByEmail, $"{s.Title} ({s.Code})")));
+
+        public async Task<string> GetUrlTemplateFromSource(string sourceCode) {
+            var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
+            return source?.UrlTemplate ?? "";
+        }
 
         public async Task<string> RequestAccess(string sourceCode, string email) {
             var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode));
@@ -85,6 +95,26 @@ namespace ProgramInformationV2.Data.DataHelpers {
             source.LastUpdated = DateTime.Now;
             var value = await _programRepository.UpdateAsync(source);
             return $"Code {sourceCode} has been marked for deletion";
+        }
+
+        public async Task<bool> SaveBaseUrl(string sourceCode, string baseUrl) {
+            var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
+            if (source == null) {
+                return false;
+            }
+            source.BaseUrl = baseUrl;
+            var value = await _programRepository.UpdateAsync(source);
+            return true;
+        }
+
+        public async Task<bool> SaveUrlTemplate(string sourceCode, string urlTemplate) {
+            var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
+            if (source == null) {
+                return false;
+            }
+            source.UrlTemplate = urlTemplate;
+            var value = await _programRepository.UpdateAsync(source);
+            return true;
         }
     }
 }

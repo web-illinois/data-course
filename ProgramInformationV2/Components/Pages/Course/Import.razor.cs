@@ -19,7 +19,6 @@ namespace ProgramInformationV2.Components.Pages.Course {
 
         public bool Overwrite { get; set; } = false;
         public string Rubric { get; set; } = "";
-        public string UrlTemplate { get; set; } = "";
 
         [Inject]
         protected CourseImportManager CourseImportManager { get; set; } = default!;
@@ -42,7 +41,8 @@ namespace ProgramInformationV2.Components.Pages.Course {
             if (string.IsNullOrWhiteSpace(Rubric) || string.IsNullOrWhiteSpace(CourseNumber)) {
                 await Layout.AddMessage("Need to fill out a rubric and course number for the import to start");
             } else {
-                await Layout.AddMessage(await CourseImportManager.ImportCourse(Rubric, CourseNumber, _sourceCode, UrlTemplate, IncludeSections, Overwrite));
+                var urlTemplate = await SourceHelper.GetUrlTemplateFromSource(_sourceCode);
+                await Layout.AddMessage(await CourseImportManager.ImportCourse(Rubric, CourseNumber, _sourceCode, urlTemplate, IncludeSections, Overwrite));
             }
         }
     }

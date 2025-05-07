@@ -39,6 +39,7 @@ namespace ProgramInformationV2.Components.Pages.Program {
 
         public async Task Save() {
             Layout.RemoveDirty();
+            ProgramItem.SetFullUrl(await Layout.GetBaseUrl());
             if (_imageProgramImage != null) {
                 _ = await _imageProgramImage.SaveFileToPermanent();
             }

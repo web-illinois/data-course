@@ -15,6 +15,8 @@ namespace ProgramInformationV2.Components.Pages.FieldsUsed {
         [Inject]
         public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
 
+        public string BaseUrl { get; set; } = "";
+
         [Inject]
         public FieldManager FieldManager { get; set; } = default!;
 
@@ -28,9 +30,14 @@ namespace ProgramInformationV2.Components.Pages.FieldsUsed {
         [Inject]
         public SourceHelper SourceHelper { get; set; } = default!;
 
+        public string UrlTemplate { get; set; } = "";
+
         public async Task SaveChanges() {
             Layout.RemoveDirty();
-            await FieldManager.SaveFieldItems(await Layout.CheckSource(), CategoryType.Course, IsUsed, FieldItems.SelectMany(a => a));
+            var sourceCode = await Layout.CheckSource();
+            await FieldManager.SaveFieldItems(sourceCode, CategoryType.Course, IsUsed, FieldItems.SelectMany(a => a));
+            _ = await SourceHelper.SaveUrlTemplate(sourceCode, UrlTemplate);
+            _ = await SourceHelper.SaveBaseUrl(sourceCode, BaseUrl);
             await Layout.AddMessage("Information saved");
         }
 
@@ -46,6 +53,8 @@ namespace ProgramInformationV2.Components.Pages.FieldsUsed {
             FieldGroupInstructions = targetGroup.FieldTypeInstructions;
             (IsUsed, FieldItems) = await FieldManager.MergeFieldItems(targetGroup, sourceCode);
             Layout.SetSidebar(SidebarEnum.FieldsUsed, "Fields Used");
+            BaseUrl = await SourceHelper.GetBaseUrlFromSource(sourceCode);
+            UrlTemplate = await SourceHelper.GetUrlTemplateFromSource(sourceCode);
             await base.OnInitializedAsync();
         }
     }

@@ -22,11 +22,6 @@
         </div>
 
         <div class="ils-input-entry">
-            <label for="url">Url Template</label>
-            <input id="url" type="text" @bind="UrlTemplate" class="ils-input-long" />
-        </div>
-
-        <div class="ils-input-entry">
             <div class="ils-input-entry-compact">
                 <label for="sections">Include Sections?</label>
                 <div class="ils-toggle-slider">
@@ -54,7 +49,7 @@
             </div>
         </div>
 
-        <button class="ilw-button" @onclick="SendImport" @onblur="Layout.RemoveMessage">Schedule Import</button>
+        <button class="ilw-button ilw-theme-orange-2" @onclick="SendImport" @onblur="Layout.RemoveMessage">Import Course</button>
     }
     else if (_useCourses.HasValue && _useSections.HasValue)
     {

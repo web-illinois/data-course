@@ -46,5 +46,19 @@
             }
         </ilw-content>
     }
+
+    <ilw-content>
+        <h2>URL Information</h2>
+        <div class="ils-input-entry">
+            <label for="url-template">URL Template</label>
+            <input id="url-template" type="text" @bind="UrlTemplate" @bind:after="Layout.SetDirty" class="ils-input-long" />
+            <p>If you have a standard URL for courses, you can enter that here. Use {rubric} and {coursenumber} as placeholders. This will automatically set the URL and the URL slug for imported courses.</p>
+        </div>
+        <div class="ils-input-entry">
+            <label for="url-base">Base URL</label>
+            <input id="url-base" type="text" @bind="BaseUrl" @bind:after="Layout.SetDirty" class="ils-input-long" />
+            <p>If you are using relative paths for your URL, you can set this to allow this application to view your course.</p>
+        </div>
+    </ilw-content>
 }
 <button class="ilw-button ilw-theme-orange-2" @onclick="SaveChanges" @onblur="Layout.RemoveMessage">Save</button>

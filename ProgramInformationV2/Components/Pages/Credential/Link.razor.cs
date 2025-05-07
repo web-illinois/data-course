@@ -45,6 +45,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
 
         public async Task Save() {
             Layout.RemoveDirty();
+            CredentialItem.SetFullUrl(await Layout.GetBaseUrl());
             if (_imageUrl != null) {
                 _ = await _imageUrl.SaveFileToPermanent();
             }

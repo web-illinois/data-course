@@ -22,5 +22,6 @@
     </div>
     <MediumText Title="Video URL" FieldItems="FieldItems" @bind-Value="ProgramItem.VideoUrl"></MediumText>
     <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+    <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
 }
 

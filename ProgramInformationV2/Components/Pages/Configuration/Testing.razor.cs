@@ -8,7 +8,6 @@ using ProgramInformationV2.Helpers;
 namespace ProgramInformationV2.Components.Pages.Configuration {
 
     public partial class Testing {
-
         private string _email = "";
 
         [Inject]
@@ -24,7 +23,7 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         public void SwitchToTesting(bool gotoSecurity) {
-            CacheHolder.SetCacheSource(_email, "test");
+            CacheHolder.SetCacheSource(_email, "test", "");
             NavigationManager.NavigateTo(gotoSecurity ? "/configuration/security" : "/", true);
         }
 

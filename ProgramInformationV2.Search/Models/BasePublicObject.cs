@@ -5,6 +5,8 @@
 
         public string Url { get; set; } = "";
 
+        public string UrlFull { get; set; } = "";
+
         public static string ConvertVideoToEmbed(string href) {
             if (string.IsNullOrWhiteSpace(href)) {
                 return string.Empty;
@@ -16,6 +18,16 @@
                 return $"https://mediaspace.illinois.edu/embed/secure/iframe/entryId/{href}/uiConfId/26883701";
             }
             return href;
+        }
+
+        public void SetFullUrl(string baseUrl) {
+            if (string.IsNullOrWhiteSpace(Url)) {
+                UrlFull = Url;
+            } else if (Url.StartsWith("http")) {
+                UrlFull = Url;
+            } else {
+                UrlFull = $"{baseUrl.TrimEnd('/')}/{Url.TrimStart('/')}";
+            }
         }
     }
 }

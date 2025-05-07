@@ -5,9 +5,10 @@ using ProgramInformationV2.Data.DataHelpers;
 namespace ProgramInformationV2.Controllers {
 
     [Route("[controller]")]
-    public class QuickLinkController(CacheHolder cacheHolder, SecurityHelper securityHelper) : Controller {
+    public class QuickLinkController(CacheHolder cacheHolder, SecurityHelper securityHelper, SourceHelper sourceHelper) : Controller {
         private readonly CacheHolder _cacheHolder = cacheHolder;
         private readonly SecurityHelper _securityHelper = securityHelper;
+        private readonly SourceHelper _sourceHelper = sourceHelper;
 
         [Route("course/{id}")]
         [HttpGet]
@@ -41,7 +42,8 @@ namespace ProgramInformationV2.Controllers {
             if (!await _securityHelper.ConfirmNetIdCanAccessSource(sourceName, netId)) {
                 return Content($"Error: Net ID not allowed for source {sourceName} / {netId}");
             }
-            _cacheHolder.SetCacheSource(netId, sourceName);
+            var baseUrl = await _sourceHelper.GetBaseUrlFromSource(sourceName);
+            _cacheHolder.SetCacheSource(netId, sourceName, baseUrl);
             _cacheHolder.SetCacheItem(netId, id);
             return Redirect(url);
         }

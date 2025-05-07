@@ -42,6 +42,7 @@ namespace ProgramInformationV2.Components.Pages.Course {
 
         public async Task Save() {
             Layout.RemoveDirty();
+            CourseItem.SetFullUrl(await Layout.GetBaseUrl());
             if (_imageCourseImage != null) {
                 _ = await _imageCourseImage.SaveFileToPermanent();
             }

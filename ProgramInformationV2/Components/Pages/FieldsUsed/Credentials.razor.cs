@@ -15,6 +15,8 @@ namespace ProgramInformationV2.Components.Pages.FieldsUsed {
         [Inject]
         public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
 
+        public string BaseUrl { get; set; } = "";
+
         [Inject]
         public FieldManager FieldManager { get; set; } = default!;
 
@@ -30,7 +32,9 @@ namespace ProgramInformationV2.Components.Pages.FieldsUsed {
 
         public async Task SaveChanges() {
             Layout.RemoveDirty();
-            await FieldManager.SaveFieldItems(await Layout.CheckSource(), CategoryType.Credential, IsUsed, FieldItems.SelectMany(a => a));
+            var sourceCode = await Layout.CheckSource();
+            await FieldManager.SaveFieldItems(sourceCode, CategoryType.Credential, IsUsed, FieldItems.SelectMany(a => a));
+            _ = await SourceHelper.SaveBaseUrl(sourceCode, BaseUrl);
             await Layout.AddMessage("Information saved");
         }
 
@@ -46,6 +50,7 @@ namespace ProgramInformationV2.Components.Pages.FieldsUsed {
             FieldGroupInstructions = targetGroup.FieldTypeInstructions;
             (IsUsed, FieldItems) = await FieldManager.MergeFieldItems(targetGroup, sourceCode);
             Layout.SetSidebar(SidebarEnum.FieldsUsed, "Fields Used");
+            BaseUrl = await SourceHelper.GetBaseUrlFromSource(sourceCode);
             await base.OnInitializedAsync();
         }
     }

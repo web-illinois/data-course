@@ -40,7 +40,7 @@
             }
         }
 
-        public void SetCacheSource(string netid, string source) {
+        public void SetCacheSource(string netid, string source, string baseUrl) {
             if (_dictionary.ContainsKey(netid)) {
                 _dictionary[netid].Source = source;
                 _dictionary[netid].QuickLinkText = "";
@@ -48,9 +48,10 @@
                 _dictionary[netid].QuickLinkId = "";
                 _dictionary[netid].ParentId = "";
                 _dictionary[netid].ItemId = "";
+                _dictionary[netid].BaseUrl = baseUrl;
                 _dictionary[netid].Reset();
             } else {
-                _dictionary.Add(netid, new CacheThinObject(netid) { Source = source });
+                _dictionary.Add(netid, new CacheThinObject(netid) { Source = source, BaseUrl = baseUrl });
             }
             ClearExpired();
         }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProgramInformationV2.Data.DataContext;
 
@@ -11,9 +12,11 @@ using ProgramInformationV2.Data.DataContext;
 namespace ProgramInformationV2.Data.Migrations
 {
     [DbContext(typeof(ProgramContext))]
-    partial class ProgramContextModelSnapshot : ModelSnapshot
+    [Migration("20250507202344_AddUrlTemplate")]
+    partial class AddUrlTemplate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,7 +219,7 @@ namespace ProgramInformationV2.Data.Migrations
                             IsOwner = true,
                             IsPublic = false,
                             IsRequested = false,
-                            LastUpdated = new DateTime(2025, 5, 7, 16, 26, 30, 673, DateTimeKind.Local).AddTicks(2119),
+                            LastUpdated = new DateTime(2025, 5, 7, 15, 23, 43, 792, DateTimeKind.Local).AddTicks(7373),
                             SourceId = -1
                         });
                 });
@@ -228,10 +231,6 @@ namespace ProgramInformationV2.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("BaseUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -288,12 +287,11 @@ namespace ProgramInformationV2.Data.Migrations
                         new
                         {
                             Id = -1,
-                            BaseUrl = "",
                             Code = "test",
                             CreatedByEmail = "jonker@illinois.edu",
                             IsActive = false,
                             IsTest = true,
-                            LastUpdated = new DateTime(2025, 5, 7, 16, 26, 30, 673, DateTimeKind.Local).AddTicks(1992),
+                            LastUpdated = new DateTime(2025, 5, 7, 15, 23, 43, 792, DateTimeKind.Local).AddTicks(7252),
                             RequestDeletion = false,
                             RequestDeletionByEmail = "",
                             Title = "Test Entry",

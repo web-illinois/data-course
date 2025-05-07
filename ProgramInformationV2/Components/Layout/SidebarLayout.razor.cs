@@ -46,6 +46,11 @@ namespace ProgramInformationV2.Components.Layout {
 
         public async Task ClearCacheId() => await SetCacheId("");
 
+        public async Task<string> GetBaseUrl() {
+            var cacheItem = CacheHolder.GetItem(await AuthenticationStateProvider.GetUser());
+            return cacheItem?.BaseUrl ?? "";
+        }
+
         public async Task<string> GetCachedId() {
             var cacheItem = CacheHolder.GetItem(await AuthenticationStateProvider.GetUser());
             return cacheItem?.ItemId ?? "";

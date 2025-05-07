@@ -11,5 +11,6 @@
     <MediumText Title="Title" FieldItems="FieldItems" @bind-Value="ProgramItem.Title"></MediumText>
     <LargeText Title="Summary Text" FieldItems="FieldItems" @bind-Value="ProgramItem.SummaryText"></LargeText>
     <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+    <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
 }
 

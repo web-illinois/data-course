@@ -10,7 +10,7 @@
 
     @foreach (var faculty in CourseItem.FacultyNameList.Select((v, i) => (v, i)))
     {
-        <div>
+        <div class="faculty-box">
             <div class="ils-input-entry-compact">
                 <label for="name-@faculty.i">Name: </label>
                 <input id="name-@faculty.i" type="text" @bind="@faculty.v.Name">
@@ -40,7 +40,7 @@
         </div>
     }
     <h2>Add / Edit Faculty</h2>
-    <div>
+    <div class="faculty-box">
         <div class="ils-input-entry-compact">
             <label for="name-new">Name: </label>
             <input id="name-new" type="text" @bind="NewName" @bind:after="Layout.SetDirty">

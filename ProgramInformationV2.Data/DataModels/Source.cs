@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ProgramInformationV2.Data.DataModels {
 
     public class Source : BaseDataItem {
+        public string BaseUrl { get; set; } = "";
+
         public string Code { get; set; } = "";
 
         public string CreatedByEmail { get; set; } = "";
@@ -16,6 +18,7 @@ namespace ProgramInformationV2.Data.DataModels {
         public bool RequestDeletion { get; set; }
         public string RequestDeletionByEmail { get; set; } = "";
         public string Title { get; set; } = "";
+        public string UrlTemplate { get; set; } = "";
         public bool UseCourses { get; set; }
         public bool UseCredentials { get; set; }
         public bool UsePrograms { get; set; }

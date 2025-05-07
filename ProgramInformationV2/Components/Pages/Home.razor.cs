@@ -39,7 +39,8 @@ namespace ProgramInformationV2.Components.Pages {
             SelectedSource = e.Value?.ToString() ?? "";
             SelectedSourceTitle = Sources[SelectedSource];
             var email = await UserHelper.GetUser(AuthenticationStateProvider);
-            CacheHolder.SetCacheSource(email, SelectedSource);
+            var baseUrl = await SourceHelper.GetBaseUrlFromSource(SelectedSource);
+            CacheHolder.SetCacheSource(email, SelectedSource, baseUrl);
             RedirectIfNoSource = false;
             await ChangeBoxes();
         }
@@ -51,7 +52,8 @@ namespace ProgramInformationV2.Components.Pages {
             if (NumberOfSources == 1) {
                 SelectedSource = Sources.First().Key;
                 SelectedSourceTitle = Sources[SelectedSource];
-                CacheHolder.SetCacheSource(email, SelectedSource);
+                var baseUrl = await SourceHelper.GetBaseUrlFromSource(SelectedSource);
+                CacheHolder.SetCacheSource(email, SelectedSource, baseUrl);
             } else if (CacheHolder.HasCachedItem(email)) {
                 SelectedSource = CacheHolder.GetCacheSource(email) ?? "";
                 SelectedSourceTitle = Sources[SelectedSource];

@@ -57,6 +57,7 @@ ilw-icon.rotate {
     border: 1px solid var(--il-blue);
     padding: 10px;
     margin: 40px 0;
+    border-radius: 6px;
 }
 
 button.ilw-button.small {
@@ -65,4 +66,10 @@ button.ilw-button.small {
 
 ul.ilw-buttons#save-group {
     justify-content: start;
+}
+
+div.faculty-box {
+    border: 1px solid var(--il-storm);
+    padding: 0 20px;
+    border-radius: 6px;
 }
