@@ -1,10 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using ProgramInformationV2.LoadFromEdw;
 
-var searchUrl = "https://search-sitefinity-search-2022-mxlf4grqurtcjtyyk4gaar6inq.us-east-2.es.amazonaws.com/";
-var searchKey = "";
-var searchSecret = "";
-
 Console.WriteLine("Starting load");
 
 /*
@@ -23,11 +19,17 @@ var path = "C:\\Users\\jonker\\Downloads\\";
 var file = "program_coe.json";
 OneTimeProgramTranslation.TranslatePrograms(path, file);
 
-*/
-
 // This section is a one-time translation of the old requirement set data to the new requirement set data
 
 var path = "C:\\Users\\jonker\\Downloads\\";
 var file = "requirementset_coe.json";
 var filecp = "courseprogram_coe.json";
 await OneTimeRequirementTranslation.TranslateRequirementSets(path, file, filecp, searchUrl, searchKey, searchSecret);
+
+*/
+
+// This section is a one-time translation of the old course data
+
+var path = "C:\\Users\\jonker\\Downloads\\";
+var file = "course_gies_online.json";
+OneTimeCourseTranslation.TranslateCourses(path, file);

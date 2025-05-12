@@ -57,6 +57,9 @@ namespace ProgramInformationV2.Components.Pages.Course {
                 NavigationManager.NavigateTo("/");
             }
             CourseItem = await CourseGetter.GetCourse(id);
+            if (CourseItem.FacultyNameList == null) {
+                CourseItem.FacultyNameList = new List<SectionFaculty>();
+            }
             Layout.SetSidebar(SidebarEnum.Course, CourseItem.Title);
             QuickLinkUrl = await Layout.GetCachedQuickLink();
             await base.OnInitializedAsync();

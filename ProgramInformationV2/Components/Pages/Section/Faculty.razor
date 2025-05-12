@@ -5,76 +5,79 @@
 
 <ilw-content>
     <h1>Faculty</h1>
-    
-    <h2>Faculty List</h2>
 
-    @foreach (var faculty in SectionItem.FacultyNameList.Select((v, i) => (v, i))) {
-        <div class="faculty-box">
-            <div class="ils-input-entry-compact">
-                <label for="name-@faculty.i">Name: </label>
-                <input id="name-@faculty.i" type="text" @bind="@faculty.v.Name">
-            </div>
-            <div class="ils-input-entry-compact">
-                <label for="netid-@faculty.i">Net ID: </label>
-                <input id="netid-@faculty.i" type="text" @bind="@faculty.v.NetId">
-            </div>
-            <div class="ils-input-entry-compact">
-                <label for="profile-@faculty.i">Profile URL: </label>
-                <input id="profile-@faculty.i" type="text" @bind="@faculty.v.Url">
-            </div>
-            <div class="ils-input-entry-compact">
-                <label for="show-@faculty.i">Show In Profile?</label>
-                <div class="ils-toggle-slider">
-                    <input id="show-@faculty.i" type="checkbox" @bind="@faculty.v.ShowInProfile" @bind:after="Layout.SetDirty" role="switch" />
-                    <span>
-                        <span class="ils-container"></span>
-                        <span aria-hidden="true" class="ils-text-on">Yes</span>
-                        <span aria-hidden="true" class="ils-text-off">No</span>
-                    </span>
+    @if (SectionItem != null && SectionItem.FacultyNameList != null)
+    {
+        <h2>Faculty List</h2>
+        @foreach (var faculty in SectionItem.FacultyNameList.Select((v, i) => (v, i)))
+        {
+            <div class="faculty-box">
+                <div class="ils-input-entry-compact">
+                   <label for="name-@faculty.i">Name: </label>
+                    <input id="name-@faculty.i" type="text" @bind="@faculty.v.Name">
+                </div>
+                <div class="ils-input-entry-compact">
+                    <label for="netid-@faculty.i">Net ID: </label>
+                    <input id="netid-@faculty.i" type="text" @bind="@faculty.v.NetId">
+                </div>
+                <div class="ils-input-entry-compact">
+                    <label for="profile-@faculty.i">Profile URL: </label>
+                    <input id="profile-@faculty.i" type="text" @bind="@faculty.v.Url">
+                </div>
+                <div class="ils-input-entry-compact">
+                    <label for="show-@faculty.i">Show In Profile?</label>
+                    <div class="ils-toggle-slider">
+                        <input id="show-@faculty.i" type="checkbox" @bind="@faculty.v.ShowInProfile" @bind:after="Layout.SetDirty" role="switch" />
+                        <span>
+                            <span class="ils-container"></span>
+                            <span aria-hidden="true" class="ils-text-on">Yes</span>
+                            <span aria-hidden="true" class="ils-text-off">No</span>
+                        </span>
+                    </div>
                 </div>
             </div>
+            <div>
+                <button class="ilw-button" @onclick="() => Remove(faculty.i)">Remove</button>
+            </div>
+        }
+        <div class="search-generic-item">
+            <h2>Add / Edit Faculty</h2>
+            <div class="faculty-box">
+            <div class="ils-input-entry-compact">
+                <label for="name-new">Name: </label>
+                <input id="name-new" type="text" @bind="NewName" @bind:after="Layout.SetDirty">
+            </div>
+            <div class="ils-input-entry-compact">
+                <label for="netid-new">Net ID: </label>
+                <input id="netid-new" type="text" @bind="NewNetId" @bind:after="Layout.SetDirty">
+            </div>
+            <div class="ils-input-entry-compact">
+                <label for="profile-new">Profile URL: </label>
+                <input id="profile-new" type="text" @bind="NewProfileUrl" @bind:after="Layout.SetDirty">
+            </div>
+                <div class="ils-input-entry-compact">
+                    <label for="show-new">Show In Profile?</label>
+                    <div class="ils-toggle-slider">
+                        <input id="show-new" type="checkbox" @bind="NewShowInProfile" @bind:after="Layout.SetDirty" role="switch" />
+                        <span>
+                            <span class="ils-container"></span>
+                            <span aria-hidden="true" class="ils-text-on">Yes</span>
+                            <span aria-hidden="true" class="ils-text-off">No</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button class="ilw-button" @onclick="Add">Add</button>
+            </div>
         </div>
-        <div>
-            <button class="ilw-button" @onclick="() => Remove(faculty.i)">Remove</button>
-        </div>
+        <ul class="ilw-buttons" id="save-group">
+            <li>
+                <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+            </li>
+            <li>
+                <a class="ilw-button" @onclick="BackToCourse">Back</a>
+            </li>
+        </ul>
     }
-    <div class="search-generic-item">
-        <h2>Add / Edit Faculty</h2>
-        <div class="faculty-box">
-        <div class="ils-input-entry-compact">
-            <label for="name-new">Name: </label>
-            <input id="name-new" type="text" @bind="NewName" @bind:after="Layout.SetDirty">
-        </div>
-        <div class="ils-input-entry-compact">
-            <label for="netid-new">Net ID: </label>
-            <input id="netid-new" type="text" @bind="NewNetId" @bind:after="Layout.SetDirty">
-        </div>
-        <div class="ils-input-entry-compact">
-            <label for="profile-new">Profile URL: </label>
-            <input id="profile-new" type="text" @bind="NewProfileUrl" @bind:after="Layout.SetDirty">
-        </div>
-            <div class="ils-input-entry-compact">
-                <label for="show-new">Show In Profile?</label>
-                <div class="ils-toggle-slider">
-                    <input id="show-new" type="checkbox" @bind="NewShowInProfile" @bind:after="Layout.SetDirty" role="switch" />
-                    <span>
-                        <span class="ils-container"></span>
-                        <span aria-hidden="true" class="ils-text-on">Yes</span>
-                        <span aria-hidden="true" class="ils-text-off">No</span>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div>
-            <button class="ilw-button" @onclick="Add">Add</button>
-        </div>
-    </div>
-    <ul class="ilw-buttons" id="save-group">
-        <li>
-            <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
-        </li>
-        <li>
-            <a class="ilw-button" @onclick="BackToCourse">Back</a>
-        </li>
-    </ul>
 </ilw-content>
