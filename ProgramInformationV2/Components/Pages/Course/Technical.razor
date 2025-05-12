@@ -26,8 +26,10 @@
             }
         </ul>
     </ilw-content>
-    <ilw-content><h2>Information to Copy</h2></ilw-content>
-    <IdList Title="Id" FieldItems="FieldItems" Id="@CourseItem.Id"></IdList>
-    <IdList Title="Edit Link" FieldItems="FieldItems" Id="@CourseItem.EditLink"></IdList>
+    <div class="information-to-copy">
+        <ilw-content class="header"><h2>Information to Copy</h2></ilw-content>
+        <IdList Title="Id" FieldItems="FieldItems" Id="@CourseItem.Id"></IdList>
+        <IdList Title="Edit Link" FieldItems="FieldItems" Id="@CourseItem.EditLink"></IdList>
+    </div>
     <DeleteNotice DeleteClicked="Delete" ItemTitle="@CourseItem.Title"></DeleteNotice>
 }

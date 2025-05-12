@@ -5,23 +5,25 @@
 
 <ilw-content>
     <h1>Overview</h1>
-
     <RichTextEditor @ref="_rteDescription" Title="Details" FieldItems="_fieldItems"></RichTextEditor>
     <RichTextEditor @ref="_rteWhoShouldApply" Title="External Details" FieldItems="_fieldItems"></RichTextEditor>
-    <ilw-content>
-        <ul class="ilw-buttons" id="save-group">
-            <li>
-                <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
-            </li>
-            <li>
-                <ViewLink Title="Course" Url="@CourseItem.UrlFull"></ViewLink>
-            </li>
-            @if (!string.IsNullOrWhiteSpace(QuickLinkUrl))
-            {
+    @if (CourseItem != null)
+    {
+        <ilw-content>
+            <ul class="ilw-buttons" id="save-group">
                 <li>
-                    <a class="ilw-button" href="@QuickLinkUrl">Back</a>
+                    <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
                 </li>
-            }
-        </ul>
-    </ilw-content>
+                <li>
+                    <ViewLink Title="Course" Url="@CourseItem.UrlFull"></ViewLink>
+                </li>
+                @if (!string.IsNullOrWhiteSpace(QuickLinkUrl))
+                {
+                    <li>
+                        <a class="ilw-button" href="@QuickLinkUrl">Back</a>
+                    </li>
+                }
+            </ul>
+        </ilw-content>
+    }
 </ilw-content>

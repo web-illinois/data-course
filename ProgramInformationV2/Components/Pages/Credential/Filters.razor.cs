@@ -16,6 +16,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
         [CascadingParameter]
         public SidebarLayout Layout { get; set; } = default!;
 
+        public bool NoFiltersAvailable => FilterTags == null || FilterTags.Count() == 0;
         public IEnumerable<TagSource>? SkillTags => FilterTags?.Where(f => f.Key == TagType.Skill).SelectMany(x => x);
         public IEnumerable<TagSource>? Tags => FilterTags?.Where(f => f.Key == TagType.Tag).SelectMany(x => x);
         public bool UsePrograms { get; set; }
@@ -54,12 +55,12 @@ namespace ProgramInformationV2.Components.Pages.Credential {
         }
 
         protected override async Task OnInitializedAsync() {
-            Layout.SetSidebar(SidebarEnum.Credential, "Configuration");
             var sourceCode = await Layout.CheckSource();
             FilterTags = await FilterHelper.GetAllFilters(sourceCode);
             var id = await Layout.GetCachedId();
             UsePrograms = await SourceHelper.DoesSourceUseItem(sourceCode, CategoryType.Program);
             CredentialItem = await CredentialGetter.GetCredential(id);
+            Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.Title);
             foreach (var tag in FilterTags.SelectMany(x => x)) {
                 if (CredentialItem.DepartmentList.Contains(tag.Title) && tag.TagType == TagType.Department) {
                     tag.EnabledBySource = true;

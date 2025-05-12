@@ -11,12 +11,12 @@ namespace ProgramInformationV2.Components.Pages.Course {
     public partial class Filters {
         public ProgramInformationV2.Search.Models.Course CourseItem { get; set; } = default!;
         public IEnumerable<TagSource>? DepartmentTags => FilterTags?.Where(f => f.Key == TagType.Department).SelectMany(x => x);
-
         public IEnumerable<IGrouping<TagType, TagSource>> FilterTags { get; set; } = [];
 
         [CascadingParameter]
         public SidebarLayout Layout { get; set; } = default!;
 
+        public bool NoFiltersAvailable => FilterTags == null || FilterTags.Count() == 0;
         public string QuickLinkUrl { get; set; } = "";
         public IEnumerable<TagSource>? SkillTags => FilterTags?.Where(f => f.Key == TagType.Skill).SelectMany(x => x);
 

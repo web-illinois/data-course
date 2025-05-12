@@ -10,12 +10,12 @@ namespace ProgramInformationV2.Components.Pages.Program {
 
     public partial class Filters {
         public IEnumerable<TagSource>? DepartmentTags => FilterTags?.Where(f => f.Key == TagType.Department).SelectMany(x => x);
-
         public IEnumerable<IGrouping<TagType, TagSource>> FilterTags { get; set; } = [];
 
         [CascadingParameter]
         public SidebarLayout Layout { get; set; } = default!;
 
+        public bool NoFiltersAvailable => FilterTags == null || FilterTags.Count() == 0;
         public Search.Models.Program ProgramItem { get; set; } = new Search.Models.Program();
 
         public IEnumerable<TagSource>? SkillTags => FilterTags?.Where(f => f.Key == TagType.Skill).SelectMany(x => x);

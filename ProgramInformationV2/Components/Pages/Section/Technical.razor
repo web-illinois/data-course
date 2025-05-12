@@ -19,8 +19,10 @@
             <a class="ilw-button" @onclick="BackToCourse">Back</a>
         </li>
     </ul>
-    <ilw-content><h2>Information to Copy</h2></ilw-content>
-    <IdList Title="Id" FieldItems="FieldItems" Id="@SectionItem.Id"></IdList>
-    <IdList Title="Edit Link" FieldItems="FieldItems" Id="@SectionItem.EditLink"></IdList>
+    <div class="information-to-copy">
+        <ilw-content class="header"><h2>Information to Copy</h2></ilw-content>
+        <IdList Title="Id" FieldItems="FieldItems" Id="@SectionItem.Id"></IdList>
+        <IdList Title="Edit Link" FieldItems="FieldItems" Id="@SectionItem.EditLink"></IdList>
+    </div>
     <DeleteNotice DeleteClicked="Delete" ItemTitle="@SectionItem.Title"></DeleteNotice>
 }
