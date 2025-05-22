@@ -61,6 +61,8 @@ namespace ProgramInformationV2.Search.Models {
 
         public string SummaryTitle { get; set; } = "";
 
+        public string TitlePlusCredential => string.IsNullOrWhiteSpace(Title) ? "" : $"{Title} ({CredentialTypeString})";
+
         public string TranscriptableName { get; set; } = "";
 
         public override void CleanHtmlFields() {

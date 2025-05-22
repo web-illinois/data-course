@@ -3,6 +3,16 @@ using ProgramInformationV2.LoadFromEdw;
 
 Console.WriteLine("Starting load");
 
+var searchUrl = "https://search-sitefinity-search-2022-mxlf4grqurtcjtyyk4gaar6inq.us-east-2.es.amazonaws.com/";
+var searchKey = "";
+var searchSecret = "";
+
+var path = "C:\\Users\\jonker\\Downloads\\";
+var file = "requirementset_coe.json";
+var filecp = "courseprogram2_coe.json";
+await OneTimeRequirementTranslation.TranslateRequirementSets(path, file, filecp, searchUrl, searchKey, searchSecret);
+Console.WriteLine("Press enter to continue...");
+Console.ReadLine();
 /*
 
 // College of Education values: CI,EDPR,EDUC,EOL,EPOL,EPS,ERAM,EPSY,HRD,HRE,SPED
@@ -26,10 +36,10 @@ var file = "requirementset_coe.json";
 var filecp = "courseprogram_coe.json";
 await OneTimeRequirementTranslation.TranslateRequirementSets(path, file, filecp, searchUrl, searchKey, searchSecret);
 
-*/
-
 // This section is a one-time translation of the old course data
 
 var path = "C:\\Users\\jonker\\Downloads\\";
 var file = "course_gies_online.json";
 OneTimeCourseTranslation.TranslateCourses(path, file);
+
+*/

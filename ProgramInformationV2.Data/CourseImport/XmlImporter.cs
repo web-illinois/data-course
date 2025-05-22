@@ -27,9 +27,12 @@ namespace ProgramInformationV2.Data.CourseImport {
                             returnValue.Add(courseUrl);
                         }
                     }
+                    Console.WriteLine($"Found {url.Item1}");
                 } catch (WebException) {
+                    Console.WriteLine($"Web Exception for {url.Item1}");
                     // do nothing -- assume a 404 error or 502 error, which means the course does not exist
                 } catch (HttpRequestException) {
+                    Console.WriteLine($"Http Request Exception for {url.Item1}");
                     // do nothing -- assume a 404 error or 502 error, which means the course does not exist
                 }
             }

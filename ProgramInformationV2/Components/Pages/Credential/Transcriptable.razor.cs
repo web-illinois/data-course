@@ -57,7 +57,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             CredentialItem = await CredentialGetter.GetCredential(id);
             UsePrograms = await SourceHelper.DoesSourceUseItem(sourceCode, CategoryType.Program);
             FieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new CredentialGroup(), FieldType.Transcriptable);
-            Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.Title);
+            Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.TitlePlusCredential);
             await base.OnInitializedAsync();
         }
     }

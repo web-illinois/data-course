@@ -42,6 +42,9 @@ namespace ProgramInformationV2.Components.Controls {
         }
 
         public void Edit() {
+            if (GenericItems.Count == 1) {
+                SelectedItemId = GenericItems[0].Id;
+            }
             EditClicked.InvokeAsync();
         }
 

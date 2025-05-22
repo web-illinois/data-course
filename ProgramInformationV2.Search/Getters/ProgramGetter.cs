@@ -12,7 +12,7 @@ namespace ProgramInformationV2.Search.Getters {
                     .Query(q => q
                     .Bool(b => b
                     .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)))
-                    .Must(m => string.IsNullOrWhiteSpace(search) ? m.MatchAll() : m.Match(m => m.Field(fld => fld.Title).Query(search))))));
+                    .Must(m => string.IsNullOrWhiteSpace(search) ? m.MatchAll() : m.Match(m => m.Field(fld => fld.Title).Query(search).Operator(Operator.And))))));
             LogDebug(response);
             return response.IsValid ? [.. response.Documents.Select(r => r.GetGenericItem()).OrderBy(g => g.Title)] : [];
         }

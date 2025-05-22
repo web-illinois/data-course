@@ -121,7 +121,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
                     ChosenRequirementSetList.Add(requirementSets.First(r => r.Id == reqId));
                 }
             }
-            Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.Title);
+            Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.TitlePlusCredential);
             await GetRequirementSet();
             await base.OnInitializedAsync();
         }

@@ -25,7 +25,7 @@ namespace ProgramInformationV2.Search.Getters {
                 .Query(q => q
                 .Bool(b => b
                 .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)))
-                .Must(m => string.IsNullOrWhiteSpace(search) ? m.MatchAll() : m.Match(m => m.Field(fld => fld.Credentials.Select(ft => ft.Title)).Query(search))))));
+                .Must(m => string.IsNullOrWhiteSpace(search) ? m.MatchAll() : m.Match(m => m.Field(fld => fld.Credentials.Select(ft => ft.Title)).Query(search).Operator(Operator.And))))));
             LogDebug(response);
             return response.IsValid ? [.. response.Documents.SelectMany(c => c.Credentials).Select(r => r.GetGenericItem()).OrderBy(g => g.Title)] : [];
         }

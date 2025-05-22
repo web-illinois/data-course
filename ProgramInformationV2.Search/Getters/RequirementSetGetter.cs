@@ -11,7 +11,7 @@ namespace ProgramInformationV2.Search.Getters {
                     .Query(q => q
                     .Bool(b => b
                     .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)))
-                    .Must(m => string.IsNullOrWhiteSpace(search) ? m.MatchAll() : m.Match(m => m.Field(fld => fld.Title).Query(search))))));
+                    .Must(m => string.IsNullOrWhiteSpace(search) ? m.MatchAll() : m.Match(m => m.Field(fld => fld.Title).Query(search).Operator(Operator.And))))));
             LogDebug(response);
             return response.IsValid ? response.Documents.Select(r => r.GetGenericItem()).OrderBy(g => g.Title).ToList() : [];
         }
@@ -21,9 +21,11 @@ namespace ProgramInformationV2.Search.Getters {
                     .Size(1000)
                     .Query(q => q
                     .Bool(b => b
-                    .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)))
-                    .Must(m => string.IsNullOrWhiteSpace(search) ? m.MatchAll() : m.Match(m => m.Field(fld => fld.Title).Query(search)))
-                    .Should(m => m.Term(t => t.IsReused, true), m => m.Term(t => t.CredentialId, credentialId)))));
+                    .Filter(f => f
+                    .Bool(b2 => b2
+                    .Should(s => s
+                    .Term(m => m.Field(fld => fld.Source).Value(source)), m => m.Term(t => t.IsReused, true), m => m.Term(t => t.CredentialId, credentialId)).MinimumShouldMatch(MinimumShouldMatch.Fixed(2))
+                    .Must(m => string.IsNullOrWhiteSpace(search) ? m.MatchAll() : m.Match(m => m.Field(fld => fld.Title).Query(search).Operator(Operator.And))))))));
             LogDebug(response);
             return response.IsValid ? response.Documents.Select(r => r.GetGenericItem()).OrderBy(g => g.Title).ToList() : [];
         }

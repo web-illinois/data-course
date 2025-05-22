@@ -36,10 +36,16 @@ namespace ProgramInformationV2.LoadFromEdw {
             var openSearchClient = OpenSearchFactory.CreateClient(searchUrl, searchKey, searchSecret, false);
             var courseGetter = new CourseGetter(openSearchClient);
 
-            //pull in course program set and add to requirements
+            //pull in course program set and add to requirements -- changed to call raw file from Amazon OpenSearch
             using var readerCourseProgram = new StreamReader(path + courseProgramFile);
-            var itemsCoursePrograms = JsonConvert.DeserializeObject<List<dynamic>>(readerCourseProgram.ReadToEnd()) ?? [];
-            foreach (var item in itemsCoursePrograms) {
+            var itemCourseProgramRoot = JsonConvert.DeserializeObject<dynamic>(readerCourseProgram.ReadToEnd());
+            if (itemCourseProgramRoot == null) {
+                Console.WriteLine("No course program data found");
+                return;
+            }
+            var itemsCoursePrograms = (Newtonsoft.Json.Linq.JArray) itemCourseProgramRoot.hits.hits;
+            foreach (var itemMain in itemsCoursePrograms) {
+                var item = ((dynamic) itemMain)._source;
                 var requirement = requirementSets.FirstOrDefault(r => r.Id == item.parentid.ToString());
                 if (requirement != null) {
                     string courseId = (item.source.ToString().Trim() + "-" + item.course.rubric.ToString().Trim() + "-" + item.course.coursenumber.ToString().Trim()).ToString();

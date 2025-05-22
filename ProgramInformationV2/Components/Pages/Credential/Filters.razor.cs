@@ -60,7 +60,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             var id = await Layout.GetCachedId();
             UsePrograms = await SourceHelper.DoesSourceUseItem(sourceCode, CategoryType.Program);
             CredentialItem = await CredentialGetter.GetCredential(id);
-            Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.Title);
+            Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.TitlePlusCredential);
             foreach (var tag in FilterTags.SelectMany(x => x)) {
                 if (CredentialItem.DepartmentList.Contains(tag.Title) && tag.TagType == TagType.Department) {
                     tag.EnabledBySource = true;
