@@ -55,6 +55,6 @@ namespace ProgramInformationV2.Data.CourseImport {
             return course;
         }
 
-        private static IEnumerable<int> BuildYearRange() => Enumerable.Range(DateTime.Now.Year - _yearsLookBack, _yearsLookBack + _yearsLookForward).Reverse();
+        private static IEnumerable<int> BuildYearRange() => Enumerable.Range(DateTime.Now.Year - _yearsLookBack, _yearsLookBack + _yearsLookForward + 1).Reverse();
     }
 }

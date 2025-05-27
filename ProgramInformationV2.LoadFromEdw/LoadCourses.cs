@@ -7,7 +7,7 @@ namespace ProgramInformationV2.LoadFromEdw {
 
     internal static class LoadCourses {
 
-        internal static async Task Run(string rubricList, string source, string searchUrl, string urlTemplate, string searchKey, string searchSecret) {
+        internal static async Task Run(string rubricList, string source, string searchUrl, string searchKey, string searchSecret, string urlTemplate, string fragment) {
             Console.WriteLine($"Starting EDW Load: {DateTime.Now.ToLongTimeString()}");
             Console.WriteLine($"Search URL: {searchUrl}");
             Console.WriteLine($"Source: {source}");
@@ -21,15 +21,17 @@ namespace ProgramInformationV2.LoadFromEdw {
                 Console.WriteLine($"Rubric: {rubric}");
                 var itemGroups = XmlImporter.GetAllCoursesBySemester(rubric, "");
                 Console.WriteLine($"Rubric loaded - number of courses: {itemGroups.Count()}");
+                var count = 1;
 
                 foreach (var itemGroup in itemGroups) {
-                    Console.WriteLine($"{itemGroup.Key} (number of semesters: {itemGroup.Count()}): {DateTime.Now.ToLongTimeString()}");
+                    Console.WriteLine($"{count++}. {itemGroup.Key} (number of semesters: {itemGroup.Count()}): {DateTime.Now.ToLongTimeString()}");
                     var scheduledCourse = XmlImporter.GetCourse(itemGroup);
                     if (string.IsNullOrWhiteSpace(scheduledCourse.Title)) {
                         Console.WriteLine($"************** Course {itemGroup.Key} not found in system **************");
                     } else {
                         var course = ScheduleTranslator.Translate(scheduledCourse, source, true);
                         course.Url = urlTemplate.Replace("{rubric}", course.Rubric).Replace("{coursenumber}", course.CourseNumber);
+                        course.Fragment = fragment.Replace("{rubric}", course.Rubric).Replace("{coursenumber}", course.CourseNumber);
                         course.Prepare();
                         var courseId = await courseLoader.SetCourse(course);
                         Console.WriteLine($"Course Imported: {courseId}.");

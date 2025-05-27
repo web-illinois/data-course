@@ -83,7 +83,7 @@ namespace ProgramInformationV2.Search.Models {
             TermValues = [Term];
             ProcessLists();
             if (Sections != null && Sections?.Count > 0) {
-                Sections = [.. Sections.OrderBy(s => s.BeginDate).ThenBy(s => s.EndDate).ThenBy(s => s.SectionCode)];
+                Sections = [.. Sections.OrderByDescending(s => s.BeginDate).OrderByDescending(s => s.EndDate).ThenBy(s => s.SectionCode)];
                 FacultyNameList = [.. Sections.SelectMany(s => s.FacultyNameList).Distinct().OrderBy(s => s.Name)];
                 TermValues = Sections.Select(s => s.Term).Distinct().OrderBy(s => s).ToList();
                 FormatValues = Sections.Select(s => s.FormatType).Distinct().OrderBy(s => s).ToList();
