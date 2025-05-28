@@ -18,6 +18,7 @@ namespace ProgramInformationV2.Data.DataContext {
         }
 
         public DbSet<CourseImportEntry> CourseImportEntries { get; set; }
+        public DbSet<FacultyName> FacultyNames { get; set; }
         public DbSet<FieldSource> FieldSources { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<SecurityEntry> SecurityEntries { get; set; }

@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProgramInformationV2.Function.Helper;
 using ProgramInformationV2.Search.Getters;
-using ProgramInformationV2.Search.JsonThinModels;
 using ProgramInformationV2.Search.Models;
 
 namespace ProgramInformationV2.Function {
@@ -21,7 +20,7 @@ namespace ProgramInformationV2.Function {
         [OpenApiOperation(operationId: "CourseByFaculty", tags: "Get Course Information", Description = "Get all active courses from a specific faculty.")]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         [OpenApiParameter(name: "netid", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The netid of the faculty.")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(SearchObject<Course>), Description = "The list of courses")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<Course>), Description = "The list of courses")]
         public async Task<HttpResponseData> ByFaculty([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequestData req) {
             _logger.LogInformation("Called CourseByFaculty.");
             var requestHelper = RequestHelperFactory.Create();

@@ -79,14 +79,14 @@ namespace ProgramInformationV2.Search.Getters {
             };
         }
 
-        public async Task<Course> GetCoursesByFaculty(string netid) {
+        public async Task<List<Course>> GetCoursesByFaculty(string netid) {
             var response = await _openSearchClient.SearchAsync<Course>(s => s.Index(UrlTypes.Courses.ConvertToUrlString())
                     .Query(q => q
                     .Bool(b => b
                     .Filter(f => f.Term(m => m.Field(fld => fld.Sections.Select(s => s.FacultyNameList.Select(fnl => fnl.NetId))).Value(netid)),
                             f => f.Term(m => m.Field(fld => fld.IsActive).Value(true))))));
             LogDebug(response);
-            return response.IsValid ? response.Documents?.FirstOrDefault() ?? new() : new();
+            return response.IsValid ? response.Documents.ToList() ?? [] : [];
         }
 
         public async Task<Section> GetSection(string sectionId) {

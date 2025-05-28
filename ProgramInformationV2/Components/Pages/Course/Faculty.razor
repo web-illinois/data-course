@@ -22,7 +22,7 @@
                 </div>
                 <div class="ils-input-entry-compact">
                     <label for="profile-@faculty.i">Profile URL: </label>
-                    <input id="profile-@faculty.i" type="text" @bind="@faculty.v.Url">
+                    <input id="profile-@faculty.i" class="ils-input-long" type="text" @bind="@faculty.v.Url">
                 </div>
                 <div class="ils-input-entry-compact">
                     <label for="show-@faculty.i">Show In Profile?</label>
@@ -52,7 +52,7 @@
             </div>
             <div class="ils-input-entry-compact">
                 <label for="profile-new">Profile URL: </label>
-                <input id="profile-new" type="text" @bind="NewProfileUrl" @bind:after="Layout.SetDirty">
+                <input id="profile-new" type="text" class="ils-input-long" @bind="NewProfileUrl" @bind:after="Layout.SetDirty">
             </div>
             <div class="ils-input-entry-compact">
                 <label for="show-new">Show In Profile?</label>

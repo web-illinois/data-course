@@ -6,11 +6,12 @@ Console.WriteLine("Starting load");
 var searchUrl = "https://search-sitefinity-search-2022-mxlf4grqurtcjtyyk4gaar6inq.us-east-2.es.amazonaws.com/";
 var searchKey = "";
 var searchSecret = "";
+var databaseConnectionString = "";
 
 if (args.Length == 3 && args[0].Equals("courseload")) {
-    await LoadCourses.Run(args[1], args[2], searchUrl, searchKey, searchSecret, "https://education.illinois.edu/course/{rubric}/{coursenumber}", "course/{rubric}/{coursenumber}");
+    await LoadCourses.Run(args[1], args[2], searchUrl, searchKey, searchSecret, "https://education.illinois.edu/course/{rubric}/{coursenumber}", "course/{rubric}/{coursenumber}", databaseConnectionString);
 } else {
-    await LoadCourses.Run("SPED", "coe", searchUrl, searchKey, searchSecret, "https://education.illinois.edu/course/{rubric}/{coursenumber}", "course/{rubric}/{coursenumber}");
+    await LoadCourses.Run("CI,EDPR,EDUC,EOL,EPOL,EPS,ERAM,EPSY,HRD,HRE,SPED", "coe", searchUrl, searchKey, searchSecret, "https://education.illinois.edu/course/{rubric}/{coursenumber}", "course/{rubric}/{coursenumber}", databaseConnectionString);
 }
 
 Console.WriteLine("Press enter to continue...");
@@ -26,9 +27,9 @@ await OneTimeRequirementTranslation.TranslateRequirementSets(path, file, filecp,
 // College of Education values: CI,EDPR,EDUC,EOL,EPOL,EPS,ERAM,EPSY,HRD,HRE,SPED
 
 if (args.Length == 3 && args[0].Equals("courseload")) {
-    await LoadCourses.Run(args[1], args[2], searchUrl, searchKey, searchSecret, "https://education.illinois.edu/course/{rubric}/{coursenumber}", "course/{rubric}/{coursenumber}");
+    await LoadCourses.Run(args[1], args[2], searchUrl, searchKey, searchSecret, "https://education.illinois.edu/course/{rubric}/{coursenumber}", "course/{rubric}/{coursenumber}", databaseConnectionString);
 } else {
-    await LoadCourses.Run("SPED", "coe", searchUrl, searchKey, searchSecret, "https://education.illinois.edu/course/{rubric}/{coursenumber}", "course/{rubric}/{coursenumber}");
+    await LoadCourses.Run("SPED", "coe", searchUrl, searchKey, searchSecret, "https://education.illinois.edu/course/{rubric}/{coursenumber}", "course/{rubric}/{coursenumber}", databaseConnectionString);
 }
 
 // This section is a one-time translation of the old program data to the new program data
