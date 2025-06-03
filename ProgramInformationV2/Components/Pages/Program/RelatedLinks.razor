@@ -1,0 +1,15 @@
+﻿@page "/program/relatedlinks"
+@layout SidebarLayout
+
+<PageTitle>Programs - Related Links Information</PageTitle>
+
+<ilw-content>
+    <h1>Related Links Information</h1>
+</ilw-content>
+
+@if (ProgramItem != null)
+{
+    <LinkList @ref="_linkList" Links="@ProgramItem.LinkList?.ToList()"></LinkList>
+    <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+    <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
+}

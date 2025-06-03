@@ -1,0 +1,15 @@
+﻿@page "/course/relatedlinks"
+@layout SidebarLayout
+
+<PageTitle>Course - Related Links Information</PageTitle>
+
+<ilw-content>
+    <h1>Related Links Information</h1>
+</ilw-content>
+
+@if (CourseItem != null)
+{
+    <LinkList @ref="_linkList" Links="@CourseItem.LinkList?.ToList()"></LinkList>
+    <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+    <ViewLink Title="Program" Url="@CourseItem.UrlFull"></ViewLink>
+}
