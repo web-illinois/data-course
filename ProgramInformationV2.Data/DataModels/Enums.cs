@@ -19,7 +19,8 @@
         Faculty,
         Technical,
         Filters,
-        CourseList
+        CourseList,
+        RelatedLinks
     }
 
     public enum ScreenType {

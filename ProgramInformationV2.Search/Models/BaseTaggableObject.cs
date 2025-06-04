@@ -3,8 +3,11 @@
 namespace ProgramInformationV2.Search.Models {
 
     public abstract class BaseTaggableObject : BasePublicObject {
+
         [Keyword]
         public IEnumerable<string> DepartmentList { get; set; } = default!;
+
+        public IEnumerable<Link> LinkList { get; set; } = default!;
 
         [Keyword]
         public IEnumerable<string> SkillList { get; set; } = default!;

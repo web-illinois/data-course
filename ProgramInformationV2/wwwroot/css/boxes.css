@@ -1,4 +1,4 @@
-ilw-content .requirement-box, ilw-content .credential-box, ilw-content .security-box {
+ilw-content .requirement-box, ilw-content .credential-box, ilw-content .security-box, ilw-content .link-box {
     display: grid;
     border: 1px solid var(--il-blue);
     padding: 10px;
@@ -6,7 +6,7 @@ ilw-content .requirement-box, ilw-content .credential-box, ilw-content .security
     column-gap: 40px;
 }
 
-    ilw-content .requirement-box a, ilw-content .credential-box a, ilw-content .security-box a {
+    ilw-content .requirement-box a, ilw-content .credential-box a, ilw-content .security-box a, ilw-content .link-box a {
         color: var(--il-industrial);
     }
 
@@ -14,13 +14,18 @@ ilw-content .requirement-box, ilw-content .security-box {
     grid-template-columns: 1fr 125px;
 }
 
-ilw-content .credential-box {
+ilw-content .credential-box, ilw-content .link-box {
     grid-template-columns: 1fr 225px;
 }
 
     ilw-content .requirement-box p, ilw-content .credential-box p, ilw-content .security-box p {
         margin: 0 0 10px 0;
         font: normal 700 1.25rem / 1.5rem var(--il-font-sans);
+    }
+
+    ilw-content .link-box p {
+        margin: 0 0 10px 0;
+        font: normal 500 1.25rem / 1.5rem var(--il-font-sans);
     }
 
 ilw-content .security-box p {
@@ -73,3 +78,13 @@ div.faculty-box {
     padding: 0 20px;
     border-radius: 6px;
 }
+
+div.button-group {
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+    div.button-group button {
+        max-height: 40px;
+    }
