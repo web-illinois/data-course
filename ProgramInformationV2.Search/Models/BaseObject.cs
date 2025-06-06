@@ -6,7 +6,7 @@ namespace ProgramInformationV2.Search.Models {
 
     public abstract class BaseObject {
         protected static readonly string _editLink = "https://test-itp-program.azurewebsites.net/quicklink/";
-        private static readonly string[] _badHtmlItems = ["<br>", "<p></p>", "<p><br></p>", "<p>&nbsp;</p>", "&nbsp;"];
+        private static readonly string[] _badHtmlItems = ["<br>", "<p></p>", "<p><br></p>", "<p>&nbsp;</p>", "<p> </p>", "&nbsp;"];
 
         public DateTime CreatedOn { get; set; }
 

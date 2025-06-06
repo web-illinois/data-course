@@ -63,8 +63,10 @@ namespace ProgramInformationV2.Search.Getters {
         }
 
         public async Task<CredentialWithRequirementSets> GetCredentialWithRequirementSet(string credentialId) {
-            var credential = (await _programGetter.GetProgramByCredential(credentialId)).Credentials?.SingleOrDefault(c => c.Id == credentialId) ?? new();
-            return await AddRequirementSets(credential);
+            var program = await _programGetter.GetProgramByCredential(credentialId);
+            var credential = program.Credentials?.SingleOrDefault(c => c.Id == credentialId) ?? new();
+
+            return await AddRequirementSets(credential, program?.Credentials ?? []);
         }
 
         public async Task<CredentialWithRequirementSets> GetCredentialWithRequirementSet(string source, string fragment) {
@@ -75,19 +77,24 @@ namespace ProgramInformationV2.Search.Getters {
                             f => f.Term(m => m.Field(fld => fld.IsActive).Value(true)),
                             f => f.Term(m => m.Field(fld => fld.Credentials.Select(c => c.Fragment)).Value(fragment))))));
             LogDebug(response);
-            var credential = response.IsValid ? response.Documents?.FirstOrDefault()?.Credentials.FirstOrDefault(c => c.Fragment == fragment) ?? new() : new();
-            return await AddRequirementSets(credential);
+            var program = response.IsValid ? response.Documents?.FirstOrDefault() : new();
+            var credential = program?.Credentials.FirstOrDefault(c => c.Fragment == fragment) ?? new();
+            return await AddRequirementSets(credential, program?.Credentials ?? []);
         }
 
-        private async Task<CredentialWithRequirementSets> AddRequirementSets(Credential credential) {
+        private async Task<CredentialWithRequirementSets> AddRequirementSets(Credential credential, List<Credential> otherCredentials) {
             if (!credential.IsActive) {
                 return new();
             }
+
             var requirementSets = await _requirementSetGetter.GetRequirementSets(credential.RequirementSetIds);
             var returnValue = new CredentialWithRequirementSets {
                 Credential = credential,
                 RequirementSets = []
             };
+            returnValue.CredentialOptions = [.. otherCredentials.Where(oc => oc.Id != credential.Id && oc.IsActive).OrderBy(oc => oc.CredentialType).Select(oc => new CredentialOption {
+                Title = oc.Title, Url = oc.Url, UrlFull = oc.UrlFull, CredentialType = oc.CredentialType, Id = oc.Id, FormatType = oc.FormatType
+            })];
             foreach (var reqId in credential.RequirementSetIds) {
                 if (requirementSets.Any(r => r.Id == reqId)) {
                     returnValue.RequirementSets.Add(requirementSets.First(r => r.Id == reqId));

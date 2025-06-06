@@ -4,6 +4,7 @@ namespace ProgramInformationV2.Search.JsonThinModels {
 
     public class CredentialWithRequirementSets {
         public Credential Credential { get; set; } = new();
-        public List<RequirementSet> RequirementSets { get; set; } = new();
+        public List<CredentialOption> OtherCredentials { get; set; } = [];
+        public List<RequirementSet> RequirementSets { get; set; } = [];
     }
 }
