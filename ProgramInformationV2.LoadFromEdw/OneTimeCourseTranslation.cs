@@ -36,7 +36,6 @@ namespace ProgramInformationV2.LoadFromEdw {
                     Description = item.description,
                     Url = item.url ?? "",
                     UrlFull = item.url ?? "",
-                    LastUpdatedBy = item.lastupdatedby ?? "",
                     TagList = item.taglist != null ? item.taglist.ToObject<List<string>>() : [],
                     SkillList = item.skilllist != null ? item.skilllist.ToObject<List<string>>() : [],
                     DepartmentList = item.departmentlist != null ? item.departmentlist.ToObject<List<string>>() : [],
