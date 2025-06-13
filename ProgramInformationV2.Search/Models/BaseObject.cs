@@ -5,7 +5,7 @@ using OpenSearch.Client;
 namespace ProgramInformationV2.Search.Models {
 
     public abstract class BaseObject {
-        protected static readonly string _editLink = "https://test-itp-program.azurewebsites.net/quicklink/";
+        protected static readonly string _editLink = "https://programcourse.itpartners.illinois.edu/quicklink/";
         private static readonly string[] _badHtmlItems = ["<br>", "<p></p>", "<p><br></p>", "<p>&nbsp;</p>", "<p> </p>", "&nbsp;"];
 
         public DateTime CreatedOn { get; set; }
@@ -28,8 +28,6 @@ namespace ProgramInformationV2.Search.Models {
 
         public DateTime LastUpdated { get; set; }
 
-        public string LastUpdatedBy { get; set; } = "";
-
         public int Order { get; set; }
 
         [Keyword]
@@ -50,6 +48,7 @@ namespace ProgramInformationV2.Search.Models {
         public virtual GenericItem GetGenericItem() => new() { Id = Id, IsActive = IsActive, Order = Order, Title = InternalTitle };
 
         public virtual void Prepare() {
+            LastUpdated = DateTime.Now;
             SetId();
             SetFragment();
             CleanHtmlFields();
