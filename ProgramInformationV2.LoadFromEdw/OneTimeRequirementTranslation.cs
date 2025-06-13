@@ -28,8 +28,7 @@ namespace ProgramInformationV2.LoadFromEdw {
                     Description = item.description,
                     MaximumCreditHours = item.maximumcredithours ?? 0,
                     MinimumCreditHours = item.minimumcredithours ?? 0,
-                    Order = item.order ?? 0,
-                    LastUpdatedBy = item.lastupdatedby ?? "",
+                    Order = item.order ?? 0
                 });
             }
 

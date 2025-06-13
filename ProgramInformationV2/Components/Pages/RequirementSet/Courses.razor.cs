@@ -68,18 +68,24 @@ namespace ProgramInformationV2.Components.Pages.RequirementSet {
 
         public async Task Save() {
             Layout.RemoveDirty();
-            RequirementSetItem.CourseRequirements = CourseRequirements;
+            RequirementSetItem.CourseRequirements = [.. CourseRequirements.OrderBy(cr => cr.Title)];
             _ = await RequirementSetSetter.SetRequirementSet(RequirementSetItem);
             await Layout.Log(CategoryType.RequirementSet, FieldType.CourseList, RequirementSetItem);
             await Layout.AddMessage("Requirement Set saved successfully.");
         }
 
-        protected void ChooseCourse() {
+        protected async Task ChooseCourse() {
             if (!string.IsNullOrWhiteSpace(_searchGenericItem.SelectedItemId)) {
+                var course = await CourseGetter.GetCourse(_searchGenericItem.SelectedItemId);
                 CourseRequirements.Add(new CourseRequirement {
-                    CourseId = _searchGenericItem.SelectedItemId,
-                    Title = _searchGenericItem.SelectedItemTitle,
+                    CourseId = course.Id,
+                    Title = course.Title,
                     ParentId = RequirementSetItem.Id,
+                    Url = course.Url,
+                    IsActive = true,
+                    CreatedOn = DateTime.Now,
+                    LastUpdated = DateTime.Now,
+                    Source = _sourceCode,
                 });
                 StateHasChanged();
                 Layout.SetDirty();

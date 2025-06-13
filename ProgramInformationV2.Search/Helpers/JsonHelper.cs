@@ -69,23 +69,23 @@ namespace ProgramInformationV2.Search.Helpers {
                 } else {
                     var body = JsonConvert.SerializeObject(jsonItem._source);
                     string id = jsonItem._id.ToString();
-                    if (id.StartsWith(sourceCode + "-")) {
+                    string source = jsonItem._source.source.ToString();
+                    string altId = jsonItem._source.id.ToString();
+                    if (id.StartsWith(sourceCode + "-") && altId.StartsWith(sourceCode + "-") && source == sourceCode) {
                         var response = await _openSearchLowLevelClient.IndexAsync<StringResponse>(urltype.ConvertToUrlString(), id, body);
                         if (response.Success) {
                             success++;
                         } else {
                             failureIds.Add(id);
                         }
+                    } else {
+                        failureIds.Add(id);
                     }
                 }
             }
-            if (failureIds.Count > 5) {
-                return $"Loaded {success} items. Failed to load {failureIds.Count} items. {(useRawJsonItems ? "Used raw JSON." : "")}";
-            }
-            if (failureIds.Count > 0) {
-                return $"Loaded {success} items. Failed to load items: {string.Join("; ", failureIds)}. {(useRawJsonItems ? "Used raw JSON." : "")}";
-            }
-            return $"Loaded {success} items. {(useRawJsonItems ? "Used raw JSON." : "")}";
+            return failureIds.Count > 0
+                ? $"Loaded {success} items. Failed to load {(failureIds.Count < 5 ? string.Join("; ", failureIds) : failureIds.Count)} items. {(useRawJsonItems ? "Used raw JSON." : "")}"
+                : $"Loaded {success} items. {(useRawJsonItems ? "Used raw JSON." : "")}";
         }
 
         private static string GenerateGetJson(string sourceCode, int skip) => "{ \"from\": " + (skip * 50) + ", \"size\": 50, \"query\":{\"match\":{\"source\":{\"query\":\"" + sourceCode + "\"}}}}";
