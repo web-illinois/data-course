@@ -28,6 +28,15 @@ namespace ProgramInformationV2.Components.Controls {
 
         public string GetFieldItemDescription() => FieldItems == null ? "" : FieldItems.FirstOrDefault(f => f.Title == Title)?.Description ?? "";
 
-        public async Task<string> GetValue() => _quillItem == null ? "" : await _quillItem.GetHTML();
+        public async Task<string> GetValue() {
+            if (_quillItem == null) {
+                return "";
+            }
+            var returnValue = await _quillItem.GetHTML();
+            if (!returnValue.Contains("<p")) {
+                return $"<p>{returnValue}</p>";
+            }
+            return returnValue;
+        }
     }
 }

@@ -68,6 +68,7 @@ namespace ProgramInformationV2.Search.Models {
         public override void CleanHtmlFields() {
             SummaryText = CleanHtml(SummaryText);
             Description = CleanHtml(Description);
+            Notes = CleanHtml(Notes);
             ProcessLists();
         }
     }

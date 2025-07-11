@@ -21,7 +21,7 @@ namespace ProgramInformationV2.Search.Models {
         public IEnumerable<string> CredentialFragmentList => Credentials.Where(c => c.IsActive).Select(c => c.Fragment);
 
         [Keyword]
-        public IEnumerable<string> CredentialIdList => Credentials.Where(c => c.IsActive).Select(c => c.Id);
+        public IEnumerable<string> CredentialIdList => Credentials.Select(c => c.Id);
 
         public List<Credential> Credentials { get; set; } = default!;
 

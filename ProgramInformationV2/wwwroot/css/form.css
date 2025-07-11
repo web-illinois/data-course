@@ -4,6 +4,7 @@
 
 main#app-main input[type="file"] {
     width: calc(100%-20px);
+    margin-top: 10px;
 }
 
 main#app-main p.help-text {
