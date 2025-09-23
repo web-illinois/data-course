@@ -5,6 +5,19 @@
             <label for="filter">Search for a @ItemTitle</label>
             <input id="filter" type="text" class="ils-input-long" @onchange="(ChangeEventArgs e) => FilterChange(e)" />
         </div>
+    @if (DepartmentOptions != null && DepartmentOptions.Count() >= 1)
+        {
+            <div class="ils-input-entry">
+                <label for="department">Filter by Department</label>
+                <select id="department" class="ils-input-long" @bind="Department" @bind:after="FilterChangeDepartment">
+                    <option value="">-- All Departments --</option>
+                    @foreach (var dept in DepartmentOptions)
+                    {
+                        <option value="@dept">@dept</option>
+                    }
+                </select>
+            </div>
+        }
         <div class="ils-input-entry">
             <label for="choose">Choose a @ItemTitle</label>
             <select id="choose" size="10" class="ils-input-long" @bind="SelectedItemId">

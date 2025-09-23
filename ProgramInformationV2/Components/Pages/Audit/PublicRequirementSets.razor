@@ -1,0 +1,26 @@
+﻿@page "/audit/publicrequirementsets"
+@layout SidebarLayout
+
+<PageTitle>Audit - Public Requirement Sets</PageTitle>
+
+<ilw-content>
+    <h1>Public Requirement Sets</h1>
+    <p>Requirement sets can be made <em>public</em> (they can be shared by multiple credentials) or <em>private</em> (they can only be used by the credential assigned to it). This is a list of all public requirement sets that are only be used by a single credential. Consider making these requirement sets private.</p>
+
+    @if (RequirementSetList != null)
+    {
+        <table>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Is Active</th>
+            </tr>
+            @foreach (var req in RequirementSetList)
+            {
+                <tr>
+                    <td><p><a @onclick="() => Edit(req.Id)">@req.Title</a></p></td>
+                    <td>@req.IsActive</td>
+                </tr>
+            }
+        </table>
+    }
+</ilw-content>

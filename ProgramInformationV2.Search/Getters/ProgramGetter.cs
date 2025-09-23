@@ -6,12 +6,13 @@ namespace ProgramInformationV2.Search.Getters {
 
     public class ProgramGetter(OpenSearchClient? openSearchClient) : BaseGetter<Program>(openSearchClient) {
 
-        public async Task<List<GenericItem>> GetAllProgramsBySource(string source, string search) {
+        public async Task<List<GenericItem>> GetAllProgramsBySource(string source, string search, string department) {
             var response = await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
                     .Size(1000)
                     .Query(q => q
                     .Bool(b => b
-                    .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)))
+                    .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)),
+                        f => string.IsNullOrWhiteSpace(department) ? f.MatchAll() : f.Terms(m => m.Field(fld => fld.DepartmentList).Terms(department)))
                     .Must(m => string.IsNullOrWhiteSpace(search) ? m.MatchAll() : m.Match(m => m.Field(fld => fld.Title).Query(search).Operator(Operator.And))))));
             LogDebug(response);
             return response.IsValid ? [.. response.Documents.Select(r => r.GetGenericItem()).OrderBy(g => g.Title)] : [];

@@ -19,15 +19,16 @@ namespace ProgramInformationV2.Search.Getters {
             return response.IsValid ? [.. response.Documents.SelectMany(c => c.Credentials).Where(c => c.RequirementSetIds.Contains(requirementId)).Select(r => r.GetGenericItem()).OrderBy(g => g.Title)] : [];
         }
 
-        public async Task<List<GenericItem>> GetAllCredentialsBySource(string source, string search) {
+        public async Task<List<GenericItem>> GetAllCredentialsBySource(string source, string search, string department) {
             var response = await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
                 .Size(1000)
                 .Query(q => q
                 .Bool(b => b
-                .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)))
+                .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)),
+                    f => string.IsNullOrWhiteSpace(department) ? f.MatchAll() : f.Terms(m => m.Field(fld => fld.DepartmentList).Terms(department)))
                 .Must(m => string.IsNullOrWhiteSpace(search) ? m.MatchAll() : m.Match(m => m.Field(fld => fld.Credentials.Select(ft => ft.Title)).Query(search).Operator(Operator.And))))));
             LogDebug(response);
-            return response.IsValid ? [.. response.Documents.SelectMany(c => c.Credentials).Select(r => r.GetGenericItem()).OrderBy(g => g.Title)] : [];
+            return response.IsValid ? [.. response.Documents.SelectMany(c => c.Credentials).Where(c => department == "" ? true : c.DepartmentList.Contains(department)).Select(r => r.GetGenericItem()).OrderBy(g => g.Title)] : [];
         }
 
         public async Task<Credential> GetCredential(string credentialId) => (await _programGetter.GetProgramByCredential(credentialId)).Credentials?.SingleOrDefault(c => c.Id == credentialId) ?? new();

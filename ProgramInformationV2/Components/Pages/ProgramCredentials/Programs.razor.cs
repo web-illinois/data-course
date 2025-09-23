@@ -15,10 +15,15 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
         private string _sourceCode = "";
         private bool? _usePrograms;
 
+        public List<string> DepartmentList { get; set; } = default!;
+
         [CascadingParameter]
         public SidebarLayout Layout { get; set; } = default!;
 
         public List<GenericItem> ProgramList { get; set; } = default!;
+
+        [Inject]
+        protected FilterHelper FilterHelper { get; set; } = default!;
 
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
@@ -37,7 +42,7 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
         }
 
         protected async Task GetPrograms() {
-            ProgramList = await ProgramGetter.GetAllProgramsBySource(_sourceCode, _searchGenericItem == null ? "" : _searchGenericItem.SearchItem);
+            ProgramList = await ProgramGetter.GetAllProgramsBySource(_sourceCode, _searchGenericItem == null ? "" : _searchGenericItem.SearchItem, _searchGenericItem == null ? "" : _searchGenericItem.Department ?? "");
             StateHasChanged();
         }
 
@@ -46,6 +51,8 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
             _sourceCode = await Layout.CheckSource();
             _usePrograms = await SourceHelper.DoesSourceUseItem(_sourceCode, CategoryType.Program);
             await GetPrograms();
+            var (tagSources, _) = await FilterHelper.GetFilters(_sourceCode, TagType.Department);
+            DepartmentList = [.. tagSources.Select(t => t.Title).OrderBy(t => t)];
             await base.OnInitializedAsync();
         }
 

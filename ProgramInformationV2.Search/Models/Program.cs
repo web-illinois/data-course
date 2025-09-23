@@ -48,7 +48,7 @@ namespace ProgramInformationV2.Search.Models {
         public override string EditLink => _editLink + "program/" + Id;
 
         [Keyword]
-        public IEnumerable<string> Formats => Credentials.Where(c => c.CredentialType != CredentialType.None && c.IsActive).Select(c => c.FormatType.ConvertToSingleString()).Distinct();
+        public IEnumerable<string> Formats => Credentials.Where(c => c.CredentialType != CredentialType.None && c.IsActive).SelectMany(c => c.FormatType.ConvertFormatList()).Distinct();
 
         public string ProgramGroupDescription { get; set; } = "";
 

@@ -14,7 +14,7 @@
             A valid program must contain one or more credentials. A program may have only one credential. 
         </p>
 
-        <SearchGenericItem @ref="@_searchGenericItem" GenericItems="@ProgramList" ItemTitle="Program" EditClicked="ChooseProgram" SearchClicked="GetPrograms"></SearchGenericItem>
+        <SearchGenericItem @ref="@_searchGenericItem" GenericItems="@ProgramList" ItemTitle="Program" EditClicked="ChooseProgram" SearchClicked="GetPrograms" DepartmentOptions="DepartmentList"></SearchGenericItem>
 
         <h2>Create a new program</h2>
         <button class="ilw-button" @onclick="SetNewProgram">Create Program</button>

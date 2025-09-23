@@ -14,6 +14,11 @@ namespace ProgramInformationV2.Components.Controls {
         [Parameter]
         public EventCallback<string> AddClicked { get; set; }
 
+        public string? Department { get; set; }
+
+        [Parameter]
+        public IEnumerable<string>? DepartmentOptions { get; set; }
+
         [Parameter]
         public EventCallback<string> EditClicked { get; set; }
 
@@ -56,6 +61,13 @@ namespace ProgramInformationV2.Components.Controls {
         protected async Task FilterChange(ChangeEventArgs e) {
             SearchItem = e.Value?.ToString() ?? "";
             SelectedItemId = "";
+            await SearchClicked.InvokeAsync();
+            if (GenericItems.Count == 1) {
+                SelectedItemId = GenericItems[0].Id;
+            }
+        }
+
+        protected async Task FilterChangeDepartment() {
             await SearchClicked.InvokeAsync();
             if (GenericItems.Count == 1) {
                 SelectedItemId = GenericItems[0].Id;

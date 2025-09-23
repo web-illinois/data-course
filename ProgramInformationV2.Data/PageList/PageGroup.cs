@@ -104,7 +104,10 @@
                                  new ("Courses", "/configuration/fieldsused/courses"),
                                  new ("Sections", "/configuration/fieldsused/sections"),
                                  new ("Requirement Sets", "/configuration/fieldsused/requirementsets") } },
-            { SidebarEnum.Audit, new() { new ("Access Logs", "/audit/changed") } }
+            { SidebarEnum.Audit, new() { new ("Access Logs", "/audit/changed"),
+                                 new ("Unused Requirement Sets", "/audit/unusedrequirementsets"),
+                                 new ("Public Requirement Sets", "/audit/publicrequirementsets"),
+                                 new ("List of Requirement Sets", "/audit/listrequirementsets") } }
         };
 
         public static List<PageLink>? GetBreadcrumbs(SidebarEnum s) => _breadcrumbs.TryGetValue(s, out var value) ? value : null;

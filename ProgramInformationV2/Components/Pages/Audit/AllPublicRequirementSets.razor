@@ -1,0 +1,25 @@
+﻿@page "/audit/listrequirementsets"
+@layout SidebarLayout
+
+<PageTitle>Audit - List of All Public Requirement Sets</PageTitle>
+
+<ilw-content>
+    <h1>List of All Public Requirement Sets</h1>
+
+    @if (RequirementSetList != null)
+    {
+        <table>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Is Active</th>
+            </tr>
+            @foreach (var req in RequirementSetList)
+            {
+                <tr>
+                    <td><a @onclick="() => Edit(req.Id)">@((MarkupString)req.Title)</a></td>
+                    <td>@req.IsActive</td>
+                </tr>
+            }
+        </table>
+    }
+</ilw-content>

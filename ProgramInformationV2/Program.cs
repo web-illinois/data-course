@@ -11,6 +11,7 @@ using ProgramInformationV2.Data.DataHelpers;
 using ProgramInformationV2.Data.FieldList;
 using ProgramInformationV2.Data.Uploads;
 using ProgramInformationV2.Search;
+using ProgramInformationV2.Search.AuditHelpers;
 using ProgramInformationV2.Search.Getters;
 using ProgramInformationV2.Search.Helpers;
 using ProgramInformationV2.Search.Setters;
@@ -58,6 +59,7 @@ builder.Services.AddScoped<CourseGetter>();
 builder.Services.AddScoped<CourseSetter>();
 builder.Services.AddScoped<RequirementSetGetter>();
 builder.Services.AddScoped<RequirementSetSetter>();
+builder.Services.AddScoped<RequirementSetAudits>();
 builder.Services.AddScoped<JsonHelper>();
 builder.Services.AddScoped<BulkEditor>();
 
