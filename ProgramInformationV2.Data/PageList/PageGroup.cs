@@ -107,7 +107,9 @@
             { SidebarEnum.Audit, new() { new ("Access Logs", "/audit/changed"),
                                  new ("Unused Requirement Sets", "/audit/unusedrequirementsets"),
                                  new ("Public Requirement Sets", "/audit/publicrequirementsets"),
-                                 new ("List of Requirement Sets", "/audit/listrequirementsets") } }
+                                 new ("List of Requirement Sets", "/audit/listrequirementsets"),
+                                 new ("Courses By Requirement Sets", "/audit/coursebyrequirementset"),
+                                 new ("Requirement Sets with Invalid Courses", "/audit/requirementsetswithinvalidcourses") } }
         };
 
         public static List<PageLink>? GetBreadcrumbs(SidebarEnum s) => _breadcrumbs.TryGetValue(s, out var value) ? value : null;

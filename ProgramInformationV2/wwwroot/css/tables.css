@@ -16,3 +16,7 @@
     ilw-content table tr:nth-child(even) {
         background: var(--il-storm-lighter-4);
     }
+
+    ilw-content table tr td a {
+        text-decoration: none;
+    }

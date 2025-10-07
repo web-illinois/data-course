@@ -16,7 +16,15 @@
             @foreach (var req in RequirementSetList)
             {
                 <tr>
-                    <td><a @onclick="() => Edit(req.Id)">@((MarkupString)req.Title)</a></td>
+                    <td><a @onclick="() => Edit(req.Id)">@((MarkupString)req.Title)</a>
+                        <ul>
+                            @foreach (var child in req.Children)
+                            {
+                                <li><a @onclick="() => EditCourse(child.Id)">@child.Title</a></li>
+                            }
+                        </ul>
+
+                    </td>
                     <td>@req.IsActive</td>
                 </tr>
             }

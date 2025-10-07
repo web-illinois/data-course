@@ -1,0 +1,32 @@
+﻿@page "/audit/coursebyrequirementset"
+@layout SidebarLayout
+
+<PageTitle>Audit - List of Courses by Requirement Set</PageTitle>
+
+<ilw-content>
+    <h1>List of Courses by Requirement Set</h1>
+
+    @if (CourseList != null)
+    {
+        <table>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Is Active</th>
+            </tr>
+            @foreach (var course in CourseList)
+            {
+                <tr>
+                    <td><a @onclick="() => Edit(course.Id)">@((MarkupString)course.Title)</a>
+                        <ul>
+                        @foreach (var child in course.Children)
+                        {
+                            <li><a @onclick="() => EditRequirement(child.Id)">@((MarkupString)child.Title)</a></li>
+                        }
+                        </ul>
+                    </td>
+                    <td>@course.IsActive</td>
+                </tr>
+            }
+        </table>
+    }
+</ilw-content>

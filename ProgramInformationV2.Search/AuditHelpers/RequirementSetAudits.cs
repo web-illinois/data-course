@@ -6,7 +6,7 @@ namespace ProgramInformationV2.Search.AuditHelpers {
     public class RequirementSetAudits(OpenSearchClient? openSearchClient) {
         private readonly OpenSearchClient _openSearchClient = openSearchClient ?? default!;
 
-        public async Task<List<GenericItem>> GetAllRequirementPublicSets(string source) {
+        public async Task<List<GenericItemWithChildren>> GetAllRequirementPublicSets(string source) {
             var response = await _openSearchClient.SearchAsync<RequirementSet>(s => s.Index(UrlTypes.RequirementSets.ConvertToUrlString())
                     .Size(1000)
                     .Query(q => q
@@ -16,7 +16,49 @@ namespace ProgramInformationV2.Search.AuditHelpers {
             if (_openSearchClient.ConnectionSettings.DisableDirectStreaming) {
                 Console.WriteLine(response.DebugInformation);
             }
-            return response.IsValid ? response.Documents.Where(r => r.CredentialId == "").Select(r => new GenericItem { Id = r.Id, Title = GenerateString(r), IsActive = r.IsActive, Order = r.Order }).OrderBy(g => g.Title).ToList() : [];
+            return response.IsValid ? [.. response.Documents.Where(r => r.CredentialId == "").Select(r => new GenericItemWithChildren { Id = r.Id, Title = r.Title + (string.IsNullOrWhiteSpace(r.Description) ? "" : "<br />" + r.Description), IsActive = r.IsActive, Order = r.Order, Children = [.. r.CourseRequirements.Select(cr => new GenericItem { Title = cr.Title, Id = cr.CourseId })] }).OrderBy(g => g.Title)] : [];
+        }
+
+        public async Task<List<GenericItem>> GetAllRequirementSetsWithInvalidCourses(string source) {
+            var requirementSets = await _openSearchClient.SearchAsync<RequirementSet>(s => s.Index(UrlTypes.RequirementSets.ConvertToUrlString())
+                    .Size(1000)
+                    .Query(q => q
+                    .Bool(b => b
+                    .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)), f => f.Term(m => m.Field(fld => fld.IsActive).Value(true))))));
+
+            if (_openSearchClient.ConnectionSettings.DisableDirectStreaming) {
+                Console.WriteLine(requirementSets.DebugInformation);
+            }
+
+            var courses = await _openSearchClient.SearchAsync<Course>(s => s.Index(UrlTypes.Courses.ConvertToUrlString())
+                    .Size(10000)
+                    .Source(s => s.Includes(f => f.Fields("title", "id", "isActive")))
+                    .Query(q => q
+                    .Bool(b => b
+                    .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source))))));
+
+            if (_openSearchClient.ConnectionSettings.DisableDirectStreaming) {
+                Console.WriteLine(courses.DebugInformation);
+            }
+
+            if (!requirementSets.IsValid || !courses.IsValid) {
+                return [];
+            }
+
+            var returnValue = new List<GenericItem>();
+
+            foreach (var requirement in requirementSets.Documents) {
+                if (requirement.CourseRequirements != null) {
+                    foreach (var course in requirement.CourseRequirements) {
+                        var courseDetail = courses.Documents.FirstOrDefault(c => c.Id == course.CourseId);
+                        if (courseDetail == null) {
+                            returnValue.Add(new GenericItem { Id = requirement.Id, Title = requirement.InternalTitle + ": " + course.Title, IsActive = requirement.IsActive, Order = requirement.Order });
+                        }
+                    }
+                }
+            }
+
+            return [.. returnValue.OrderBy(g => g.Title)];
         }
 
         public async Task<List<GenericItem>> GetMissingRequirementSets(string source) {
@@ -68,10 +110,6 @@ namespace ProgramInformationV2.Search.AuditHelpers {
                 Console.WriteLine(response.DebugInformation);
             }
             return response.IsValid ? response.Documents.Where(r => r.CredentialId == "").Select(r => r.GetGenericItem()).OrderBy(g => g.Title).ToList() : [];
-        }
-
-        private static string GenerateString(RequirementSet r) {
-            return r.Title + (string.IsNullOrWhiteSpace(r.Description) ? "" : "<br />" + r.Description) + "<br />" + string.Join(" / ", r.CourseRequirements.Select(cr => cr.Title + ": " + cr.Description));
         }
     }
 }

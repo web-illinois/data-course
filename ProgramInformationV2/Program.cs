@@ -59,6 +59,7 @@ builder.Services.AddScoped<CourseGetter>();
 builder.Services.AddScoped<CourseSetter>();
 builder.Services.AddScoped<RequirementSetGetter>();
 builder.Services.AddScoped<RequirementSetSetter>();
+builder.Services.AddScoped<CourseAudits>();
 builder.Services.AddScoped<RequirementSetAudits>();
 builder.Services.AddScoped<JsonHelper>();
 builder.Services.AddScoped<BulkEditor>();

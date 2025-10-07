@@ -1,0 +1,25 @@
+﻿@page "/audit/requirementsetswithinvalidcourses"
+@layout SidebarLayout
+
+<PageTitle>Audit - Requirement Sets With Invalid Courses</PageTitle>
+
+<ilw-content>
+    <h1>Requirement Sets With Invalid Courses</h1>
+
+    @if (RequirementSetList != null)
+    {
+        <table>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Is Active</th>
+            </tr>
+            @foreach (var req in RequirementSetList)
+            {
+                <tr>
+                    <td><p><a @onclick="() => Edit(req.Id)">@req.Title</a></p></td>
+                    <td>@req.IsActive</td>
+                </tr>
+            }
+        </table>
+    }
+</ilw-content>

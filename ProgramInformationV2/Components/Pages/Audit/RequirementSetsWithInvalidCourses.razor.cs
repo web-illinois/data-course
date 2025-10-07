@@ -6,7 +6,7 @@ using ProgramInformationV2.Search.Models;
 
 namespace ProgramInformationV2.Components.Pages.Audit {
 
-    public partial class AllPublicRequirementSets {
+    public partial class RequirementSetsWithInvalidCourses {
 
         [CascadingParameter]
         public SidebarLayout Layout { get; set; } = default!;
@@ -14,25 +14,20 @@ namespace ProgramInformationV2.Components.Pages.Audit {
         [Inject]
         public RequirementSetAudits RequirementSetAudits { get; set; } = default!;
 
-        public List<GenericItemWithChildren> RequirementSetList { get; set; } = default!;
+        public List<GenericItem> RequirementSetList { get; set; } = default!;
 
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         protected async Task Edit(string requirementId) {
             await Layout.SetCacheId(requirementId);
-            NavigationManager.NavigateTo("/requirementset/technical", true);
-        }
-
-        protected async Task EditCourse(string courseId) {
-            await Layout.SetCacheId(courseId);
-            NavigationManager.NavigateTo("/course/technical", true);
+            NavigationManager.NavigateTo("/requirementset/courses", true);
         }
 
         protected override async Task OnInitializedAsync() {
             await base.OnInitializedAsync();
             Layout.SetSidebar(SidebarEnum.Audit, "Audit");
-            RequirementSetList = await RequirementSetAudits.GetAllRequirementPublicSets(await Layout.CheckSource());
+            RequirementSetList = await RequirementSetAudits.GetAllRequirementSetsWithInvalidCourses(await Layout.CheckSource());
         }
     }
 }
