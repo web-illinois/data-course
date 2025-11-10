@@ -109,7 +109,8 @@
                                  new ("Public Requirement Sets", "/audit/publicrequirementsets"),
                                  new ("List of Requirement Sets", "/audit/listrequirementsets"),
                                  new ("Courses By Requirement Sets", "/audit/coursebyrequirementset"),
-                                 new ("Requirement Sets with Invalid Courses", "/audit/requirementsetswithinvalidcourses") } }
+                                 new ("Requirement Sets with Invalid Courses", "/audit/requirementsetswithinvalidcourses"),
+                                 new ("All Programs and Credentials", "/audit/allprograms")} }
         };
 
         public static List<PageLink>? GetBreadcrumbs(SidebarEnum s) => _breadcrumbs.TryGetValue(s, out var value) ? value : null;
