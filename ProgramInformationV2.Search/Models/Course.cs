@@ -1,4 +1,5 @@
-﻿using OpenSearch.Client;
+﻿using System.Text.Json;
+using OpenSearch.Client;
 
 namespace ProgramInformationV2.Search.Models {
 
@@ -102,5 +103,7 @@ namespace ProgramInformationV2.Search.Models {
             Title = string.IsNullOrWhiteSpace(Rubric) || string.IsNullOrWhiteSpace(CourseNumber) ? CourseTitle : $"{Rubric} {CourseNumber}: {CourseTitle}";
             Sections.ForEach(s => { s.Source = Source; s.CourseId = Id; s.SetId(); });
         }
+
+        public override string ToString() => JsonSerializer.Serialize(this);
     }
 }

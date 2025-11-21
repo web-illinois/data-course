@@ -45,6 +45,7 @@ builder.Services.AddScoped<SourceHelper>();
 builder.Services.AddScoped<FilterHelper>();
 builder.Services.AddScoped<CourseImportHelper>();
 builder.Services.AddScoped<LogHelper>();
+builder.Services.AddScoped<ApiHelper>();
 builder.Services.AddScoped<SecurityHelper>();
 builder.Services.AddScoped<FieldManager>();
 builder.Services.AddScoped<FacultyNameCourseHelper>();
@@ -88,7 +89,7 @@ app.Lifetime.ApplicationStarted.Register(() => {
     using var serviceScope = factory.CreateScope();
     // Ensure the database is created
     var context = serviceScope.ServiceProvider.GetRequiredService<ProgramContext>();
-    _ = context.Database.EnsureCreated();
+    context.Database.Migrate();
     // Ensure the search index is created
     var openSearchClient = serviceScope.ServiceProvider.GetRequiredService<OpenSearchClient>();
     Console.WriteLine(OpenSearchFactory.MapIndex(openSearchClient));

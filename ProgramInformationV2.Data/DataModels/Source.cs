@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ProgramInformationV2.Data.DataModels {
 
     public class Source : BaseDataItem {
+        public string ApiSecretCurrent { get; set; } = "";
+        public DateTime? ApiSecretLastChanged { get; set; }
+        public string ApiSecretPrevious { get; set; } = "";
         public string BaseUrl { get; set; } = "";
 
         public string Code { get; set; } = "";

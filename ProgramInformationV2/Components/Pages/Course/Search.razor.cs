@@ -9,6 +9,8 @@ using ProgramInformationV2.Search.Models;
 namespace ProgramInformationV2.Components.Pages.Course {
 
     public partial class Search {
+        private bool _isRestricted = false;
+        private string[] _restrictedIds = [];
         private SearchGenericItem _searchGenericItem = default!;
 
         private string _sourceCode = "";
@@ -26,6 +28,9 @@ namespace ProgramInformationV2.Components.Pages.Course {
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
+        protected SecurityHelper SecurityHelper { get; set; } = default!;
+
+        [Inject]
         protected SourceHelper SourceHelper { get; set; } = default!;
 
         protected async Task ChooseCourse() {
@@ -37,6 +42,9 @@ namespace ProgramInformationV2.Components.Pages.Course {
 
         protected async Task GetCourses() {
             CourseList = await CourseGetter.GetAllCoursesBySource(_sourceCode, _searchGenericItem == null ? "" : _searchGenericItem.SearchItem);
+            if (_isRestricted) {
+                CourseList = [.. CourseList.Where(pl => _restrictedIds.Contains(pl.Id))];
+            }
             StateHasChanged();
         }
 
@@ -48,6 +56,7 @@ namespace ProgramInformationV2.Components.Pages.Course {
         protected override async Task OnInitializedAsync() {
             Layout.SetSidebar(SidebarEnum.Courses, "Courses");
             _sourceCode = await Layout.CheckSource();
+            (_isRestricted, _restrictedIds) = await SecurityHelper.GetRestrictions(await Layout.GetNetId(), _sourceCode);
             _useCourses = await SourceHelper.DoesSourceUseItem(_sourceCode, Data.DataModels.CategoryType.Course);
             await GetCourses();
             await base.OnInitializedAsync();

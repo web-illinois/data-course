@@ -1,4 +1,5 @@
-﻿using OpenSearch.Client;
+﻿using System.Text.Json;
+using OpenSearch.Client;
 
 namespace ProgramInformationV2.Search.Models {
 
@@ -92,5 +93,7 @@ namespace ProgramInformationV2.Search.Models {
             Title = string.IsNullOrWhiteSpace(DateString) || string.IsNullOrWhiteSpace(SectionCode) ? AlternateTitle :
                 (string.IsNullOrWhiteSpace(AlternateTitle) ? $"{DateString}: {SectionCode}" : $"{AlternateTitle} ({DateString}: {SectionCode})");
         }
+
+        public override string ToString() => JsonSerializer.Serialize(this);
     }
 }

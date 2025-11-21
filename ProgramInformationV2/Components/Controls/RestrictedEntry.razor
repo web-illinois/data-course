@@ -1,0 +1,18 @@
+﻿@if (SecurityEntry != null)
+{
+<div>
+    <div class="ils-input-entry">
+        <div class="ils-input-entry-compact">
+            <label for="@SecurityEntry.Email">@SecurityEntry.Email</label>
+            <div class="ils-toggle-slider">
+                    <input id="@SecurityEntry.Email" type="checkbox" role="switch" checked="@IsAdded" onchange="@Change" />
+                <span>
+                    <span class="ils-container"></span>
+                    <span aria-hidden="true" class="ils-text-on" style="width: 100px;">Can Edit</span>
+                    <span aria-hidden="true" class="ils-text-off" style="width: 100px;">Cannot Edit</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>    
+}

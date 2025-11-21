@@ -36,7 +36,5 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
             Layout.SetSidebar(sidebar, "Configuration");
             SourceEntries = await SourceHelper.GetSourcesAndOwners();
         }
-
-        protected async Task RequestAccess(string key) => await Layout.AddMessage(await SourceHelper.RequestAccess(key, await UserHelper.GetUser(AuthenticationStateProvider)));
     }
 }

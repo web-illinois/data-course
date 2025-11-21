@@ -1,4 +1,5 @@
-﻿using OpenSearch.Client;
+﻿using System.Text.Json;
+using OpenSearch.Client;
 
 namespace ProgramInformationV2.Search.Models {
 
@@ -71,5 +72,9 @@ namespace ProgramInformationV2.Search.Models {
             Notes = CleanHtml(Notes);
             ProcessLists();
         }
+
+        public override GenericItem GetGenericItem() => new() { Id = Id, IsActive = IsActive, Order = Order, Title = InternalTitle, ParentId = ProgramId };
+
+        public override string ToString() => JsonSerializer.Serialize(this);
     }
 }

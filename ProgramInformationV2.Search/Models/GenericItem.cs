@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace ProgramInformationV2.Search.Models {
+
     public class GenericItem {
 
         [JsonPropertyName("id")]
@@ -11,6 +12,9 @@ namespace ProgramInformationV2.Search.Models {
 
         [JsonPropertyName("order")]
         public int Order { get; set; }
+
+        [JsonPropertyName("parentid")]
+        public string ParentId { get; set; } = "";
 
         [JsonPropertyName("title")]
         public string Title { get; set; } = "";

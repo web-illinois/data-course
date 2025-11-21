@@ -10,7 +10,7 @@ ilw-content .requirement-box, ilw-content .credential-box, ilw-content .security
         color: var(--il-industrial);
     }
 
-ilw-content .requirement-box, ilw-content .security-box {
+ilw-content .requirement-box {
     grid-template-columns: 1fr 125px;
 }
 

@@ -48,7 +48,7 @@ namespace ProgramInformationV2.LoadFromEdw {
                 var requirement = requirementSets.FirstOrDefault(r => r.Id == item.parentid.ToString());
                 if (requirement != null) {
                     string courseId = (item.source.ToString().Trim() + "-" + item.course.rubric.ToString().Trim() + "-" + item.course.coursenumber.ToString().Trim()).ToString();
-                    var course = await courseGetter.GetCourse(courseId, true);
+                    var course = await courseGetter.GetCourse(courseId, "", true);
                     if (!string.IsNullOrEmpty(course.Id)) {
                         requirement.CourseRequirements.Add(new Models.CourseRequirement {
                             IsActive = true,
