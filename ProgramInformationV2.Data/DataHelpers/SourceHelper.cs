@@ -15,7 +15,7 @@ namespace ProgramInformationV2.Data.DataHelpers {
             _ = await _programRepository.CreateAsync(new Source { Code = newSourceCode.ToLowerInvariant(), CreatedByEmail = email, IsActive = true, IsTest = false, Title = newTitle });
             var newSource = await _programRepository.ReadAsync(pr => pr.Sources.FirstOrDefault(s => s.Code == newSourceCode.ToLowerInvariant()));
             if (newSource != null) {
-                _ = await _programRepository.CreateAsync(new SecurityEntry { SourceId = newSource.Id, IsActive = true, IsFullAdmin = true, IsOwner = true, IsPublic = true, IsRequested = false, Email = email });
+                _ = await _programRepository.CreateAsync(new SecurityEntry { SourceId = newSource.Id, IsActive = true, IsFullAdmin = true, IsOwner = true, IsPublic = true, Email = email });
             }
             return $"Added source {newTitle} with code {newSourceCode}";
         }
@@ -49,7 +49,7 @@ namespace ProgramInformationV2.Data.DataHelpers {
             return source?.BaseUrl ?? "";
         }
 
-        public async Task<Dictionary<string, string>> GetSources(string netId) => await _programRepository.ReadAsync(c => c.SecurityEntries.Include(se => se.Source).Where(se => se.IsActive && !se.IsRequested && se.Email == netId).ToDictionary(se => se.Source?.Code ?? "", se2 => se2.Source?.Title ?? ""));
+        public async Task<Dictionary<string, string>> GetSources(string netId) => await _programRepository.ReadAsync(c => c.SecurityEntries.Include(se => se.Source).Where(se => se.IsActive && se.Email == netId).ToDictionary(se => se.Source?.Code ?? "", se2 => se2.Source?.Title ?? ""));
 
         public async Task<IEnumerable<Tuple<string, string>>> GetSourcesAndOwners() => await _programRepository.ReadAsync(c => c.Sources.Where(s => s.IsActive).OrderBy(s => s.Title).Select(s => new Tuple<string, string>(s.CreatedByEmail, $"{s.Title} ({s.Code})")));
 
@@ -68,14 +68,12 @@ namespace ProgramInformationV2.Data.DataHelpers {
             if (existingItem != null) {
                 if (existingItem.IsActive) {
                     return "You already have access";
-                } else if (existingItem.IsRequested) {
-                    return "You entry is pending";
                 } else {
                     return "You entry has been rejected -- please contact the owner for more information";
                 }
             }
 
-            var value = await _programRepository.CreateAsync(new SecurityEntry(email, source.Id, true));
+            var value = await _programRepository.CreateAsync(new SecurityEntry(email, source.Id));
             return $"Requested access to code {sourceCode}";
         }
 

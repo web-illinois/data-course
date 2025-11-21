@@ -1,0 +1,32 @@
+﻿@page "/audit/allprograms"
+@layout SidebarLayout
+
+<PageTitle>Audit - List of All Programs and Credentials</PageTitle>
+
+<ilw-content>
+    <h1>List of All Programs and Credentials</h1>
+
+    @if (ListOfItems != null)
+    {
+        <p><button class="ilw-button" @onclick="SaveAsFile" @onblur="Layout.RemoveMessage">Download as Tab-delimed Text File</button></p>
+        <table>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Url</th>
+                <th scope="col">Is Active</th>
+            </tr>
+            @foreach (var req in ListOfItems)
+            {
+                <tr>
+                    <td>
+                        @req.Title
+                    </td>
+                    <td>
+                        @req.Id
+                    </td>
+                    <td>@req.IsActive</td>
+                </tr>
+            }
+        </table>
+    }
+</ilw-content>

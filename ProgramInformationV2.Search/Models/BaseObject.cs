@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using OpenSearch.Client;
 
 namespace ProgramInformationV2.Search.Models {
@@ -57,7 +56,5 @@ namespace ProgramInformationV2.Search.Models {
         public virtual void SetFragment() => Fragment = string.IsNullOrWhiteSpace(Fragment) ? "" : new string([.. Fragment.Where(c => char.IsLetterOrDigit(c) || c == ' ' || c == '-' || c == '/')]).Replace(" ", "-").ToLowerInvariant();
 
         public virtual void SetId() => Id = string.IsNullOrWhiteSpace(Id) ? CreateId : Id;
-
-        public override string ToString() => JsonSerializer.Serialize(this);
     }
 }

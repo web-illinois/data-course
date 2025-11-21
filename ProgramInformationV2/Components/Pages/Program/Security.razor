@@ -1,0 +1,18 @@
+﻿@page "/program/security"
+@layout SidebarLayout
+
+<PageTitle>Programs - Security</PageTitle>
+
+<ilw-content>
+    <h1>Security</h1>
+    <p>Note that all changes will happen immediately -- you do not need to click a <em>save</em> button to save your changes.</p>
+
+@if (ProgramItem != null && SecurityEntries != null)
+{
+    @foreach (var entry in SecurityEntries)
+    {
+        <RestrictedEntry ItemId="@ProgramItem.Id" SecurityEntry="@entry"></RestrictedEntry>
+    }
+    <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
+}
+</ilw-content>

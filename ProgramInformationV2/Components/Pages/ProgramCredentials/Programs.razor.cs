@@ -10,11 +10,12 @@ using ProgramInformationV2.Search.Models;
 namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
 
     public partial class Programs {
+        private bool _isRestricted = false;
+        private string[] _restrictedIds = [];
         private SearchGenericItem _searchGenericItem = default!;
 
         private string _sourceCode = "";
         private bool? _usePrograms;
-
         public List<string> DepartmentList { get; set; } = default!;
 
         [CascadingParameter]
@@ -32,6 +33,9 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
         protected ProgramGetter ProgramGetter { get; set; } = default!;
 
         [Inject]
+        protected SecurityHelper SecurityHelper { get; set; } = default!;
+
+        [Inject]
         protected SourceHelper SourceHelper { get; set; } = default!;
 
         protected async Task ChooseProgram() {
@@ -43,6 +47,9 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
 
         protected async Task GetPrograms() {
             ProgramList = await ProgramGetter.GetAllProgramsBySource(_sourceCode, _searchGenericItem == null ? "" : _searchGenericItem.SearchItem, _searchGenericItem == null ? "" : _searchGenericItem.Department ?? "");
+            if (_isRestricted) {
+                ProgramList = [.. ProgramList.Where(pl => _restrictedIds.Contains(pl.Id))];
+            }
             StateHasChanged();
         }
 
@@ -50,6 +57,7 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
             Layout.SetSidebar(SidebarEnum.ProgramCredential, "Programs and Credentials");
             _sourceCode = await Layout.CheckSource();
             _usePrograms = await SourceHelper.DoesSourceUseItem(_sourceCode, CategoryType.Program);
+            (_isRestricted, _restrictedIds) = await SecurityHelper.GetRestrictions(await Layout.GetNetId(), _sourceCode);
             await GetPrograms();
             var (tagSources, _) = await FilterHelper.GetFilters(_sourceCode, TagType.Department);
             DepartmentList = [.. tagSources.Select(t => t.Title).OrderBy(t => t)];

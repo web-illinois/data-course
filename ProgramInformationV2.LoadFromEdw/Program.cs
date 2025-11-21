@@ -3,6 +3,21 @@ using ProgramInformationV2.LoadFromEdw;
 
 Console.WriteLine("Starting load");
 
+var searchUrl = "https://search-sitefinity-search-2022-mxlf4grqurtcjtyyk4gaar6inq.us-east-2.es.amazonaws.com/";
+var searchKey = "";
+var searchSecret = "";
+var databaseConnectionString = "";
+
+if (args.Length == 3 && args[0].Equals("courseload")) {
+    await LoadCourses.Run(args[1], args[2], searchUrl, searchKey, searchSecret, "https://education.illinois.edu/course/{rubric}/{coursenumber}", "course/{rubric}/{coursenumber}", databaseConnectionString);
+} else {
+    await LoadCourses.Run("CI,EDPR,EDUC,EPOL,ERAM,EPSY,SPED", "coe", searchUrl, searchKey, searchSecret, "https://education.illinois.edu/course/{rubric}/{coursenumber}", "course/{rubric}/{coursenumber}", databaseConnectionString);
+}
+
+Console.WriteLine("Press enter to continue...");
+Console.ReadLine();
+
+/*
 var path = "C:\\Users\\jonker\\Downloads\\";
 
 JsonManipulation.TranslateCourses(path, "coe_2025_06_07_courses_1.json");

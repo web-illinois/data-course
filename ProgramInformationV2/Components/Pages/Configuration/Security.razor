@@ -5,19 +5,49 @@
 
 <ilw-content>
     <h1>Security</h1>
-
-    @foreach (var netid in NetIds)
+    @if (IsRestricted)
     {
-        <div class="security-box">
-        <p>@netid</p>
-        <button class="ilw-button" @onclick="e => Remove(netid)">Remove</button>
-        </div>
+        <p>The security screen is not available for users that are restricted to a group of programs / credentials. Please contact the owner of this source to assign you unrestricted access.</p>
     }
-
-    <div class="ils-input-entry">
-        <label for="newnetid">New Net ID</label>
-        <input id="newnetid" type="text" @bind="NewNetId" class="ils-input-long" />
-        <p>Add a Net ID to add to the list. The <em>@@illinois.edu</em> is optional.</p>
-    </div>
-    <p><button class="ilw-button" @onclick="Add">Add Net ID</button></p>
+    @if (!IsRestricted)
+    {
+        <h2>Existing Names</h2>
+        @foreach (var netid in NetIds)
+        {
+            <div class="security-box">
+                <p>@netid.Email @netid.Notes</p>
+                <div>
+                    <button class="ilw-button" @onclick="e => Deactivate(netid)">@(netid.IsActive ? "Deactivate User" : "Activate User")</button>
+                    <button class="ilw-button" @onclick="e => Restrict(netid)">@(netid.IsRestricted ? "Allow User To Access Everything" : "Restrict User Access") </button>
+                    <button class="ilw-button" @onclick="e => Remove(netid)">Remove User</button>
+                </div>
+            </div>
+        }
+        <h2>Adding a New Name</h2>
+        <div class="ils-input-entry">
+            <label for="newnetid">New Net ID</label>
+            <input id="newnetid" type="text" @bind="NewNetId" class="ils-input-long" />
+            <p>Add a Net ID to add to the list. The <em>@@illinois.edu</em> is optional.</p>
+        </div>
+        <p><button class="ilw-button" @onclick="Add">Add Net ID</button></p>
+        <h2>API Updates</h2>
+        <p>This generates an API key that will allow you to programatically add, update, and delete items within your source.</p>
+        @if (UseApi)
+        {
+            <p>You currently have an API key active. This was last changed on @LastDateApiChanged.ToShortDateString().</p>
+            <p><button class="ilw-button" @onclick="CreateApi">Create a New API key</button></p>
+            <p><button class="ilw-button" @onclick="InvalidateApi">Invalidate the API key</button></p>
+        }
+        else
+        {
+            <p>You do not currently have an API key active.</p>
+            <p><button class="ilw-button" @onclick="CreateApi">Create a New API key</button></p>
+        }
+        @if (ApiGuid != "")
+        {
+            <p>The API key has been generated. Please record this as you will not be able to access this after your leave this page.</p>
+            <p>If you had a valid API key before creating this new API key, it will be usable as well. If you wish to deactivate the old API key (because it has been compromised), then you should invalidate the API key and then create a new key.</p>
+            <p><code>API Key: <strong>@ApiGuid</strong></code></p>
+        }
+    }
 </ilw-content>

@@ -18,12 +18,17 @@ namespace ProgramInformationV2.Search.Getters {
             return response.IsValid ? [.. response.Documents.Select(r => r.GetGenericItem()).OrderBy(g => g.Title)] : [];
         }
 
-        public async Task<Course> GetCourse(string id, bool activeOnly = false) {
+        public async Task<Course> GetCourse(string id, string section = "", bool activeOnly = false) {
             if (string.IsNullOrWhiteSpace(id)) {
                 return new();
             }
             var response = await _openSearchClient.GetAsync<Course>(id);
             LogDebug(response);
+            if (response.IsValid && !string.IsNullOrWhiteSpace(section)) {
+                var returnValue = response.Source;
+                _ = returnValue.Sections.RemoveAll(a => a.SectionCode != section);
+                return returnValue;
+            }
             return response.IsValid ? response.Source : new Course();
         }
 

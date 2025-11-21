@@ -16,6 +16,7 @@ namespace ProgramInformationV2.Data.DataModels {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
 
+        public string Item { get; set; } = "";
         public virtual Source Source { get; set; } = default!;
 
         public int SourceId { get; set; }

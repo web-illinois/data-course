@@ -14,11 +14,17 @@ namespace ProgramInformationV2.Data.DataHelpers {
                 l.Source.Code == sourceName && l.LastUpdated > date).OrderByDescending(s => s.LastUpdated).Take(500))];
         }
 
+        public async Task<IEnumerable<Log>> GetLog(string sourceName, string id) {
+            return [.. await _programRepository.ReadAsync(c => c.Logs.Include(l => l.Source).Where(l => l.Source != null &&
+                l.Source.Code == sourceName && l.Item == id).OrderByDescending(s => s.LastUpdated).Take(500))];
+        }
+
         public async Task<bool> Log(CategoryType categoryType, FieldType fieldType, string netId, string sourceName, BaseObject data, string subject = "") {
             var sourceId = (await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceName)))?.Id ?? 0;
             if (sourceId == 0) {
                 return false;
             }
+            var dataString = data.ToString();
             var log = new Log {
                 Title = data.Title,
                 FieldType = fieldType,
@@ -26,7 +32,8 @@ namespace ProgramInformationV2.Data.DataHelpers {
                 SubjectId = subject,
                 CategoryType = categoryType,
                 SourceId = sourceId,
-                Data = data.ToString()
+                Item = data.Id,
+                Data = dataString ?? ""
             };
             return (await _programRepository.CreateAsync(log)) > 0;
         }

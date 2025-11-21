@@ -1,4 +1,5 @@
-﻿using OpenSearch.Client;
+﻿using System.Text.Json;
+using OpenSearch.Client;
 
 namespace ProgramInformationV2.Search.Models {
 
@@ -96,5 +97,7 @@ namespace ProgramInformationV2.Search.Models {
             base.SetId();
             Credentials.ForEach(c => { c.Source = Source; c.ProgramId = Id; c.ProgramTitle = Title; c.SetId(); });
         }
+
+        public override string ToString() => JsonSerializer.Serialize(this);
     }
 }

@@ -10,6 +10,8 @@ using ProgramInformationV2.Search.Models;
 namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
 
     public partial class Credentials {
+        private bool _isRestricted = false;
+        private string[] _restrictedIds = [];
         private SearchGenericItem _searchGenericItem = default!;
         private string _sourceCode = "";
         private bool? _useCredentials;
@@ -35,6 +37,9 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
         protected ProgramGetter ProgramGetter { get; set; } = default!;
 
         [Inject]
+        protected SecurityHelper SecurityHelper { get; set; } = default!;
+
+        [Inject]
         protected SourceHelper SourceHelper { get; set; } = default!;
 
         protected async Task ChooseCredential() {
@@ -45,7 +50,10 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
         }
 
         protected async Task GetCredentials() {
-            CredentialList = await CredentialGetter.GetAllCredentialsBySource(_sourceCode, _searchGenericItem == null ? "" : _searchGenericItem.SearchItem, _searchGenericItem == null ? "" : _searchGenericItem.Department);
+            CredentialList = await CredentialGetter.GetAllCredentialsBySource(_sourceCode, _searchGenericItem == null ? "" : _searchGenericItem.SearchItem, _searchGenericItem == null ? "" : _searchGenericItem.Department ?? "");
+            if (_isRestricted) {
+                CredentialList = [.. CredentialList.Where(pl => _restrictedIds.Contains(pl.Id) || _restrictedIds.Contains(pl.ParentId))];
+            }
             StateHasChanged();
         }
 
@@ -54,6 +62,7 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
             _sourceCode = await Layout.CheckSource();
             _useCredentials = await SourceHelper.DoesSourceUseItem(_sourceCode, CategoryType.Credential);
             _usePrograms = await SourceHelper.DoesSourceUseItem(_sourceCode, CategoryType.Program);
+            (_isRestricted, _restrictedIds) = await SecurityHelper.GetRestrictions(await Layout.GetNetId(), _sourceCode);
             await GetCredentials();
             var (tagSources, _) = await FilterHelper.GetFilters(_sourceCode, TagType.Department);
             DepartmentList = [.. tagSources.Select(t => t.Title).OrderBy(t => t)];

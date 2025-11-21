@@ -17,7 +17,7 @@
         <SearchGenericItem @ref="@_searchGenericItem" GenericItems="@ProgramList" ItemTitle="Program" EditClicked="ChooseProgram" SearchClicked="GetPrograms" DepartmentOptions="DepartmentList"></SearchGenericItem>
 
         <h2>Create a new program</h2>
-        <button class="ilw-button" @onclick="SetNewProgram">Create Program</button>
+        <button class="ilw-button" @onclick="SetNewProgram" disabled="@_isRestricted">Create Program</button>
     } else if (_usePrograms.HasValue && !_usePrograms.Value)
     {
         <p>

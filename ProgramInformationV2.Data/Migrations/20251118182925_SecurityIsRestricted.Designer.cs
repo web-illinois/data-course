@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProgramInformationV2.Data.DataContext;
 
@@ -11,9 +12,11 @@ using ProgramInformationV2.Data.DataContext;
 namespace ProgramInformationV2.Data.Migrations
 {
     [DbContext(typeof(ProgramContext))]
-    partial class ProgramContextModelSnapshot : ModelSnapshot
+    [Migration("20251118182925_SecurityIsRestricted")]
+    partial class SecurityIsRestricted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,10 +180,6 @@ namespace ProgramInformationV2.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Item")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
 
@@ -236,10 +235,6 @@ namespace ProgramInformationV2.Data.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("RestrictedIds")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("SourceId")
                         .HasColumnType("int");
 
@@ -260,8 +255,7 @@ namespace ProgramInformationV2.Data.Migrations
                             IsOwner = true,
                             IsPublic = false,
                             IsRestricted = false,
-                            LastUpdated = new DateTime(2025, 11, 19, 11, 33, 18, 926, DateTimeKind.Local).AddTicks(4809),
-                            RestrictedIds = "",
+                            LastUpdated = new DateTime(2025, 11, 18, 12, 29, 24, 81, DateTimeKind.Local).AddTicks(3933),
                             SourceId = -1
                         });
                 });
@@ -273,17 +267,6 @@ namespace ProgramInformationV2.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ApiSecretCurrent")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ApiSecretLastChanged")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ApiSecretPrevious")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BaseUrl")
                         .IsRequired()
@@ -344,14 +327,12 @@ namespace ProgramInformationV2.Data.Migrations
                         new
                         {
                             Id = -1,
-                            ApiSecretCurrent = "",
-                            ApiSecretPrevious = "",
                             BaseUrl = "",
                             Code = "test",
                             CreatedByEmail = "jonker@illinois.edu",
                             IsActive = false,
                             IsTest = true,
-                            LastUpdated = new DateTime(2025, 11, 19, 11, 33, 18, 926, DateTimeKind.Local).AddTicks(4520),
+                            LastUpdated = new DateTime(2025, 11, 18, 12, 29, 24, 81, DateTimeKind.Local).AddTicks(3492),
                             RequestDeletion = false,
                             RequestDeletionByEmail = "",
                             Title = "Test Entry",

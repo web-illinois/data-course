@@ -53,14 +53,16 @@ namespace ProgramInformationV2.Function {
         [Function("Course")]
         [OpenApiOperation(operationId: "Course", tags: "Get Course Information", Description = "Get a course. This includes all sections.")]
         [OpenApiParameter(name: "id", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The id of the course (this includes the source).")]
+        [OpenApiParameter(name: "section", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Optional section ID")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(Course), Description = "The course and all sections")]
         public async Task<HttpResponseData> Id([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequestData req) {
             _logger.LogInformation("Called Course.");
             var requestHelper = RequestHelperFactory.Create();
             requestHelper.Initialize(req);
             var id = requestHelper.GetRequest(req, "id");
+            var section = requestHelper.GetRequest(req, "section", false);
             requestHelper.Validate();
-            var returnItem = (await _courseGetter.GetCourse(id, true));
+            var returnItem = await _courseGetter.GetCourse(id, section, true);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
