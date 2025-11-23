@@ -26,10 +26,14 @@ namespace ProgramInformationV2.Components.Controls {
             }
             if (string.IsNullOrWhiteSpace(NewLinkTitle) || string.IsNullOrWhiteSpace(NewLinkUrl)) {
                 if (Layout != null)
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                     Layout.AddMessage("Save failed -- Please enter a title and URL for the link.");
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             } else if (OldTitle != NewLinkTitle && Links.Any(l => l.Title == NewLinkTitle)) {
                 if (Layout != null)
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                     Layout.AddMessage("Save failed -- The title cannot be duplicated in a list of links");
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             } else if (string.IsNullOrWhiteSpace(OldTitle)) {
                 Links.Add(new Link { LinkHref = NewLinkUrl, Title = NewLinkTitle, Order = Links.Count + 1 });
             } else if (Links.Any(l => l.Title == OldTitle)) {

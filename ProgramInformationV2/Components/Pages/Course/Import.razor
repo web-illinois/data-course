@@ -8,7 +8,11 @@
     @if (_useCourses.HasValue && _useCourses.Value && _useSections.HasValue && _useSections.Value)
     {
         <p>
-            This will schedule a course import from the Electronic Data Warehouse.
+            This will run / schedule a course import from the Electronic Data Warehouse. You can do one of two options:
+            <ol>
+                <li><strong>By Rubric:</strong> this will load all of a specific rubric into your source. This is asynchronous and make take a while to run. This will overwrite your existing course information. You can view the logs to see the progress.</li>
+                <li><strong>By Rubric and Course Number:</strong> this will load a specific course into your source. This will run immediately, and you have the option to overwrite the source information or just load new sections.</li>
+            </ol>
         </p>
 
         <div class="ils-input-entry">

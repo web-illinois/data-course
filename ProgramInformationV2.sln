@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProgramInformationV2.Search
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProgramInformationV2.Function", "ProgramInformationV2.Function\ProgramInformationV2.Function.csproj", "{5DC8CA4E-5E0C-4F40-9616-7A9D79F0114E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProgramInformationV2.LoadFromEdw", "ProgramInformationV2.LoadFromEdw\ProgramInformationV2.LoadFromEdw.csproj", "{B11861FB-3F9B-47BB-A1E2-8297BF0EDE8A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{64244983-1B95-4158-AAD6-313765A46B73}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\app_production.yml = .github\workflows\app_production.yml
@@ -44,10 +42,6 @@ Global
 		{5DC8CA4E-5E0C-4F40-9616-7A9D79F0114E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DC8CA4E-5E0C-4F40-9616-7A9D79F0114E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DC8CA4E-5E0C-4F40-9616-7A9D79F0114E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B11861FB-3F9B-47BB-A1E2-8297BF0EDE8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B11861FB-3F9B-47BB-A1E2-8297BF0EDE8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B11861FB-3F9B-47BB-A1E2-8297BF0EDE8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B11861FB-3F9B-47BB-A1E2-8297BF0EDE8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

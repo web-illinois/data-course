@@ -1,0 +1,35 @@
+﻿@page "/audit/courseimportlog"
+@layout SidebarLayout
+
+<PageTitle>Audit - Course Import Logs</PageTitle>
+
+<ilw-content>
+    <h1>Course Import Logs</h1>
+
+    @if (LastItemImported != null)
+    {
+        <p>Last Import on @LastItemImported.Value.ToString("g")</p>
+        <p>Number of Items pending (total, not just your area): @NumberItemsPending</p>
+    }
+
+    @if (LogItems != null)
+    {
+        <table>
+            <tr>
+                <th scope="col">Date Submitted</th>
+                <th scope="col">Date Imported</th>
+                <th scope="col">Course</th>
+                <th scope="col">Log</th>
+            </tr>
+            @foreach (var log in LogItems)
+            {
+                <tr>
+                    <td style="width: 150px;">@log.LastUpdated.ToString("g")</td>
+                    <td style="width: 150px;">@(log.DateImported == null ? "Pending" : log.DateImported.Value.ToString("g"))</td>
+                    <td>@log.Rubric @log.CourseNumber</td>
+                    <td>@log.Log</td>
+                </tr>
+            }
+        </table>
+    }
+</ilw-content>

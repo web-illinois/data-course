@@ -38,11 +38,12 @@ namespace ProgramInformationV2.Components.Pages.Course {
         }
 
         protected async Task SendImport() {
-            if (string.IsNullOrWhiteSpace(Rubric) || string.IsNullOrWhiteSpace(CourseNumber)) {
+            if (string.IsNullOrWhiteSpace(Rubric)) {
                 await Layout.AddMessage("Need to fill out a rubric and course number for the import to start");
+            } else if (string.IsNullOrWhiteSpace(CourseNumber)) {
+                await Layout.AddMessage(await CourseImportManager.ImportRubric(Rubric, _sourceCode));
             } else {
-                var urlTemplate = await SourceHelper.GetUrlTemplateFromSource(_sourceCode);
-                await Layout.AddMessage(await CourseImportManager.ImportCourse(Rubric, CourseNumber, _sourceCode, urlTemplate, IncludeSections, Overwrite));
+                await Layout.AddMessage(await CourseImportManager.ImportCourse(Rubric, CourseNumber, _sourceCode, IncludeSections, Overwrite));
             }
         }
     }
