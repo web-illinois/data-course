@@ -23,7 +23,7 @@ namespace ProgramInformationV2.Data.CourseImport {
                     var document = XDocument.Load(url.Item1);
                     var node = document.Descendants("course").FirstOrDefault(c => c.Attribute("id")?.Value == courseNumber);
                     if (node != null) {
-                        var courseUrl = new CourseUrl { CourseNumber = node.Attributes("id").First().Value, Rubric = rubric.ToUpperInvariant(), Semester = url.Item2, Url = node.Attributes("href").First().Value, Year = url.Item3 };
+                        var courseUrl = new CourseUrl { CourseNumber = node.Attributes("id").First().Value, Rubric = rubric.ToUpperInvariant(), Semester = url.Item2, Url = FixUrl(node.Attributes("href").First().Value), Year = url.Item3 };
                         if (courseUrl != null && courseUrl.CourseNumber == courseNumber) {
                             returnValue.Add(courseUrl);
                         }
@@ -84,5 +84,9 @@ namespace ProgramInformationV2.Data.CourseImport {
         }
 
         private static IEnumerable<int> BuildYearRange() => Enumerable.Range(DateTime.Now.Year - _yearsLookBack, _yearsLookBack + _yearsLookForward + 1).Reverse();
+
+        private static string DoesUrlEndInXml(string url) => url.EndsWith(".xml") ? url : $"{url}.xml";
+
+        private static string FixUrl(string url) => DoesUrlEndInXml(url.Replace("http://cis.local/cisapi", "https://courses.illinois.edu/cisapp/explorer"));
     }
 }
