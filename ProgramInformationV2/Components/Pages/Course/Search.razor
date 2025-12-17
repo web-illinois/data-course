@@ -20,9 +20,9 @@
         <SearchGenericItem @ref="@_searchGenericItem" GenericItems="@CourseList" ItemTitle="Course" EditClicked="ChooseCourse" SearchClicked="GetCourses"></SearchGenericItem>
 
         <h2>Create a new course</h2>
-        <button class="ilw-button" @onclick="SetNewCourse" disabled="_isRestricted">Create Course</button>
+        <button class="ilw-button" @onclick="SetNewCourse" disabled="@_isRestricted">Create Course</button>
         <h2>Import a course from Electronic Data Warehouse</h2>
-        <button class="ilw-button" @onclick="ImportCourse" disabled="_isRestricted">Import Course</button>
+        <button class="ilw-button" @onclick="ImportCourse" disabled="@_isRestricted">Import Course</button>
     } else if (_useCourses.HasValue && !_useCourses.Value)
     {
         <p>
