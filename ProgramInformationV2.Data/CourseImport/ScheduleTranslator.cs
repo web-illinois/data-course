@@ -41,6 +41,9 @@ namespace ProgramInformationV2.Data.CourseImport {
                     Type = s.Type
                 })];
             }
+            course.FacultyNameList = course.Sections == null ? [] : course.Sections.SelectMany(s => s.FacultyNameList).Distinct().ToList();
+            course.Faculty = string.Join(", ", course.FacultyNameList.Select(f => f.Name));
+            course.Title = string.IsNullOrWhiteSpace(course.Rubric) ? course.CourseTitle : $"{course.Rubric} {course.CourseNumber}: {course.CourseTitle}";
             return course;
         }
 
