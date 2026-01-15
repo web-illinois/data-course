@@ -53,9 +53,10 @@ namespace ProgramInformationV2.Search.Getters {
             return response.IsValid ? response.Documents.FirstOrDefault() ?? new() : new();
         }
 
-        public async Task<SearchObject<Program>> GetPrograms(string source, string search, IEnumerable<string> tags, IEnumerable<string> tags2, IEnumerable<string> tags3, IEnumerable<string> skills, IEnumerable<string> departments, IEnumerable<string> formats, IEnumerable<string> credentials) {
+        public async Task<SearchObject<Program>> GetPrograms(string source, string search, IEnumerable<string> tags, IEnumerable<string> tags2, IEnumerable<string> tags3, IEnumerable<string> skills, IEnumerable<string> departments, IEnumerable<string> formats, IEnumerable<string> credentials, int take, int skip) {
             var response = await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
-                    .Size(1000)
+                    .Skip(skip)
+                    .Size(take)
                     .Query(q => q
                     .Bool(b => b
                     .Filter(f => f.Term(m => m.Field(fld => fld.Source).Value(source)),
@@ -74,7 +75,7 @@ namespace ProgramInformationV2.Search.Getters {
                         f => formats.Any() ? f.Terms(m => m.Field(fld => fld.Formats).Terms(formats)) : f.MatchAll(),
                         f => departments.Any() ? f.Terms(m => m.Field(fld => fld.DepartmentList).Terms(departments)) : f.MatchAll(),
                         f => skills.Any() ? f.Terms(m => m.Field(fld => fld.SkillList).Terms(skills)) : f.MatchAll())
-                    .Must(m => !string.IsNullOrWhiteSpace(search) ? m.Match(m => m.Field(fld => fld.Title).Query(search)) : m.MatchAll())))
+                    .Must(m => !string.IsNullOrWhiteSpace(search) ? m.MultiMatch(m => m.Fields(fld => fld.Field("title^10").Field("summarytext^5").Field("description^2").Field("whoshouldapply")).Query(search)) : m.MatchAll())))
                     .Suggest(a => a.Phrase("didyoumean", p => p.Text(search).Field(fld => fld.Title))));
             LogDebug(response);
 
@@ -82,7 +83,7 @@ namespace ProgramInformationV2.Search.Getters {
             return new SearchObject<Program>() {
                 Error = !response.IsValid ? response.ServerError.Error.ToString() : "",
                 DidYouMean = response.Suggest["didyoumean"].FirstOrDefault()?.Options?.FirstOrDefault()?.Text ?? "",
-                Total = (int) response.Total,
+                Total = (int)response.Total,
                 Items = documents
             };
         }
