@@ -71,7 +71,7 @@ namespace ProgramInformationV2.Search.Getters {
                         f => isUpcoming ? f.Term(m => m.Field(fld => fld.IsUpcoming).Value(true)) : f.MatchAll(),
                         f => isCurrent ? f.Term(m => m.Field(fld => fld.IsCurrent).Value(true)) : f.MatchAll())
                     .Must(m => !string.IsNullOrWhiteSpace(search) ? m.Match(m => m.Field(fld => fld.Title).Query(search)) : m.MatchAll())))
-                    .Sort(srt => string.IsNullOrWhiteSpace(search) ? srt.Ascending(f => f.TitleSortKeyword) : srt.Ascending(f => SortSpecialField.Score))
+                    .Sort(srt => string.IsNullOrWhiteSpace(search) ? srt.Ascending(f => f.TitleSortKeyword) : srt.Descending(f => SortSpecialField.Score))
                     .Suggest(a => a.Phrase("didyoumean", p => p.Text(search).Field(fld => fld.Title))));
             LogDebug(response);
 
