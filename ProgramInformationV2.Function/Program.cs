@@ -26,8 +26,8 @@ var host = new HostBuilder()
         _ = services.ConfigureFunctionsApplicationInsights();
         _ = services.AddDbContextFactory<ProgramContext>(options => options.UseSqlServer(hostContext.Configuration["AppConnection"]).EnableSensitiveDataLogging(true));
         _ = services.AddScoped<ProgramRepository>();
-        _ = services.AddSingleton(c => OpenSearchFactory.CreateLowLevelClient(hostContext.Configuration["SearchUrl"], hostContext.Configuration["AccessKey"], hostContext.Configuration["SecretKey"], hostContext.Configuration["Debug"] == "true"));
-        _ = services.AddSingleton(c => OpenSearchFactory.CreateClient(hostContext.Configuration["SearchUrl"], hostContext.Configuration["AccessKey"], hostContext.Configuration["SecretKey"], true));
+        _ = services.AddSingleton(c => OpenSearchFactory.CreateLowLevelClient(hostContext.Configuration["SearchUrl"], hostContext.Configuration["AccessKey"], hostContext.Configuration["SecretKey"], hostContext.Configuration["SearchDebug"] == "true"));
+        _ = services.AddSingleton(c => OpenSearchFactory.CreateClient(hostContext.Configuration["SearchUrl"], hostContext.Configuration["AccessKey"], hostContext.Configuration["SecretKey"], hostContext.Configuration["SearchDebug"] == "true"));
         _ = services.AddScoped<ProgramGetter>();
         _ = services.AddScoped<CredentialGetter>();
         _ = services.AddScoped<CourseGetter>();
