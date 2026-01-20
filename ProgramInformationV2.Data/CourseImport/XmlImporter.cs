@@ -9,7 +9,7 @@ namespace ProgramInformationV2.Data.CourseImport {
         private static readonly int _yearsLookBack = 5;
         private static readonly int _yearsLookForward = 1;
 
-        public static IEnumerable<CourseUrl> GetAllCoursesBySemester(string rubric, string courseNumber) {
+        public static IEnumerable<CourseUrl> GetAllCoursesBySemester(string rubric, string courseNumber, bool shortCircuit = false) {
             var returnValue = new List<CourseUrl>();
 
             var urls = new List<Tuple<string, string, int>>();
@@ -26,6 +26,9 @@ namespace ProgramInformationV2.Data.CourseImport {
                         var courseUrl = new CourseUrl { CourseNumber = node.Attributes("id").First().Value, Rubric = rubric.ToUpperInvariant(), Semester = url.Item2, Url = FixUrl(node.Attributes("href").First().Value), Year = url.Item3 };
                         if (courseUrl != null && courseUrl.CourseNumber == courseNumber) {
                             returnValue.Add(courseUrl);
+                            if (shortCircuit) {
+                                return returnValue;
+                            }
                         }
                     }
                     Console.WriteLine($"Found {url.Item1}");

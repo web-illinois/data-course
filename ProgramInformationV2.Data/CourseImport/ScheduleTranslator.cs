@@ -12,6 +12,8 @@ namespace ProgramInformationV2.Data.CourseImport {
                 Rubric = scheduleCourse.Rubric,
                 CourseTitle = scheduleCourse.Title,
                 ExternalUrl = $"https://courses.illinois.edu/schedule/terms/{scheduleCourse.Rubric}/{scheduleCourse.CourseNumber}",
+                Url = $"https://courses.illinois.edu/schedule/terms/{scheduleCourse.Rubric}/{scheduleCourse.CourseNumber}",
+                UrlFull = $"https://courses.illinois.edu/schedule/terms/{scheduleCourse.Rubric}/{scheduleCourse.CourseNumber}",
                 IsActive = true,
                 CreditHours = scheduleCourse.CreditHours,
                 Description = string.Empty,
@@ -41,6 +43,9 @@ namespace ProgramInformationV2.Data.CourseImport {
                     Type = s.Type
                 })];
             }
+            course.FacultyNameList = course.Sections == null ? [] : course.Sections.SelectMany(s => s.FacultyNameList).Distinct().ToList();
+            course.Faculty = string.Join(", ", course.FacultyNameList.Select(f => f.Name));
+            course.Title = string.IsNullOrWhiteSpace(course.Rubric) ? course.CourseTitle : $"{course.Rubric} {course.CourseNumber}: {course.CourseTitle}";
             return course;
         }
 
