@@ -1,4 +1,3 @@
-using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProgramInformationV2.Function.Helper;
 using ProgramInformationV2.Search.Getters;
+using System.Net;
 
 namespace ProgramInformationV2.Function {
 
@@ -75,7 +75,7 @@ namespace ProgramInformationV2.Function {
         [OpenApiParameter(name: "q", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A full text search string -- it will search the title and description for the search querystring.")]
         [OpenApiParameter(name: "formats", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Either 'On-Campus', 'Online', 'Off-Campus', or 'Hybrid'. Can choose multiple by separating them with the characters '[-]'")]
         [OpenApiParameter(name: "credentials", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "The credential type (BS, MS, EdM, PhD, Certificate, etc.) Can choose multiple by separating them with the characters '[-]'")]
-        [OpenApiParameter(name: "take", In = ParameterLocation.Query, Required = false, Type = typeof(int), Description = "How many courses do you want? Defaults to 1000.")]
+        [OpenApiParameter(name: "take", In = ParameterLocation.Query, Required = false, Type = typeof(int), Description = "How many programs do you want? Defaults to 1000.")]
         [OpenApiParameter(name: "skip", In = ParameterLocation.Query, Required = false, Type = typeof(int), Description = "A skip value to help with pagination. Defaults to 0.")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IEnumerable<Program>), Description = "All programs that meet the search criteria. If you filter by credentials, it will filter the credential list for each program.")]
         public async Task<HttpResponseData> Search([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequestData req) {

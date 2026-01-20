@@ -12,6 +12,8 @@ namespace ProgramInformationV2.Data.CourseImport {
                 Rubric = scheduleCourse.Rubric,
                 CourseTitle = scheduleCourse.Title,
                 ExternalUrl = $"https://courses.illinois.edu/schedule/terms/{scheduleCourse.Rubric}/{scheduleCourse.CourseNumber}",
+                Url = $"https://courses.illinois.edu/schedule/terms/{scheduleCourse.Rubric}/{scheduleCourse.CourseNumber}",
+                UrlFull = $"https://courses.illinois.edu/schedule/terms/{scheduleCourse.Rubric}/{scheduleCourse.CourseNumber}",
                 IsActive = true,
                 CreditHours = scheduleCourse.CreditHours,
                 Description = string.Empty,
