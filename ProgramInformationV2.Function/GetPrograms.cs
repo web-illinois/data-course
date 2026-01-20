@@ -75,6 +75,8 @@ namespace ProgramInformationV2.Function {
         [OpenApiParameter(name: "q", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A full text search string -- it will search the title and description for the search querystring.")]
         [OpenApiParameter(name: "formats", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Either 'On-Campus', 'Online', 'Off-Campus', or 'Hybrid'. Can choose multiple by separating them with the characters '[-]'")]
         [OpenApiParameter(name: "credentials", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "The credential type (BS, MS, EdM, PhD, Certificate, etc.) Can choose multiple by separating them with the characters '[-]'")]
+        [OpenApiParameter(name: "take", In = ParameterLocation.Query, Required = false, Type = typeof(int), Description = "How many courses do you want? Defaults to 1000.")]
+        [OpenApiParameter(name: "skip", In = ParameterLocation.Query, Required = false, Type = typeof(int), Description = "A skip value to help with pagination. Defaults to 0.")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IEnumerable<Program>), Description = "All programs that meet the search criteria. If you filter by credentials, it will filter the credential list for each program.")]
         public async Task<HttpResponseData> Search([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequestData req) {
             _logger.LogInformation("Called ProgramSearch to check deployment.");
@@ -90,9 +92,11 @@ namespace ProgramInformationV2.Function {
                 var departments = requestHelper.GetArray(req, "departments");
                 var formats = requestHelper.GetArray(req, "formats");
                 var credentials = requestHelper.GetArray(req, "credentials");
+                var take = requestHelper.GetInteger(req, "take", 1000);
+                var skip = requestHelper.GetInteger(req, "skip");
                 requestHelper.Validate();
                 var response = req.CreateResponse(HttpStatusCode.OK);
-                await response.WriteAsJsonAsync(await _programGetter.GetPrograms(source, query, tags, tags2, tags3, skills, departments, formats, credentials));
+                await response.WriteAsJsonAsync(await _programGetter.GetPrograms(source, query, tags, tags2, tags3, skills, departments, formats, credentials, take, skip));
                 return response;
             } catch (Exception ex) {
                 _logger.LogInformation(ex.ToString());
