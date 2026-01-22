@@ -4,6 +4,7 @@ using ProgramInformationV2.Components.Controls;
 using ProgramInformationV2.Components.Layout;
 using ProgramInformationV2.Data.DataHelpers;
 using ProgramInformationV2.Data.DataModels;
+using ProgramInformationV2.Data.FieldList;
 using ProgramInformationV2.Data.PageList;
 using ProgramInformationV2.Search.Getters;
 using ProgramInformationV2.Search.Models;
@@ -13,6 +14,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
 
     public partial class CourseList {
         private SearchGenericItem _searchGenericItem = default!;
+        public IEnumerable<FieldItem> FieldItems { get; set; } = default!;
 
         private string _sourceCode = "";
         public List<GenericItem> ChosenRequirementSetList { get; set; } = default!;
@@ -30,6 +32,9 @@ namespace ProgramInformationV2.Components.Pages.Credential {
 
         [Inject]
         protected CredentialGetter CredentialGetter { get; set; } = default!;
+
+        [Inject]
+        protected FieldManager FieldManager { get; set; } = default!;
 
         [Inject]
         protected IJSRuntime JsRuntime { get; set; } = default!;
@@ -122,6 +127,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
                 }
             }
             Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.TitlePlusCredential);
+            FieldItems = await FieldManager.GetMergedFieldItems(_sourceCode, new CredentialGroup(), FieldType.CourseList);
             await GetRequirementSet();
             await base.OnInitializedAsync();
         }
