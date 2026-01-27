@@ -24,10 +24,10 @@ var host = new HostBuilder()
         services.ConfigureFunctionsApplicationInsights();
         _ = services.AddApplicationInsightsTelemetryWorkerService();
         _ = services.ConfigureFunctionsApplicationInsights();
-        _ = services.AddDbContextFactory<ProgramContext>(options => options.UseSqlServer(hostContext.Configuration["AppConnection"]).EnableSensitiveDataLogging(true));
+        _ = services.AddDbContextFactory<ProgramContext>(options => options.UseSqlServer(hostContext.Configuration["Values:AppConnection"]).EnableSensitiveDataLogging(true));
         _ = services.AddScoped<ProgramRepository>();
-        _ = services.AddSingleton(c => OpenSearchFactory.CreateLowLevelClient(hostContext.Configuration["SearchUrl"], hostContext.Configuration["AccessKey"], hostContext.Configuration["SecretKey"], hostContext.Configuration["SearchDebug"] == "true"));
-        _ = services.AddSingleton(c => OpenSearchFactory.CreateClient(hostContext.Configuration["SearchUrl"], hostContext.Configuration["AccessKey"], hostContext.Configuration["SecretKey"], hostContext.Configuration["SearchDebug"] == "true"));
+        _ = services.AddSingleton(c => OpenSearchFactory.CreateLowLevelClient(hostContext.Configuration["Values:SearchUrl"], hostContext.Configuration["Values:AccessKey"], hostContext.Configuration["Values:SecretKey"], hostContext.Configuration["Values:SearchDebug"] == "true"));
+        _ = services.AddSingleton(c => OpenSearchFactory.CreateClient(hostContext.Configuration["Values:SearchUrl"], hostContext.Configuration["Values:AccessKey"], hostContext.Configuration["Values:SecretKey"], hostContext.Configuration["Values:SearchDebug"] == "true"));
         _ = services.AddScoped<ProgramGetter>();
         _ = services.AddScoped<CredentialGetter>();
         _ = services.AddScoped<CourseGetter>();
