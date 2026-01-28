@@ -14,10 +14,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{64244983-1B95-4158-AAD6-313765A46B73}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
-		.github\workflows\wigg-app-prod-course.yml = .github\workflows\wigg-app-prod-course.yml
-		.github\workflows\wigg-app-staging-course.yml = .github\workflows\wigg-app-staging-course.yml
-		.github\workflows\wigg-fun-prod-course.yml = .github\workflows\wigg-fun-prod-course.yml
-		.github\workflows\wigg-fun-staging-course.yml = .github\workflows\wigg-fun-staging-course.yml
 	EndProjectSection
 EndProject
 Global

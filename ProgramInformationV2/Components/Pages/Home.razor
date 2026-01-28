@@ -21,13 +21,13 @@
                     <h3 id="sourcelabel-initial">Choose a Source</h3>
                     <p>You have access to multiple sources, so you must choose a source before editing programs, credentials, etc.</p>
                     <div slot="footer">
-                    <select aria-labelledby="sourcelabel-initial" @onchange="(ChangeEventArgs e) => ChangeSource(e)">
-                        <option value=""></option>
-                        @foreach (var source in Sources)
-                        {
-                            <option value="@source.Key">@source.Value</option>
-                        }
-                    </select>
+                        <select style="width: 100%;" aria-labelledby="sourcelabel-initial" @onchange="(ChangeEventArgs e) => ChangeSource(e)">
+                            <option value=""></option>
+                            @foreach (var source in Sources)
+                            {
+                                <option value="@source.Key">@source.Value</option>
+                            }
+                        </select>
                     </div>
                 </ilw-card>
             }
@@ -92,7 +92,7 @@ else if (Sources != null)
                 <h3 id="sourcelabel">Choose another Source</h3>
                 <p>You have access to multiple sources, so you may choose a different source here.</p>
                 <div slot="footer">
-                <select aria-labelledby="sourcelabel" @onchange="(ChangeEventArgs e) => ChangeSource(e)">
+                    <select style="width: 100%;" aria-labelledby="sourcelabel" @onchange="(ChangeEventArgs e) => ChangeSource(e)">
                     @foreach (var source in Sources)
                     {
                         <option value="@source.Key" selected="@(source.Key == SelectedSource)">@source.Value</option>
@@ -103,5 +103,4 @@ else if (Sources != null)
         }
     </ilw-grid>
     </ilw-content>
-
 }
