@@ -1,5 +1,5 @@
-﻿using System.Text.Json;
-using OpenSearch.Client;
+﻿using OpenSearch.Client;
+using System.Text.Json;
 
 namespace ProgramInformationV2.Search.Models {
 
@@ -49,6 +49,9 @@ namespace ProgramInformationV2.Search.Models {
         public string MinorTitle { get; set; } = "";
 
         public string Notes { get; set; } = "";
+        public string NoteTitle { get; set; } = "";
+
+        public string PlanOfStudyIntroduction { get; set; } = "";
 
         [Keyword]
         public string ProgramId { get; set; } = "";
