@@ -1,10 +1,10 @@
-﻿using System.Text.Json.Serialization;
-using OpenSearch.Client;
+﻿using OpenSearch.Client;
+using System.Text.Json.Serialization;
 
 namespace ProgramInformationV2.Search.Models {
 
     public abstract class BaseObject {
-        protected static readonly string _editLink = "https://programcourse.itpartners.illinois.edu/quicklink/";
+        protected static readonly string _editLink = "https://course.wigg.illinois.edu/quicklink/";
         private static readonly string[] _badHtmlItems = ["<br>", "<p></p>", "<p><br></p>", "<p>&nbsp;</p>", "<p> </p>", "&nbsp;"];
 
         public DateTime CreatedOn { get; set; }

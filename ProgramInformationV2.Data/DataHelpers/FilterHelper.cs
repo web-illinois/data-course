@@ -1,9 +1,9 @@
-﻿using System.Text.Json;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ProgramInformationV2.Data.DataContext;
 using ProgramInformationV2.Data.DataModels;
 using ProgramInformationV2.Search.Helpers;
 using ProgramInformationV2.Search.JsonThinModels;
+using System.Text.Json;
 
 namespace ProgramInformationV2.Data.DataHelpers {
 
@@ -19,30 +19,81 @@ namespace ProgramInformationV2.Data.DataHelpers {
                 List = [.. t.OrderBy(l => l.Order).Select(l => l.Title)],
             })];
 
-        public async Task<string> GetFilterJsonForExport(string source) => JsonSerializer.Serialize(await GetFilterListForExport(source));
+        public async Task<string> GetFilterJsonForExport(string sourceCode) {
+            var filters = await GetFilterListForExport(sourceCode);
+            var source = await _programRepository.ReadAsync(c => c.Sources.Where(s => s.Code == sourceCode).FirstOrDefault());
+            var sourceId = source?.Id ?? 0;
+            if (source != null) {
+                source.ApiSecretCurrent = "";
+                source.ApiSecretPrevious = "";
+                source.ApiSecretLastChanged = null;
+                source.Code = "";
+                source.Id = 0;
+            }
+            var instructions = await _programRepository.ReadAsync(c => c.FieldSources.Where(i => i.SourceId == sourceId).OrderBy(i => i.CategoryType).ThenBy(i => i.Title).ToList());
+            return JsonSerializer.Serialize(new { source, filters, instructions });
+        }
 
         public async Task<string> ImportFiltersFromJson(string source, string json) {
-            var importedTags = JsonSerializer.Deserialize<List<TagList>>(json);
             var sourceEntity = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == source));
-            if (sourceEntity == null || importedTags == null) {
-                return "No tags loaded";
+            if (sourceEntity == null) {
+                return "Source not found.";
             }
-            foreach (var tagList in importedTags) {
-                var count = 1;
-                var tagType = Enum.TryParse<TagType>(tagList.Title, out var parsedTagType) ? parsedTagType : TagType.None;
-                if (tagType != TagType.None) {
-                    foreach (var tag in tagList.List) {
-                        var newTag = new TagSource {
-                            SourceId = sourceEntity.Id,
-                            TagType = tagType,
-                            Title = tag,
-                            Order = count++,
-                        };
-                        _ = await _programRepository.CreateAsync(newTag);
+            if (sourceEntity.UseCourses || sourceEntity.UseCredentials || sourceEntity.UsePrograms || sourceEntity.UseRequirementSets || sourceEntity.UseSections) {
+                return "Source already being used.";
+            }
+            var returnObject = "";
+            var jsonObject = JsonSerializer.Deserialize<dynamic>(json);
+            Source sourceObject = JsonSerializer.Deserialize<Source>(jsonObject?.GetProperty("source"));
+            List<FieldSource> instructions = JsonSerializer.Deserialize<List<FieldSource>>(jsonObject?.GetProperty("instructions"));
+            List<TagList> importedTags = JsonSerializer.Deserialize<List<TagList>>(jsonObject?.GetProperty("filters"));
+            if (sourceObject == null) {
+                returnObject += "No source information loaded. ";
+            } else {
+                sourceEntity.BaseUrl = sourceObject?.BaseUrl ?? sourceEntity.BaseUrl;
+                sourceEntity.UrlTemplate = sourceObject?.UrlTemplate ?? sourceEntity.UrlTemplate;
+                sourceEntity.UseCourses = sourceObject?.UseCourses ?? sourceEntity.UseCourses;
+                sourceEntity.UseCredentials = sourceObject?.UseCredentials ?? sourceEntity.UseCredentials;
+                sourceEntity.UsePrograms = sourceObject?.UsePrograms ?? sourceEntity.UsePrograms;
+                sourceEntity.UseRequirementSets = sourceObject?.UseRequirementSets ?? sourceEntity.UseRequirementSets;
+                sourceEntity.UseSections = sourceObject?.UseSections ?? sourceEntity.UseSections;
+                _ = await _programRepository.UpdateAsync(sourceEntity);
+            }
+            if (instructions == null) {
+                returnObject += "No field instructions loaded. ";
+            } else {
+                foreach (var instruction in instructions) {
+                    _ = await _programRepository.CreateAsync(new FieldSource {
+                        SourceId = sourceEntity.Id,
+                        CategoryType = instruction.CategoryType,
+                        Description = instruction.Description,
+                        ShowItem = instruction.ShowItem,
+                        Title = instruction.Title
+                    });
+                }
+                returnObject += $"{instructions.Count} instruction(s) loaded. ";
+            }
+            if (importedTags == null) {
+                returnObject += "No tags loaded. ";
+            } else {
+                foreach (var tagList in importedTags) {
+                    var count = 1;
+                    var tagType = Enum.TryParse(tagList.Title, out TagType parsedTagType) ? parsedTagType : TagType.None;
+                    if (tagType != TagType.None) {
+                        foreach (var tag in tagList.List) {
+                            var newTag = new TagSource {
+                                SourceId = sourceEntity.Id,
+                                TagType = tagType,
+                                Title = tag,
+                                Order = count++,
+                            };
+                            _ = await _programRepository.CreateAsync(newTag);
+                        }
                     }
                 }
+                returnObject += $"{importedTags.SelectMany(it => it.List).Count()} tag(s) loaded. ";
             }
-            return "Configuration loaded";
+            return returnObject;
         }
 
         public async Task<(List<TagSource> TagSources, int SourceId)> GetFilters(string source, TagType tagType) {

@@ -16,11 +16,11 @@ namespace ProgramInformationV2.Function {
         public OpenApiInfo Info { get; set; } = new OpenApiInfo() {
             Version = "1.0.0",
             Title = "IT Partners Program/Course Repository API",
-            Description = "<p>List of APIs that allow users to pull information from the IT Partners Program / Course Repository. Use this with the IT Partners Program / Course Repository at <a href='https://programcourse.itpartners.illinois.edu'>https://programcourse.itpartners.illinois.edu</a>.</p> \n\r\n\r",
+            Description = "<p>List of APIs that allow users to pull information from the IT Partners Program / Course Repository. Use this with the IT Partners Program / Course Repository at <a href='https://course.wigg.illinois.edu'>https://course.wigg.illinois.edu</a>.</p> \n\r\n\r",
             Contact = new OpenApiContact() {
                 Name = "Bryan Jonker",
                 Email = "jonker@illinios.edu",
-                Url = new Uri("https://github.com/itpartnersillinois/ProgramCourseRepositoryV2"),
+                Url = new Uri("https://github.com/web-illinois/data-course"),
             }
         };
 
