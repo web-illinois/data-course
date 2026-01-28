@@ -7,10 +7,12 @@ This is the new Program Information for IT Partners, used to organize programs, 
 ## Production location: 
 
 This consists of five applications:
-* **ProgramInformationV2**: The Blazor server application to handle back-end functions. https://programcourse.itpartners.illinois.edu
-* **ProgramInformationV2.Function**: The Function Application for the API. https://programcourseapi.itpartners.illinois.edu
+* **ProgramInformationV2**: The Blazor server application to handle back-end functions. https://course.wigg.illinois.edu
+* **ProgramInformationV2.Function**: The Function Application for the API. https://courseapi.wigg.illinois.edu.
 * **ProgramInformationV2.Data**: The data access for all the processes
 * **ProgramInformationV2.Search**: The data access for searching (accessing AWS OpenSearch Service)
+
+Swagger API documentation is available at https://courseapi.wigg.illinois.edu/api/swagger/ui
 
 ## Development location: 
 
