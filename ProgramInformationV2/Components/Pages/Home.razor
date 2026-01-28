@@ -17,7 +17,7 @@
         <ilw-grid innerwidth="300px" padding="35px 0">
             @if (NumberOfSources > 1)
             {
-                <ilw-card theme="gray" align="center" style="--ilw-heading--color: var(--il-altgeld);">
+                <ilw-card align="center">
                     <h3 id="sourcelabel-initial">Choose a Source</h3>
                     <p>You have access to multiple sources, so you must choose a source before editing programs, credentials, etc.</p>
                     <div slot="footer">
@@ -31,12 +31,12 @@
                     </div>
                 </ilw-card>
             }
-            <ilw-card theme="gray" align="center" style="--ilw-heading--color: var(--il-altgeld);">
+            <ilw-card align="center">
                 <h3>Create a Source</h3>
                 <p>A source is a collection of programs, credentials, and courses on a web page. This is an artificial designation that may be by college (College of Education), department (Computer Science), or a subsection of a college (Gies Online Courses).</p>
                 <div slot="footer"><a href="/configuration/sources" class="ilw-button">Create a New Source</a></div>
             </ilw-card>
-            <ilw-card theme="gray" align="center" style="--ilw-heading--color: var(--il-altgeld);">
+            <ilw-card theme="gray" align="center">
                 <h3>Access Test Source</h3>
                 <p>We have a test source that you can add yourself to. This will allow you to experiment with adding, modifying, and deleting programs, courses, etc.</p>
                 <div slot="footer"><a href="/configuration/testing" class="ilw-button">Access Test Source</a></div>
@@ -51,7 +51,7 @@ else if (Sources != null)
         <ilw-grid innerwidth="300px" padding="35px 0">
             @if (UsePrograms)
             {
-                <ilw-card theme="gray" align="center" style="--ilw-heading--color: var(--il-altgeld);">
+                <ilw-card align="center">
                     <h3>Programs</h3>
                     <p>Programs are a group of credentials grouped together by a common thread.</p>
                     <div slot="footer"><a href="/programs" class="ilw-button">Edit Programs</a></div>
@@ -59,7 +59,7 @@ else if (Sources != null)
             }
             @if (UseCredentials)
             {
-                <ilw-card theme="gray" align="center" style="--ilw-heading--color: var(--il-altgeld);">
+                <ilw-card align="center">
                     <h3>Credentials</h3>
                     <p>Credentials are certifications issued by a university that verifies an individual's academic achievement. </p>
                     <div slot="footer"><a href="/credentials" class="ilw-button">Edit Credentials</a></div>
@@ -67,7 +67,7 @@ else if (Sources != null)
             }
             @if (UseRequirementSets)
             {
-                <ilw-card theme="gray" align="center" style="--ilw-heading--color: var(--il-altgeld);">
+                <ilw-card align="center">
                     <h3>Requirement Sets</h3>
                     <p>Requirement sets determine which courses are required to get a credential. This is also known as a plan of study.</p>
                     <div slot="footer"><a href="/requirementsets" class="ilw-button">Edit Requirement Sets</a></div>
@@ -75,20 +75,27 @@ else if (Sources != null)
             }
             @if (UseCourses)
             {
-                <ilw-card theme="gray" align="center" style="--ilw-heading--color: var(--il-altgeld);">
+                <ilw-card align="center">
                     <h3>Courses and Sections</h3>
                     <p>Courses and sections are individual classes that are taught. These may have individual sections.</p>
                     <div slot="footer"><a href="/courses" class="ilw-button">Edit Courses</a></div>
                 </ilw-card>
             }
-        <ilw-card theme="gray" align="center" style="--ilw-heading--color: var(--il-altgeld);">
-            <h3>Configuration</h3>
-            <p>The configuration section allows you to edit the back-end of your source.</p>
-            <div slot="footer"><a href="/configuration/sources" class="ilw-button">Edit Configuration</a></div>
+            @if (!UsePrograms && !UseCredentials && !UseRequirementSets && !UseCourses) {
+                <ilw-card theme="gray" align="center">
+                    <h3>Load Configuration</h3>
+                    <p>This is an empty source, which means it you may want to load configuration from another source.</p>
+                    <div slot="footer"><a href="/configuration/loadjson" class="ilw-button">Load Configuration</a></div>
+                </ilw-card>
+            }
+        <ilw-card theme="gray" align="center">
+        <h3>Configuration</h3>
+        <p>The configuration section allows you to edit the back-end of your source.</p>
+        <div slot="footer"><a href="/configuration/sources" class="ilw-button">Edit Configuration</a></div>
         </ilw-card>
         @if (NumberOfSources > 1)
         {
-            <ilw-card theme="gray" align="center" style="--ilw-heading--color: var(--il-altgeld);">
+            <ilw-card theme="gray" align="center">
                 <h3 id="sourcelabel">Choose another Source</h3>
                 <p>You have access to multiple sources, so you may choose a different source here.</p>
                 <div slot="footer">

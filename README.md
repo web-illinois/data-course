@@ -53,3 +53,13 @@ POST /pcr2_programs/_delete_by_query
 POST /pcr2_staticcode/_delete_by_query
 { "query": { "match": { "source": "test" } } }
 ``
+
+## SQL statement to delete items marked for deletion
+
+``
+  DELETE FROM dbo.FieldSources WHERE SourceId IN (SELECT ID FROM Sources WHERE RequestDeletion = 1);
+  DELETE FROM dbo.Logs WHERE SourceId IN (SELECT ID FROM Sources WHERE RequestDeletion = 1);
+  DELETE FROM dbo.SecurityEntries WHERE SourceId IN (SELECT ID FROM Sources WHERE RequestDeletion = 1);
+  DELETE FROM dbo.TagSources WHERE SourceId IN (SELECT ID FROM Sources WHERE RequestDeletion = 1);
+  DELETE FROM Sources WHERE RequestDeletion = 1;
+``
