@@ -11,6 +11,7 @@ namespace ProgramInformationV2.Data.FieldList {
                 [FieldType.General] = "General information about the credential.",
                 [FieldType.Link] = "Control what links, images, and videos are added to the credential page.",
                 [FieldType.Overview] = "This information will be displayed on the credential page.",
+                [FieldType.CourseList] = "This information will be displayed with the typical plan of study.",
                 [FieldType.Transcriptable] = "This information shows transcriptable information (like majors, minors, etc.).",
                 [FieldType.Technical] = "Technical details used for internal purposes."
             };
@@ -28,6 +29,9 @@ namespace ProgramInformationV2.Data.FieldList {
                 new() { Title = "Credential Image", CategoryType = CategoryType.Credential, FieldType = FieldType.Link, InitialDescription = "This should link to an image that you would like featured on the program finder. You must add alternative text when linking an image." },
                 new() { Title = "Credential Image Alt Text", CategoryType = CategoryType.Credential, FieldType = FieldType.Link, InitialDescription = "Alternative text for the image." },
                 new() { Title = "Description", CategoryType = CategoryType.Credential, FieldType = FieldType.Overview, InitialDescription = "This text should describe the credential. It will be on the credential page." },
+                new() { Title = "Program Notes Title", CategoryType = CategoryType.Credential, FieldType = FieldType.Overview, InitialDescription = "This is a way to overwrite the program notes title, if you need to use a more descriptive term than 'Notes'." },
+                new() { Title = "Program Notes", CategoryType = CategoryType.Credential, FieldType = FieldType.Overview, InitialDescription = "This text has generic notes about the program, listed at the end of the page. Use this for disclaimers or additional information." },
+                new() { Title = "Plan of Study Introduction", CategoryType = CategoryType.Credential, FieldType = FieldType.CourseList, InitialDescription = "This text will be above the plan of study and contains important notes about the plan of study." },
                 new() { Title = "Is This Credential Transcriptable", CategoryType = CategoryType.Credential, FieldType = FieldType.Transcriptable },
                 new() { Title = "Transcriptable Name", CategoryType = CategoryType.Credential, FieldType = FieldType.Transcriptable, InitialDescription = "The name the credential will appear as on transcripts." },
                 new() { Title = "Major Title", CategoryType = CategoryType.Credential, FieldType = FieldType.Transcriptable, },
