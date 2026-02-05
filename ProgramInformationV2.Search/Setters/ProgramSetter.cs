@@ -16,7 +16,7 @@ namespace ProgramInformationV2.Search.Setters {
             }
             program.Credentials.RemoveAll(c => c.Id == id);
             if (program.Credentials.Count == 0) {
-                return await DeleteProgram(id);
+                return await DeleteProgram(program.Id);
             } else {
                 var response = await _openSearchClient.IndexAsync(program, i => i.Index(UrlTypes.Programs.ConvertToUrlString()));
                 return response.IsValid ? $"Credential {id} deleted" : "error";
@@ -46,6 +46,18 @@ namespace ProgramInformationV2.Search.Setters {
             program.Prepare();
             var response = await _openSearchClient.IndexAsync(program, i => i.Index(UrlTypes.Programs.ConvertToUrlString()));
             return response.IsValid ? credential.Id : "";
+        }
+
+        public async Task<string> TransferCredentialToAnotherProgram(Credential credential, string programId) {
+            var response = await DeleteCredential(credential.Id);
+            if (!response.Contains("error")) {
+                var newProgram = await _programGetter.GetProgram(programId);
+                newProgram.Credentials.Add(credential);
+                newProgram.Prepare();
+                var responseNew = await _openSearchClient.IndexAsync(newProgram, i => i.Index(UrlTypes.Programs.ConvertToUrlString()));
+                return responseNew.IsValid ? credential.Id : "";
+            }
+            return "";
         }
 
         public async Task<string> SetProgram(Program program) {
