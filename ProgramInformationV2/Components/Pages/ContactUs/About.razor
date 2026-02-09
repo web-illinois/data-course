@@ -1,18 +1,33 @@
 ﻿@page "/about"
 
-<PageTitle>About this Project</PageTitle>
-
+<PageTitle>About the Project and Resources</PageTitle>
 <ilw-content width="page">
-    <h1>About this Project</h1>
-    <p>In 2019, the College of Education needed a way to organize our various programs and make it more agile. Other campus units also needed to organize their program and course information (for example, Gies College of Business was looking for a tool to organize their online portfolio). The Program / Course Repository application was built to meet these needs.</p>
-    <h2>Application Programming Interface</h2>
+    <h1>About the Project and Resources</h1>
+
+    <h2>Resources</h2>
     <p>The API for this is through a function app that is hosted at <a href="https://courseapi.wigg.illinois.edu/api/swagger/ui">the WIGG Course API</a>, and has search and ID options. Request information through an HTTP Get or Post and get JSON back.</p>
-    <h2>Can I get access to this?</h2>
+
+    <p>To report a bug or request an enhancement, go to <a href="https://go.illinois.edu/itpartners-course-help">our GitHub repository and create an issue</a>. This will log the issue so we can review it. Note that this application is meant for campus, which means we cannot customize it to a specific unit unless others will benefit from the change.</p>
+
+    <p>This application is meant to be used with the Illinois Toolkit, although there's no reason why you cannot use this application alone. The <a href="https://builder3.toolkit.illinois.edu/integration/production/index.html">Toolkit Builder</a> will have examples of how this can be integrated with the toolkit.</p>
+
+    <p>Learn more about how to edit and configure your information with the <a href="https://go.illinois.edu/program-course-instructions">Program / Course Repository Training Document</a>.</p>
+
+    <p>We are also working on enhancements for this. To see the project status of individual items, you can look at <a href="https://github.com/orgs/web-illinois/projects/18/">our GitHub project status board</a>.</p>
+
+    <h3>Can I get access to this?</h3>
     <p>You have three options:</p>
     <ul>
         <li>Go to the <a href="/configuration/sources">Source Code listing</a> and create a source code. Once you create a new source code, you can start adding information through the editing interface and start pulling data using your programming language of choice by referencing the source code.</li>
-        <li>Contact <a href="mailto:support@education.illinois.edu">support@education.illinois.edu</a> and ask for source code and say you want to use the API only. Our team will generate a keycode so you can send information through our API. Your keycode will be restricted to your source only, so you won’t risk writing over other’s information.</li>
+        <li>Go to the <a href="/configuration/sources">Source Code listing</a> and create a source code. Once you have created a new source code, go to the <a href="/configuration/security">Security tab</a> and add an API key. This will allow you to programatically add and edit courses, programs, etc. from your site via API calls.</li>
         <li>Take the existing code and point it to your own AWS OpenSearch instance. Go to <a href="https://github.com/web-illinois/data-course">our GitHub repository</a> to see the code.</li>
     </ul>
-    <p>We can also work with you to run scheduled imports from courses.illinois.edu.</p>
+
+    <h2>About This Project</h2>
+
+    <p>This started in 2019 (with Bryan Jonker, Myranda Crist, and Elaine Robbins) as a way to organize the various programs that we have in the College of Education. The first incarnation worked but was skewed towards larger programs.</p>
+
+    <p>In 2022, Gies College of Business needed a way to organize their online portfolio. At the same time, the College of Education needed an easier way to maintain our existing program list and make it more agile. At the same time as that, other areas on campus needed to organize their program and course information. This was built to meet those needs, with the emphasis on making it extensible to other areas of campus.</p>
+
+    <p>In 2026, we transferred the tool to WIGG and the University Website Management Center of Expertise group.</p>
 </ilw-content>
