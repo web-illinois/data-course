@@ -28,7 +28,8 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
         }
 
         protected async Task DeleteSource() {
-            await Layout.AddMessage(await SourceHelper.RequestDeletion(_sourceCode, await UserHelper.GetUser(AuthenticationStateProvider)));
+            var message = await BulkEditor.DeleteAllItems(_sourceCode) + " " + await SourceHelper.DeleteSource(_sourceCode, await UserHelper.GetUser(AuthenticationStateProvider));
+            await Layout.AddMessage(message);
         }
 
         protected override async Task OnInitializedAsync() {

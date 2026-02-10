@@ -103,7 +103,7 @@
                                  new ("Fields Used", "/configuration/fieldsused/programs"),
                                  new ("Manage Filters", "/configuration/filters"),
                                  new ("Security", "/configuration/security"),
-                                 new ("Request Deletion", "/configuration/requestdeletion"),
+                                 new ("Delete Source", "/configuration/deletion"),
                                  new ("Testing Access", "/configuration/testing"),
                                  new ("Save Information to JSON", "/configuration/savejson"),
                                  new ("Load JSON Information to the Server", "/configuration/loadjson") } },
