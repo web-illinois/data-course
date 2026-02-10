@@ -12,13 +12,13 @@ namespace ProgramInformationV2.Search.Helpers {
         public async Task<string> GetJson(string sourceCode, UrlTypes urltype, int page) {
             var body = await _openSearchLowLevelClient.SearchAsync<StringResponse>(urltype.ConvertToUrlString(), GenerateGetJson(sourceCode, page));
             dynamic? json = JsonConvert.DeserializeObject(body.Body ?? "");
-            return json == null || json?.hits == null || json?.hits.hits == null ? "error" : (string) JsonConvert.SerializeObject(json?.hits.hits);
+            return json == null || json?.hits == null || json?.hits.hits == null ? "error" : (string)JsonConvert.SerializeObject(json?.hits.hits);
         }
 
         public async Task<string> GetJsonFull(string sourceCode, UrlTypes urltype) {
             var body = await _openSearchLowLevelClient.SearchAsync<StringResponse>(urltype.ConvertToUrlString(), GenerateGetJson(sourceCode));
             dynamic? json = JsonConvert.DeserializeObject(body.Body ?? "");
-            return json == null || json?.hits == null || json?.hits.hits == null ? "error" : (string) JsonConvert.SerializeObject(json?.hits.hits);
+            return json == null || json?.hits == null || json?.hits.hits == null ? "error" : (string)JsonConvert.SerializeObject(json?.hits.hits);
         }
 
         public async Task<string> LoadJson(string sourceCode, UrlTypes urltype, string jsonString) {
@@ -88,8 +88,8 @@ namespace ProgramInformationV2.Search.Helpers {
                 : $"Loaded {success} items. {(useRawJsonItems ? "Used raw JSON." : "")}";
         }
 
-        private static string GenerateGetJson(string sourceCode, int skip) => "{ \"from\": " + (skip * 50) + ", \"size\": 50, \"query\":{\"match\":{\"source\":{\"query\":\"" + sourceCode + "\"}}}}";
+        private static string GenerateGetJson(string sourceCode, int skip) => "{ \"from\": " + (skip * 50) + ", \"size\": 50, \"sort\": [ { \"title.keyword\" : \"asc\" } ], \"query\":{\"match\":{\"source\":{\"query\":\"" + sourceCode + "\"}}}}";
 
-        private static string GenerateGetJson(string sourceCode) => "{ \"size\": 10000, \"query\":{\"match\":{\"source\":{\"query\":\"" + sourceCode + "\"}}}}";
+        private static string GenerateGetJson(string sourceCode) => "{ \"size\": 10000, \"sort\": [ { \"title.keyword\" : \"asc\" } ], \"query\":{\"match\":{\"source\":{\"query\":\"" + sourceCode + "\"}}}}";
     }
 }
