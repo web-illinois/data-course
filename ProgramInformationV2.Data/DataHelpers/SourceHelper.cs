@@ -77,22 +77,16 @@ namespace ProgramInformationV2.Data.DataHelpers {
             return $"Requested access to code {sourceCode}";
         }
 
-        public async Task<string> RequestDeletion(string sourceCode, string email) {
+        public async Task<string> DeleteSource(string sourceCode, string email) {
             var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode));
             if (source == null) {
                 return "Source Code not found";
             }
-            if (source.RequestDeletion) {
-                return "Source was already requested to be deleted";
-            }
             if (source.IsTest) {
                 return "Test source cannot be deleted";
             }
-            source.RequestDeletion = true;
-            source.RequestDeletionByEmail = email;
-            source.LastUpdated = DateTime.Now;
-            var value = await _programRepository.UpdateAsync(source);
-            return $"Code {sourceCode} has been marked for deletion";
+            _ = await _programRepository.DeleteSource(source.Id);
+            return $"Code {sourceCode} has been deleted";
         }
 
         public async Task<bool> SaveBaseUrl(string sourceCode, string baseUrl) {

@@ -1,17 +1,18 @@
-﻿@page "/configuration/requestdeletion"
+﻿@page "/configuration/deletion"
 @layout SidebarLayout
 
-<PageTitle>Configuration - Request Deletion</PageTitle>
+<PageTitle>Configuration - Delete Source</PageTitle>
 
 <ilw-content>
-    <h1>Request Deletion</h1>
+    <h1>Delete Source</h1>
 
-    <p>You can delete all the data in your source. This is automatic and cannot be undone. </p>
-    <DeleteNotice DeleteClicked="DeleteItems" ItemTitle="@("Source " + _sourceCode)"></DeleteNotice>
+    <h2>Delete Source Data</h2>
+    <p>You can delete all the data in your source. This will delete all data, but still keep your filters, instructions, security settings, and logs associated with the source. This is automatic and cannot be undone. </p>
+    <DeleteNotice DeleteClicked="DeleteItems" ItemTitle="@("Source Data " + _sourceCode)"></DeleteNotice>
 
 
     <h2>Delete Source</h2>
-    <p>You can request that the source is deleted. This will delete the data and all security settings associated with it. This is a manual process.</p>
-    <button class="ilw-button  ilw-theme-orange-2" @onclick="DeleteSource">Request to Delete Source</button>
+    <p>You can delete the source data and structure. This will delete everything associated with the source. This is automatic and cannot be undone.</p>
+    <DeleteNotice DeleteClicked="DeleteSource" ItemTitle="@("Source " + _sourceCode)"></DeleteNotice>
 
 </ilw-content>

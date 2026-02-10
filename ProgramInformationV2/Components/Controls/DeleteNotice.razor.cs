@@ -11,6 +11,8 @@ namespace ProgramInformationV2.Components.Controls {
         [Parameter]
         public string ItemTitle { get; set; } = "";
 
+        public string Label => ItemTitle.StartsWith("Source Data") ? "deletebox2" : "deletebox";
+
         public void Delete() {
             DeleteClicked.InvokeAsync();
         }
