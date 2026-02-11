@@ -81,7 +81,7 @@ namespace ProgramInformationV2.Search.Getters {
                         f => formats.Any() ? f.Terms(m => m.Field(fld => fld.Formats).Terms(formats)) : f.MatchAll(),
                         f => departments.Any() ? f.Terms(m => m.Field(fld => fld.DepartmentList).Terms(departments)) : f.MatchAll(),
                         f => skills.Any() ? f.Terms(m => m.Field(fld => fld.SkillList).Terms(skills)) : f.MatchAll())
-                    .Must(m => !string.IsNullOrWhiteSpace(search) ? m.MultiMatch(m => m.Fields(fld => fld.Field("title^10").Field("summarytext^5").Field("description^2").Field("whoshouldapply")).Query(search)) : m.MatchAll())))
+                    .Must(m => !string.IsNullOrWhiteSpace(search) ? m.MultiMatch(m => m.Fields(fld => fld.Field("title^10").Field("internalsearch^5").Field("summarytext^5").Field("description^2").Field("whoshouldapply")).Query(search)) : m.MatchAll())))
                     .Sort(srt => string.IsNullOrWhiteSpace(search) ? srt.Ascending(f => f.TitleSortKeyword) : srt.Descending(SortSpecialField.Score))
                     .Suggest(a => a.Phrase("didyoumean", p => p.Text(search).Field(fld => fld.Title))));
             LogDebug(response);

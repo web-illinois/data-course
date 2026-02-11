@@ -38,6 +38,7 @@ namespace ProgramInformationV2.Data.FieldList {
                 new() { Title = "Days", CategoryType = CategoryType.Course, FieldType = FieldType.Location_Time },
                 new() { Title = "Time", CategoryType = CategoryType.Course, FieldType = FieldType.Location_Time },
                 new() { Title = "URL Fragment", CategoryType = CategoryType.Course, FieldType = FieldType.Technical, InitialDescription = "Note that the URL fragment is used to make searching for this item easier and to meet SEO standards. This needs to be unique and consist of lower-case letters, numbers, dashes, and the '/' character. Do not use this if you cannot meet these requirements and rely on the ID to be a unique identifier." },
+                new() { Title = "Internal Search Text", CategoryType = CategoryType.Course, InitialDescription = "Internal text used to manage search fields. Not displayed to the end user but used in search.", FieldType = FieldType.Technical },
                 new() { Title = "Id", CategoryType = CategoryType.Course, FieldType = FieldType.Technical, InitialDescription = "The ID of the item, which may be used in a CMS to pull the item and display it on a webpage." },
                 new() { Title = "Edit Link", CategoryType = CategoryType.Course, FieldType = FieldType.Technical, InitialDescription = "This is a quick link to edit this item directly." }
             ];
