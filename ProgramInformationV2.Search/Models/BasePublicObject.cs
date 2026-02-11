@@ -2,6 +2,7 @@
 
     public abstract class BasePublicObject : BaseObject {
         public string Description { get; set; } = "";
+        public string InternalSearch { get; set; } = "";
 
         public string Url { get; set; } = "";
 
