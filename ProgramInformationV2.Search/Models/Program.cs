@@ -1,5 +1,5 @@
-﻿using System.Text.Json;
-using OpenSearch.Client;
+﻿using OpenSearch.Client;
+using System.Text.Json;
 
 namespace ProgramInformationV2.Search.Models {
 
@@ -76,10 +76,10 @@ namespace ProgramInformationV2.Search.Models {
             VideoUrl = ConvertVideoToEmbed(VideoUrl);
             ProcessLists();
             if (Credentials != null && Credentials?.Count > 0) {
-                Credentials = Credentials.OrderBy(c => c.CredentialType).ThenBy(c => c.Title).ToList();
-                DepartmentList = DepartmentList.Union(Credentials.Where(c => c.DepartmentList != null).SelectMany(c => c.DepartmentList)).Distinct();
-                SkillList = SkillList.Union(Credentials.Where(c => c.SkillList != null).SelectMany(c => c.SkillList)).Distinct();
-                TagList = TagList.Union(Credentials.Where(c => c.TagList != null).SelectMany(c => c.TagList)).Distinct();
+                Credentials = [.. Credentials.OrderBy(c => c.CredentialType).ThenBy(c => c.Title)];
+                DepartmentList = Credentials.Where(c => c.DepartmentList != null).SelectMany(c => c.DepartmentList).Distinct();
+                SkillList = Credentials.Where(c => c.SkillList != null).SelectMany(c => c.SkillList).Distinct();
+                TagList = Credentials.Where(c => c.TagList != null).SelectMany(c => c.TagList).Distinct();
                 Credentials?.ForEach(c => {
                     c.ProgramId = Id;
                     c.ProgramTitle = Title;

@@ -36,7 +36,11 @@ namespace ProgramInformationV2.Search.Setters {
                 program.Source = credential.Source;
                 program.Id = credential.Id + "-program";
                 program.Title = credential.Title;
-                program.Title = credential.Url;
+                program.Description = credential.Description;
+                program.SummaryText = credential.SummaryText;
+                program.Url = credential.Url;
+                program.UrlFull = credential.UrlFull;
+                program.InternalSearch = credential.InternalSearch;
                 program.IsActive = credential.IsActive;
                 program.Credentials.Add(credential);
             } else {
