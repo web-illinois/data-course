@@ -5,7 +5,7 @@
 
 <ilw-content>
     <h1>Courses</h1>
-    <p>A requirement set may contain courses. Courses are automatically sorted in alphabetical order. Courses may have an optional description assigned to them which can clarify information (need to take a specific section, requires special approval, etc.). </p>
+    <p>A requirement set may contain courses. Courses are automatically sorted in alphabetical order. Courses may have optional public notes assigned to them which can clarify information (need to take a specific section, requires special approval, etc.). </p>
 </ilw-content>
 
 @if (_useCourses.HasValue && _useCourses.Value)
@@ -18,7 +18,7 @@
                 <div class="requirement-box">
                     <p><a @onclick="() => EditCourse(course.v.CourseId)">@course.v.Title</a></p>
                     <div class="note">
-                        <label for="note-@course.i">Note: </label>
+                        <label for="note-@course.i">Optional Public Notes: </label>
                         <input id="note-@course.i" class="ils-input-long" type="text" @bind="@course.v.Description">
                     </div>
                     <div class="button-group">
