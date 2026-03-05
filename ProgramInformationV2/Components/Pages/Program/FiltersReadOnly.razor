@@ -1,0 +1,63 @@
+﻿@page "/program/filtersread"
+@layout SidebarLayout
+
+<PageTitle>Programs - Filter List (Read only)</PageTitle>
+
+<ilw-content>
+    <h1>Filter List (Read only)</h1>
+    <p>Filters are <em>read only</em> and managed via a compilation of the credential tags. This will allow users to search filters for the programs they’re interested in based on the departments, tags, and skills/topics selected below.</p>
+    @if (DepartmentTags != null && SkillTags != null && Tags != null && !NoFiltersAvailable) {
+        @if (DepartmentTags.Count() > 0) {
+            <h2>Departments</h2>
+            <p>Departments are the academic units inside your area. Each department handles a broad range of academic studies aroudn a certain topic (Astronomy, Electrical Engineering, Linguistics, Educational Policy). These may be official units, or unofficial categories that are handled by your main college.</p>
+            <ul>
+            @foreach (var tag in DepartmentTags) {
+                    <li>
+                        @if (tag.EnabledBySource) {
+                            <strong>@tag.Title: enabled</strong>
+                        }
+                        else {
+                            <span>@tag.Title: disabled</span>
+                        }
+                    </li>
+            }
+            </ul>
+        }
+
+        @if (SkillTags.Count() > 0) {
+            <h2>Skills/Topics</h2>
+            <p>Skills / Topics are what the student is going to expect to gain by enrolling in the program. This may or may not correspond with the department list. For example, <em>Financial Management</em> may be a topic that is handled by multiple departments in the Gies College of Business (Accounting and Finance). The skill / topic should be student-focused.</p>
+            <ul>
+            @foreach (var tag in SkillTags) {
+                    <li>
+                        @if (tag.EnabledBySource) {
+                            <strong>@tag.Title: enabled</strong>
+                        } else {
+                            <span>@tag.Title: disabled</span>
+                        }
+                    </li>
+                }
+            </ul>
+    }
+
+        @if (Tags.Count() > 0) {
+            <h2>Tags</h2>
+            <p>Tags are determined by your college and department and will vary. This may include self-paced degrees, certification, etc.</p>
+            <ul>
+            @foreach (var tag in Tags) {
+                    <li>
+                        @if (tag.EnabledBySource) {
+                            <strong>@tag.Title: enabled</strong>
+                        } else {
+                            <span>@tag.Title: disabled</span>
+                        }
+                    </li>
+                }
+            </ul>
+        }
+        <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
+    }
+    @if (NoFiltersAvailable) {
+        <p>No filters are available for this source. <a href="/configuration/filters">You may add them</a>.</p>
+    }
+</ilw-content>

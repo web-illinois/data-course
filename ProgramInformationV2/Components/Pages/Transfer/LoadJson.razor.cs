@@ -7,7 +7,7 @@ using ProgramInformationV2.Data.PageList;
 using ProgramInformationV2.Search.Helpers;
 using ProgramInformationV2.Search.Models;
 
-namespace ProgramInformationV2.Components.Pages.Configuration {
+namespace ProgramInformationV2.Components.Pages.Transfer {
 
     public partial class LoadJson {
         private const int maxFileSize = 2048000;
@@ -31,7 +31,7 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
             if (string.IsNullOrWhiteSpace(FileType)) {
                 await Layout.AddMessage("Please choose a file type to download");
             } else {
-                string source = await Layout.CheckSource();
+                var source = await Layout.CheckSource();
                 await Layout.AddMessage("JSON file being prepared -- this may take a while.");
                 if (FileType == "Configuration") {
                     await Layout.AddMessage(await FilterHelper.ImportFiltersFromJson(source, reader));
@@ -44,7 +44,7 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
 
         protected override async Task OnInitializedAsync() {
             await Layout.CheckSource();
-            Layout.SetSidebar(SidebarEnum.Configuration, "Configuration");
+            Layout.SetSidebar(SidebarEnum.TransferInformation, "Transfer Information");
             base.OnInitialized();
         }
 
