@@ -7,7 +7,7 @@ using ProgramInformationV2.Search.Helpers;
 using ProgramInformationV2.Search.Models;
 using System.Text;
 
-namespace ProgramInformationV2.Components.Pages.Configuration {
+namespace ProgramInformationV2.Components.Pages.Transfer {
 
     public partial class SaveJson {
         public string FileType { get; set; } = "";
@@ -28,29 +28,29 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
             if (string.IsNullOrWhiteSpace(FileType)) {
                 await Layout.AddMessage("Please choose a file type to download");
             } else {
-                string source = await Layout.CheckSource();
+                var source = await Layout.CheckSource();
                 await Layout.AddMessage("JSON file being prepared -- this may take a while.");
                 if (FileType == "Configuration") {
-                    string jsonTextFull = await FilterHelper.GetFilterJsonForExport(source);
+                    var jsonTextFull = await FilterHelper.GetFilterJsonForExport(source);
                     var fileStream = new MemoryStream(Encoding.ASCII.GetBytes(jsonTextFull));
                     using var streamRef = new DotNetStreamReference(fileStream);
-                    string filename = $"{source}_{DateTime.Now.ToString("yyyy_MM_dd")}_{FileType.ToLowerInvariant()}.json";
+                    var filename = $"{source}_{DateTime.Now.ToString("yyyy_MM_dd")}_{FileType.ToLowerInvariant()}.json";
                     await JsRuntime.InvokeVoidAsync("downloadFileFromStream", filename, streamRef);
                     await Layout.AddMessage("JSON file downloaded successfully: " + filename);
                 } else {
                     Enum.TryParse(FileType, out UrlTypes urlType);
-                    string jsonTextFull = await JsonHelper.GetJsonFull(source, urlType);
+                    var jsonTextFull = await JsonHelper.GetJsonFull(source, urlType);
                     if (jsonTextFull.Length < 4000000) {
                         var fileStream = new MemoryStream(Encoding.ASCII.GetBytes(jsonTextFull));
                         using var streamRef = new DotNetStreamReference(fileStream);
-                        string filename = $"{source}_{DateTime.Now.ToString("yyyy_MM_dd")}_{FileType.ToLowerInvariant()}.json";
+                        var filename = $"{source}_{DateTime.Now.ToString("yyyy_MM_dd")}_{FileType.ToLowerInvariant()}.json";
                         await JsRuntime.InvokeVoidAsync("downloadFileFromStream", filename, streamRef);
                         await Layout.AddMessage("JSON file downloaded successfully: " + filename);
                     } else {
-                        int i = 0;
-                        bool continueLoop = true;
+                        var i = 0;
+                        var continueLoop = true;
                         while (continueLoop) {
-                            string jsonText = await JsonHelper.GetJson(source, urlType, i);
+                            var jsonText = await JsonHelper.GetJson(source, urlType, i);
                             if (jsonText == "[]" || jsonText.Length < 20) {
                                 continueLoop = false;
                             } else {
@@ -68,7 +68,7 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
 
         protected override async Task OnInitializedAsync() {
             await Layout.CheckSource();
-            Layout.SetSidebar(SidebarEnum.Configuration, "Configuration");
+            Layout.SetSidebar(SidebarEnum.TransferInformation, "Transfer Information");
             base.OnInitialized();
         }
     }

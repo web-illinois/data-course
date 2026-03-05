@@ -16,6 +16,7 @@
         Configuration,
         ConfigurationNoSource,
         Audit,
-        FieldsUsed
+        FieldsUsed,
+        TransferInformation
     }
 }
