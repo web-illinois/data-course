@@ -70,8 +70,8 @@ namespace ProgramInformationV2.Search.Getters {
                         f => terms.Any() ? f.Terms(m => m.Field(fld => fld.Terms).Terms(terms)) : f.MatchAll(),
                         f => isUpcoming ? f.Term(m => m.Field(fld => fld.IsUpcoming).Value(true)) : f.MatchAll(),
                         f => isCurrent ? f.Term(m => m.Field(fld => fld.IsCurrent).Value(true)) : f.MatchAll())
-                    .Must(m => !string.IsNullOrWhiteSpace(search) ? m.Match(m => m.Field(fld => fld.Title).Query(search)) : m.MatchAll())))
-                    .Sort(srt => string.IsNullOrWhiteSpace(search) ? srt.Ascending(f => f.TitleSortKeyword) : srt.Descending(f => SortSpecialField.Score))
+                    .Must(m => !string.IsNullOrWhiteSpace(search) ? m.MultiMatch(m => m.Fields(fld => fld.Field("title^10").Field("internalsearch^5").Field("description^2").Field("summarytext^2")).Query(search)) : m.MatchAll())))
+                    .Sort(srt => string.IsNullOrWhiteSpace(search) ? srt.Ascending(f => f.TitleSortKeyword) : srt.Descending(SortSpecialField.Score))
                     .Suggest(a => a.Phrase("didyoumean", p => p.Text(search).Field(fld => fld.Title))));
             LogDebug(response);
 

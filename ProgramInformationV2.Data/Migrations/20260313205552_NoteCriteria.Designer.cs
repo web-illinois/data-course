@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProgramInformationV2.Data.DataContext;
 
@@ -11,9 +12,11 @@ using ProgramInformationV2.Data.DataContext;
 namespace ProgramInformationV2.Data.Migrations
 {
     [DbContext(typeof(ProgramContext))]
-    partial class ProgramContextModelSnapshot : ModelSnapshot
+    [Migration("20260313205552_NoteCriteria")]
+    partial class NoteCriteria
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -210,17 +213,10 @@ namespace ProgramInformationV2.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryType")
-                        .HasColumnType("int");
-
                     b.Property<int>("CredentialTypeCriteria")
                         .HasColumnType("int");
 
                     b.Property<string>("DepartmentCriteria")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -233,16 +229,9 @@ namespace ProgramInformationV2.Data.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("LinkText")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LinkUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
 
                     b.Property<string>("SkillCriteria")
                         .IsRequired()
@@ -252,10 +241,6 @@ namespace ProgramInformationV2.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TagCriteria")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -324,7 +309,7 @@ namespace ProgramInformationV2.Data.Migrations
                             IsOwner = true,
                             IsPublic = false,
                             IsRestricted = false,
-                            LastUpdated = new DateTime(2026, 3, 14, 10, 35, 34, 747, DateTimeKind.Local).AddTicks(9823),
+                            LastUpdated = new DateTime(2026, 3, 13, 15, 55, 52, 98, DateTimeKind.Local).AddTicks(4714),
                             RestrictedIds = "",
                             SourceId = -1
                         });
@@ -415,7 +400,7 @@ namespace ProgramInformationV2.Data.Migrations
                             CreatedByEmail = "jonker@illinois.edu",
                             IsActive = false,
                             IsTest = true,
-                            LastUpdated = new DateTime(2026, 3, 14, 10, 35, 34, 747, DateTimeKind.Local).AddTicks(9463),
+                            LastUpdated = new DateTime(2026, 3, 13, 15, 55, 52, 98, DateTimeKind.Local).AddTicks(3408),
                             RequestDeletion = false,
                             RequestDeletionByEmail = "",
                             Title = "Test Entry",

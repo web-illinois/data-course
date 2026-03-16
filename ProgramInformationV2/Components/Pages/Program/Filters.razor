@@ -6,8 +6,11 @@
 <ilw-content>
     <h1>Filters</h1>
     <p>Edit the program’s filters below by toggling them on and off. This will allow users to search filters for the programs they’re interested in based on the departments, tags, and skills/topics selected below.</p>
-    @if (DepartmentTags != null && SkillTags != null && Tags != null && !NoFiltersAvailable)
-    {
+    @if (!string.IsNullOrWhiteSpace(Instructions)) {
+        <h2>Instructions</h2>
+        <p>@Instructions</p>
+    }
+    @if (DepartmentTags != null && SkillTags != null && Tags != null && !NoFiltersAvailable && UseItem) {
         @if (DepartmentTags.Count() > 0)
         {
             <h2>Departments</h2>
@@ -42,8 +45,9 @@
         <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
         <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
     }
-    @if (NoFiltersAvailable)
-    {
-        <p>No filters are available for this source. <a href="/configuration/filters">You may add them</a>.</p>
+    @if (NoFiltersAvailable) {
+        <p>No filters are available for this source. <a href="/configuration/filters">You may add them in the Filters section</a>.</p>
+    } else if (!UseItem) {
+        <p>Filters are not currently being used for this source. You can enable this in the <a href="/configuration/fieldsused/programs">Fields Used</a> section.</p>
     }
 </ilw-content>

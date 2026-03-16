@@ -1,0 +1,20 @@
+﻿@page "/program/notelist"
+@layout SidebarLayout
+
+<PageTitle>Programs - List of Notes Information</PageTitle>
+
+<ilw-content>
+    <h1>List of Notes Information</h1>
+    <p>This is meant to generate an FAQ-like area or individual notes for a program. This will be displayed on the program page.</p>
+    @if (!string.IsNullOrWhiteSpace(Instructions)) {
+        <h2>Instructions</h2>
+        <p>@Instructions</p>
+    }
+</ilw-content>
+@if (UseItem) {
+    <NoteListEditor Notes="Notes" NoteTemplateTitles="NoteTemplateTitles" SetDirty="e => SetDirty()"></NoteListEditor>
+    <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+    <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
+} else {
+    <ilw-content><p>Notes are not currently being used for this source. You can enable this in the <a href="/configuration/fieldsused/programs">Fields Used</a> section.</p></ilw-content>
+}

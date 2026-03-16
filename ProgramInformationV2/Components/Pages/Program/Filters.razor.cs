@@ -2,6 +2,7 @@
 using ProgramInformationV2.Components.Layout;
 using ProgramInformationV2.Data.DataHelpers;
 using ProgramInformationV2.Data.DataModels;
+using ProgramInformationV2.Data.FieldList;
 using ProgramInformationV2.Data.PageList;
 using ProgramInformationV2.Search.Getters;
 using ProgramInformationV2.Search.Setters;
@@ -21,7 +22,11 @@ namespace ProgramInformationV2.Components.Pages.Program {
         public IEnumerable<TagSource>? SkillTags => FilterTags?.Where(f => f.Key == TagType.Skill).SelectMany(x => x);
 
         public IEnumerable<TagSource>? Tags => FilterTags?.Where(f => f.Key == TagType.Tag).SelectMany(x => x);
+        public string Instructions { get; set; } = default!;
+        public bool UseItem { get; set; }
 
+        [Inject]
+        protected FieldManager FieldManager { get; set; } = default!;
         [Inject]
         protected FilterHelper FilterHelper { get; set; } = default!;
 
@@ -64,6 +69,9 @@ namespace ProgramInformationV2.Components.Pages.Program {
                     tag.EnabledBySource = true;
                 }
             }
+            var fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new ProgramGroup(), FieldType.Filters);
+            Instructions = fieldItems.FirstOrDefault()?.Description ?? "";
+            UseItem = fieldItems.FirstOrDefault()?.ShowItem ?? true;
         }
     }
 }

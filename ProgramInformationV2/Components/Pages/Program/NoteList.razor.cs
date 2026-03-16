@@ -1,31 +1,28 @@
 ﻿using Microsoft.AspNetCore.Components;
-using ProgramInformationV2.Components.Controls;
 using ProgramInformationV2.Components.Layout;
 using ProgramInformationV2.Data.DataHelpers;
 using ProgramInformationV2.Data.DataModels;
 using ProgramInformationV2.Data.FieldList;
 using ProgramInformationV2.Data.PageList;
 using ProgramInformationV2.Search.Getters;
+using ProgramInformationV2.Search.Models;
 using ProgramInformationV2.Search.Setters;
 
 namespace ProgramInformationV2.Components.Pages.Program {
-
-    public partial class RelatedLinks {
-        private LinkList _linkList = default!;
-
+    public partial class NoteList {
         [CascadingParameter]
         public SidebarLayout Layout { get; set; } = default!;
 
         public Search.Models.Program ProgramItem { get; set; } = new Search.Models.Program();
-        public string Instructions { get; set; } = default!;
-        public bool UseItem { get; set; }
-
 
         [Inject]
         protected FieldManager FieldManager { get; set; } = default!;
 
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
+
+        [Inject]
+        protected NoteTemplateHelper NoteTemplateHelper { get; set; } = default!;
 
         [Inject]
         protected ProgramGetter ProgramGetter { get; set; } = default!;
@@ -35,12 +32,16 @@ namespace ProgramInformationV2.Components.Pages.Program {
 
         [Inject]
         protected SourceHelper SourceHelper { get; set; } = default!;
+        public List<Note> Notes { get; set; } = default!;
+        public List<string> NoteTemplateTitles { get; set; } = default!;
+        public string Instructions { get; set; } = default!;
+        public bool UseItem { get; set; }
 
         public async Task Save() {
             Layout.RemoveDirty();
-            ProgramItem.LinkList = _linkList.GetSavedLinks();
+            ProgramItem.NoteList = Notes;
             _ = await ProgramSetter.SetProgram(ProgramItem);
-            await Layout.Log(CategoryType.Program, FieldType.RelatedLinks, ProgramItem);
+            await Layout.Log(CategoryType.Program, FieldType.NotesList, ProgramItem);
             await Layout.AddMessage("Program saved successfully.");
         }
 
@@ -52,12 +53,17 @@ namespace ProgramInformationV2.Components.Pages.Program {
             }
             ProgramItem = await ProgramGetter.GetProgram(id);
             var sidebar = await SourceHelper.DoesSourceUseItem(sourceCode, CategoryType.Credential) ? SidebarEnum.ProgramWithCredential : SidebarEnum.Program;
-
             Layout.SetSidebar(sidebar, ProgramItem.Title);
-            var fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new ProgramGroup(), FieldType.RelatedLinks);
+            Notes = ProgramItem.NoteList?.ToList() ?? [];
+            NoteTemplateTitles = [.. (await NoteTemplateHelper.GetNoteTemplatesAsync(sourceCode, CategoryType.Program)).Select(nt => nt.Title).Distinct().OrderBy(s => s)];
+            var fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new ProgramGroup(), FieldType.NotesList);
             Instructions = fieldItems.FirstOrDefault()?.Description ?? "";
             UseItem = fieldItems.FirstOrDefault()?.ShowItem ?? true;
             await base.OnInitializedAsync();
+        }
+
+        public async Task SetDirty() {
+            Layout.SetDirty();
         }
     }
 }

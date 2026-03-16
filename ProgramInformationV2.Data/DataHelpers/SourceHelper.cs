@@ -49,6 +49,11 @@ namespace ProgramInformationV2.Data.DataHelpers {
             return source?.BaseUrl ?? "";
         }
 
+        public async Task<int> GetSourceId(string sourceCode) {
+            var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
+            return source?.Id ?? 0;
+        }
+
         public async Task<Dictionary<string, string>> GetSources(string netId) => await _programRepository.ReadAsync(c => c.SecurityEntries.Include(se => se.Source).Where(se => se.IsActive && se.Email == netId).ToDictionary(se => se.Source?.Code ?? "", se2 => se2.Source?.Title ?? ""));
 
         public async Task<IEnumerable<Tuple<string, string>>> GetSourcesAndOwners() => await _programRepository.ReadAsync(c => c.Sources.Where(s => s.IsActive).OrderBy(s => s.Title).Select(s => new Tuple<string, string>(s.CreatedByEmail, $"{s.Title} ({s.Code})")));

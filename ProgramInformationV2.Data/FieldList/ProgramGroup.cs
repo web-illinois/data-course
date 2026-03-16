@@ -10,7 +10,10 @@ namespace ProgramInformationV2.Data.FieldList {
             FieldTypeInstructions = new Dictionary<FieldType, string> {
                 [FieldType.General] = "General information that will describe the program for users searching the site.",
                 [FieldType.Link] = "Control what links, images, and videos are added to the program page.",
-                [FieldType.Overview] = "Describe the program and who should apply. This will be displayed on the program page.",
+                [FieldType.Overview] = "Describe the program and who should apply. This is intended to be displayed on the program page.",
+                [FieldType.Filters] = "Be able to create filters for the program to help search.",
+                [FieldType.RelatedLinks] = "Generate a list of links associated with a program. This is intended to be displayed on the program page.",
+                [FieldType.NotesList] = "Generate an FAQ-like area or individual notes for a program. This is intended to be displayed on the program page.",
                 [FieldType.Technical] = "Technical details used for internal purposes."
             };
             FieldItems = [
@@ -25,7 +28,10 @@ namespace ProgramInformationV2.Data.FieldList {
                 new() { Title = "Detail Program Image Alternative Text", CategoryType = CategoryType.Program, FieldType = FieldType.Link, InitialDescription = "Alternative text for the detail image." },
                 new() { Title = "Video URL", CategoryType = CategoryType.Program, FieldType = FieldType.Link, InitialDescription = "This should link to a video that you would like featured on the program page. Please be sure the video has captions and/or transcripts." },
                 new() { Title = "Description", CategoryType = CategoryType.Program, FieldType = FieldType.Overview, InitialDescription = "This text should describe the program. It will be on the program page." },
-                new() { Title = "Who Should Apply", CategoryType = CategoryType.Program,FieldType = FieldType.Overview, InitialDescription = "This text should detail who is eligible and may be interested in the program. It will be on the program page." },
+                new() { Title = "Who Should Apply", CategoryType = CategoryType.Program, FieldType = FieldType.Overview, InitialDescription = "This text should detail who is eligible and may be interested in the program. It will be on the program page." },
+                new() { Title = "Filters", CategoryType = CategoryType.Program, InitialDescription = "", FieldType = FieldType.Filters },
+                new() { Title = "Related Links", CategoryType = CategoryType.Program, InitialDescription = "", FieldType = FieldType.RelatedLinks },
+                new() { Title = "Note List", CategoryType = CategoryType.Program, InitialDescription = "", FieldType = FieldType.NotesList },
                 new() { Title = "URL Fragment", CategoryType = CategoryType.Program, InitialDescription = "Note that the URL fragment is used to make searching for this item easier and to meet SEO standards. This needs to be unique and consist of lower-case letters, numbers, dashes, and the '/' character. Do not use this if you cannot meet these requirements and rely on the ID to be a unique identifier.", FieldType = FieldType.Technical },
                 new() { Title = "Internal Search Text", CategoryType = CategoryType.Program, InitialDescription = "Internal text used to manage search fields. Not displayed to the end user but used in search.", FieldType = FieldType.Technical },
                 new() { Title = "Id", CategoryType = CategoryType.Program, FieldType = FieldType.Technical, InitialDescription = "The ID of the item, which may be used in a CMS to pull the item and display it on a webpage." },

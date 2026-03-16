@@ -15,12 +15,16 @@ namespace ProgramInformationV2.Search.Models {
         [Keyword]
         public IEnumerable<string> TagList { get; set; } = default!;
 
+        [Keyword] public IEnumerable<Note> NoteList { get; set; } = default!;
+
+
         public static string ProcessTagName(string tag) => tag.Replace("\"", "");
 
         internal void ProcessLists() {
             TagList = TagList == null ? [] : TagList.Select(ProcessTagName).ToList();
             DepartmentList = DepartmentList == null ? [] : DepartmentList.Select(ProcessTagName).ToList();
             SkillList = SkillList == null ? [] : SkillList.Select(ProcessTagName).ToList();
+            NoteList = NoteList == null ? [] : NoteList;
         }
     }
 }
