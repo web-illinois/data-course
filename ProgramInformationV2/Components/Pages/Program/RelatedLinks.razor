@@ -5,11 +5,18 @@
 
 <ilw-content>
     <h1>Related Links Information</h1>
+    <p>This allows you to generate a list of related links for the program. This will be displayed on the program page.</p>
+    @if (!string.IsNullOrWhiteSpace(Instructions)) {
+        <h2>Instructions</h2>
+        <p>@Instructions</p>
+    }
 </ilw-content>
 
-@if (ProgramItem != null)
+@if (ProgramItem != null && UseItem)
 {
     <LinkList @ref="_linkList" Links="@ProgramItem.LinkList?.ToList()"></LinkList>
     <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
     <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
+} else if (!UseItem) {
+    <ilw-content><p>Related Links are not currently being used for this source. You can enable this in the <a href="/configuration/fieldsused/programs">Fields Used</a> section.</p></ilw-content>
 }

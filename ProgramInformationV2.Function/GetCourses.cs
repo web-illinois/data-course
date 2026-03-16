@@ -1,4 +1,3 @@
-using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -9,11 +8,14 @@ using Microsoft.OpenApi.Models;
 using ProgramInformationV2.Function.Helper;
 using ProgramInformationV2.Search.Getters;
 using ProgramInformationV2.Search.Models;
+using ProgramInformationV2.Search.NoteTemplates;
+using System.Net;
 
 namespace ProgramInformationV2.Function {
 
-    public class GetCourses(CourseGetter courseGetter, ILogger<GetCourses> logger) {
+    public class GetCourses(CourseGetter courseGetter, NoteTemplateSingleton noteTemplateSingleton, ILogger<GetCourses> logger) {
         private readonly CourseGetter _courseGetter = courseGetter;
+        private readonly NoteTemplateSingleton _noteTemplateSingleton = noteTemplateSingleton;
         private readonly ILogger<GetCourses> _logger = logger;
 
         [Function("CourseByFaculty")]
@@ -45,6 +47,7 @@ namespace ProgramInformationV2.Function {
             var fragment = requestHelper.GetRequest(req, "fragment");
             requestHelper.Validate();
             var returnItem = (await _courseGetter.GetCourse(source, fragment));
+            returnItem.NoteList = await _noteTemplateSingleton.MergeCourseNotes(returnItem);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
@@ -63,6 +66,7 @@ namespace ProgramInformationV2.Function {
             var section = requestHelper.GetRequest(req, "section", false);
             requestHelper.Validate();
             var returnItem = await _courseGetter.GetCourse(id, section, true);
+            returnItem.NoteList = await _noteTemplateSingleton.MergeCourseNotes(returnItem);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;

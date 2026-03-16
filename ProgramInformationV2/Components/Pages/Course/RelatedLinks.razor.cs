@@ -14,6 +14,8 @@ namespace ProgramInformationV2.Components.Pages.Course {
         private LinkList _linkList = default!;
 
         public ProgramInformationV2.Search.Models.Course CourseItem { get; set; } = default!;
+        public string Instructions { get; set; } = default!;
+        public bool UseItem { get; set; }
 
         public IEnumerable<FieldItem> FieldItems { get; set; } = default!;
 
@@ -52,6 +54,9 @@ namespace ProgramInformationV2.Components.Pages.Course {
             CourseItem = await CourseGetter.GetCourse(id);
             var _sidebar = await SourceHelper.DoesSourceUseItem(sourceCode, CategoryType.Section) ? SidebarEnum.CourseWithSection : SidebarEnum.Course;
             Layout.SetSidebar(_sidebar, CourseItem.Title);
+            var fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new CourseGroup(), FieldType.RelatedLinks);
+            Instructions = fieldItems.FirstOrDefault()?.Description ?? "";
+            UseItem = fieldItems.FirstOrDefault()?.ShowItem ?? true;
             await base.OnInitializedAsync();
         }
     }

@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ProgramInformationV2.Data.DataModels;
+using System.Diagnostics;
 
 namespace ProgramInformationV2.Data.DataContext {
 
@@ -21,6 +21,7 @@ namespace ProgramInformationV2.Data.DataContext {
         public DbSet<FacultyName> FacultyNames { get; set; }
         public DbSet<FieldSource> FieldSources { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<NoteTemplate> NoteTemplates { get; set; }
         public DbSet<SecurityEntry> SecurityEntries { get; set; }
         public DbSet<Source> Sources { get; set; }
         public DbSet<TagSource> TagSources { get; set; }

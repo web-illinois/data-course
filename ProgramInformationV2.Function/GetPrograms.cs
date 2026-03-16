@@ -6,13 +6,15 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProgramInformationV2.Function.Helper;
 using ProgramInformationV2.Search.Getters;
+using ProgramInformationV2.Search.NoteTemplates;
 using System.Net;
 
 namespace ProgramInformationV2.Function {
 
-    public class GetPrograms(ProgramGetter programGetter, ILogger<GetPrograms> logger) {
+    public class GetPrograms(ProgramGetter programGetter, NoteTemplateSingleton noteTemplateSingleton, ILogger<GetPrograms> logger) {
         private readonly ILogger<GetPrograms> _logger = logger;
         private readonly ProgramGetter _programGetter = programGetter;
+        private readonly NoteTemplateSingleton _noteTemplateSingleton = noteTemplateSingleton;
 
         [Function("ProgramFragment")]
         [OpenApiOperation(operationId: "ProgramFragment", tags: "Get Program Information", Description = "Get a program by the fragment supplied in the data entry area. This includes all credentials.")]
@@ -27,6 +29,7 @@ namespace ProgramInformationV2.Function {
             var fragment = requestHelper.GetRequest(req, "fragment");
             requestHelper.Validate();
             var returnItem = await _programGetter.GetProgram(source, fragment);
+            returnItem.NoteList = await _noteTemplateSingleton.MergeProgramNotes(returnItem);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
@@ -43,6 +46,7 @@ namespace ProgramInformationV2.Function {
             var id = requestHelper.GetRequest(req, "id");
             requestHelper.Validate();
             var returnItem = await _programGetter.GetProgram(id);
+            returnItem.NoteList = await _noteTemplateSingleton.MergeProgramNotes(returnItem);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
@@ -59,6 +63,7 @@ namespace ProgramInformationV2.Function {
             var id = requestHelper.GetRequest(req, "id");
             requestHelper.Validate();
             var returnItem = await _programGetter.GetProgramByCredential(id);
+            returnItem.NoteList = await _noteTemplateSingleton.MergeProgramNotes(returnItem);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
