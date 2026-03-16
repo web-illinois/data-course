@@ -1,4 +1,3 @@
-using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -9,11 +8,14 @@ using ProgramInformationV2.Function.Helper;
 using ProgramInformationV2.Search.Getters;
 using ProgramInformationV2.Search.JsonThinModels;
 using ProgramInformationV2.Search.Models;
+using ProgramInformationV2.Search.NoteTemplates;
+using System.Net;
 
 namespace ProgramInformationV2.Function {
 
-    public class GetCredentials(CredentialGetter credentialGetter, ILogger<GetCredentials> logger) {
+    public class GetCredentials(CredentialGetter credentialGetter, NoteTemplateSingleton noteTemplateSingleton, ILogger<GetCredentials> logger) {
         private readonly CredentialGetter _credentialGetter = credentialGetter;
+        private readonly NoteTemplateSingleton _noteTemplateSingleton = noteTemplateSingleton;
         private readonly ILogger<GetCredentials> _logger = logger;
 
         [Function("CredentialFragment")]
@@ -29,6 +31,7 @@ namespace ProgramInformationV2.Function {
             var fragment = requestHelper.GetRequest(req, "fragment");
             requestHelper.Validate();
             var returnItem = await _credentialGetter.GetCredentialWithRequirementSet(source, fragment);
+            returnItem.Credential.NoteList = await _noteTemplateSingleton.MergeCredentialNotes(returnItem.Credential);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
@@ -45,6 +48,7 @@ namespace ProgramInformationV2.Function {
             var id = requestHelper.GetRequest(req, "id");
             requestHelper.Validate();
             var returnItem = await _credentialGetter.GetCredentialWithRequirementSet(id);
+            returnItem.Credential.NoteList = await _noteTemplateSingleton.MergeCredentialNotes(returnItem.Credential);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;

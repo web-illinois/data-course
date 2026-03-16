@@ -21,7 +21,8 @@
         Filters,
         CourseList,
         RelatedLinks,
-        Security
+        Security,
+        NotesList
     }
 
     public enum ScreenType {

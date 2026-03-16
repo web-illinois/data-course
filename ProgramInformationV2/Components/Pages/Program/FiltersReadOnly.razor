@@ -5,8 +5,12 @@
 
 <ilw-content>
     <h1>Filter List (Read only)</h1>
-    <p>Filters are <em>read only</em> and managed via a compilation of the credential tags. This will allow users to search filters for the programs they’re interested in based on the departments, tags, and skills/topics selected below.</p>
-    @if (DepartmentTags != null && SkillTags != null && Tags != null && !NoFiltersAvailable) {
+    <p>Filters are <em>read only</em> and managed via a compilation of the credential tags. This will allow users to search filters for the programs they’re interested in based on the departments, tags, and skills/topics selected below. To edit these, you need to go to the <a href="/program/credentiallist">credential list</a> and edit an individual credential.</p>
+    @if (!string.IsNullOrWhiteSpace(Instructions)) {
+        <h2>Instructions</h2>
+        <p>@Instructions</p>
+    }
+    @if (DepartmentTags != null && SkillTags != null && Tags != null && !NoFiltersAvailable && !UseItem) {
         @if (DepartmentTags.Count() > 0) {
             <h2>Departments</h2>
             <p>Departments are the academic units inside your area. Each department handles a broad range of academic studies aroudn a certain topic (Astronomy, Electrical Engineering, Linguistics, Educational Policy). These may be official units, or unofficial categories that are handled by your main college.</p>
@@ -58,6 +62,8 @@
         <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
     }
     @if (NoFiltersAvailable) {
-        <p>No filters are available for this source. <a href="/configuration/filters">You may add them</a>.</p>
+        <p>No filters are available for this source. <a href="/configuration/filters">You may add them in the Filters section</a>.</p>
+    } else if (!UseItem) {
+        <p>Filters are not currently being used for this source. You can enable this in the <a href="/configuration/fieldsused/programs">Fields Used</a> section.</p>
     }
 </ilw-content>

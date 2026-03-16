@@ -1,33 +1,38 @@
 ﻿using Microsoft.AspNetCore.Components;
-using ProgramInformationV2.Components.Controls;
 using ProgramInformationV2.Components.Layout;
 using ProgramInformationV2.Data.DataHelpers;
 using ProgramInformationV2.Data.DataModels;
 using ProgramInformationV2.Data.FieldList;
 using ProgramInformationV2.Data.PageList;
 using ProgramInformationV2.Search.Getters;
+using ProgramInformationV2.Search.Models;
 using ProgramInformationV2.Search.Setters;
 
 namespace ProgramInformationV2.Components.Pages.Credential {
-
-    public partial class RelatedLinks {
-        private LinkList _linkList = default!;
-
-        public Search.Models.Credential CredentialItem { get; set; } = new Search.Models.Credential();
-        public string Instructions { get; set; } = default!;
-        public bool UseItem { get; set; }
+    public partial class NotesList {
+        public Search.Models.Credential CredentialItem { get; set; } = default!;
 
         [CascadingParameter]
         public SidebarLayout Layout { get; set; } = default!;
+
+        public List<Note> Notes { get; set; } = default!;
+        public List<string> NoteTemplateTitles { get; set; } = default!;
+        public string Instructions { get; set; } = default!;
+        public bool UseItem { get; set; }
+        public bool UsePrograms { get; set; }
 
         [Inject]
         protected CredentialGetter CredentialGetter { get; set; } = default!;
 
         [Inject]
+        protected NoteTemplateHelper NoteTemplateHelper { get; set; } = default!;
+        [Inject]
         protected FieldManager FieldManager { get; set; } = default!;
-
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
+
+        [Inject]
+        protected ProgramGetter ProgramGetter { get; set; } = default!;
 
         [Inject]
         protected ProgramSetter ProgramSetter { get; set; } = default!;
@@ -35,26 +40,33 @@ namespace ProgramInformationV2.Components.Pages.Credential {
         [Inject]
         protected SourceHelper SourceHelper { get; set; } = default!;
 
+        public async Task BackToProgram() {
+            await Layout.SetCacheId(CredentialItem?.ProgramId ?? "");
+            NavigationManager.NavigateTo("/program/credentiallist", true);
+        }
+
         public async Task Save() {
             Layout.RemoveDirty();
-            CredentialItem.LinkList = _linkList.GetSavedLinks();
+            CredentialItem.NoteList = Notes;
             _ = await ProgramSetter.SetCredential(CredentialItem);
-            await Layout.Log(CategoryType.Credential, FieldType.RelatedLinks, CredentialItem);
+            await Layout.Log(CategoryType.Credential, FieldType.NotesList, CredentialItem);
             await Layout.AddMessage("Credential saved successfully.");
         }
 
         protected override async Task OnInitializedAsync() {
             var sourceCode = await Layout.CheckSource();
             var id = await Layout.GetCachedId();
-            if (string.IsNullOrWhiteSpace(id)) {
-                NavigationManager.NavigateTo("/");
-            }
+            UsePrograms = await SourceHelper.DoesSourceUseItem(sourceCode, CategoryType.Program);
             CredentialItem = await CredentialGetter.GetCredential(id);
             Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.TitlePlusCredential);
-            var fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new CredentialGroup(), FieldType.RelatedLinks);
+            Notes = CredentialItem.NoteList?.ToList() ?? [];
+            NoteTemplateTitles = [.. (await NoteTemplateHelper.GetNoteTemplatesAsync(sourceCode, CategoryType.Credential)).Select(nt => nt.Title).Distinct().OrderBy(s => s)];
+            var fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new CredentialGroup(), FieldType.Filters);
             Instructions = fieldItems.FirstOrDefault()?.Description ?? "";
             UseItem = fieldItems.FirstOrDefault()?.ShowItem ?? true;
-            await base.OnInitializedAsync();
+        }
+        public async Task SetDirty() {
+            Layout.SetDirty();
         }
     }
 }

@@ -1,0 +1,52 @@
+﻿@if (Notes != null) {
+    <ilw-content>
+        @foreach (var item in Notes) {
+            <div class="credential-box">
+                <button class="ilw-button" style=" text-align: left; border: none;" @onclick="() => SelectItem(item)">
+                    @item.Title
+                </button>
+                <div class="button-group">
+                    <button class="ilw-button small" @onclick="() => MoveUp(item)"><ilw-icon alt="up" size="24px" icon="back" class="rotate"></ilw-icon></button>
+                    <button class="ilw-button small" @onclick="() => MoveDown(item)"><ilw-icon alt="down" size="24px" icon="next" class="rotate"></ilw-icon></button>
+                    <button class="ilw-button small" @onclick="() => Remove(item)">Remove</button>
+                </div>
+            </div>
+        }
+
+        <h2>Add Note</h2>
+        <p>Note that each note title needs to be unique. If you edit a note with an existing title, it will update the existing note instead of adding a new note.</p>
+        <p>You can click on an existing note to populate the information below if you want to edit the note.</p>
+        @if (NoteTemplateTitles != null && NoteTemplateTitles.Count > 0) {
+            <p>It will place these items after the items in the note template list unless you overwrite an existing note template (see below).</p>
+        }
+        <div class="ils-input-entry">
+            <label for="title">Note Title</label>
+            <input id="title" type="text" @bind="NewNoteTitle" class="ils-input-long" />
+        </div>
+        @if (NoteTemplateTitles != null && NoteTemplateTitles.Count > 0) {
+            <div class="ils-input-entry">
+                <label for="filter-type">Or replace the title with a title from a note template</label>
+                <select id="note-template-title" @bind="NoteTemplateTitle" @bind:after="ChangeNoteTemplateTitle">
+                    <option value=""></option>
+                    @foreach (var item in NoteTemplateTitles) {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+                <p class="instructions">If you create a note with a title in the note template list, it will overwrite the note in the note template while keeping the original order.</p>
+            </div>
+        }
+        <div class="ils-input-entry">
+            <label for="description">Note Description</label>
+            <textarea id="description" @bind="NewNoteDescription" class="ils-input-long"></textarea>
+        </div>
+        <div class="ils-input-entry">
+            <label for="linkName">Note Link Text</label>
+            <input id="linkName" type="text" @bind="NewNoteLinkName" class="ils-input-long" />
+        </div>
+        <div class="ils-input-entry">
+            <label for="linkUrl">Note Link URL</label>
+            <input id="linkUrl" type="text" @bind="NewNoteLinkUrl" class="ils-input-long" />
+            <button class="ilw-button" @onclick="Add">Add</button>
+        </div>
+    </ilw-content>
+}

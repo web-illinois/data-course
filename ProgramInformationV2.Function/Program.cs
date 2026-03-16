@@ -7,8 +7,10 @@ using Microsoft.Extensions.Hosting;
 using ProgramInformationV2.Data.CourseImport;
 using ProgramInformationV2.Data.DataContext;
 using ProgramInformationV2.Data.DataHelpers;
+using ProgramInformationV2.Function.Helper;
 using ProgramInformationV2.Search;
 using ProgramInformationV2.Search.Getters;
+using ProgramInformationV2.Search.NoteTemplates;
 using ProgramInformationV2.Search.Setters;
 
 var host = new HostBuilder()
@@ -28,6 +30,9 @@ var host = new HostBuilder()
         _ = services.AddScoped<ProgramRepository>();
         _ = services.AddSingleton(c => OpenSearchFactory.CreateLowLevelClient(hostContext.Configuration["Values:SearchUrl"], hostContext.Configuration["Values:AccessKey"], hostContext.Configuration["Values:SecretKey"], hostContext.Configuration["Values:SearchDebug"] == "true"));
         _ = services.AddSingleton(c => OpenSearchFactory.CreateClient(hostContext.Configuration["Values:SearchUrl"], hostContext.Configuration["Values:AccessKey"], hostContext.Configuration["Values:SecretKey"], hostContext.Configuration["Values:SearchDebug"] == "true"));
+        _ = services.AddScoped<NoteTemplateHelper>();
+        _ = services.AddScoped<INoteTemplateLoad, NoteTemplateLoader>();
+        _ = services.AddSingleton<NoteTemplateSingleton>();
         _ = services.AddScoped<ProgramGetter>();
         _ = services.AddScoped<CredentialGetter>();
         _ = services.AddScoped<CourseGetter>();

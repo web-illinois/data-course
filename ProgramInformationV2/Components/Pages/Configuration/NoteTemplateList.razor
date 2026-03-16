@@ -1,0 +1,86 @@
+﻿@page "/configuration/notetemplates"
+@layout SidebarLayout
+
+<PageTitle>Configuration - Note Templates</PageTitle>
+
+<ilw-content>
+    <h1>Note Templates</h1>
+    <p>"Notes" are FAQ-like fields that have a heading or question, a text area, and a link that can refer the user to extra information. </p>
+    <p>You can create notes on individual program / credentials / courses inside the relevant screen, or you can create note templates here that can apply to multiple programs, credentials, or courses.</p>
+    <p>When you create a note template, you can give it a specific criteria based on Department, Degree, Format, Skill, or Tag. This means it will only apply to those criteria.</p>
+    <p>You can also overwrite a note at a specific program / credential / course by giving it the same title as the note template.</p>
+
+    <div class="ils-input-entry">
+        <label for="filter-type">Type</label>
+        <select id="filter-type" @bind="CategorySelector" @bind:after="ChangeCategorySelector">
+            <option value="None"></option>
+            <option value="Program">Programs</option>
+            <option value="Credential">Credentials</option>
+            <option value="Course">Courses</option>
+        </select>
+    </div>
+
+</ilw-content>
+
+@if (NoteTemplates != null && CategorySelector != Data.DataModels.CategoryType.None) {
+
+    <ilw-content>
+        <h2>List of Note Templates for a @CategorySelector</h2>
+        @foreach (var item in NoteTemplates)
+        {
+            <div class="credential-box">
+                <button class="ilw-button" style=" text-align: left; border: none;" @onclick ="() => SelectItem(item)">
+                    @item.TitleInternal()
+                </button>
+                <div class="button-group">
+                    <button class="ilw-button small" @onclick="() => MoveUp(item)"><ilw-icon alt="up" size="24px" icon="back" class="rotate"></ilw-icon></button>
+                    <button class="ilw-button small" @onclick="() => MoveDown(item)"><ilw-icon alt="down" size="24px" icon="next" class="rotate"></ilw-icon></button>
+                    <button class="ilw-button small" @onclick="() => Remove(item)">Remove</button>
+                </div>
+            </div>
+        }
+
+        <div class="search-generic-item">
+            <h3>Add New Note Template</h3>
+            <input id="id" type="hidden" bind="@NewNoteId">
+            <div class="ils-input-entry">
+                <label for="showfor">Criteria: Show Only For</label>
+                <select id="showfor" @bind="NewNoteCriteriaType" @bind:after="ChangeFilter">
+                    <option value="">Always Use</option>
+                    <option value="Credential Degree">Credential Degree</option>
+                    <option value="Department">Department</option>
+                    <option value="Skill">Skill</option>
+                    <option value="Tag">Tag</option>
+                </select>
+            </div>
+            @if (NewNoteCriteriaType != "") {
+                <div class="ils-input-entry">
+                    <label for="showfortext">Criteria Value</label>
+                    <select id="showfortext" @bind="NewNoteCriteriaText">
+                        @foreach (var item in CriteriaOptions) {
+                            <option value="@item">@item</option>
+                        }
+                    </select>
+                </div>
+            }
+            <div class="ils-input-entry">
+                <label for="title">Title</label>
+                <input id="title" type="text" @bind="NewNoteTitle" class="ils-input-long" />
+            </div>
+            <div class="ils-input-entry">
+                <label for="description">Description</label>
+                <textarea id="description" @bind="NewNoteDescription" class="ils-input-long"></textarea>
+            </div>
+            <div class="ils-input-entry">
+                <label for="linkName">Link Name</label>
+                <input id="linkName" type="text" @bind="NewNoteLinkName" class="ils-input-long" />
+            </div>
+            <div class="ils-input-entry">
+                <label for="linkUrl">Link URL</label>
+                <input id="linkUrl" type="text" @bind="NewNoteLinkUrl" class="ils-input-long" />
+                <button class="ilw-button" @onclick="Add">@(NewNoteId == 0 ? "Add" : "Edit")</button>
+            </div>
+        </div>
+    </ilw-content>
+    <button class="ilw-button  ilw-theme-orange-2" @onclick="Save">Save</button>
+}

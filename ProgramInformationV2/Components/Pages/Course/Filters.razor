@@ -5,9 +5,12 @@
 
 <ilw-content>
     <h1>Filters</h1>
-    <p>Edit the program’s filters below by toggling them on and off. This will allow users to search filters for the programs they’re interested in based on the departments, tags, and skills/topics selected below.</p>
-    @if (DepartmentTags != null && SkillTags != null && Tags != null && !NoFiltersAvailable)
-    {
+    <p>Edit the course’s filters below by toggling them on and off. This will allow users to search filters for the courses they’re interested in based on the departments, tags, and skills/topics selected below.</p>
+    @if (!string.IsNullOrWhiteSpace(Instructions)) {
+        <h2>Instructions</h2>
+        <p>@Instructions</p>
+    }
+    @if (DepartmentTags != null && SkillTags != null && Tags != null && !NoFiltersAvailable)   {
         @if (DepartmentTags.Count() > 0)
         {
             <h2>Departments</h2>
@@ -21,7 +24,7 @@
         @if (SkillTags.Count() > 0)
         {
             <h2>Skills/Topics</h2>
-            <p>Skills / Topics are what the student is going to expect to gain by enrolling in the program. This may or may not correspond with the department list. For example, <em>Financial Management</em> may be a topic that is handled by multiple departments in the Gies College of Business (Accounting and Finance). The skill / topic should be student-focused.</p>
+            <p>Skills / Topics are what the student is going to expect to gain by enrolling in the course. This may or may not correspond with the department list. For example, <em>Financial Management</em> may be a topic that is handled by multiple departments in the Gies College of Business (Accounting and Finance). The skill / topic should be student-focused.</p>
             @foreach (var tag in SkillTags)
             {
                 <FilterToggle Filter="@tag"></FilterToggle>
@@ -37,8 +40,6 @@
                 <FilterToggle Filter="@tag"></FilterToggle>
             }
         }
-
-
         <ilw-content>
             <ul class="ilw-buttons" id="save-group">
                 <li>
@@ -53,9 +54,10 @@
             </ul>
         </ilw-content>
     }
-    @if (NoFiltersAvailable)
-    {
-        <p>No filters are available for this source. <a href="/configuration/filters">You may add them</a>.</p>
+    @if (NoFiltersAvailable) {
+        <p>No filters are available for this source.<a href="/configuration/filters">You may add them in the Filters section</a>.</p>
+    } else if (!UseItem) {
+        <p>Filters are not currently being used for this source. You can enable this in the <a href="/configuration/fieldsused/courses">Fields Used</a> section.</p>
     }
 
 </ilw-content>
