@@ -19,7 +19,11 @@
                 <div class="bottom-content">
                     <LoginInformation />
                     <ilw-content>
-                        <p>Source: @SourceCode</p>
+                        @if (SourceCode.EndsWith("!")) {
+                                <p style="padding: 10px; background: var(--il-orange-40); color: white; font-size: 1.5rem;"><strong>Test Source: @SourceCode</strong></p>
+                        } else {
+                                <p style="padding: 10px; background: var(--il-blue); color: white; font-size: 1.5rem;"><strong>Source: @SourceCode</strong></p>
+                        }
                     </ilw-content>
                 </div>
             </div>
