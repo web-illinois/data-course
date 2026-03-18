@@ -9,7 +9,7 @@
         public string SkillType { get; set; } = "";
 
         public string TagType { get; set; } = "";
-
+        public int Order { get; set; }
 
         public void Merge(NoteTemplateStorageItem other) {
             if (other != null && other.Title == Title) {

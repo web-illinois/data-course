@@ -12,6 +12,7 @@ namespace ProgramInformationV2.Data.DataModels {
         public CredentialType CredentialTypeCriteria { get; set; }
         public string DepartmentCriteria { get; set; } = "";
         public string Description { get; set; } = "";
+        public string DescriptionHtml { get; set; } = "";
         public FormatType FormatTypeCriteria { get; set; }
         public string LinkUrl { get; set; } = "";
         public string LinkText { get; set; } = "";
@@ -32,6 +33,7 @@ namespace ProgramInformationV2.Data.DataModels {
             CategoryType = (NoteTemplateTypes)(int)CategoryType,
             DepartmentType = DepartmentCriteria,
             Description = Description,
+            DescriptionHtml = DescriptionHtml,
             FormatType = FormatTypeCriteria,
             LinkText = LinkText,
             LinkUrl = LinkUrl,
@@ -39,7 +41,8 @@ namespace ProgramInformationV2.Data.DataModels {
             SkillType = SkillCriteria,
             TagType = TagCriteria,
             Title = Title,
-            Id = Id
+            Id = Id,
+            Order = Order
         };
     }
 }

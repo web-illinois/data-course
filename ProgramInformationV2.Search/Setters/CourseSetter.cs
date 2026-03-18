@@ -1,11 +1,13 @@
 ﻿using OpenSearch.Client;
 using ProgramInformationV2.Search.Getters;
 using ProgramInformationV2.Search.Models;
+using ProgramInformationV2.Search.NoteTemplates;
 
 namespace ProgramInformationV2.Search.Setters {
 
-    public class CourseSetter(OpenSearchClient? openSearchClient, CourseGetter? courseGetter) {
+    public class CourseSetter(OpenSearchClient? openSearchClient, CourseGetter? courseGetter, INoteTemplateConvert noteTemplateConvert) {
         private readonly CourseGetter _courseGetter = courseGetter ?? default!;
+        private readonly INoteTemplateConvert _noteTemplateConvert = noteTemplateConvert ?? default!;
         private readonly OpenSearchClient _openSearchClient = openSearchClient ?? default!;
 
         public async Task<string> DeleteCourse(string id) {
@@ -25,6 +27,9 @@ namespace ProgramInformationV2.Search.Setters {
 
         public async Task<string> SetCourse(Course course) {
             course.Prepare();
+            foreach (var note in course.NoteList) {
+                note.DescriptionHtml = _noteTemplateConvert.ConvertToHtml(note.Description);
+            }
             var response = await _openSearchClient.IndexAsync(course, i => i.Index(UrlTypes.Courses.ConvertToUrlString()));
             return response.IsValid ? course.Id : "";
         }
