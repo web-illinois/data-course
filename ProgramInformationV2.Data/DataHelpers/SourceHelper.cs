@@ -8,6 +8,9 @@ namespace ProgramInformationV2.Data.DataHelpers {
         private readonly ProgramRepository _programRepository = programRepository;
 
         public async Task<string> CreateSource(string newSourceCode, string newTitle, string email) {
+            if (string.IsNullOrWhiteSpace(newSourceCode) || string.IsNullOrWhiteSpace(newTitle)) {
+                return "Source code and name cannot be empty";
+            }
             var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == newSourceCode.ToLowerInvariant() || s.Title == newTitle));
             if (source != null) {
                 return "Source code or name is in use";

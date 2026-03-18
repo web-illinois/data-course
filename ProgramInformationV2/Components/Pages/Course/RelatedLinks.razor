@@ -14,7 +14,7 @@
 
 @if (CourseItem != null && UseItem) {
     <LinkList @ref="_linkList" Links="@CourseItem.LinkList?.ToList()"></LinkList>
-    <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+    <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
     <ViewLink Title="Course" Url="@CourseItem.UrlFull"></ViewLink>
 } else if (!UseItem) {
     <ilw-content><p>Related Links are not currently being used for this source. You can enable this in the <a href="/configuration/fieldsused/courses">Fields Used</a> section.</p></ilw-content>

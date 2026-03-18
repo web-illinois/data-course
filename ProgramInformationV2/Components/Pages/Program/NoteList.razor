@@ -13,7 +13,7 @@
 </ilw-content>
 @if (UseItem) {
     <NoteListEditor Notes="Notes" NoteTemplateTitles="NoteTemplateTitles" SetDirty="e => SetDirty()"></NoteListEditor>
-    <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+    <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
     <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
 } else {
     <ilw-content><p>Notes are not currently being used for this source. You can enable this in the <a href="/configuration/fieldsused/programs">Fields Used</a> section.</p></ilw-content>

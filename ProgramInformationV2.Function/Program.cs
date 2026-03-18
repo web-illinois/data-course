@@ -31,6 +31,7 @@ var host = new HostBuilder()
         _ = services.AddSingleton(c => OpenSearchFactory.CreateLowLevelClient(hostContext.Configuration["Values:SearchUrl"], hostContext.Configuration["Values:AccessKey"], hostContext.Configuration["Values:SecretKey"], hostContext.Configuration["Values:SearchDebug"] == "true"));
         _ = services.AddSingleton(c => OpenSearchFactory.CreateClient(hostContext.Configuration["Values:SearchUrl"], hostContext.Configuration["Values:AccessKey"], hostContext.Configuration["Values:SecretKey"], hostContext.Configuration["Values:SearchDebug"] == "true"));
         _ = services.AddScoped<NoteTemplateHelper>();
+        _ = services.AddScoped<INoteTemplateConvert, NoteTemplateLoader>();
         _ = services.AddScoped<INoteTemplateLoad, NoteTemplateLoader>();
         _ = services.AddSingleton<NoteTemplateSingleton>();
         _ = services.AddScoped<ProgramGetter>();

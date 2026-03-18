@@ -14,7 +14,7 @@ namespace ProgramInformationV2.Search.NoteTemplates {
                     && (nt.FormatType == credential.FormatType || nt.FormatType == FormatType.None)
                     && (credential.DepartmentList.Contains(nt.DepartmentType) || nt.DepartmentType == "")
                     && (credential.SkillList.Contains(nt.SkillType) || nt.SkillType == "")
-                    && (credential.TagList.Contains(nt.TagType) || nt.TagType == ""));
+                    && (credential.TagList.Contains(nt.TagType) || nt.TagType == "")).OrderBy(nt => nt.Order);
                 foreach (var noteTemplate in noteTemplatesFromStorage.GroupBy(nt => nt.Title)) {
                     if (noteTemplate.Count() > 1) {
                         noteTemplate.First().Merge(noteTemplate.Last());
@@ -31,19 +31,15 @@ namespace ProgramInformationV2.Search.NoteTemplates {
                         returnValue.Add(originalNote);
                     }
                 }
-                return returnValue;
+                return FilterBlankNotes(returnValue);
             }
-            return credential.NoteList ?? [];
+            return FilterBlankNotes(credential.NoteList);
         }
 
         public async Task<IEnumerable<Note>> MergeCourseNotes(Course course) {
             var successful = await CheckNoteTemplates();
             if (successful && _noteTemplates != null) {
-                var noteTemplatesFromStorage = _noteTemplates.Where(nt => nt.CategoryType == NoteTemplateTypes.Courses
-                    && nt.Source == course.Source
-                    && (course.DepartmentList.Contains(nt.DepartmentType) || nt.DepartmentType == "")
-                    && (course.SkillList.Contains(nt.SkillType) || nt.SkillType == "")
-                    && (course.TagList.Contains(nt.TagType) || nt.TagType == ""));
+                var noteTemplatesFromStorage = GetNoteTemplatesPrivate(NoteTemplateTypes.Courses, course);
                 foreach (var noteTemplate in noteTemplatesFromStorage.GroupBy(nt => nt.Title)) {
                     if (noteTemplate.Count() > 1) {
                         noteTemplate.First().Merge(noteTemplate.Last());
@@ -60,19 +56,15 @@ namespace ProgramInformationV2.Search.NoteTemplates {
                         returnValue.Add(originalNote);
                     }
                 }
-                return returnValue;
+                return FilterBlankNotes(returnValue);
             }
-            return course.NoteList ?? [];
+            return FilterBlankNotes(course.NoteList);
         }
 
         public async Task<IEnumerable<Note>> MergeProgramNotes(Program program) {
             var successful = await CheckNoteTemplates();
             if (successful && _noteTemplates != null) {
-                var noteTemplatesFromStorage = _noteTemplates.Where(nt => nt.CategoryType == NoteTemplateTypes.Programs
-                    && nt.Source == program.Source
-                    && (program.DepartmentList.Contains(nt.DepartmentType) || nt.DepartmentType == "")
-                    && (program.SkillList.Contains(nt.SkillType) || nt.SkillType == "")
-                    && (program.TagList.Contains(nt.TagType) || nt.TagType == ""));
+                var noteTemplatesFromStorage = GetNoteTemplatesPrivate(NoteTemplateTypes.Programs, program);
                 foreach (var noteTemplate in noteTemplatesFromStorage.GroupBy(nt => nt.Title)) {
                     if (noteTemplate.Count() > 1) {
                         noteTemplate.First().Merge(noteTemplate.Last());
@@ -89,9 +81,9 @@ namespace ProgramInformationV2.Search.NoteTemplates {
                         returnValue.Add(originalNote);
                     }
                 }
-                return returnValue;
+                return FilterBlankNotes(returnValue);
             }
-            return program.NoteList ?? [];
+            return FilterBlankNotes(program.NoteList);
         }
 
         public bool ResetNoteTemplate() {
@@ -103,5 +95,14 @@ namespace ProgramInformationV2.Search.NoteTemplates {
             _noteTemplates ??= await _noteTemplateLoader.LoadNoteTemplates();
             return _noteTemplates != null;
         }
+
+        private IEnumerable<NoteTemplateStorageItem> GetNoteTemplatesPrivate(NoteTemplateTypes noteTemplateTypes, BaseTaggableObject baseObject) =>
+            _noteTemplates == null ? [] : _noteTemplates.Where(nt => nt.CategoryType == noteTemplateTypes
+                && nt.Source == baseObject.Source
+                && (baseObject.DepartmentList.Contains(nt.DepartmentType) || nt.DepartmentType == "")
+                && (baseObject.SkillList.Contains(nt.SkillType) || nt.SkillType == "")
+                && (baseObject.TagList.Contains(nt.TagType) || nt.TagType == "")).OrderBy(nt => nt.Order);
+
+        private static IEnumerable<Note> FilterBlankNotes(IEnumerable<Note> notes) => notes == null ? [] : notes.Where(n => n.Title != "" && (n.Description != "" || n.LinkText != ""));
     }
 }

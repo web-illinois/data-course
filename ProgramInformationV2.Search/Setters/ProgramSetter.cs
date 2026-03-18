@@ -1,12 +1,13 @@
 ﻿using OpenSearch.Client;
 using ProgramInformationV2.Search.Getters;
 using ProgramInformationV2.Search.Models;
+using ProgramInformationV2.Search.NoteTemplates;
 
 namespace ProgramInformationV2.Search.Setters {
 
-    public class ProgramSetter(OpenSearchClient? openSearchClient, ProgramGetter? programGetter) {
+    public class ProgramSetter(OpenSearchClient? openSearchClient, ProgramGetter? programGetter, INoteTemplateConvert noteTemplateConvert) {
         private readonly OpenSearchClient _openSearchClient = openSearchClient ?? default!;
-
+        private readonly INoteTemplateConvert _noteTemplateConvert = noteTemplateConvert ?? default!;
         private readonly ProgramGetter _programGetter = programGetter ?? default!;
 
         public async Task<string> DeleteCredential(string id) {
@@ -30,8 +31,10 @@ namespace ProgramInformationV2.Search.Setters {
 
         public async Task<string> SetCredential(Credential credential) {
             credential.Prepare();
+            foreach (var note in credential.NoteList) {
+                note.DescriptionHtml = _noteTemplateConvert.ConvertToHtml(note.Description);
+            }
             var program = string.IsNullOrWhiteSpace(credential.ProgramId) ? new Program() : await _programGetter.GetProgram(credential.ProgramId);
-
             if (string.IsNullOrWhiteSpace(credential.ProgramId)) {
                 program.Source = credential.Source;
                 program.Id = credential.Id + "-program";
@@ -66,6 +69,9 @@ namespace ProgramInformationV2.Search.Setters {
 
         public async Task<string> SetProgram(Program program) {
             program.Prepare();
+            foreach (var note in program.NoteList) {
+                note.DescriptionHtml = _noteTemplateConvert.ConvertToHtml(note.Description);
+            }
             var response = await _openSearchClient.IndexAsync(program, i => i.Index(UrlTypes.Programs.ConvertToUrlString()));
             return response.IsValid ? program.Id : "";
         }

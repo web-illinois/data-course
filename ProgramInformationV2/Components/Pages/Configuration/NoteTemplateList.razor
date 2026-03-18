@@ -9,6 +9,7 @@
     <p>You can create notes on individual program / credentials / courses inside the relevant screen, or you can create note templates here that can apply to multiple programs, credentials, or courses.</p>
     <p>When you create a note template, you can give it a specific criteria based on Department, Degree, Format, Skill, or Tag. This means it will only apply to those criteria.</p>
     <p>You can also overwrite a note at a specific program / credential / course by giving it the same title as the note template.</p>
+    <p>Note at a specific program / credential / course will display at the end of the list <em>unless it is overwriting an existing note template</em>. For this reason, you may want to create a note with a blank description, link text, and link url as a 'placeholder' so it can be overwritten. Notes with a blank description, link text, and link url will never be displayed on the page.</p>
 
     <div class="ils-input-entry">
         <label for="filter-type">Type</label>
@@ -70,6 +71,7 @@
             <div class="ils-input-entry">
                 <label for="description">Description</label>
                 <textarea id="description" @bind="NewNoteDescription" class="ils-input-long"></textarea>
+                <p class="instructions">This accepts Markdown for links [name](url) and bullet lists * and will convert links automatically.</p>
             </div>
             <div class="ils-input-entry">
                 <label for="linkName">Link Name</label>
@@ -82,5 +84,5 @@
             </div>
         </div>
     </ilw-content>
-    <button class="ilw-button  ilw-theme-orange-2" @onclick="Save">Save</button>
+    <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
 }

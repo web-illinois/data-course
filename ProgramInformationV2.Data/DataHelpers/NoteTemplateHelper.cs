@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Markdig;
+using Microsoft.EntityFrameworkCore;
 using ProgramInformationV2.Data.DataContext;
 using ProgramInformationV2.Data.DataModels;
 
@@ -18,11 +19,14 @@ namespace ProgramInformationV2.Data.DataHelpers {
             noteTemplate.IsActive = true;
             noteTemplate.LastUpdated = DateTime.Now;
             noteTemplate.Title = noteTemplate.Title.Trim();
+            noteTemplate.DescriptionHtml = ConvertMarkdownToHtml(noteTemplate.Description);
             return noteTemplate.Id == 0 ? await _programRepository.CreateAsync(noteTemplate) : await _programRepository.UpdateAsync(noteTemplate);
         }
 
         public async Task<int> DeleteNoteTemplate(NoteTemplate noteTemplate) => await _programRepository.DeleteAsync(noteTemplate);
 
-        public async Task<List<NoteTemplate>> GetAllNoteTemplatesAsync() => await _programRepository.ReadAsync(c => c.NoteTemplates.Include(nt => nt.Source).Where(nt => nt.IsActive).ToList());
+        public async Task<List<NoteTemplate>> GetAllNoteTemplatesAsync() => await _programRepository.ReadAsync(c => c.NoteTemplates.Include(nt => nt.Source).Where(nt => nt.IsActive).OrderBy(nt => nt.Order).ToList());
+
+        public static string ConvertMarkdownToHtml(string markdown) => string.IsNullOrWhiteSpace(markdown) ? "" : Markdown.ToHtml(markdown, new MarkdownPipelineBuilder().UseSoftlineBreakAsHardlineBreak().UseAutoLinks().Build());
     }
 }
