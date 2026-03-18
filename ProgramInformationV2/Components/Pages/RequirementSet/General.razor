@@ -16,7 +16,7 @@
     <SmallInteger Title="Maxiumum Credit Hours" FieldItems="FieldItems" @bind-Value="RequirementSetItem.MaximumCreditHours"></SmallInteger>
     <ul class="ilw-buttons" id="save-group">
         <li>
-            <button class="ilw-button ilw-theme-orange-2" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+            <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
         </li>
         @if (!string.IsNullOrWhiteSpace(QuickLinkUrl))
         {
