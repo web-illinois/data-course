@@ -1,6 +1,6 @@
 ﻿namespace ProgramInformationV2.Search.Models {
 
-    public enum CredentialType { None, Base_Undergraduate, BS, BA, Undergraduate_Minor, Base_Graduate, MA, MS, EdM, MBA, CAS, PhD, EdD, Graduate_Concentration, Graduate_Minor, Base_Certificate, Certificate_of_Specialization, Graduate_Certificate, Endorsement, Specialty, MOOC_Specialization_Certificate, Illinois_Graduate_Certificate }
+    public enum CredentialType { None, Base_Undergraduate, Undergraduate_Certificate, BA, BS, Undergraduate_Minor, Base_Graduate = 20, Graduate_Certificate, EdM, MBA, MA, MS, CAS, EdD, PhD, Graduate_Concentration, Graduate_Minor, Base_Certificate = 40, Certificate_of_Specialization, Endorsement, Specialty, MOOC_Specialization_Certificate, Illinois_Graduate_Certificate }
 
     [Flags]
     public enum FormatType { None = 0, Online = 1, On__Campus = 2, Off__Campus = 4, Hybrid = 8 }
@@ -25,7 +25,7 @@
 
         private static readonly List<CredentialType> _certificates = [CredentialType.Base_Certificate, CredentialType.CAS, CredentialType.Graduate_Certificate, CredentialType.Illinois_Graduate_Certificate, CredentialType.Certificate_of_Specialization, CredentialType.Endorsement, CredentialType.MOOC_Specialization_Certificate];
         private static readonly List<CredentialType> _graduateDegrees = [CredentialType.Base_Graduate, CredentialType.EdM, CredentialType.MA, CredentialType.MS, CredentialType.EdD, CredentialType.PhD, CredentialType.Graduate_Concentration, CredentialType.Graduate_Minor, CredentialType.MBA];
-        private static readonly List<CredentialType> _undergraduateDegrees = [CredentialType.Base_Undergraduate, CredentialType.BA, CredentialType.BS, CredentialType.Undergraduate_Minor];
+        private static readonly List<CredentialType> _undergraduateDegrees = [CredentialType.Undergraduate_Certificate, CredentialType.Base_Undergraduate, CredentialType.BA, CredentialType.BS, CredentialType.Undergraduate_Minor];
 
         public static IEnumerable<CredentialType> Certificates(this IEnumerable<CredentialType> e) => e.Where(ct => _certificates.Contains(ct));
 
