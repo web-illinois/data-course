@@ -13,6 +13,7 @@ namespace ProgramInformationV2.Search.Models {
         }
 
         public string Cost { get; set; } = "";
+        public string CostOnline { get; set; } = "";
 
         public CredentialType CredentialType { get; set; }
 
@@ -25,6 +26,7 @@ namespace ProgramInformationV2.Search.Models {
         public override string EditLink => _editLink + "credential/" + Id;
 
         public string Enrollment { get; set; } = "";
+        public string EnrollmentOnline { get; set; } = "";
 
         public string ExternalUrl { get; set; } = "";
 
