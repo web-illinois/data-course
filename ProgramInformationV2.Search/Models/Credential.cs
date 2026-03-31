@@ -41,7 +41,7 @@ namespace ProgramInformationV2.Search.Models {
 
         public string ImageUrl { get; set; } = "";
 
-        public override string InternalTitle => string.IsNullOrWhiteSpace(ProgramTitle) || ProgramTitle == Title ? $"{Title} ({CredentialTypeString})" : $"{Title} ({ProgramTitle} / {CredentialTypeString})";
+        public override string InternalTitle => string.IsNullOrWhiteSpace(Title) ? $"{ProgramTitle} / {CredentialTypeString}" : string.IsNullOrWhiteSpace(ProgramTitle) || ProgramTitle == Title ? $"{Title} ({CredentialTypeString})" : $"{Title} ({ProgramTitle} / {CredentialTypeString})";
         public bool IsTranscriptable { get; set; }
 
         public string Length { get; set; } = "";
@@ -67,7 +67,7 @@ namespace ProgramInformationV2.Search.Models {
 
         public string SummaryTitle { get; set; } = "";
 
-        public string TitlePlusCredential => string.IsNullOrWhiteSpace(Title) ? "" : $"{Title} ({CredentialTypeString})";
+        public string TitlePlusCredential => string.IsNullOrWhiteSpace(Title) ? (string.IsNullOrWhiteSpace(ProgramTitle) ? "" : $"{ProgramTitle} ({CredentialTypeString})") : $"{Title} ({CredentialTypeString})";
 
         public string TranscriptableName { get; set; } = "";
 

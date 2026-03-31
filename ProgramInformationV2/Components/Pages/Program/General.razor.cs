@@ -50,7 +50,7 @@ namespace ProgramInformationV2.Components.Pages.Program {
 
             if (!string.IsNullOrWhiteSpace(id)) {
                 ProgramItem = await ProgramGetter.GetProgram(id);
-                Layout.SetSidebar(_sidebar, ProgramItem.Title);
+                Layout.SetSidebar(_sidebar, ProgramItem.InternalTitle);
             } else {
                 ProgramItem = new Search.Models.Program() {
                     Source = sourceCode

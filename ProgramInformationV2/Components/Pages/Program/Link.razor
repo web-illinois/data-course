@@ -9,6 +9,7 @@
 
 @if (ProgramItem != null)
 {
+    <MediumText Title="URL Fragment" FieldItems="FieldItems" @bind-Value="ProgramItem.Fragment"></MediumText>
     <UrlText Title="Link URL" FieldItems="FieldItems" @bind-Value="ProgramItem.Url"></UrlText>
     <UrlText Title="Alternate Link URL" FieldItems="FieldItems" @bind-Value="ProgramItem.AlternateUrl"></UrlText>
     <MediumText Title="Alternate Link Text" FieldItems="FieldItems" @bind-Value="ProgramItem.AlternateUrlTitle"></MediumText>
