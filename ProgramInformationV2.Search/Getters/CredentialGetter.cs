@@ -37,29 +37,29 @@ namespace ProgramInformationV2.Search.Getters {
             var response = await _programGetter.GetPrograms(source, search, tags, tags2, tags3, skills, departments, formats, credentials, 1000, 0);
             var credentialList = response.Items.SelectMany(p => p.Credentials).Where(c => c.IsActive).OrderBy(c => c.Title).ToList();
             if (tags.Any()) {
-                credentialList = credentialList.Where(c => c.TagList.Any(t => tags.Contains(t))).ToList();
+                credentialList = [.. credentialList.Where(c => c.TagList.Any(t => tags.Contains(t)))];
             }
             if (tags2.Any()) {
-                credentialList = credentialList.Where(c => c.TagList.Any(t => tags2.Contains(t))).ToList();
+                credentialList = [.. credentialList.Where(c => c.TagList.Any(t => tags2.Contains(t)))];
             }
             if (tags3.Any()) {
-                credentialList = credentialList.Where(c => c.TagList.Any(t => tags3.Contains(t))).ToList();
+                credentialList = [.. credentialList.Where(c => c.TagList.Any(t => tags3.Contains(t)))];
             }
             if (skills.Any()) {
-                credentialList = credentialList.Where(c => c.SkillList.Any(s => skills.Contains(s))).ToList();
+                credentialList = [.. credentialList.Where(c => c.SkillList.Any(s => skills.Contains(s)))];
             }
             if (departments.Any()) {
-                credentialList = credentialList.Where(c => c.DepartmentList.Any(d => departments.Contains(d))).ToList();
+                credentialList = [.. credentialList.Where(c => c.DepartmentList.Any(d => departments.Contains(d)))];
             }
             if (credentials.Any()) {
-                credentialList = credentialList.Where(c => credentials.Contains(c.CredentialTypeString)).ToList();
+                credentialList = [.. credentialList.Where(c => credentials.Contains(c.CredentialTypeString))];
             }
 
             return new SearchObject<Credential>() {
                 Error = response.Error,
                 DidYouMean = response.DidYouMean,
                 Total = credentialList.Count,
-                Items = string.IsNullOrWhiteSpace(search) ? [.. credentialList.OrderBy(c => c.Title)] : [.. credentialList]
+                Items = string.IsNullOrWhiteSpace(search) ? [.. credentialList.OrderBy(c => c.InternalTitle)] : [.. credentialList]
             };
         }
 
