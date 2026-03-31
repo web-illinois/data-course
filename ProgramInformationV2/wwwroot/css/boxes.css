@@ -65,6 +65,10 @@ ilw-icon.rotate {
     border-radius: 6px;
 }
 
+    .image-box:not(:has(*)) {
+        display: none;
+    }
+
 button.ilw-button.small {
     padding: 0 5px;
 }

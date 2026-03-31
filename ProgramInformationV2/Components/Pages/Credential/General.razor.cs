@@ -45,7 +45,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             Layout.RemoveDirty();
             _ = await ProgramSetter.SetCredential(CredentialItem);
             await Layout.SetCacheId(CredentialItem.Id);
-            Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.TitlePlusCredential);
+            Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.InternalTitle);
             await Layout.Log(CategoryType.Credential, FieldType.General, CredentialItem);
             await Layout.AddMessage("Credential saved successfully.");
         }
@@ -55,7 +55,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             var id = await Layout.GetCachedId();
             if (!string.IsNullOrWhiteSpace(id)) {
                 CredentialItem = await CredentialGetter.GetCredential(id);
-                Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.TitlePlusCredential);
+                Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.InternalTitle);
             } else {
                 CredentialItem = new Search.Models.Credential() {
                     Source = sourceCode,

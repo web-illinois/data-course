@@ -9,7 +9,6 @@
 @if (ProgramItem != null)
 {
     <StatusOnSite @bind-Value="ProgramItem.IsActive"></StatusOnSite>
-    <MediumText Title="URL Fragment" FieldItems="FieldItems" @bind-Value="ProgramItem.Fragment"></MediumText>
     <LargeText Title="Internal Search Text" FieldItems="FieldItems" @bind-Value="ProgramItem.InternalSearch"></LargeText>
     <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
     <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
