@@ -66,7 +66,6 @@ namespace ProgramInformationV2.Search.Getters {
         public async Task<CredentialWithRequirementSets> GetCredentialWithRequirementSet(string credentialId) {
             var program = await _programGetter.GetProgramByCredential(credentialId);
             var credential = program.Credentials?.SingleOrDefault(c => c.Id == credentialId) ?? new();
-
             return await AddRequirementSets(credential, program ?? new());
         }
 
@@ -87,23 +86,16 @@ namespace ProgramInformationV2.Search.Getters {
             if (!credential.IsActive) {
                 return new();
             }
-
-            var requirementSets = await _requirementSetGetter.GetRequirementSets(credential.RequirementSetIds);
             var returnValue = new CredentialWithRequirementSets {
                 Credential = credential,
                 RequirementSets = [],
-                Program = new Link { LinkHref = program.Url, Title = program.Title }
+                Program = new Link { LinkHref = program.Url, Title = program.Title },
+                OtherCredentials = [.. program.Credentials.Where(oc => oc.Id != credential.Id && oc.IsActive).OrderBy(oc => oc.CredentialType).Select(oc => new CredentialOption {
+                    Title = oc.Title, Url = oc.Url, UrlFull = oc.UrlFull, CredentialType = oc.CredentialType, Id = oc.Id, FormatType = oc.FormatType
+                })]
             };
-            if (credential.LinkList == null && program.LinkList == null) {
-                credential.LinkList = [];
-            } else if (credential.LinkList == null) {
-                credential.LinkList = program.LinkList.OrderBy(ll => ll.Order).ThenBy(ll => ll.Title);
-            } else {
-                credential.LinkList = credential.LinkList.Concat(program.LinkList ?? []).OrderBy(ll => ll.Order).ThenBy(ll => ll.Title);
-            }
-            returnValue.OtherCredentials = [.. program.Credentials.Where(oc => oc.Id != credential.Id && oc.IsActive).OrderBy(oc => oc.CredentialType).Select(oc => new CredentialOption {
-                Title = oc.Title, Url = oc.Url, UrlFull = oc.UrlFull, CredentialType = oc.CredentialType, Id = oc.Id, FormatType = oc.FormatType
-            })];
+
+            var requirementSets = await _requirementSetGetter.GetRequirementSets(credential.RequirementSetIds);
             foreach (var reqId in credential.RequirementSetIds) {
                 if (requirementSets.Any(r => r.Id == reqId)) {
                     returnValue.RequirementSets.Add(requirementSets.First(r => r.Id == reqId));
