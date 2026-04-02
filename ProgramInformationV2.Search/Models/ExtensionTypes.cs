@@ -50,6 +50,12 @@
 
         public static IEnumerable<CredentialType> UndergraduateDegrees(this IEnumerable<CredentialType> e) => e.Where(_undergraduateDegrees.Contains);
 
+        public static bool IsUndergraduateDegree(this CredentialType credentialType) => _undergraduateDegrees.Contains(credentialType);
+
+        public static bool IsCertificate(this CredentialType credentialType) => _certificates.Contains(credentialType);
+
+        public static bool IsGraduateDegree(this CredentialType credentialType) => _graduateDegrees.Contains(credentialType);
+
         private static string ConvertToString(string? s) => s == null ? "" : s.Replace("Base_", "").Replace("__", "-").Replace("_", " ").Replace("None", "").Trim();
     }
 }
