@@ -57,11 +57,14 @@
             @if (NewNoteCriteriaType != "") {
                 <div class="ils-input-entry">
                     <label for="showfortext">Criteria Value</label>
-                    <select id="showfortext" @bind="NewNoteCriteriaText">
+                    <select id="showfortext" class="ils-input-long" @bind="NewNoteCriteriaText">
                         @foreach (var item in CriteriaOptions) {
                             <option value="@item">@item</option>
                         }
                     </select>
+                    @if (NewNoteCriteriaType == "Credential Degree") {
+                        <p class="instructions">Choose "Base_Undergraduate", "Base_Graduate", or "Base_Certificate" to apply to all undergraduate, graduate, or certificates, respectively.</p>
+                    }
                 </div>
             }
             <div class="ils-input-entry">

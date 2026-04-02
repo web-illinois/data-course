@@ -8,13 +8,22 @@ namespace ProgramInformationV2.Search.NoteTemplates {
         public async Task<IEnumerable<Note>> MergeCredentialNotes(Credential credential) {
             var successful = await CheckNoteTemplates();
             if (successful && _noteTemplates != null) {
+                var baseCredentialType = CredentialType.None;
+                if (credential.CredentialType.IsUndergraduateDegree()) {
+                    baseCredentialType = CredentialType.Base_Undergraduate;
+                } else if (credential.CredentialType.IsGraduateDegree()) {
+                    baseCredentialType = CredentialType.Base_Graduate;
+                } else if (credential.CredentialType.IsCertificate()) {
+                    baseCredentialType = CredentialType.Base_Certificate;
+                }
                 var noteTemplatesFromStorage = _noteTemplates.Where(nt => nt.CategoryType == NoteTemplateTypes.Credentials
                     && nt.Source == credential.Source
-                    && (nt.CredentialType == credential.CredentialType || nt.CredentialType == CredentialType.None)
+                    && (nt.CredentialType == credential.CredentialType || nt.CredentialType == CredentialType.None || nt.CredentialType == baseCredentialType)
                     && (nt.FormatType == credential.FormatType || nt.FormatType == FormatType.None)
                     && (credential.DepartmentList.Contains(nt.DepartmentType) || nt.DepartmentType == "")
                     && (credential.SkillList.Contains(nt.SkillType) || nt.SkillType == "")
                     && (credential.TagList.Contains(nt.TagType) || nt.TagType == "")).OrderBy(nt => nt.Order);
+
                 foreach (var noteTemplate in noteTemplatesFromStorage.GroupBy(nt => nt.Title)) {
                     if (noteTemplate.Count() > 1) {
                         noteTemplate.First().Merge(noteTemplate.Last());
