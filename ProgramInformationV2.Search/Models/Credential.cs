@@ -46,6 +46,8 @@ namespace ProgramInformationV2.Search.Models {
 
         public string Length { get; set; } = "";
 
+        public string LengthOnline { get; set; } = "";
+
         public string MajorTitle { get; set; } = "";
 
         public string MinorTitle { get; set; } = "";

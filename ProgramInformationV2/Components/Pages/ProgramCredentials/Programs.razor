@@ -18,6 +18,17 @@
 
         <h2>Create a new program</h2>
         <button class="ilw-button" @onclick="SetNewProgram" disabled="@_isRestricted">Create Program</button>
+
+        @if (IsTest) {
+                <h2>Copy Program From Production</h2>
+                <p>Since you are in a test environment, you can refresh this program from production to overwrite your changes you have made. This will overwrite the existing program and all credentials under this program <em>in the test environment</em>. You need to get the ID from the production version of your source. You can also import the full list of programs to overwrite all of your entries.</p>
+                <div class="ils-input-entry">
+                    <label for="copyfromprod">ID From Production Site</label>
+                    <input type="text" class="ils-input-long" id="copyfromprod" @bind="CopyId" />
+                </div>
+                <p><button class="ilw-button" @onclick="CopyProgram">Copy Program from Production</button></p>
+        }
+
     } else if (_usePrograms.HasValue && !_usePrograms.Value)
     {
         <p>

@@ -12,6 +12,9 @@
                 </div>
             </div>
         }
+        @if (Notes.Count == 0) {
+            <p><strong>No notes available.</strong></p>
+        }
 
         <h2>Add Note</h2>
         <p>Note that each note title needs to be unique. If you edit a note with an existing title, it will update the existing note instead of adding a new note.</p>

@@ -17,5 +17,17 @@
         <IdList Title="Id" FieldItems="FieldItems" Id="@ProgramItem.Id"></IdList>
         <IdList Title="Edit Link" FieldItems="FieldItems" Id="@ProgramItem.EditLink"></IdList>
     </div>
+    @if (IsTest)
+    {
+        <ilw-content>
+            <h2>Copy Program From Production</h2>
+            <p>Since you are in a test environment, you can refresh this program from production to overwrite your changes you have made. This will overwrite the existing program and all credentials under this program <em>in the test environment</em>.</p>
+            <p><button @onclick="CopyFromProduction" class="ilw-button">Copy Program from Production</button></p>
+
+            <h2>Transfer Program To Production</h2>
+            <p>Since you are in a test environment, you can transfer this program to production. This will overwrite the existing program and all credentials under this program <em>in the production environment</em>. Make sure you have the same requirement sets in both the test environment and the production environment.</p>
+            <p><button @onclick="TransferToProduction" class="ilw-button">Transfer Program To Production</button></p>
+        </ilw-content>
+    }
     <DeleteNotice DeleteClicked="Delete" ItemTitle="@ProgramItem.Title"></DeleteNotice>
 }

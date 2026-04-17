@@ -13,12 +13,22 @@ public class NoteTemplate(NoteTemplateSingleton noteTemplateSingleton, ILogger<N
     private readonly ILogger<NoteTemplate> _logger = logger;
 
     [Function("RefreshNoteTemplates")]
-    [OpenApiOperation(operationId: "Refresh", tags: "Refresh Information", Description = "Refresh the NoteTemplate information.")]
+    [OpenApiOperation(operationId: "RefreshNoteTemplates", tags: "Note Templates", Description = "Refresh the NoteTemplate information.")]
     [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "Standard response")]
     public async Task<HttpResponseData> Refresh([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequestData req) {
         _logger.LogInformation("Called Note Template Refresh.");
         var response = req.CreateResponse(HttpStatusCode.OK);
         await response.WriteAsJsonAsync(_noteTemplateSingleton.ResetNoteTemplate());
+        return response;
+    }
+
+    [Function("GetAllNoteTemplates")]
+    [OpenApiOperation(operationId: "GetAllNoteTemplates", tags: "Note Templates", Description = "Get the NoteTemplate information, used for debugging. This will automatically refresh the note template information regardless of ")]
+    [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "Standard response")]
+    public async Task<HttpResponseData> GetAll([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequestData req) {
+        _logger.LogInformation("Called Note Template GetAll.");
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        await response.WriteAsJsonAsync(await _noteTemplateSingleton.GetNoteTemplates());
         return response;
     }
 }
