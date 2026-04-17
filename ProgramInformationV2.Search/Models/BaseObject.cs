@@ -53,6 +53,16 @@ namespace ProgramInformationV2.Search.Models {
             CleanHtmlFields();
         }
 
+        public void ConvertToTest() {
+            Id = Id.Replace(Source.Trim('!') + "-", Source.Trim('!') + "!-");
+            Source = Source.Trim('!') + "!";
+        }
+
+        public void ConvertToProduction() {
+            Id = Id.Replace(Source.Trim('!') + "!-", Source.Trim('!') + "-");
+            Source = Source.Trim('!');
+        }
+
         public virtual void SetFragment() => Fragment = string.IsNullOrWhiteSpace(Fragment) ? "" : new string([.. Fragment.Where(c => char.IsLetterOrDigit(c) || c == ' ' || c == '-' || c == '/')]).Replace(" ", "-").ToLowerInvariant();
 
         public virtual void SetId() => Id = string.IsNullOrWhiteSpace(Id) ? CreateId : Id;

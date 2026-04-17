@@ -25,6 +25,7 @@ namespace ProgramInformationV2.Data.FieldList {
                 new() { Title = "Cost", CategoryType = CategoryType.Credential, FieldType = FieldType.General },
                 new() { Title = "Online Cost", CategoryType = CategoryType.Credential, FieldType = FieldType.General },
                 new() { Title = "Credential Length", CategoryType = CategoryType.Credential, FieldType = FieldType.General },
+                new() { Title = "Online Credential Length", CategoryType = CategoryType.Credential, FieldType = FieldType.General },
                 new() { Title = "Suggested Enrollment Date", CategoryType = CategoryType.Credential, FieldType = FieldType.General },
                 new() { Title = "Online Suggested Enrollment Date", CategoryType = CategoryType.Credential, FieldType = FieldType.General },
                 new() { Title = "Credential Type", CategoryType = CategoryType.Credential, FieldType = FieldType.General },

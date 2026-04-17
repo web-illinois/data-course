@@ -100,6 +100,11 @@ namespace ProgramInformationV2.Search.NoteTemplates {
             return _noteTemplates == null;
         }
 
+        public async Task<IEnumerable<NoteTemplateStorageItem>> GetNoteTemplates() {
+            _noteTemplates = await _noteTemplateLoader.LoadNoteTemplates();
+            return _noteTemplates;
+        }
+
         private async Task<bool> CheckNoteTemplates() {
             _noteTemplates ??= await _noteTemplateLoader.LoadNoteTemplates();
             return _noteTemplates != null;

@@ -41,6 +41,25 @@ namespace ProgramInformationV2.Data.Uploads {
             return GetFullPath(newFilename);
         }
 
+        public async Task<string> CopyImage(string? oldUrl, string? newSource) {
+            if (oldUrl == null || newSource == null || !IsPartOfPath(oldUrl)) {
+                return oldUrl ?? "";
+            }
+            if (newSource.Contains('!')) {
+                return await Copy(Path.GetFileName(oldUrl).Replace(newSource.Trim('!') + "-", newSource + "-"), oldUrl);
+            }
+            return await Copy(Path.GetFileName(oldUrl).Replace(newSource + "!-", newSource + "-"), oldUrl);
+        }
+
+        private async Task<string> Copy(string newFilename, string oldUrl) {
+            var blobServiceClient = GetServiceClient();
+            var containerClient = blobServiceClient.GetBlobContainerClient(GetContainer());
+            var destBlobClient = containerClient.GetBlobClient(newFilename);
+            _ = await destBlobClient.StartCopyFromUriAsync(new Uri(oldUrl));
+            return GetFullPath(newFilename);
+        }
+
+
         public async Task<string> Upload(string name, string contentType, Stream stream) {
             try {
                 var filename = $"{name}{StaticLookup.SupportedImageTypes[contentType]}";
