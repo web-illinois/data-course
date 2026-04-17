@@ -40,6 +40,7 @@ namespace ProgramInformationV2.Search.NoteTemplates {
                         returnValue.Add(originalNote);
                     }
                 }
+                returnValue = [.. ReplaceTitle(returnValue, credential.TitlePlusCredential)];
                 return FilterBlankNotes(returnValue);
             }
             return FilterBlankNotes(credential.NoteList);
@@ -65,6 +66,7 @@ namespace ProgramInformationV2.Search.NoteTemplates {
                         returnValue.Add(originalNote);
                     }
                 }
+                returnValue = [.. ReplaceTitle(returnValue, course.Title)];
                 return FilterBlankNotes(returnValue);
             }
             return FilterBlankNotes(course.NoteList);
@@ -90,6 +92,7 @@ namespace ProgramInformationV2.Search.NoteTemplates {
                         returnValue.Add(originalNote);
                     }
                 }
+                returnValue = [.. ReplaceTitle(returnValue, program.Title)];
                 return FilterBlankNotes(returnValue);
             }
             return FilterBlankNotes(program.NoteList);
@@ -118,5 +121,17 @@ namespace ProgramInformationV2.Search.NoteTemplates {
                 && (baseObject.TagList.Contains(nt.TagType) || nt.TagType == "")).OrderBy(nt => nt.Order);
 
         private static IEnumerable<Note> FilterBlankNotes(IEnumerable<Note> notes) => notes == null ? [] : notes.Where(n => n.Title != "" && (n.Description != "" || n.LinkText != ""));
+
+        private static IEnumerable<Note> ReplaceTitle(IEnumerable<Note> notes, string title) {
+            foreach (var note in notes) {
+                if (!string.IsNullOrWhiteSpace(note.Description)) {
+                    note.Description = note.Description.Replace("[title]", title);
+                }
+                if (!string.IsNullOrWhiteSpace(note.DescriptionHtml)) {
+                    note.DescriptionHtml = note.DescriptionHtml.Replace("[title]", title);
+                }
+            }
+            return notes;
+        }
     }
 }
