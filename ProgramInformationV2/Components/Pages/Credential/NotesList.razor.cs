@@ -61,7 +61,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.TitlePlusCredential);
             Notes = CredentialItem.NoteList?.ToList() ?? [];
             NoteTemplateTitles = [.. (await NoteTemplateHelper.GetNoteTemplatesAsync(sourceCode, CategoryType.Credential)).Select(nt => nt.Title).Distinct().OrderBy(s => s)];
-            var fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new CredentialGroup(), FieldType.Filters);
+            var fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new CredentialGroup(), FieldType.NotesList);
             Instructions = fieldItems.FirstOrDefault()?.Description ?? "";
             UseItem = fieldItems.FirstOrDefault()?.ShowItem ?? true;
         }
