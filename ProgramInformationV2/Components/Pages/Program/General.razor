@@ -7,7 +7,7 @@
     <h1>General Information</h1>
 </ilw-content>
 
-@if (ProgramItem != null) {
+@if (ProgramItem != null && FieldItems != null) {
     <MediumText Title="Title" FieldItems="FieldItems" @bind-Value="ProgramItem.Title"></MediumText>
     <LargeText Title="Summary Text" FieldItems="FieldItems" @bind-Value="ProgramItem.SummaryText"></LargeText>
     <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>

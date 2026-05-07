@@ -6,8 +6,7 @@
 <ilw-content>
     <h1>Technical Information</h1>
 </ilw-content>
-@if (ProgramItem != null)
-{
+@if (ProgramItem != null && FieldItems != null) {
     <StatusOnSite @bind-Value="ProgramItem.IsActive"></StatusOnSite>
     <LargeText Title="Internal Search Text" FieldItems="FieldItems" @bind-Value="ProgramItem.InternalSearch"></LargeText>
     <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
