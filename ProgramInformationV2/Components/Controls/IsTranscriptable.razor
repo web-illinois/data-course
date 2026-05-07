@@ -5,11 +5,11 @@
         <legend>@Title</legend>
         <div style="display: flex;">
             <div class="ils-input-entry-compact">
-                <label for="status-true">Yes</label>
+                <label for="transcriptable-true">Yes</label>
                 <input type="radio" id="transcriptable-true" name="transcriptable" value="true" checked="@Value" @onchange="@(() => { Value = true; })">
             </div>
             <div class="ils-input-entry-compact">
-                <label for="status-false">No</label>
+                <label for="transcriptable-false">No</label>
                 <input type="radio" id="transcriptable-false" name="transcriptable" value="false" checked="@(!Value)" @onchange="@(() => { Value = false; })">
             </div>
         </div>
