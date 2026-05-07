@@ -7,8 +7,7 @@
     <h1>General Information</h1>
 </ilw-content>
 
-@if (SectionItem != null)
-{
+@if (SectionItem != null && FieldItems != null) {
     <SmallText Title="Section Code" FieldItems="FieldItems" @bind-Value="SectionItem.SectionCode"></SmallText>
     <MediumText Title="Alternate Title" FieldItems="FieldItems" @bind-Value="SectionItem.AlternateTitle"></MediumText>
     <LargeText Title="Alternate Description" FieldItems="FieldItems" @bind-Value="SectionItem.Description"></LargeText>
