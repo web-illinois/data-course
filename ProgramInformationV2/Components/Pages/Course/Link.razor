@@ -7,8 +7,7 @@
     <h1>Link and Image</h1>
 </ilw-content>
 
-@if (CourseItem != null)
-{
+@if (CourseItem != null && FieldItems != null) {
     <MediumText Title="URL Fragment" FieldItems="FieldItems" @bind-Value="CourseItem.Fragment"></MediumText>
     <UrlText Title="Summary Link (URL)" FieldItems="FieldItems" @bind-Value="CourseItem.Url"></UrlText>
     <UrlText Title="Apply Now / Get More Information Link (URL)" FieldItems="FieldItems" @bind-Value="CourseItem.ExternalUrl"></UrlText>

@@ -7,8 +7,7 @@
     <h1>Technical Information</h1>
 </ilw-content>
 
-@if (SectionItem != null)
-{
+@if (SectionItem != null && FieldItems != null) {
     <StatusOnSite @bind-Value="SectionItem.IsActive"></StatusOnSite>
     <MediumText Title="URL Fragment" FieldItems="FieldItems" @bind-Value="SectionItem.Fragment"></MediumText>
     <ul class="ilw-buttons" id="save-group">
