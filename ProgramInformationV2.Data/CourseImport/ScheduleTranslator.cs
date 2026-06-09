@@ -19,7 +19,8 @@ namespace ProgramInformationV2.Data.CourseImport {
                 Description = string.Empty,
                 Information = string.Empty,
                 ScheduleInformation = string.Empty,
-                Prerequisite = string.Empty
+                Prerequisite = string.Empty,
+                PlatformType = PlatformTypes.Campus
             };
             course = course.AddDescription(scheduleCourse.Description);
 

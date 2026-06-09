@@ -9,6 +9,8 @@
 
     public enum UrlTypes { Programs, Courses, RequirementSets }
 
+    public enum PlatformTypes { None, Campus, Coursera, Custom, Moodle }
+
     public enum NoteTemplateTypes { Programs = 1, Credentials = 2, Courses = 3 }
 
     public static class ExtensionTypes {
