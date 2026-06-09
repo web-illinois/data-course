@@ -91,12 +91,18 @@ namespace ProgramInformationV2.Components.Pages.Course {
 
         protected async Task SendImport() {
             await Layout.AddMessage("Starting to add courses - please wait");
+            var success = 0;
+            var failedTitles = new List<string>();
             foreach (var course in ListOfCourseraCoursesSelected) {
                 var newCourse = await CourseraImportManager.GetCourse(_sourceCode, course.Key);
                 if (await CourseSetter.SetCourse(newCourse) != "") {
                     await Layout.AddMessage("Course added: " + newCourse.Title);
+                    success++;
+                } else {
+                    failedTitles.Add(string.IsNullOrWhiteSpace(newCourse.Title) ? "unknown course" : newCourse.Title);
                 }
             }
+            await Layout.AddMessage($"Total courses added: {success}. Failed items: {(failedTitles.Count == 0 ? "none" : string.Join(", ", failedTitles))}");
         }
     }
 }
