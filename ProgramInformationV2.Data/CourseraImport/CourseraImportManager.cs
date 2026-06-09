@@ -22,6 +22,7 @@ namespace ProgramInformationV2.Data.CourseraImport {
                 CourseTitle = courseraCourse.Title,
                 Sections = [
                     new Section {
+                        Title = "Coursera Information",
                         BeginDate = DateTime.MinValue,
                         EndDate = DateTime.MaxValue,
                         IsActive = true,
