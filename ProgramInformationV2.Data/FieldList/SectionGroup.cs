@@ -13,6 +13,7 @@ namespace ProgramInformationV2.Data.FieldList {
                 [FieldType.Technical] = "Technical details used for internal purposes."
             };
             FieldItems = [
+                new() { Title = "Title", CategoryType = CategoryType.Section, FieldType = FieldType.General, InitialDescription = "Optional title, not used" },
                 new() { Title = "Section Code", CategoryType = CategoryType.Section, FieldType = FieldType.General, IsRequired = true },
                 new() { Title = "Alternate Title", CategoryType = CategoryType.Section, FieldType = FieldType.General, InitialDescription = "Create an alternative name for the section. This will appear on the course page." },
                 new() { Title = "Alternate Description", CategoryType = CategoryType.Section, FieldType = FieldType.General, InitialDescription = "Create an alternative description for the section. This will appear on the course page." },
