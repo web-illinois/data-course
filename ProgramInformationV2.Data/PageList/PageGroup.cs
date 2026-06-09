@@ -130,7 +130,8 @@
             },
             { SidebarEnum.Courses, [
                     new("Courses", "/courses"),
-                    new("Import Courses", "/courses/import")
+                    new("Import Campus Courses", "/courses/import"),
+                    new("Import Coursera Courses", "/courses/courseraimport")
                 ]
             },
             { SidebarEnum.Course, [

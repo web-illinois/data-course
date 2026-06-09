@@ -1,5 +1,5 @@
-﻿using System.Text.Json;
-using OpenSearch.Client;
+﻿using OpenSearch.Client;
+using System.Text.Json;
 
 namespace ProgramInformationV2.Search.Models {
 
@@ -55,6 +55,9 @@ namespace ProgramInformationV2.Search.Models {
         public string Length { get; set; } = "";
         public int MaximumCreditHours { get; set; }
         public int MinimumCreditHours { get; set; }
+
+        public PlatformTypes PlatformType { get; set; }
+
         public string Prerequisite { get; set; } = "";
 
         [Keyword]
