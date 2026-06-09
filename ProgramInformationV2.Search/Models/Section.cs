@@ -1,5 +1,5 @@
-﻿using System.Text.Json;
-using OpenSearch.Client;
+﻿using OpenSearch.Client;
+using System.Text.Json;
 
 namespace ProgramInformationV2.Search.Models {
 
@@ -90,7 +90,8 @@ namespace ProgramInformationV2.Search.Models {
 
         public override void SetId() {
             base.SetId();
-            Title = string.IsNullOrWhiteSpace(DateString) || string.IsNullOrWhiteSpace(SectionCode) ? AlternateTitle :
+            Title = string.IsNullOrWhiteSpace(Title) ? Title :
+                string.IsNullOrWhiteSpace(DateString) || string.IsNullOrWhiteSpace(SectionCode) ? AlternateTitle :
                 (string.IsNullOrWhiteSpace(AlternateTitle) ? $"{DateString}: {SectionCode}" : $"{AlternateTitle} ({DateString}: {SectionCode})");
         }
 
