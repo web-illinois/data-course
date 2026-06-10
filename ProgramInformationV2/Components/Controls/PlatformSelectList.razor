@@ -1,0 +1,14 @@
+﻿@using ProgramInformationV2.Search.Models
+@if (GetFieldItemActive()) {
+    <ilw-content>
+        <div class="ils-input-entry">
+            <label for="@Id">@Title</label>
+            <select id="@Id" type="text" @bind="Value" @bind:after="Layout.SetDirty">
+                @foreach (var enumtype in Enum.GetValues<PlatformTypes>()) {
+                    <option value="@enumtype">@enumtype.ConvertToSingleString()</option>
+                }
+            </select>
+            <p>@GetFieldItemDescription()</p>
+        </div>
+    </ilw-content>
+}
