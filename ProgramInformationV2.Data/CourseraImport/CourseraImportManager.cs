@@ -22,17 +22,17 @@ namespace ProgramInformationV2.Data.CourseraImport {
                 CourseTitle = courseraCourse.Title,
                 Sections = [
                     new Section {
-                        Title = "Coursera Information",
                         BeginDate = DateTime.MinValue,
                         EndDate = DateTime.MaxValue,
                         IsActive = true,
                         Term = Terms.Ongoing,
                         FormatType = FormatType.Online,
-                        SectionCode = courseraCourse.Id
+                        SectionCode = "Coursera Information"
                     }
                 ]
             };
             course.CleanHtmlFields();
+            course.SetId();
             return course;
         }
 
