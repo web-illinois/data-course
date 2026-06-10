@@ -90,9 +90,9 @@ namespace ProgramInformationV2.Search.Models {
 
         public override void SetId() {
             base.SetId();
-            Title = string.IsNullOrWhiteSpace(Title) ? Title :
-                string.IsNullOrWhiteSpace(DateString) || string.IsNullOrWhiteSpace(SectionCode) ? AlternateTitle :
-                (string.IsNullOrWhiteSpace(AlternateTitle) ? $"{DateString}: {SectionCode}" : $"{AlternateTitle} ({DateString}: {SectionCode})");
+            var datestring = string.IsNullOrWhiteSpace(DateString) ? "Ongoing" : DateString;
+            Title = string.IsNullOrWhiteSpace(SectionCode) ? AlternateTitle :
+                (string.IsNullOrWhiteSpace(AlternateTitle) ? $"{datestring}: {SectionCode}" : $"{AlternateTitle} ({datestring}: {SectionCode})");
         }
 
         public override string ToString() => JsonSerializer.Serialize(this);
