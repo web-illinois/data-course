@@ -2,12 +2,6 @@
 @layout SidebarLayout
 
 <PageTitle>Import a Coursera Course</PageTitle>
-<style>
-    .container {
-        padding: 20px;
-        border: 1px solid var(--il-blue);
-    }
-</style>
 <ilw-content>
     <h1>Import a Coursera Course</h1>
     @if (_useCourses.HasValue && _useCourses.Value)
@@ -20,7 +14,7 @@
         <button class="ilw-button" @onclick="Search">Search for Courses</button>
         @if (ListOfCourseraCourses != null && ListOfCourseraCoursesSelected != null)
         {
-            <div class="container">
+            <div class="container-coursera">
                 <div class="ils-input-entry">
                     <label for="options">Coursera Courses</label>
                     <select id="options" type="text" @bind="ListOfCourseraCourseId" size="10" style="width: 100%;">
@@ -35,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
+            <div class="container-coursera">
                 <div class="ils-input-entry">
                     <label for="optionsselected">Selected Courses</label>
                     <select id="optionsselected" type="text"  @bind="ListOfCourseraCourseIdSelected" size="10" style="width: 100%;">

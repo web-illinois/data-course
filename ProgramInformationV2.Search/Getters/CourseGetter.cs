@@ -52,7 +52,7 @@ namespace ProgramInformationV2.Search.Getters {
             return response.IsValid ? response.Documents.FirstOrDefault() ?? new Course() : new Course();
         }
 
-        public async Task<SearchObject<Course>> GetCourses(string source, string search, IEnumerable<string> tags, IEnumerable<string> tags2, IEnumerable<string> tags3, IEnumerable<string> skills, IEnumerable<string> departments, IEnumerable<string> formats, string rubric, IEnumerable<string> terms, bool isUpcoming, bool isCurrent, int take, int skip) {
+        public async Task<SearchObject<Course>> GetCourses(string source, string search, IEnumerable<string> tags, IEnumerable<string> tags2, IEnumerable<string> tags3, IEnumerable<string> skills, IEnumerable<string> departments, IEnumerable<string> formats, string rubric, PlatformTypes platform, IEnumerable<string> terms, bool isUpcoming, bool isCurrent, int take, int skip) {
             var response = await _openSearchClient.SearchAsync<Course>(s => s.Index(UrlTypes.Courses.ConvertToUrlString())
                     .Skip(skip)
                     .Size(take)
@@ -66,7 +66,8 @@ namespace ProgramInformationV2.Search.Getters {
                         f => departments.Any() ? f.Terms(m => m.Field(fld => fld.DepartmentList).Terms(departments)) : f.MatchAll(),
                         f => skills.Any() ? f.Terms(m => m.Field(fld => fld.SkillList).Terms(skills)) : f.MatchAll(),
                         f => formats.Any() ? f.Terms(m => m.Field(fld => fld.Formats).Terms(formats)) : f.MatchAll(),
-                        f => rubric.Any() ? f.Term(m => m.Field(fld => fld.Rubric).Value(rubric)) : f.MatchAll(),
+                        f => !string.IsNullOrWhiteSpace(rubric) ? f.Term(m => m.Field(fld => fld.Rubric).Value(rubric)) : f.MatchAll(),
+                        f => platform != PlatformTypes.None ? f.Term(m => m.Field(fld => fld.PlatformType).Value(platform)) : f.MatchAll(),
                         f => terms.Any() ? f.Terms(m => m.Field(fld => fld.Terms).Terms(terms)) : f.MatchAll(),
                         f => isUpcoming ? f.Term(m => m.Field(fld => fld.IsUpcoming).Value(true)) : f.MatchAll(),
                         f => isCurrent ? f.Term(m => m.Field(fld => fld.IsCurrent).Value(true)) : f.MatchAll())

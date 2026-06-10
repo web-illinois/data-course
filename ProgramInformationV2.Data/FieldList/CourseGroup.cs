@@ -21,6 +21,7 @@ namespace ProgramInformationV2.Data.FieldList {
                 new() { Title = "Title", CategoryType = CategoryType.Course, FieldType = FieldType.General, IsRequired = true, InitialDescription = "Name your course. This will appear when users search for courses. -- Do not include the rubric or course number, as it will be added to the title when displayed." },
                 new() { Title = "Rubric", CategoryType = CategoryType.Course, FieldType = FieldType.General },
                 new() { Title = "Course Number", CategoryType = CategoryType.Course, FieldType = FieldType.General },
+                new() { Title = "Platform Type", CategoryType = CategoryType.Course, FieldType = FieldType.General },
                 new() { Title = "Summary", CategoryType = CategoryType.Course, FieldType = FieldType.General, InitialDescription = "Briefly summarize the course. This will appear when users search courses; they will read a brief summary of the course before clicking into the course page." },
                 new() { Title = "Description", CategoryType = CategoryType.Course, FieldType = FieldType.General, InitialDescription = "This text should describe the course. It will be on the course page." },
                 new() { Title = "Information", CategoryType = CategoryType.Course, FieldType = FieldType.General, InitialDescription = "For example: 3 undergraduate hours. 2 or 4 graduate hours." },

@@ -81,6 +81,7 @@ namespace ProgramInformationV2.Function {
         [OpenApiParameter(name: "skills", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of skills the course will give you. You can separate the skills by the characters '[-]'.")]
         [OpenApiParameter(name: "departments", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of departments the course is in. You can separate the departments by the characters '[-]'.")]
         [OpenApiParameter(name: "q", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A full text search string -- it will search the title and description for the search querystring.")]
+        [OpenApiParameter(name: "platform", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Either 'coursera', 'campus', 'custom', 'moodle' for platform type.")]
         [OpenApiParameter(name: "period", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Either 'upcoming' (future courses), 'current' (courses that are going on now), or 'open' (courses that are going on now or in the future).")]
         [OpenApiParameter(name: "formats", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Either 'On-Campus', 'Online', 'Off-Campus', or 'Hybrid'. Can choose multiple by separating them with the characters '[-]'")]
         [OpenApiParameter(name: "rubric", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "The course rubric.")]
@@ -105,13 +106,15 @@ namespace ProgramInformationV2.Function {
             var take = requestHelper.GetInteger(req, "take", 1000);
             var skip = requestHelper.GetInteger(req, "skip");
             var period = requestHelper.GetRequest(req, "period", false);
-
+            if (!Enum.TryParse(requestHelper.GetRequest(req, "platform", false), true, out PlatformTypes platform)) {
+                platform = PlatformTypes.None;
+            }
             var isUpcoming = period.Equals("upcoming") || period.Equals("open");
             var isCurrent = period.Equals("current") || period.Equals("open");
 
             requestHelper.Validate();
             var response = req.CreateResponse(HttpStatusCode.OK);
-            await response.WriteAsJsonAsync(await _courseGetter.GetCourses(source, query, tags, tags2, tags3, skills, departments, formats, rubric, terms, isUpcoming, isCurrent, take, skip));
+            await response.WriteAsJsonAsync(await _courseGetter.GetCourses(source, query, tags, tags2, tags3, skills, departments, formats, rubric, platform, terms, isUpcoming, isCurrent, take, skip));
             return response;
         }
 

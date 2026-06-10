@@ -13,7 +13,7 @@ namespace ProgramInformationV2.Data.CourseraImport {
             var course = new Course {
                 Source = source,
                 Title = courseraCourse.Title,
-                Url = "https://www.coursera.com" + courseraCourse.Url,
+                Url = "https://www.coursera.org" + courseraCourse.Url,
                 Id = source + "-" + courseraCourse.Id,
                 PlatformType = PlatformTypes.Coursera,
                 ImageUrl = courseraCourse.ImageUrl,

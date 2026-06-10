@@ -92,3 +92,9 @@ div.button-group {
     div.button-group button {
         max-height: 40px;
     }
+
+div.container-coursera {
+    padding: 20px;
+    border: 1px solid var(--il-blue);
+    margin: 15px 0;
+}
