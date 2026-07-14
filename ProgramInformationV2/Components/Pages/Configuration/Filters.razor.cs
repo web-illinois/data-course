@@ -12,7 +12,8 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
             { "", TagType.None },
             { "Departments", TagType.Department },
             { "Tags", TagType.Tag },
-            { "Skills", TagType.Skill }
+            { "Skills", TagType.Skill },
+            { "Length", TagType.Length }
         };
 
         private int _sourceId;

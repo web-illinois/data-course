@@ -1,5 +1,5 @@
-﻿using System.Text.Json;
-using OpenSearch.Client;
+﻿using OpenSearch.Client;
+using System.Text.Json;
 
 namespace ProgramInformationV2.Search.Models {
 

@@ -5,16 +5,12 @@ using System.Diagnostics;
 namespace ProgramInformationV2.Data.DataContext {
 
     public class ProgramContext : DbContext {
-        private readonly Guid _id;
-
         public ProgramContext() : base() {
-            _id = Guid.NewGuid();
-            Debug.WriteLine($"{_id} context created.");
+            Debug.WriteLine($"Context created.");
         }
 
         public ProgramContext(DbContextOptions<ProgramContext> options) : base(options) {
-            _id = Guid.NewGuid();
-            Debug.WriteLine($"{_id} context created.");
+            Debug.WriteLine($"Context created.");
         }
 
         public DbSet<CourseImportEntry> CourseImportEntries { get; set; }
@@ -27,26 +23,18 @@ namespace ProgramInformationV2.Data.DataContext {
         public DbSet<TagSource> TagSources { get; set; }
 
         public override void Dispose() {
-            Debug.WriteLine($"{_id} context disposed.");
+            Debug.WriteLine($"Context disposed.");
             base.Dispose();
         }
 
         public override ValueTask DisposeAsync() {
-            Debug.WriteLine($"{_id} context disposed async.");
+            Debug.WriteLine($"Context disposed async.");
             return base.DisposeAsync();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            Debug.WriteLine($"{_id} context starting initial setup.");
-            modelBuilder.Entity<Source>().HasData(new List<Source>
-            {
-                new() { Id = -1, Code = "test", Title = "Test Entry", CreatedByEmail = "jonker@illinois.edu", IsTest = true, UseCourses = true, UseCredentials = true, UsePrograms = true, UseRequirementSets = true, UseSections = true },
-            });
-            modelBuilder.Entity<SecurityEntry>().HasData(new List<SecurityEntry>
-            {
-                new("jonker", -1) { Id = -1, IsOwner = true }
-            });
-            Debug.WriteLine($"{_id} context finishing initial setup.");
+            Debug.WriteLine($"Context starting initial setup.");
+            Debug.WriteLine($"Context finishing initial setup.");
         }
     }
 }

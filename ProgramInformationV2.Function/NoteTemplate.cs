@@ -8,9 +8,10 @@ using System.Net;
 
 namespace ProgramInformationV2.Function;
 
-public class NoteTemplate(NoteTemplateSingleton noteTemplateSingleton, ILogger<NoteTemplate> logger) {
+public class NoteTemplate(NoteTemplateSingleton noteTemplateSingleton, ILogger<NoteTemplate> logger, INoteTemplateLoad noteTemplateLoader) {
     private readonly NoteTemplateSingleton _noteTemplateSingleton = noteTemplateSingleton;
     private readonly ILogger<NoteTemplate> _logger = logger;
+    private readonly INoteTemplateLoad _noteTemplateLoader = noteTemplateLoader;
 
     [Function("RefreshNoteTemplates")]
     [OpenApiOperation(operationId: "RefreshNoteTemplates", tags: "Note Templates", Description = "Refresh the NoteTemplate information.")]
@@ -28,7 +29,7 @@ public class NoteTemplate(NoteTemplateSingleton noteTemplateSingleton, ILogger<N
     public async Task<HttpResponseData> GetAll([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequestData req) {
         _logger.LogInformation("Called Note Template GetAll.");
         var response = req.CreateResponse(HttpStatusCode.OK);
-        await response.WriteAsJsonAsync(await _noteTemplateSingleton.GetNoteTemplates());
+        await response.WriteAsJsonAsync(await _noteTemplateSingleton.GetNoteTemplates(_noteTemplateLoader));
         return response;
     }
 }

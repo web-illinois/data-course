@@ -18,6 +18,7 @@ namespace ProgramInformationV2.Components.Pages.Program {
 
         public bool NoFiltersAvailable => FilterTags == null || FilterTags.Count() == 0;
         public Search.Models.Program ProgramItem { get; set; } = new Search.Models.Program();
+        public IEnumerable<TagSource>? Lengths => FilterTags?.Where(f => f.Key == TagType.Length).SelectMany(x => x);
 
         public IEnumerable<TagSource>? SkillTags => FilterTags?.Where(f => f.Key == TagType.Skill).SelectMany(x => x);
 
@@ -40,9 +41,10 @@ namespace ProgramInformationV2.Components.Pages.Program {
         protected ProgramSetter ProgramSetter { get; set; } = default!;
 
         public async Task Save() {
-            ProgramItem.DepartmentList = DepartmentTags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? new List<string>();
-            ProgramItem.SkillList = SkillTags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? new List<string>();
-            ProgramItem.TagList = Tags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? new List<string>();
+            ProgramItem.DepartmentList = DepartmentTags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
+            ProgramItem.SkillList = SkillTags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
+            ProgramItem.TagList = Tags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
+            ProgramItem.LengthList = Lengths?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
             Layout.RemoveDirty();
             await Layout.AddMessage("Program saved successfully.");
             await Layout.Log(CategoryType.Program, FieldType.Filters, ProgramItem);
@@ -66,6 +68,9 @@ namespace ProgramInformationV2.Components.Pages.Program {
                     tag.EnabledBySource = true;
                 }
                 if (ProgramItem.SkillList.Contains(tag.Title) && tag.TagType == TagType.Skill) {
+                    tag.EnabledBySource = true;
+                }
+                if (ProgramItem.LengthList.Contains(tag.Title) && tag.TagType == TagType.Length) {
                     tag.EnabledBySource = true;
                 }
             }

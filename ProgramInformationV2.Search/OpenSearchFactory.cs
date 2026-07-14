@@ -21,6 +21,9 @@ namespace ProgramInformationV2.Search {
 
         public static string MapIndex(OpenSearchClient openSearchClient) {
             var returnValue = "Mapping: ";
+            // NOTE: The following line is commented out to prevent deletion of indices. Uncomment if you want to delete existing indices before creating new ones.
+            // returnValue += openSearchClient.Indices.Delete(UrlTypes.Programs.ConvertToUrlString()) + " " + openSearchClient.Indices.Delete(UrlTypes.Courses.ConvertToUrlString()) + " " + openSearchClient.Indices.Delete(UrlTypes.RequirementSets.ConvertToUrlString());
+            // returnValue += openSearchClient.Indices.Delete(UrlTypes.Programs.ConvertToUrlString()) + " " + openSearchClient.Indices.Delete(UrlTypes.Courses.ConvertToUrlString());
             var indexPrograms = openSearchClient.Indices.Create(UrlTypes.Programs.ConvertToUrlString(), c => c.Map(m => m.AutoMap<Program>().Properties<Program>(p => p
                 .Keyword(k => k.Name(f => f.Credentials.Select(f => f.FormatType)))
                 .Keyword(k => k.Name(f => f.Credentials.Select(f => f.CredentialType)))

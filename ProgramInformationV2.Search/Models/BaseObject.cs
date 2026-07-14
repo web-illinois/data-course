@@ -53,14 +53,18 @@ namespace ProgramInformationV2.Search.Models {
             CleanHtmlFields();
         }
 
+        public virtual void ChangeId(string newSource) {
+            var source = Source;
+            Source = newSource;
+            Id = Id.Replace(source + "-", newSource + "-");
+        }
+
         public void ConvertToTest() {
-            Id = Id.Replace(Source.Trim('!') + "-", Source.Trim('!') + "!-");
-            Source = Source.Trim('!') + "!";
+            ChangeId(Source.Trim('!') + "!");
         }
 
         public void ConvertToProduction() {
-            Id = Id.Replace(Source.Trim('!') + "!-", Source.Trim('!') + "-");
-            Source = Source.Trim('!');
+            ChangeId(Source.Trim('!'));
         }
 
         public virtual void SetFragment() => Fragment = string.IsNullOrWhiteSpace(Fragment) ? "" : new string([.. Fragment.Where(c => char.IsLetterOrDigit(c) || c == ' ' || c == '-' || c == '/')]).Replace(" ", "-").ToLowerInvariant();

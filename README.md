@@ -54,6 +54,16 @@ The solution consists of four main projects:
   - Index management for courses, programs, credentials, requirement sets, and static codes
   - Search helpers and query builders
 
+## Schema update
+
+In the rare case that the AWS OpenSearch Schema needs to be updated, go through the following process:
+1. Save the data for all sources for Programs, Courses, and Requirement Sets. 
+2. Uncomment the lines in `MapIndex` in the `OpenSearchFactory` class in the `ProgramInformationV2.Search` project for the schemas you want to rebuild. 
+3. Deploy the application and confirm data has been deleted. 
+4. Comment the `MapIndex` again to prevent accidental changes.
+5. Deploy the application. 
+6. Load the data for all sources.
+
 ## Getting Started
 
 ### Prerequisites

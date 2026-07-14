@@ -79,6 +79,11 @@ namespace ProgramInformationV2.Search.Models {
             Notes = CleanHtml(Notes);
             ProcessLists();
         }
+        public override void ChangeId(string newSource) {
+            var oldSource = Source;
+            base.ChangeId(newSource);
+            RequirementSetIds = RequirementSetIds.Select(r => r.Replace(oldSource + "-", newSource + "-"));
+        }
 
         public override GenericItem GetGenericItem() => new() { Id = Id, IsActive = IsActive, Order = Order, Title = InternalTitle, ParentId = ProgramId };
 
