@@ -13,10 +13,11 @@ using System.Net;
 
 namespace ProgramInformationV2.Function {
 
-    public class GetCredentials(CredentialGetter credentialGetter, NoteTemplateSingleton noteTemplateSingleton, ILogger<GetCredentials> logger) {
+    public class GetCredentials(CredentialGetter credentialGetter, NoteTemplateSingleton noteTemplateSingleton, ILogger<GetCredentials> logger, INoteTemplateLoad noteTemplateLoader) {
         private readonly CredentialGetter _credentialGetter = credentialGetter;
         private readonly NoteTemplateSingleton _noteTemplateSingleton = noteTemplateSingleton;
         private readonly ILogger<GetCredentials> _logger = logger;
+        private readonly INoteTemplateLoad _noteTemplateLoader = noteTemplateLoader;
 
         [Function("CredentialFragment")]
         [OpenApiOperation(operationId: "CredentialFragment", tags: "Get Credential Information", Description = "Get a credential by the fragment supplied in the data entry area. This includes all requirement sets associated with the credential. If the credential is not found or marked inactive, it will send a blank credential.")]
@@ -31,7 +32,7 @@ namespace ProgramInformationV2.Function {
             var fragment = requestHelper.GetRequest(req, "fragment");
             requestHelper.Validate();
             var returnItem = await _credentialGetter.GetCredentialWithRequirementSet(source, fragment);
-            returnItem.Credential.NoteList = await _noteTemplateSingleton.MergeCredentialNotes(returnItem.Credential);
+            returnItem.Credential.NoteList = await _noteTemplateSingleton.MergeCredentialNotes(returnItem.Credential, _noteTemplateLoader);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
@@ -48,7 +49,7 @@ namespace ProgramInformationV2.Function {
             var id = requestHelper.GetRequest(req, "id");
             requestHelper.Validate();
             var returnItem = await _credentialGetter.GetCredentialWithRequirementSet(id);
-            returnItem.Credential.NoteList = await _noteTemplateSingleton.MergeCredentialNotes(returnItem.Credential);
+            returnItem.Credential.NoteList = await _noteTemplateSingleton.MergeCredentialNotes(returnItem.Credential, _noteTemplateLoader);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
@@ -62,6 +63,7 @@ namespace ProgramInformationV2.Function {
         [OpenApiParameter(name: "tags3", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of tags. You can separate the tags by the characters '[-]'. Having multiple tags options allows you to vary the AND and OR options for the tags.")]
         [OpenApiParameter(name: "skills", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of skills the credential will give you. You can separate the skills by the characters '[-]'.")]
         [OpenApiParameter(name: "departments", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of departments the credential is in. You can separate the departments by the characters '[-]'.")]
+        [OpenApiParameter(name: "lengths", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of credential lengths the credential has. You can separate the lengths by the characters '[-]'.")]
         [OpenApiParameter(name: "q", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A full text search string -- it will search the title and description for the search querystring.")]
         [OpenApiParameter(name: "formats", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Either 'On-Campus', 'Online', 'Off-Campus', or 'Hybrid'. Can choose multiple by separating them with the characters '[-]'")]
         [OpenApiParameter(name: "credentials", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "The credential type (BS, MS, EdM, PhD, Certificate, etc.) Can choose multiple by separating them with the characters '[-]'")]
@@ -75,13 +77,14 @@ namespace ProgramInformationV2.Function {
             var tags2 = requestHelper.GetArray(req, "tags2");
             var tags3 = requestHelper.GetArray(req, "tags3");
             var skills = requestHelper.GetArray(req, "skills");
+            var lengths = requestHelper.GetArray(req, "lengths");
             var query = requestHelper.GetRequest(req, "q", false);
             var departments = requestHelper.GetArray(req, "departments");
             var formats = requestHelper.GetArray(req, "formats");
             var credentials = requestHelper.GetArray(req, "credentials");
             requestHelper.Validate();
             var response = req.CreateResponse(HttpStatusCode.OK);
-            await response.WriteAsJsonAsync(await _credentialGetter.GetCredentials(source, query, tags, tags2, tags3, skills, departments, formats, credentials));
+            await response.WriteAsJsonAsync(await _credentialGetter.GetCredentials(source, query, tags, tags2, tags3, skills, departments, lengths, formats, credentials));
             return response;
         }
 

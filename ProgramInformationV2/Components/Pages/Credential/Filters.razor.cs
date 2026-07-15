@@ -20,6 +20,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
         public bool NoFiltersAvailable => FilterTags == null || FilterTags.Count() == 0;
         public IEnumerable<TagSource>? SkillTags => FilterTags?.Where(f => f.Key == TagType.Skill).SelectMany(x => x);
         public IEnumerable<TagSource>? Tags => FilterTags?.Where(f => f.Key == TagType.Tag).SelectMany(x => x);
+        public IEnumerable<TagSource>? Lengths => FilterTags?.Where(f => f.Key == TagType.Length).SelectMany(x => x);
         public bool UsePrograms { get; set; }
         public string Instructions { get; set; } = default!;
         public bool UseItem { get; set; }
@@ -52,6 +53,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             CredentialItem.DepartmentList = DepartmentTags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
             CredentialItem.SkillList = SkillTags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
             CredentialItem.TagList = Tags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
+            CredentialItem.LengthList = Lengths?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
             Layout.RemoveDirty();
             _ = await ProgramSetter.SetCredential(CredentialItem);
             await Layout.Log(CategoryType.Credential, FieldType.Filters, CredentialItem);
@@ -73,6 +75,9 @@ namespace ProgramInformationV2.Components.Pages.Credential {
                     tag.EnabledBySource = true;
                 }
                 if (CredentialItem.SkillList.Contains(tag.Title) && tag.TagType == TagType.Skill) {
+                    tag.EnabledBySource = true;
+                }
+                if (CredentialItem.LengthList.Contains(tag.Title) && tag.TagType == TagType.Length) {
                     tag.EnabledBySource = true;
                 }
             }

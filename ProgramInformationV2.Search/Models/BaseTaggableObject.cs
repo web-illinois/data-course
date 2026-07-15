@@ -7,6 +7,9 @@ namespace ProgramInformationV2.Search.Models {
         [Keyword]
         public IEnumerable<string> DepartmentList { get; set; } = default!;
 
+        [Keyword]
+        public IEnumerable<string> LengthList { get; set; } = default!;
+
         public IEnumerable<Link> LinkList { get; set; } = default!;
 
         [Keyword]
@@ -15,16 +18,18 @@ namespace ProgramInformationV2.Search.Models {
         [Keyword]
         public IEnumerable<string> TagList { get; set; } = default!;
 
-        [Keyword] public IEnumerable<Note> NoteList { get; set; } = default!;
+        public IEnumerable<Note> NoteList { get; set; } = default!;
 
 
         public static string ProcessTagName(string tag) => tag.Replace("\"", "");
 
         internal void ProcessLists() {
             TagList = TagList == null ? [] : TagList.Select(ProcessTagName).ToList();
+            LengthList = LengthList == null ? [] : LengthList.Select(ProcessTagName).ToList();
             DepartmentList = DepartmentList == null ? [] : DepartmentList.Select(ProcessTagName).ToList();
             SkillList = SkillList == null ? [] : SkillList.Select(ProcessTagName).ToList();
             NoteList = NoteList == null ? [] : NoteList;
+            LinkList = LinkList == null ? [] : LinkList;
         }
     }
 }

@@ -9,6 +9,8 @@ namespace ProgramInformationV2.Search {
 
     public static class OpenSearchFactory {
 
+        private const string TempIndex = "pcr2_tempindex";
+
         public static OpenSearchClient CreateClient(string? baseUrl, string? accessKey, string? secretKey, bool debug) {
             var client = new OpenSearchClient(GenerateConnection(baseUrl, accessKey, secretKey, debug));
             _ = client.ConnectionSettings.DefaultIndices.Add(typeof(Program), UrlTypes.Programs.ConvertToUrlString());
@@ -21,16 +23,10 @@ namespace ProgramInformationV2.Search {
 
         public static string MapIndex(OpenSearchClient openSearchClient) {
             var returnValue = "Mapping: ";
-            var indexPrograms = openSearchClient.Indices.Create(UrlTypes.Programs.ConvertToUrlString(), c => c.Map(m => m.AutoMap<Program>().Properties<Program>(p => p
-                .Keyword(k => k.Name(f => f.Credentials.Select(f => f.FormatType)))
-                .Keyword(k => k.Name(f => f.Credentials.Select(f => f.CredentialType)))
-                .Keyword(k => k.Name(f => f.Credentials.Select(f => f.ProgramId)))
-                .Keyword(k => k.Name(f => f.Credentials.Select(f => f.DepartmentList))))));
-            returnValue += $"Program {(indexPrograms.IsValid ? "created" : "failed")} - {indexPrograms.DebugInformation}; ";
-            var indexCourses = openSearchClient.Indices.Create(UrlTypes.Courses.ConvertToUrlString(), c => c.Map(m => m.AutoMap<Course>()));
-            returnValue += $"Course {(indexCourses.IsValid ? "created" : "failed")} - {indexCourses.DebugInformation}; ";
-            var indexRequirementSets = openSearchClient.Indices.Create(UrlTypes.RequirementSets.ConvertToUrlString(), c => c.Map(m => m.AutoMap<RequirementSet>()));
-            returnValue += $"Req Set {(indexRequirementSets.IsValid ? "created" : "failed")}; - {indexRequirementSets.DebugInformation}; ";
+            // NOTE: change the 'forceIndexCreation' to true if you are changing the index -- this will greatly increase the load time.
+            returnValue += ReloadIndex(openSearchClient, UrlTypes.Programs, false);
+            returnValue += ReloadIndex(openSearchClient, UrlTypes.Courses, false);
+            returnValue += ReloadIndex(openSearchClient, UrlTypes.RequirementSets, false);
             return returnValue;
         }
 
@@ -42,6 +38,68 @@ namespace ProgramInformationV2.Search {
                 _ = config.DisableDirectStreaming(true);
             }
             return config;
+        }
+
+        private static string ReloadIndex(OpenSearchClient openSearchClient, UrlTypes url, bool forceIndexCreation) {
+            if (!forceIndexCreation) {
+                return CreateIndex(openSearchClient, url, false);
+            }
+            var indexName = url.ConvertToUrlString();
+            var returnValue = $"Reloading {indexName}: ";
+            returnValue += CreateIndex(openSearchClient, url, true);
+            var reindexResponse = openSearchClient.ReindexOnServer(r => r
+                .Source(s => s.Index(indexName))
+                .Destination(d => d.Index(TempIndex))
+                .WaitForCompletion(true)
+            );
+            if (!reindexResponse.IsValid) {
+                throw new Exception(reindexResponse.DebugInformation);
+            }
+            var deleteResponse = openSearchClient.Indices.Delete(indexName);
+            returnValue += $"Delete {(deleteResponse.IsValid ? "succeeded" : "failed")} - {deleteResponse.DebugInformation}; ";
+            returnValue += CreateIndex(openSearchClient, url, false);
+            var movebackResponse = openSearchClient.ReindexOnServer(r => r
+                .Source(s => s.Index(TempIndex))
+                .Destination(d => d.Index(indexName))
+                .WaitForCompletion(true)
+            );
+            if (!movebackResponse.IsValid) {
+                throw new Exception(movebackResponse.DebugInformation);
+            }
+            var deleteTempResponse = openSearchClient.Indices.Delete(TempIndex);
+            returnValue += $"Delete Temp {(deleteTempResponse.IsValid ? "succeeded" : "failed")} - {deleteTempResponse.DebugInformation}; ";
+            return returnValue;
+        }
+
+        private static string CreateIndex(OpenSearchClient openSearchClient, UrlTypes url, bool temp) {
+            return url switch {
+                UrlTypes.Programs => CreateProgramIndex(openSearchClient, temp),
+                UrlTypes.Courses => CreateCourseIndex(openSearchClient, temp),
+                UrlTypes.RequirementSets => CreateRequirementSetIndex(openSearchClient, temp),
+                _ => string.Empty,
+            };
+        }
+
+        private static string CreateProgramIndex(OpenSearchClient openSearchClient, bool temp) {
+            var indexName = temp ? TempIndex : UrlTypes.Programs.ConvertToUrlString();
+            var response = openSearchClient.Indices.Create(indexName, c => c.Map(m => m.AutoMap<Program>().Properties<Program>(p => p
+                .Keyword(k => k.Name(f => f.Credentials.Select(f => f.FormatType)))
+                .Keyword(k => k.Name(f => f.Credentials.Select(f => f.CredentialType)))
+                .Keyword(k => k.Name(f => f.Credentials.Select(f => f.ProgramId)))
+                .Keyword(k => k.Name(f => f.Credentials.Select(f => f.DepartmentList))))));
+            return $"Create Program {(response.IsValid ? "succeeded" : "failed")} - {response.DebugInformation}; ";
+        }
+
+        private static string CreateCourseIndex(OpenSearchClient openSearchClient, bool temp) {
+            var indexName = temp ? TempIndex : UrlTypes.Courses.ConvertToUrlString();
+            var response = openSearchClient.Indices.Create(indexName, c => c.Map(m => m.AutoMap<Course>()));
+            return $"Create Course {(response.IsValid ? "succeeded" : "failed")} - {response.DebugInformation}; ";
+        }
+
+        private static string CreateRequirementSetIndex(OpenSearchClient openSearchClient, bool temp) {
+            var indexName = temp ? TempIndex : UrlTypes.RequirementSets.ConvertToUrlString();
+            var response = openSearchClient.Indices.Create(indexName, c => c.Map(m => m.AutoMap<RequirementSet>()));
+            return $"Create RequirementSet {(response.IsValid ? "succeeded" : "failed")} - {response.DebugInformation}; ";
         }
     }
 }

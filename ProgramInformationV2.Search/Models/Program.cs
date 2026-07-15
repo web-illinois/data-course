@@ -78,6 +78,7 @@ namespace ProgramInformationV2.Search.Models {
             if (Credentials != null && Credentials?.Count > 0) {
                 Credentials = [.. Credentials.OrderBy(c => c.CredentialType).ThenBy(c => c.Title)];
                 DepartmentList = Credentials.Where(c => c.DepartmentList != null).SelectMany(c => c.DepartmentList).Distinct();
+                LengthList = Credentials.Where(c => c.LengthList != null).SelectMany(c => c.LengthList).Distinct();
                 SkillList = Credentials.Where(c => c.SkillList != null).SelectMany(c => c.SkillList).Distinct();
                 TagList = Credentials.Where(c => c.TagList != null).SelectMany(c => c.TagList).Distinct();
                 Credentials?.ForEach(c => {
@@ -85,6 +86,13 @@ namespace ProgramInformationV2.Search.Models {
                     c.ProgramTitle = Title;
                     c.CleanHtmlFields();
                 });
+            }
+        }
+
+        public override void ChangeId(string newSource) {
+            base.ChangeId(newSource);
+            foreach (var credential in Credentials) {
+                credential.ChangeId(newSource);
             }
         }
 

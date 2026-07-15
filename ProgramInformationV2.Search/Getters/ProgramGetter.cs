@@ -59,7 +59,7 @@ namespace ProgramInformationV2.Search.Getters {
             return response.IsValid ? response.Documents.FirstOrDefault() ?? new() : new();
         }
 
-        public async Task<SearchObject<Program>> GetPrograms(string source, string search, IEnumerable<string> tags, IEnumerable<string> tags2, IEnumerable<string> tags3, IEnumerable<string> skills, IEnumerable<string> departments, IEnumerable<string> formats, IEnumerable<string> credentials, int take, int skip) {
+        public async Task<SearchObject<Program>> GetPrograms(string source, string search, IEnumerable<string> tags, IEnumerable<string> tags2, IEnumerable<string> tags3, IEnumerable<string> skills, IEnumerable<string> departments, IEnumerable<string> lengths, IEnumerable<string> formats, IEnumerable<string> credentials, int take, int skip) {
             var response = await _openSearchClient.SearchAsync<Program>(s => s.Index(UrlTypes.Programs.ConvertToUrlString())
                     .Skip(skip)
                     .Size(take)
@@ -80,6 +80,7 @@ namespace ProgramInformationV2.Search.Getters {
                               : f.Terms(m => m.Field(fld => fld.CredentialsFullList).Terms(credentials)) : f.MatchAll(),
                         f => formats.Any() ? f.Terms(m => m.Field(fld => fld.Formats).Terms(formats)) : f.MatchAll(),
                         f => departments.Any() ? f.Terms(m => m.Field(fld => fld.DepartmentList).Terms(departments)) : f.MatchAll(),
+                        f => lengths.Any() ? f.Terms(m => m.Field(fld => fld.LengthList).Terms(lengths)) : f.MatchAll(),
                         f => skills.Any() ? f.Terms(m => m.Field(fld => fld.SkillList).Terms(skills)) : f.MatchAll())
                     .Must(m => !string.IsNullOrWhiteSpace(search) ? m.MultiMatch(m => m.Fields(fld => fld.Field("title^10").Field("internalsearch^5").Field("summarytext^5").Field("description^2").Field("whoshouldapply")).Query(search)) : m.MatchAll())))
                     .Sort(srt => string.IsNullOrWhiteSpace(search) ? srt.Ascending(f => f.TitleSortKeyword) : srt.Descending(SortSpecialField.Score))

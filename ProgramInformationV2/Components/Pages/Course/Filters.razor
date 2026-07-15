@@ -10,7 +10,7 @@
         <h2>Instructions</h2>
         <p>@Instructions</p>
     }
-    @if (DepartmentTags != null && SkillTags != null && Tags != null && !NoFiltersAvailable)   {
+    @if (DepartmentTags != null && SkillTags != null && Tags != null && Lengths != null && !NoFiltersAvailable) {
         @if (DepartmentTags.Count() > 0)
         {
             <h2>Departments</h2>
@@ -20,7 +20,6 @@
                 <FilterToggle Filter="@tag"></FilterToggle>
             }
         }
-
         @if (SkillTags.Count() > 0)
         {
             <h2>Skills/Topics</h2>
@@ -30,7 +29,13 @@
                 <FilterToggle Filter="@tag"></FilterToggle>
             }
         }
-
+        @if (Lengths.Count() > 0) {
+            <h2>Lengths</h2>
+            <p>Lengths are the expected length to take the course. This can range from a short period like an hour to a full semester.</p>
+            @foreach (var tag in Lengths) {
+                <FilterToggle Filter="@tag"></FilterToggle>
+            }
+        }
         @if (Tags.Count() > 0)
         {
             <h2>Tags</h2>
