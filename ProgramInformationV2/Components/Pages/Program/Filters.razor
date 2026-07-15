@@ -10,7 +10,7 @@
         <h2>Instructions</h2>
         <p>@Instructions</p>
     }
-    @if (DepartmentTags != null && SkillTags != null && Tags != null && !NoFiltersAvailable && UseItem) {
+    @if (DepartmentTags != null && SkillTags != null && Tags != null && Lengths != null && !NoFiltersAvailable && UseItem) {
         @if (DepartmentTags.Count() > 0)
         {
             <h2>Departments</h2>
@@ -30,7 +30,13 @@
                 <FilterToggle Filter="@tag"></FilterToggle>
             }
         }
-
+        @if (Lengths.Count() > 0) {
+            <h2>Lengths</h2>
+            <p>Lengths are the expected length to achieve the credential inside the program. This can range from a short period like a few weeks to several years. If a program has several options, select all that apply.</p>
+            @foreach (var length in Lengths) {
+                <FilterToggle Filter="@length"></FilterToggle>
+            }
+        }
         @if (Tags.Count() > 0)
         {
             <h2>Tags</h2>
@@ -40,8 +46,6 @@
                 <FilterToggle Filter="@tag"></FilterToggle>
             }
         }
-
-
         <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
         <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
     }

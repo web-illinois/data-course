@@ -11,10 +11,11 @@ using System.Net;
 
 namespace ProgramInformationV2.Function {
 
-    public class GetPrograms(ProgramGetter programGetter, NoteTemplateSingleton noteTemplateSingleton, ILogger<GetPrograms> logger) {
+    public class GetPrograms(ProgramGetter programGetter, NoteTemplateSingleton noteTemplateSingleton, ILogger<GetPrograms> logger, INoteTemplateLoad noteTemplateLoader) {
         private readonly ILogger<GetPrograms> _logger = logger;
         private readonly ProgramGetter _programGetter = programGetter;
         private readonly NoteTemplateSingleton _noteTemplateSingleton = noteTemplateSingleton;
+        private readonly INoteTemplateLoad _noteTemplateLoader = noteTemplateLoader;
 
         [Function("ProgramFragment")]
         [OpenApiOperation(operationId: "ProgramFragment", tags: "Get Program Information", Description = "Get a program by the fragment supplied in the data entry area. This includes all credentials.")]
@@ -29,7 +30,7 @@ namespace ProgramInformationV2.Function {
             var fragment = requestHelper.GetRequest(req, "fragment");
             requestHelper.Validate();
             var returnItem = await _programGetter.GetProgram(source, fragment);
-            returnItem.NoteList = await _noteTemplateSingleton.MergeProgramNotes(returnItem);
+            returnItem.NoteList = await _noteTemplateSingleton.MergeProgramNotes(returnItem, _noteTemplateLoader);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
@@ -46,7 +47,7 @@ namespace ProgramInformationV2.Function {
             var id = requestHelper.GetRequest(req, "id");
             requestHelper.Validate();
             var returnItem = await _programGetter.GetProgram(id);
-            returnItem.NoteList = await _noteTemplateSingleton.MergeProgramNotes(returnItem);
+            returnItem.NoteList = await _noteTemplateSingleton.MergeProgramNotes(returnItem, _noteTemplateLoader);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
@@ -63,7 +64,7 @@ namespace ProgramInformationV2.Function {
             var id = requestHelper.GetRequest(req, "id");
             requestHelper.Validate();
             var returnItem = await _programGetter.GetProgramByCredential(id);
-            returnItem.NoteList = await _noteTemplateSingleton.MergeProgramNotes(returnItem);
+            returnItem.NoteList = await _noteTemplateSingleton.MergeProgramNotes(returnItem, _noteTemplateLoader);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
@@ -77,6 +78,7 @@ namespace ProgramInformationV2.Function {
         [OpenApiParameter(name: "tags3", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of tags. You can separate the tags by the characters '[-]'. Having multiple tags options allows you to vary the AND and OR options for the tags.")]
         [OpenApiParameter(name: "skills", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of skills the course will give you. You can separate the skills by the characters '[-]'.")]
         [OpenApiParameter(name: "departments", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of departments the program is in. You can separate the departments by the characters '[-]'.")]
+        [OpenApiParameter(name: "lengths", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of credential lengths the program has. You can separate the lengths by the characters '[-]'.")]
         [OpenApiParameter(name: "q", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A full text search string -- it will search the title and description for the search querystring.")]
         [OpenApiParameter(name: "formats", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Either 'On-Campus', 'Online', 'Off-Campus', or 'Hybrid'. Can choose multiple by separating them with the characters '[-]'")]
         [OpenApiParameter(name: "credentials", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "The credential type (BS, MS, EdM, PhD, Certificate, etc.) Can choose multiple by separating them with the characters '[-]'")]
@@ -95,13 +97,14 @@ namespace ProgramInformationV2.Function {
                 var skills = requestHelper.GetArray(req, "skills");
                 var query = requestHelper.GetRequest(req, "q", false);
                 var departments = requestHelper.GetArray(req, "departments");
+                var lengths = requestHelper.GetArray(req, "lengths");
                 var formats = requestHelper.GetArray(req, "formats");
                 var credentials = requestHelper.GetArray(req, "credentials");
                 var take = requestHelper.GetInteger(req, "take", 1000);
                 var skip = requestHelper.GetInteger(req, "skip");
                 requestHelper.Validate();
                 var response = req.CreateResponse(HttpStatusCode.OK);
-                await response.WriteAsJsonAsync(await _programGetter.GetPrograms(source, query, tags, tags2, tags3, skills, departments, formats, credentials, take, skip));
+                await response.WriteAsJsonAsync(await _programGetter.GetPrograms(source, query, tags, tags2, tags3, skills, departments, lengths, formats, credentials, take, skip));
                 return response;
             } catch (Exception ex) {
                 _logger.LogInformation(ex.ToString());

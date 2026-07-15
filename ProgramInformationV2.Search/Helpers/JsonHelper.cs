@@ -24,6 +24,7 @@ namespace ProgramInformationV2.Search.Helpers {
         public async Task<string> LoadJson(string sourceCode, UrlTypes urlType, string jsonString) {
             var json = JsonConvert.DeserializeObject<IEnumerable<dynamic>>(jsonString ?? "");
             var success = 0;
+            var changedSource = 0;
             var useRawJsonItems = false;
             var failureIds = new List<string>();
             if (json == null) {
@@ -41,7 +42,10 @@ namespace ProgramInformationV2.Search.Helpers {
                         case UrlTypes.Programs: {
                             Program stronglyTypedProgram = JsonConvert.DeserializeObject<Program>(body);
                             if (stronglyTypedProgram == null) {
-                                return "error";
+                                return "error in deserialization process for programs";
+                            } else if (stronglyTypedProgram.Source != sourceCode) {
+                                stronglyTypedProgram.ChangeId(sourceCode);
+                                changedSource++;
                             }
                             foreach (var credential in stronglyTypedProgram.Credentials) {
                                 credential.Prepare();
@@ -51,12 +55,18 @@ namespace ProgramInformationV2.Search.Helpers {
                             if (response.IsValid) {
                                 success++;
                             } else {
-                                failureIds.Add("unknown program ID");
+                                failureIds.Add("ID " + stronglyTypedProgram.Id);
                             }
                             break;
                         }
                         case UrlTypes.Courses: {
                             Course stronglyTypedCourse = JsonConvert.DeserializeObject<Course>(body);
+                            if (stronglyTypedCourse == null) {
+                                return "error in deserialization process for courses";
+                            } else if (stronglyTypedCourse.Source != sourceCode) {
+                                stronglyTypedCourse.ChangeId(sourceCode);
+                                changedSource++;
+                            }
                             foreach (var credential in stronglyTypedCourse.Sections) {
                                 credential.Prepare();
                             }
@@ -65,18 +75,24 @@ namespace ProgramInformationV2.Search.Helpers {
                             if (response.IsValid) {
                                 success++;
                             } else {
-                                failureIds.Add("unknown course ID");
+                                failureIds.Add("ID " + stronglyTypedCourse.Id);
                             }
                             break;
                         }
                         case UrlTypes.RequirementSets: {
                             RequirementSet stronglyTypedRequirementSet = JsonConvert.DeserializeObject<RequirementSet>(body);
+                            if (stronglyTypedRequirementSet == null) {
+                                return "error in deserialization process for requirement sets";
+                            } else if (stronglyTypedRequirementSet.Source != sourceCode) {
+                                stronglyTypedRequirementSet.ChangeId(sourceCode);
+                                changedSource++;
+                            }
                             stronglyTypedRequirementSet.Prepare();
                             var response = await _openSearchClient.IndexAsync(stronglyTypedRequirementSet, i => i.Index(urlType.ConvertToUrlString()));
                             if (response.IsValid) {
                                 success++;
                             } else {
-                                failureIds.Add("unknown requirement set ID");
+                                failureIds.Add("ID " + stronglyTypedRequirementSet.Id);
                             }
                             break;
                         }
@@ -88,9 +104,17 @@ namespace ProgramInformationV2.Search.Helpers {
                     failureIds.Add($"Error processing item: {e.Message}");
                 }
             }
-            return failureIds.Count > 0
-                ? $"Loaded {success} items. Failed to load {(failureIds.Count < 5 ? string.Join("; ", failureIds) : failureIds.Count)} items. {(useRawJsonItems ? "Used raw JSON." : "")}"
-                : $"Loaded {success} items. {(useRawJsonItems ? "Used raw JSON." : "")}";
+            var returnString = $"Loaded {success} items. ";
+            if (changedSource > 0) {
+                returnString += $"Changed source on {changedSource} items. ";
+            }
+            if (failureIds.Count > 0) {
+                returnString += $"Failed to load {(failureIds.Count < 5 ? string.Join("; ", failureIds) : failureIds.Count)} items. ";
+            }
+            if (useRawJsonItems) {
+                returnString += $"Used raw JSON. ";
+            }
+            return returnString;
         }
 
         private static string GenerateGetJson(string sourceCode, int skip) => "{ \"from\": " + (skip * 50) + ", \"size\": 50, \"sort\": [ { \"title.keyword\" : \"asc\" } ], \"query\":{\"match\":{\"source\":{\"query\":\"" + sourceCode + "\"}}}}";

@@ -51,6 +51,7 @@
         None,
         Tag,
         Skill,
-        Department
+        Department,
+        Length
     }
 }

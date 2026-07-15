@@ -1,12 +1,11 @@
 ﻿using ProgramInformationV2.Search.Models;
 
 namespace ProgramInformationV2.Search.NoteTemplates {
-    public class NoteTemplateSingleton(INoteTemplateLoad NoteTemplateLoader) {
-        private INoteTemplateLoad _noteTemplateLoader = NoteTemplateLoader;
+    public class NoteTemplateSingleton() {
         private List<NoteTemplateStorageItem>? _noteTemplates { get; set; }
 
-        public async Task<IEnumerable<Note>> MergeCredentialNotes(Credential credential) {
-            var successful = await CheckNoteTemplates();
+        public async Task<IEnumerable<Note>> MergeCredentialNotes(Credential credential, INoteTemplateLoad noteTemplateLoader) {
+            var successful = await CheckNoteTemplates(noteTemplateLoader);
             if (successful && _noteTemplates != null) {
                 var baseCredentialType = CredentialType.None;
                 if (credential.CredentialType.IsUndergraduateDegree()) {
@@ -46,8 +45,8 @@ namespace ProgramInformationV2.Search.NoteTemplates {
             return FilterBlankNotes(credential.NoteList);
         }
 
-        public async Task<IEnumerable<Note>> MergeCourseNotes(Course course) {
-            var successful = await CheckNoteTemplates();
+        public async Task<IEnumerable<Note>> MergeCourseNotes(Course course, INoteTemplateLoad noteTemplateLoader) {
+            var successful = await CheckNoteTemplates(noteTemplateLoader);
             if (successful && _noteTemplates != null) {
                 var noteTemplatesFromStorage = GetNoteTemplatesPrivate(NoteTemplateTypes.Courses, course);
                 foreach (var noteTemplate in noteTemplatesFromStorage.GroupBy(nt => nt.Title)) {
@@ -72,8 +71,8 @@ namespace ProgramInformationV2.Search.NoteTemplates {
             return FilterBlankNotes(course.NoteList);
         }
 
-        public async Task<IEnumerable<Note>> MergeProgramNotes(Program program) {
-            var successful = await CheckNoteTemplates();
+        public async Task<IEnumerable<Note>> MergeProgramNotes(Program program, INoteTemplateLoad noteTemplateLoader) {
+            var successful = await CheckNoteTemplates(noteTemplateLoader);
             if (successful && _noteTemplates != null) {
                 var noteTemplatesFromStorage = GetNoteTemplatesPrivate(NoteTemplateTypes.Programs, program);
                 foreach (var noteTemplate in noteTemplatesFromStorage.GroupBy(nt => nt.Title)) {
@@ -103,13 +102,13 @@ namespace ProgramInformationV2.Search.NoteTemplates {
             return _noteTemplates == null;
         }
 
-        public async Task<IEnumerable<NoteTemplateStorageItem>> GetNoteTemplates() {
-            _noteTemplates = await _noteTemplateLoader.LoadNoteTemplates();
+        public async Task<IEnumerable<NoteTemplateStorageItem>> GetNoteTemplates(INoteTemplateLoad noteTemplateLoader) {
+            _noteTemplates = await noteTemplateLoader.LoadNoteTemplates();
             return _noteTemplates;
         }
 
-        private async Task<bool> CheckNoteTemplates() {
-            _noteTemplates ??= await _noteTemplateLoader.LoadNoteTemplates();
+        private async Task<bool> CheckNoteTemplates(INoteTemplateLoad noteTemplateLoader) {
+            _noteTemplates ??= await noteTemplateLoader.LoadNoteTemplates();
             return _noteTemplates != null;
         }
 

@@ -78,6 +78,13 @@ namespace ProgramInformationV2.Search.Models {
         public string VideoUrl { get; set; } = "";
         internal override string CreateId => Id = string.IsNullOrWhiteSpace(Rubric) && string.IsNullOrWhiteSpace(CourseNumber) ? Source + "-" + Guid.NewGuid().ToString() : Source + "-" + Rubric + "-" + CourseNumber;
 
+        public override void ChangeId(string newSource) {
+            base.ChangeId(newSource);
+            foreach (var section in Sections) {
+                section.ChangeId(newSource);
+            }
+        }
+
         public override void CleanHtmlFields() {
             SummaryText = CleanHtml(SummaryText);
             Details = CleanHtml(Details);

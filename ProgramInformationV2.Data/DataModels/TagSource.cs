@@ -9,7 +9,8 @@ namespace ProgramInformationV2.Data.DataModels {
             { TagType.None, "" },
             { TagType.Department, "departmentList" },
             { TagType.Skill, "skillList" },
-            { TagType.Tag, "tagList" }
+            { TagType.Tag, "tagList" },
+            { TagType.Length, "lengthList" }
         };
 
         [NotMapped]

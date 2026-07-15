@@ -13,10 +13,11 @@ using System.Net;
 
 namespace ProgramInformationV2.Function {
 
-    public class GetCourses(CourseGetter courseGetter, NoteTemplateSingleton noteTemplateSingleton, ILogger<GetCourses> logger) {
+    public class GetCourses(CourseGetter courseGetter, NoteTemplateSingleton noteTemplateSingleton, ILogger<GetCourses> logger, INoteTemplateLoad noteTemplateLoader) {
         private readonly CourseGetter _courseGetter = courseGetter;
         private readonly NoteTemplateSingleton _noteTemplateSingleton = noteTemplateSingleton;
         private readonly ILogger<GetCourses> _logger = logger;
+        private readonly INoteTemplateLoad _noteTemplateLoader = noteTemplateLoader;
 
         [Function("CourseByFaculty")]
         [OpenApiOperation(operationId: "CourseByFaculty", tags: "Get Course Information", Description = "Get all active courses from a specific faculty.")]
@@ -47,7 +48,7 @@ namespace ProgramInformationV2.Function {
             var fragment = requestHelper.GetRequest(req, "fragment");
             requestHelper.Validate();
             var returnItem = (await _courseGetter.GetCourse(source, fragment));
-            returnItem.NoteList = await _noteTemplateSingleton.MergeCourseNotes(returnItem);
+            returnItem.NoteList = await _noteTemplateSingleton.MergeCourseNotes(returnItem, _noteTemplateLoader);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
@@ -66,7 +67,7 @@ namespace ProgramInformationV2.Function {
             var section = requestHelper.GetRequest(req, "section", false);
             requestHelper.Validate();
             var returnItem = await _courseGetter.GetCourse(id, section, true);
-            returnItem.NoteList = await _noteTemplateSingleton.MergeCourseNotes(returnItem);
+            returnItem.NoteList = await _noteTemplateSingleton.MergeCourseNotes(returnItem, _noteTemplateLoader);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(returnItem);
             return response;
@@ -80,6 +81,7 @@ namespace ProgramInformationV2.Function {
         [OpenApiParameter(name: "tags3", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of tags. You can separate the tags by the characters '[-]'. Having multiple tags options allows you to vary the AND and OR options for the tags.")]
         [OpenApiParameter(name: "skills", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of skills the course will give you. You can separate the skills by the characters '[-]'.")]
         [OpenApiParameter(name: "departments", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of departments the course is in. You can separate the departments by the characters '[-]'.")]
+        [OpenApiParameter(name: "lengths", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A list of course lengths the course has. You can separate the lengths by the characters '[-]'.")]
         [OpenApiParameter(name: "q", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "A full text search string -- it will search the title and description for the search querystring.")]
         [OpenApiParameter(name: "platform", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Either 'coursera', 'campus', 'custom', 'moodle' for platform type.")]
         [OpenApiParameter(name: "period", In = ParameterLocation.Query, Required = false, Type = typeof(string), Description = "Either 'upcoming' (future courses), 'current' (courses that are going on now), or 'open' (courses that are going on now or in the future).")]
@@ -99,6 +101,7 @@ namespace ProgramInformationV2.Function {
             var tags3 = requestHelper.GetArray(req, "tags3");
             var skills = requestHelper.GetArray(req, "skills");
             var departments = requestHelper.GetArray(req, "departments");
+            var lengths = requestHelper.GetArray(req, "lengths");
             var query = requestHelper.GetRequest(req, "q", false);
             var formats = requestHelper.GetArray(req, "formats");
             var rubric = requestHelper.GetRequest(req, "rubric", false);
@@ -114,7 +117,7 @@ namespace ProgramInformationV2.Function {
 
             requestHelper.Validate();
             var response = req.CreateResponse(HttpStatusCode.OK);
-            await response.WriteAsJsonAsync(await _courseGetter.GetCourses(source, query, tags, tags2, tags3, skills, departments, formats, rubric, platform, terms, isUpcoming, isCurrent, take, skip));
+            await response.WriteAsJsonAsync(await _courseGetter.GetCourses(source, query, tags, tags2, tags3, skills, departments, lengths, formats, rubric, platform, terms, isUpcoming, isCurrent, take, skip));
             return response;
         }
 
