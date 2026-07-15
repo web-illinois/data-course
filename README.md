@@ -11,7 +11,7 @@ ProgramInformationV2 is a modern web application designed to manage academic pro
 The solution consists of four main projects:
 
 ### **ProgramInformationV2** (Main Blazor Application)
-- **Technology**: ASP.NET Core 8.0 Blazor Server
+- **Technology**: ASP.NET Core 10.0 Blazor Server
 - **Purpose**: Primary web interface for managing programs, credentials, courses, and sections
 - **Authentication**: Microsoft Identity (Azure AD/Entra ID)
 - **Production URL**: https://course.wigg.illinois.edu
@@ -25,7 +25,7 @@ The solution consists of four main projects:
   - Advanced filtering and search
 
 ### **ProgramInformationV2.Function** (API Layer)
-- **Technology**: Azure Functions v4 (.NET 8.0)
+- **Technology**: Azure Functions v4 (.NET 10.0)
 - **Purpose**: RESTful API for data access and integrations
 - **Production URL**: https://courseapi.wigg.illinois.edu
 - **Documentation**: Swagger UI available at https://courseapi.wigg.illinois.edu/api/swagger/ui
@@ -35,7 +35,7 @@ The solution consists of four main projects:
   - Integration with SQL Server and OpenSearch
 
 ### **ProgramInformationV2.Data** (Data Access Layer)
-- **Technology**: .NET 8.0 Class Library
+- **Technology**: .NET 10.0 Class Library
 - **Purpose**: Entity Framework Core data access and business logic
 - **Features**:
   - SQL Server database integration
@@ -46,7 +46,7 @@ The solution consists of four main projects:
   - Field validation and management
 
 ### **ProgramInformationV2.Search** (Search Layer)
-- **Technology**: .NET 8.0 Class Library
+- **Technology**: .NET 10.0 Class Library
 - **Purpose**: Search functionality using AWS OpenSearch Service
 - **Features**:
   - OpenSearch client integration
@@ -56,19 +56,15 @@ The solution consists of four main projects:
 
 ## Schema update
 
-In the rare case that the AWS OpenSearch Schema needs to be updated, go through the following process:
-1. Save the data for all sources for Programs, Courses, and Requirement Sets. 
-2. Uncomment the lines in `MapIndex` in the `OpenSearchFactory` class in the `ProgramInformationV2.Search` project for the schemas you want to rebuild. 
-3. Deploy the application and confirm data has been deleted. 
-4. Comment the `MapIndex` again to prevent accidental changes.
-5. Deploy the application. 
-6. Load the data for all sources.
+In the rare case that the AWS OpenSearch Schema needs to be updated, go through the following process, change the `forceIndexCreation` value to true in the `OpenSearchFactory\MapIndex` class in the `ProgramInformationV2.Search` project for the schemas you want to rebuild. 
+
+This will rebuild the index and reindex all data. After the schema update is complete, change the `forceIndexCreation` value back to false to prevent unnecessary reindexing in the future.
 
 ## Getting Started
 
 ### Prerequisites
 
-- .NET 8.0 SDK
+- .NET 10.0 SDK
 - Visual Studio 2022 or VS Code
 - SQL Server (Express or higher)
 - AWS OpenSearch Service instance
@@ -143,8 +139,6 @@ Update-Database -Migration MigrationName -Project ProgramInformationV2.Data
 - `pcr2_courses` - Course catalog data
 - `pcr2_programs` - Academic programs
 - `pcr2_requirementsets` - Requirement sets and course groupings
-- `pcr2_staticcode` - Static code lookups
-- `pcr2_credentials` - Credential information
 
 ### Delete Test Data
 
@@ -159,24 +153,6 @@ POST /pcr2_requirementsets/_delete_by_query
 
 POST /pcr2_programs/_delete_by_query
 { "query": { "match": { "source": "test" } } }
-
-POST /pcr2_staticcode/_delete_by_query
-{ "query": { "match": { "source": "test" } } }
-
-POST /pcr2_credentials/_delete_by_query
-{ "query": { "match": { "source": "test" } } }
-```
-
-## Database Maintenance
-
-### Delete Sources Marked for Deletion
-
-```sql
-DELETE FROM dbo.FieldSources WHERE SourceId IN (SELECT ID FROM Sources WHERE RequestDeletion = 1);
-DELETE FROM dbo.Logs WHERE SourceId IN (SELECT ID FROM Sources WHERE RequestDeletion = 1);
-DELETE FROM dbo.SecurityEntries WHERE SourceId IN (SELECT ID FROM Sources WHERE RequestDeletion = 1);
-DELETE FROM dbo.TagSources WHERE SourceId IN (SELECT ID FROM Sources WHERE RequestDeletion = 1);
-DELETE FROM Sources WHERE RequestDeletion = 1;
 ```
 
 ## Deployment
