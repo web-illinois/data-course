@@ -19,6 +19,10 @@ namespace ProgramInformationV2.Data.DataHelpers {
                 l.Source.Code == sourceName && l.Item == id).OrderByDescending(s => s.LastUpdated).Take(500))];
         }
 
+        public async Task<IEnumerable<StartupLog>> GetStartupLog() {
+            return [.. await _programRepository.ReadAsync(c => c.StartupLogs.OrderByDescending(s => s.LastUpdated).Take(3))];
+        }
+
         public async Task<bool> Log(CategoryType categoryType, FieldType fieldType, string netId, string sourceName, BaseObject data, string subject = "") {
             var sourceId = (await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceName)))?.Id ?? 0;
             if (sourceId == 0) {
