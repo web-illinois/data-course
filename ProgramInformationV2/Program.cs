@@ -103,7 +103,13 @@ app.Lifetime.ApplicationStarted.Register(() => {
     context.Database.Migrate();
     // Ensure the search index is created
     var openSearchClient = serviceScope.ServiceProvider.GetRequiredService<OpenSearchClient>();
-    Console.WriteLine(OpenSearchFactory.MapIndex(openSearchClient));
+    var results = OpenSearchFactory.MapIndex(openSearchClient);
+    Console.WriteLine(results);
+    context.StartupLogs.Add(new ProgramInformationV2.Data.DataModels.StartupLog {
+        Data = $"Startup completed at {DateTime.UtcNow} UTC. {results}",
+        LastUpdated = DateTime.UtcNow
+    });
+    context.SaveChanges();
 });
 
 app.Run();
