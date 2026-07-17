@@ -100,16 +100,32 @@ app.Lifetime.ApplicationStarted.Register(() => {
     using var serviceScope = factory.CreateScope();
     // Ensure the database is created
     var context = serviceScope.ServiceProvider.GetRequiredService<ProgramContext>();
-    context.Database.Migrate();
+    try {
+        context.Database.Migrate();
+    } catch (Exception e) {
+        context.StartupLogs.Add(new ProgramInformationV2.Data.DataModels.StartupLog {
+            Data = $"Error with data migration at {DateTime.UtcNow} UTC. {e.Message}",
+            LastUpdated = DateTime.UtcNow
+        });
+        context.SaveChanges();
+    }
     // Ensure the search index is created
-    var openSearchClient = serviceScope.ServiceProvider.GetRequiredService<OpenSearchClient>();
-    var results = OpenSearchFactory.MapIndex(openSearchClient);
-    Console.WriteLine(results);
-    context.StartupLogs.Add(new ProgramInformationV2.Data.DataModels.StartupLog {
-        Data = $"Startup completed at {DateTime.UtcNow} UTC. {results}",
-        LastUpdated = DateTime.UtcNow
-    });
-    context.SaveChanges();
+    try {
+        var openSearchClient = serviceScope.ServiceProvider.GetRequiredService<OpenSearchClient>();
+        var results = OpenSearchFactory.MapIndex(openSearchClient);
+        Console.WriteLine(results);
+        context.StartupLogs.Add(new ProgramInformationV2.Data.DataModels.StartupLog {
+            Data = $"Startup completed at {DateTime.UtcNow} UTC. {results}",
+            LastUpdated = DateTime.UtcNow
+        });
+        context.SaveChanges();
+    } catch (Exception e) {
+        context.StartupLogs.Add(new ProgramInformationV2.Data.DataModels.StartupLog {
+            Data = $"Error with data migration at {DateTime.UtcNow} UTC. {e.Message}",
+            LastUpdated = DateTime.UtcNow
+        });
+        context.SaveChanges();
+    }
 });
 
 app.Run();
