@@ -20,6 +20,7 @@ namespace ProgramInformationV2.Data.DataContext {
         public DbSet<NoteTemplate> NoteTemplates { get; set; }
         public DbSet<SecurityEntry> SecurityEntries { get; set; }
         public DbSet<Source> Sources { get; set; }
+        public DbSet<StartupLog> StartupLogs { get; set; }
         public DbSet<TagSource> TagSources { get; set; }
 
         public override void Dispose() {
