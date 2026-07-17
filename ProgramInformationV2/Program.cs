@@ -103,17 +103,11 @@ app.Lifetime.ApplicationStarted.Register(() => {
     try {
         context.Database.Migrate();
     } catch (Exception e) {
-        context.Logs.Add(new ProgramInformationV2.Data.DataModels.Log {
-            Data = $"Error {DateTime.UtcNow} UTC. {e.Message}",
-            LastUpdated = DateTime.UtcNow,
-            SourceId = 1,
-            SubjectId = "Startup",
-            ChangedByNetId = "Startup",
-            ChangeType = "Startup",
-            CategoryType = ProgramInformationV2.Data.DataModels.CategoryType.None,
-            FieldType = ProgramInformationV2.Data.DataModels.FieldType.None,
-            Title = e.Message
-        }); context.SaveChanges();
+        context.StartupLogs.Add(new ProgramInformationV2.Data.DataModels.StartupLog {
+            Data = $"Error at database migration at {DateTime.UtcNow} UTC. {e.Message}",
+            LastUpdated = DateTime.UtcNow
+        });
+        context.SaveChanges();
     }
     // Ensure the search index is created
     try {
@@ -126,16 +120,9 @@ app.Lifetime.ApplicationStarted.Register(() => {
         });
         context.SaveChanges();
     } catch (Exception e) {
-        context.Logs.Add(new ProgramInformationV2.Data.DataModels.Log {
-            Data = $"Error {DateTime.UtcNow} UTC. {e.Message}",
-            LastUpdated = DateTime.UtcNow,
-            SourceId = 1,
-            SubjectId = "Startup",
-            ChangedByNetId = "Startup",
-            ChangeType = "Startup",
-            CategoryType = ProgramInformationV2.Data.DataModels.CategoryType.None,
-            FieldType = ProgramInformationV2.Data.DataModels.FieldType.None,
-            Title = e.Message
+        context.StartupLogs.Add(new ProgramInformationV2.Data.DataModels.StartupLog {
+            Data = $"Error at search index at {DateTime.UtcNow} UTC. {e.Message}",
+            LastUpdated = DateTime.UtcNow
         });
         context.SaveChanges();
     }
