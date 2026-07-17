@@ -104,7 +104,7 @@ app.Lifetime.ApplicationStarted.Register(() => {
         context.Database.Migrate();
     } catch (Exception e) {
         context.StartupLogs.Add(new ProgramInformationV2.Data.DataModels.StartupLog {
-            Data = $"Error with data migration at {DateTime.UtcNow} UTC. {e.Message}",
+            Data = $"Error at database migration at {DateTime.UtcNow} UTC. {e.Message}",
             LastUpdated = DateTime.UtcNow
         });
         context.SaveChanges();
@@ -121,7 +121,7 @@ app.Lifetime.ApplicationStarted.Register(() => {
         context.SaveChanges();
     } catch (Exception e) {
         context.StartupLogs.Add(new ProgramInformationV2.Data.DataModels.StartupLog {
-            Data = $"Error with data migration at {DateTime.UtcNow} UTC. {e.Message}",
+            Data = $"Error at search index at {DateTime.UtcNow} UTC. {e.Message}",
             LastUpdated = DateTime.UtcNow
         });
         context.SaveChanges();
