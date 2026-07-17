@@ -24,8 +24,8 @@ namespace ProgramInformationV2.Search {
         public static string MapIndex(OpenSearchClient openSearchClient) {
             var returnValue = "Mapping: ";
             // NOTE: change the 'forceIndexCreation' to true if you are changing the index -- this will greatly increase the load time.
-            returnValue += ReloadIndex(openSearchClient, UrlTypes.Programs, true);
-            returnValue += ReloadIndex(openSearchClient, UrlTypes.Courses, true);
+            returnValue += ReloadIndex(openSearchClient, UrlTypes.Programs, false);
+            returnValue += ReloadIndex(openSearchClient, UrlTypes.Courses, false);
             returnValue += ReloadIndex(openSearchClient, UrlTypes.RequirementSets, false);
             return returnValue;
         }
