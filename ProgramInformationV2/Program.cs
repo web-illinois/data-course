@@ -103,47 +103,26 @@ app.Lifetime.ApplicationStarted.Register(() => {
     try {
         context.Database.Migrate();
     } catch (Exception e) {
-        context.Logs.Add(new ProgramInformationV2.Data.DataModels.Log {
-            Data = $"Error {DateTime.UtcNow} UTC. {e.Message}",
-            LastUpdated = DateTime.UtcNow,
-            SourceId = 1,
-            SubjectId = "Startup",
-            ChangedByNetId = "Startup",
-            ChangeType = "Startup",
-            CategoryType = ProgramInformationV2.Data.DataModels.CategoryType.None,
-            FieldType = ProgramInformationV2.Data.DataModels.FieldType.None,
-            Title = e.Message
+        context.StartupLogs.Add(new ProgramInformationV2.Data.DataModels.StartupLog {
+            Data = $"Error with data migration at {DateTime.UtcNow} UTC. {e.Message}",
+            LastUpdated = DateTime.UtcNow
         });
         context.SaveChanges();
     }
     // Ensure the search index is created
-    var openSearchClient = serviceScope.ServiceProvider.GetRequiredService<OpenSearchClient>();
     try {
+        var openSearchClient = serviceScope.ServiceProvider.GetRequiredService<OpenSearchClient>();
         var results = OpenSearchFactory.MapIndex(openSearchClient);
         Console.WriteLine(results);
-        context.Logs.Add(new ProgramInformationV2.Data.DataModels.Log {
-            Data = $"Error {DateTime.UtcNow} UTC. {results}",
-            LastUpdated = DateTime.UtcNow,
-            SourceId = 1,
-            SubjectId = "Startup",
-            ChangedByNetId = "Startup",
-            ChangeType = "Startup",
-            CategoryType = ProgramInformationV2.Data.DataModels.CategoryType.None,
-            FieldType = ProgramInformationV2.Data.DataModels.FieldType.None,
-            Title = results
+        context.StartupLogs.Add(new ProgramInformationV2.Data.DataModels.StartupLog {
+            Data = $"Startup completed at {DateTime.UtcNow} UTC. {results}",
+            LastUpdated = DateTime.UtcNow
         });
         context.SaveChanges();
     } catch (Exception e) {
-        context.Logs.Add(new ProgramInformationV2.Data.DataModels.Log {
-            Data = $"Error {DateTime.UtcNow} UTC. {e.Message}",
-            LastUpdated = DateTime.UtcNow,
-            SourceId = 1,
-            SubjectId = "Startup",
-            ChangedByNetId = "Startup",
-            ChangeType = "Startup",
-            CategoryType = ProgramInformationV2.Data.DataModels.CategoryType.None,
-            FieldType = ProgramInformationV2.Data.DataModels.FieldType.None,
-            Title = e.Message
+        context.StartupLogs.Add(new ProgramInformationV2.Data.DataModels.StartupLog {
+            Data = $"Error with data migration at {DateTime.UtcNow} UTC. {e.Message}",
+            LastUpdated = DateTime.UtcNow
         });
         context.SaveChanges();
     }
