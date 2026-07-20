@@ -58,7 +58,7 @@ namespace ProgramInformationV2.Data.FieldList {
             }
 
             foreach (var item in baseGroup.FieldItems) {
-                var savedItem = items.FirstOrDefault(a => a.Title == item.Title);
+                var savedItem = items.FirstOrDefault(a => a.Title == item.Title && a.CategoryType == item.CategoryType);
                 if (savedItem != null) {
                     item.Description = savedItem.Description;
                     item.ShowItem = savedItem.ShowItem;
