@@ -68,16 +68,16 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             CredentialItem = await CredentialGetter.GetCredential(id);
             Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.TitlePlusCredential);
             foreach (var tag in FilterTags.SelectMany(x => x)) {
-                if (CredentialItem.DepartmentList.Contains(tag.Title) && tag.TagType == TagType.Department) {
+                if (CredentialItem.DepartmentList != null && CredentialItem.DepartmentList.Contains(tag.Title) && tag.TagType == TagType.Department) {
                     tag.EnabledBySource = true;
                 }
-                if (CredentialItem.TagList.Contains(tag.Title) && tag.TagType == TagType.Tag) {
+                if (CredentialItem.TagList != null && CredentialItem.TagList.Contains(tag.Title) && tag.TagType == TagType.Tag) {
                     tag.EnabledBySource = true;
                 }
-                if (CredentialItem.SkillList.Contains(tag.Title) && tag.TagType == TagType.Skill) {
+                if (CredentialItem.SkillList != null && CredentialItem.SkillList.Contains(tag.Title) && tag.TagType == TagType.Skill) {
                     tag.EnabledBySource = true;
                 }
-                if (CredentialItem.LengthList.Contains(tag.Title) && tag.TagType == TagType.Length) {
+                if (CredentialItem.LengthList != null && CredentialItem.LengthList.Contains(tag.Title) && tag.TagType == TagType.Length) {
                     tag.EnabledBySource = true;
                 }
             }
