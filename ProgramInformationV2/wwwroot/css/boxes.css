@@ -15,7 +15,7 @@ ilw-content .requirement-box {
 }
 
 ilw-content .credential-box, ilw-content .link-box {
-    grid-template-columns: 1fr 225px;
+    grid-template-columns: 1fr 175px;
 }
 
     ilw-content .requirement-box p, ilw-content .credential-box p, ilw-content .security-box p {
@@ -45,11 +45,6 @@ ilw-content .requirement-box .button-group, ilw-content .credential-box .button-
     grid-column: 2;
     grid-row: 1 / span 2;
     align-content: center;
-}
-
-ilw-content .credential-box .button-group {
-    display: flex;
-    column-gap: 10px;
 }
 
 ilw-icon.rotate {
@@ -84,9 +79,10 @@ div.faculty-box {
 }
 
 div.button-group {
-    display: flex;
+    display: grid;
     justify-content: center;
     column-gap: 10px;
+    grid-template-columns: 50px 1fr;
 }
 
     div.button-group button {
