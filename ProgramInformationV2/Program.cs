@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Components.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
@@ -38,9 +37,7 @@ builder.Services.AddAuthorization(options => {
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.Configure<CircuitOptions>(options => {
-    options.DetailedErrors = true;
-});
+// builder.Services.Configure<CircuitOptions>(options => { options.DetailedErrors = true; });
 
 builder.Services.AddWebOptimizer(pipeline => {
     pipeline.AddJavaScriptBundle("/js/site.js", "/wwwroot/js/*.js").UseContentRoot();
@@ -48,7 +45,6 @@ builder.Services.AddWebOptimizer(pipeline => {
 });
 
 builder.Services.AddScoped(b => new UploadStorage(builder.Configuration["AzureStorage"], builder.Configuration["AzureAccountName"], builder.Configuration["AzureAccountKey"], builder.Configuration["AzureImageContainerName"]));
-
 builder.Services.AddDbContextFactory<ProgramContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppConnection")).EnableSensitiveDataLogging(true));
 builder.Services.AddScoped<ProgramRepository>();
 builder.Services.AddSingleton<CacheHolder>();
