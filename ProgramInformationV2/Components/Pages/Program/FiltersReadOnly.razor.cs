@@ -47,16 +47,16 @@ namespace ProgramInformationV2.Components.Pages.Program {
             ProgramItem = await ProgramGetter.GetProgram(id);
             Layout.SetSidebar(SidebarEnum.ProgramWithCredential, ProgramItem.Title);
             foreach (var tag in FilterTags.SelectMany(x => x)) {
-                if (ProgramItem.DepartmentList.Contains(tag.Title) && tag.TagType == TagType.Department) {
+                if (ProgramItem.DepartmentList != null && ProgramItem.DepartmentList.Contains(tag.Title) && tag.TagType == TagType.Department) {
                     tag.EnabledBySource = true;
                 }
-                if (ProgramItem.TagList.Contains(tag.Title) && tag.TagType == TagType.Tag) {
+                if (ProgramItem.TagList != null && ProgramItem.TagList.Contains(tag.Title) && tag.TagType == TagType.Tag) {
                     tag.EnabledBySource = true;
                 }
-                if (ProgramItem.SkillList.Contains(tag.Title) && tag.TagType == TagType.Skill) {
+                if (ProgramItem.SkillList != null && ProgramItem.SkillList.Contains(tag.Title) && tag.TagType == TagType.Skill) {
                     tag.EnabledBySource = true;
                 }
-                if (ProgramItem.LengthList.Contains(tag.Title) && tag.TagType == TagType.Length) {
+                if (ProgramItem.LengthList != null && ProgramItem.LengthList.Contains(tag.Title) && tag.TagType == TagType.Length) {
                     tag.EnabledBySource = true;
                 }
             }

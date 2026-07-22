@@ -23,6 +23,7 @@ using ProgramInformationV2.Search.Setters;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 builder.Services.AddControllersWithViews()
@@ -36,13 +37,14 @@ builder.Services.AddAuthorization(options => {
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+// builder.Services.Configure<CircuitOptions>(options => { options.DetailedErrors = true; });
+
 builder.Services.AddWebOptimizer(pipeline => {
     pipeline.AddJavaScriptBundle("/js/site.js", "/wwwroot/js/*.js").UseContentRoot();
     pipeline.AddCssBundle("/css/site.css", "/wwwroot/css/*.css").UseContentRoot();
 });
 
 builder.Services.AddScoped(b => new UploadStorage(builder.Configuration["AzureStorage"], builder.Configuration["AzureAccountName"], builder.Configuration["AzureAccountKey"], builder.Configuration["AzureImageContainerName"]));
-
 builder.Services.AddDbContextFactory<ProgramContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppConnection")).EnableSensitiveDataLogging(true));
 builder.Services.AddScoped<ProgramRepository>();
 builder.Services.AddSingleton<CacheHolder>();
@@ -85,7 +87,6 @@ if (!app.Environment.IsDevelopment()) {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();

@@ -68,16 +68,16 @@ namespace ProgramInformationV2.Components.Pages.Course {
             Layout.SetSidebar(sidebar, CourseItem.Title);
             QuickLinkUrl = await Layout.GetCachedQuickLink();
             foreach (var tag in FilterTags.SelectMany(x => x)) {
-                if (CourseItem.DepartmentList.Contains(tag.Title) && tag.TagType == TagType.Department) {
+                if (CourseItem.DepartmentList != null && CourseItem.DepartmentList.Contains(tag.Title) && tag.TagType == TagType.Department) {
                     tag.EnabledBySource = true;
                 }
-                if (CourseItem.TagList.Contains(tag.Title) && tag.TagType == TagType.Tag) {
+                if (CourseItem.TagList != null && CourseItem.TagList.Contains(tag.Title) && tag.TagType == TagType.Tag) {
                     tag.EnabledBySource = true;
                 }
-                if (CourseItem.SkillList.Contains(tag.Title) && tag.TagType == TagType.Skill) {
+                if (CourseItem.SkillList != null && CourseItem.SkillList.Contains(tag.Title) && tag.TagType == TagType.Skill) {
                     tag.EnabledBySource = true;
                 }
-                if (CourseItem.LengthList.Contains(tag.Title) && tag.TagType == TagType.Length) {
+                if (CourseItem.LengthList != null && CourseItem.LengthList.Contains(tag.Title) && tag.TagType == TagType.Length) {
                     tag.EnabledBySource = true;
                 }
             }
