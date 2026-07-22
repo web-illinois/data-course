@@ -21,9 +21,7 @@
                         <label for="note-@course.i">Optional Public Notes: </label>
                         <input id="note-@course.i" class="ils-input-long" type="text" @bind="@course.v.Description">
                     </div>
-                    <div class="button-group">
-                        <button class="ilw-button" @onclick="() => RemoveCourse(course.i)">Remove</button>
-                    </div>
+                    <button class="ilw-button" @onclick="() => RemoveCourse(course.i)">Remove</button>
                 </div>
             }
         </ilw-content>

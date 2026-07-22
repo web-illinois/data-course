@@ -1,11 +1,12 @@
 ﻿@page "/course/notelist"
 @layout SidebarLayout
 
-<PageTitle>Programs - List of Notes / FAQ Information</PageTitle>
+<PageTitle>Course - List of Notes / FAQ Information</PageTitle>
 
 <ilw-content>
     <h1>List of Notes / FAQ Information</h1>
     <p>This is meant to generate an FAQ-like area or individual notes for a course. This will be displayed on the course page.</p>
+    <p>You can click on the note itself to edit the text.</p>
     @if (!string.IsNullOrWhiteSpace(Instructions)) {
         <h2>Instructions</h2>
         <p>@Instructions</p>
@@ -13,6 +14,7 @@
 </ilw-content>
 @if (UseItem) {
     <NoteListEditor Notes="Notes" NoteTemplateTitles="NoteTemplateTitles" SetDirty="e => SetDirty()"></NoteListEditor>
+    <ilw-content><p>Once everything looks good, click the save button to apply your changes.</p></ilw-content>
     <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
     <ViewLink Title="Course" Url="@CourseItem.UrlFull"></ViewLink>
 } else {

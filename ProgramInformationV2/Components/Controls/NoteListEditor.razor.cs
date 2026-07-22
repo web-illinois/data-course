@@ -11,7 +11,7 @@ namespace ProgramInformationV2.Components.Controls {
         [Parameter]
         public EventCallback SetDirty { get; set; }
 
-
+        public string AddText { get; set; } = "Add";
         public string NoteTemplateTitle { get; set; } = default!;
         public string NewNoteTitle { get; set; } = "";
         public string NewNoteDescription { get; set; } = "";
@@ -60,6 +60,8 @@ namespace ProgramInformationV2.Components.Controls {
             NewNoteDescription = item.Description;
             NewNoteLinkName = item.LinkText;
             NewNoteLinkUrl = item.LinkUrl;
+            AddText = "Update";
+            await SetDirty.InvokeAsync();
         }
 
         private void Clear() {
@@ -67,6 +69,7 @@ namespace ProgramInformationV2.Components.Controls {
             NewNoteLinkName = "";
             NewNoteLinkUrl = "";
             NewNoteTitle = "";
+            AddText = "Add";
         }
     }
 }
