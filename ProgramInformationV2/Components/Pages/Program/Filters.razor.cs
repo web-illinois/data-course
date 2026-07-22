@@ -52,37 +52,31 @@ namespace ProgramInformationV2.Components.Pages.Program {
         }
 
         protected override async Task OnInitializedAsync() {
-            try {
-
-                var sourceCode = await Layout.CheckSource();
-                FilterTags = await FilterHelper.GetAllFilters(sourceCode);
-                var id = await Layout.GetCachedId();
-                if (string.IsNullOrWhiteSpace(id)) {
-                    NavigationManager.NavigateTo("/");
-                }
-                ProgramItem = await ProgramGetter.GetProgram(id);
-                Layout.SetSidebar(SidebarEnum.Program, ProgramItem.Title);
-                foreach (var tag in FilterTags.SelectMany(x => x)) {
-                    if (ProgramItem.DepartmentList != null && ProgramItem.DepartmentList.Contains(tag.Title) && tag.TagType == TagType.Department) {
-                        tag.EnabledBySource = true;
-                    }
-                    if (ProgramItem.TagList != null && ProgramItem.TagList.Contains(tag.Title) && tag.TagType == TagType.Tag) {
-                        tag.EnabledBySource = true;
-                    }
-                    if (ProgramItem.SkillList != null && ProgramItem.SkillList.Contains(tag.Title) && tag.TagType == TagType.Skill) {
-                        tag.EnabledBySource = true;
-                    }
-                    if (ProgramItem.LengthList != null && ProgramItem.LengthList.Contains(tag.Title) && tag.TagType == TagType.Length) {
-                        tag.EnabledBySource = true;
-                    }
-                }
-                var fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new ProgramGroup(), FieldType.Filters);
-                Instructions = fieldItems.FirstOrDefault()?.Description ?? "";
-                UseItem = fieldItems.FirstOrDefault()?.ShowItem ?? true;
-            } catch (Exception e) {
-                Instructions = $"Error loading filters: {e.Message}";
+            var sourceCode = await Layout.CheckSource();
+            FilterTags = await FilterHelper.GetAllFilters(sourceCode);
+            var id = await Layout.GetCachedId();
+            if (string.IsNullOrWhiteSpace(id)) {
+                NavigationManager.NavigateTo("/");
             }
-
+            ProgramItem = await ProgramGetter.GetProgram(id);
+            Layout.SetSidebar(SidebarEnum.Program, ProgramItem.Title);
+            foreach (var tag in FilterTags.SelectMany(x => x)) {
+                if (ProgramItem.DepartmentList.Contains(tag.Title) && tag.TagType == TagType.Department) {
+                    tag.EnabledBySource = true;
+                }
+                if (ProgramItem.TagList.Contains(tag.Title) && tag.TagType == TagType.Tag) {
+                    tag.EnabledBySource = true;
+                }
+                if (ProgramItem.SkillList.Contains(tag.Title) && tag.TagType == TagType.Skill) {
+                    tag.EnabledBySource = true;
+                }
+                if (ProgramItem.LengthList.Contains(tag.Title) && tag.TagType == TagType.Length) {
+                    tag.EnabledBySource = true;
+                }
+            }
+            var fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new ProgramGroup(), FieldType.Filters);
+            Instructions = fieldItems.FirstOrDefault()?.Description ?? "";
+            UseItem = fieldItems.FirstOrDefault()?.ShowItem ?? true;
         }
     }
 }
