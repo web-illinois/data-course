@@ -1,7 +1,7 @@
 ﻿@page "/course/notelist"
 @layout SidebarLayout
 
-<PageTitle>Programs - List of Notes / FAQ Information</PageTitle>
+<PageTitle>Course - List of Notes / FAQ Information</PageTitle>
 
 <ilw-content>
     <h1>List of Notes / FAQ Information</h1>
@@ -13,6 +13,7 @@
 </ilw-content>
 @if (UseItem) {
     <NoteListEditor Notes="Notes" NoteTemplateTitles="NoteTemplateTitles" SetDirty="e => SetDirty()"></NoteListEditor>
+    <ilw-content><p>Once everything looks good, click the save button to apply your changes.</p></ilw-content>
     <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
     <ViewLink Title="Course" Url="@CourseItem.UrlFull"></ViewLink>
 } else {

@@ -1,12 +1,11 @@
 ﻿@if (Notes != null) {
     <ilw-content>
         @foreach (var item in Notes) {
-            <div class="credential-box">
-                <button class="ilw-button" style=" text-align: left; border: none;" @onclick="() => SelectItem(item)">
-                    @item.Title
-                </button>
+            <div class="link-box">
+                <p>@item.Title</p>
                 <div class="button-group">
                     <button class="ilw-button small" @onclick="() => MoveUp(item)"><ilw-icon alt="up" size="24px" icon="back" class="rotate"></ilw-icon></button>
+                    <button class="ilw-button small" @onclick="() => SelectItem(item)">Edit</button>
                     <button class="ilw-button small" @onclick="() => MoveDown(item)"><ilw-icon alt="down" size="24px" icon="next" class="rotate"></ilw-icon></button>
                     <button class="ilw-button small" @onclick="() => Remove(item)">Remove</button>
                 </div>
@@ -16,12 +15,8 @@
             <p><strong>No notes available.</strong></p>
         }
 
-        <h2>Add Note</h2>
-        <p>Note that each note title needs to be unique. If you edit a note with an existing title, it will update the existing note instead of adding a new note.</p>
-        <p>You can click on an existing note to populate the information below if you want to edit the note.</p>
-        @if (NoteTemplateTitles != null && NoteTemplateTitles.Count > 0) {
-            <p>It will place these items after the items in the note template list unless you overwrite an existing note template (see below).</p>
-        }
+        <h2>@AddText Note</h2>
+        <p>Each note title needs to be unique. If you edit a note with an existing title, it will update the existing note instead of adding a new note.</p>
         <div class="ils-input-entry">
             <label for="title">Note Title</label>
             <input id="title" type="text" @bind="NewNoteTitle" class="ils-input-long" />
@@ -50,7 +45,7 @@
         <div class="ils-input-entry">
             <label for="linkUrl">Note Link URL</label>
             <input id="linkUrl" type="text" @bind="NewNoteLinkUrl" class="ils-input-long" />
-            <button class="ilw-button" @onclick="Add">Add</button>
+            <button class="ilw-button" @onclick="Add">@AddText</button>
         </div>
     </ilw-content>
 }

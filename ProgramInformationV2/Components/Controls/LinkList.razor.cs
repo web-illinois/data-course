@@ -59,7 +59,7 @@ namespace ProgramInformationV2.Components.Controls {
             NewLinkTitle = i.Title;
             NewLinkUrl = i.LinkHref;
             OldTitle = i.Title;
-            AddLinkButtonTitle = "Edit Link";
+            AddLinkButtonTitle = "Update Link";
             if (Layout != null)
                 Layout.SetDirty();
         }
