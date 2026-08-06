@@ -41,7 +41,14 @@ namespace ProgramInformationV2.Components.Pages.Course {
             if (string.IsNullOrWhiteSpace(Rubric)) {
                 await Layout.AddMessage("Need to fill out a rubric and course number for the import to start");
             } else if (string.IsNullOrWhiteSpace(CourseNumber)) {
-                await Layout.AddMessage(await CourseImportManager.ImportRubric(Rubric, _sourceCode));
+                if (Rubric.Contains(',')) {
+                    foreach (var item in Rubric.Split(',')) {
+                        _ = await CourseImportManager.ImportRubric(item, _sourceCode);
+                    }
+                    await Layout.AddMessage($"Importing {Rubric}. Check the import log for progress.");
+                } else {
+                    await Layout.AddMessage(await CourseImportManager.ImportRubric(Rubric, _sourceCode));
+                }
             } else {
                 await Layout.AddMessage(await CourseImportManager.ImportCourse(Rubric, CourseNumber, _sourceCode, IncludeSections, Overwrite));
             }
