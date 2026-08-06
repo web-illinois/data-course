@@ -14,6 +14,8 @@ namespace ProgramInformationV2.Data.CourseImport {
         public async Task<string> ImportCourse(string rubric, string courseNumber, string source, bool includeSections, bool overwrite, bool createLog = true) {
             var url = await _sourceHelper.GetUrlTemplateFromSource(source);
             var log = "";
+            rubric = rubric.Trim();
+            courseNumber = courseNumber.Trim();
             var itemGroups = XmlImporter.GetAllCoursesBySemester(rubric, courseNumber);
             if (itemGroups == null) {
                 return $"Course {rubric} {courseNumber} not found in system";
