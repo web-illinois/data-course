@@ -6,6 +6,14 @@
 <ilw-content>
     <h1>Course Import Logs</h1>
 
+    <div class="ils-input-entry">
+        <label for="rubric">Rubric</label>
+        <input id="rubric" type="text" @bind="Rubric" />
+    </div>
+
+    <button class="ilw-button ilw-theme-orange-solid" @onclick="Search">Search Specific Rubric</button>
+
+
     @if (LastItemImported != null)
     {
         <p>Last Import on @LastItemImported.Value.ToString("g")</p>
