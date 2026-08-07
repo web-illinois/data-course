@@ -18,19 +18,20 @@ namespace ProgramInformationV2.Components.Pages.Audit {
 
         public IEnumerable<CourseImportEntry> LogItems { get; set; } = [];
         public int NumberItemsPending { get; set; }
+        public bool PendingOnly { get; set; } = false;
 
         public string Rubric { get; set; } = "";
 
         protected override async Task OnInitializedAsync() {
             await base.OnInitializedAsync();
             Layout.SetSidebar(SidebarEnum.Audit, "Audit");
-            LastItemImported = await CourseImportHelper.GetLastItemUpdated();
-            NumberItemsPending = await CourseImportHelper.NumberItemsPending();
             _ = await Search();
         }
 
         public async Task<bool> Search() {
-            LogItems = await CourseImportHelper.GetLog(await Layout.CheckSource(), Rubric);
+            LogItems = await CourseImportHelper.GetLog(await Layout.CheckSource(), Rubric, PendingOnly);
+            LastItemImported = await CourseImportHelper.GetLastItemUpdated();
+            NumberItemsPending = await CourseImportHelper.NumberItemsPending();
             return true;
         }
     }
