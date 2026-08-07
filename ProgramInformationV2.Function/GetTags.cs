@@ -1,4 +1,3 @@
-using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -8,22 +7,13 @@ using Microsoft.OpenApi.Models;
 using ProgramInformationV2.Data.DataHelpers;
 using ProgramInformationV2.Function.Helper;
 using ProgramInformationV2.Search.JsonThinModels;
+using System.Net;
 
 namespace ProgramInformationV2.Function {
 
-    public class GetTags(FilterHelper filterHelper, ILogger<GetPrograms> logger) {
+    public class GetTags(FilterHelper filterHelper, ILogger<GetTags> logger) {
         private readonly FilterHelper _filterHelper = filterHelper;
-        private readonly ILogger<GetPrograms> _logger = logger;
-
-        [Function("Check")]
-        [OpenApiOperation(operationId: "Check", tags: "Check Information", Description = "Get check information.")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(List<TagList>), Description = "Standard response")]
-        public async Task<HttpResponseData> Check([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequestData req) {
-            _logger.LogInformation("Called Check.");
-            var response = req.CreateResponse(HttpStatusCode.OK);
-            await response.WriteAsJsonAsync("Check");
-            return response;
-        }
+        private readonly ILogger<GetTags> _logger = logger;
 
         [Function("Tags")]
         [OpenApiOperation(operationId: "Tags", tags: "Get Tag Information", Description = "Get tag information.")]

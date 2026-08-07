@@ -16,7 +16,7 @@ namespace ProgramInformationV2.Data.DataHelpers {
 
         public async Task<IEnumerable<CourseImportEntry>> GetLog(string sourceCode) {
             var sourceId = _programRepository.Read(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode))?.Id ?? 0;
-            return await _programRepository.ReadAsync(pr => pr.CourseImportEntries.Where(c => c.SourceId == sourceId).OrderByDescending(c => c.LastUpdated));
+            return await _programRepository.ReadAsync(pr => pr.CourseImportEntries.Where(c => c.SourceId == sourceId).OrderBy(c => c.Rubric).ThenBy(c => c.CourseNumber));
         }
 
         public async Task<int> LoadComplete(string rubric, string courseNumber, string urlPattern, bool importTitleAndDescriptionOnly, bool includeSections, string sourceCode, string log) {
