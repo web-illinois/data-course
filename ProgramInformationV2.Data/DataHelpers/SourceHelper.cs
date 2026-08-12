@@ -15,8 +15,8 @@ namespace ProgramInformationV2.Data.DataHelpers {
             if (source != null) {
                 return "Source code or name is in use";
             }
-            _ = await _programRepository.CreateAsync(new Source { Code = newSourceCode.ToLowerInvariant(), CreatedByEmail = email, IsActive = true, IsTest = false, Title = newTitle });
-            var newSource = await _programRepository.ReadAsync(pr => pr.Sources.FirstOrDefault(s => s.Code == newSourceCode.ToLowerInvariant()));
+            _ = await _programRepository.CreateAsync(new Source { Code = newSourceCode.Trim().ToLowerInvariant(), CreatedByEmail = email, IsActive = true, IsTest = false, Title = newTitle });
+            var newSource = await _programRepository.ReadAsync(pr => pr.Sources.FirstOrDefault(s => s.Code == newSourceCode.Trim().ToLowerInvariant()));
             if (newSource != null) {
                 _ = await _programRepository.CreateAsync(new SecurityEntry { SourceId = newSource.Id, IsActive = true, IsFullAdmin = true, IsOwner = true, IsPublic = true, Email = email });
             }

@@ -5,13 +5,22 @@
 
 <ilw-content>
     <h1>Course Import Logs</h1>
-
+    <div style="display: grid; grid-template-columns: auto auto;column-gap: 10px; ">
     <div class="ils-input-entry">
         <label for="rubric">Rubric</label>
         <input id="rubric" type="text" @bind="Rubric" />
     </div>
-
-    <button class="ilw-button ilw-theme-orange-solid" @onclick="Search">Search Specific Rubric</button>
+    <div class="ils-input-entry">
+        <label for="department">Import Type</label>
+        <select id="department" class="ils-input-long" @bind="ImportType">
+            <option value="0">All Items</option>
+            <option value="1">Pending</option>
+            <option value="2">Completed</option>
+            <option value="3">Not Found</option>
+        </select>
+    </div>
+    </div>
+    <button class="ilw-button ilw-theme-orange-solid" @onclick="Search">Search</button>
 
 
     @if (LastItemImported != null)

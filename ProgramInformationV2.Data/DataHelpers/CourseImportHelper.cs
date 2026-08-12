@@ -14,9 +14,16 @@ namespace ProgramInformationV2.Data.DataHelpers {
             return await _programRepository.ReadAsync(pr => pr.CourseImportEntries.OrderBy(c => c.LastUpdated).FirstOrDefault(c => c.DateImported == null));
         }
 
-        public async Task<IEnumerable<CourseImportEntry>> GetLog(string sourceCode, string rubric) {
+        public async Task<IEnumerable<CourseImportEntry>> GetLog(string sourceCode, string rubric, int importType) {
             var sourceId = _programRepository.Read(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode))?.Id ?? 0;
-            return await _programRepository.ReadAsync(pr => pr.CourseImportEntries.Where(c => c.SourceId == sourceId && (rubric == "" || c.Rubric == rubric)).OrderBy(c => c.Rubric).ThenBy(c => c.CourseNumber).ThenByDescending(c => c.DateImported));
+            if (importType == 1) {
+                return await _programRepository.ReadAsync(pr => pr.CourseImportEntries.Where(c => c.SourceId == sourceId && (rubric == "" || c.Rubric == rubric) && c.DateImported == null).OrderBy(c => c.Rubric).ThenBy(c => c.CourseNumber));
+            } else if (importType == 2) {
+                return await _programRepository.ReadAsync(pr => pr.CourseImportEntries.Where(c => c.SourceId == sourceId && (rubric == "" || c.Rubric == rubric) && c.DateImported != null).OrderByDescending(c => c.DateImported).ThenBy(c => c.Rubric).ThenBy(c => c.CourseNumber));
+            } else if (importType == 3) {
+                return await _programRepository.ReadAsync(pr => pr.CourseImportEntries.Where(c => c.SourceId == sourceId && (rubric == "" || c.Rubric == rubric) && c.DateImported != null && c.Log.Contains("not found in system")).OrderByDescending(c => c.DateImported).ThenBy(c => c.Rubric).ThenBy(c => c.CourseNumber));
+            }
+            return await _programRepository.ReadAsync(pr => pr.CourseImportEntries.Where(c => c.SourceId == sourceId && (rubric == "" || c.Rubric == rubric)).OrderByDescending(c => c.DateImported).ThenBy(c => c.Rubric).ThenBy(c => c.CourseNumber));
         }
 
         public async Task<int> LoadComplete(string rubric, string courseNumber, string urlPattern, bool importTitleAndDescriptionOnly, bool includeSections, string sourceCode, string log) {
@@ -29,8 +36,8 @@ namespace ProgramInformationV2.Data.DataHelpers {
                 IncludeTitleAndDescriptionOnly = importTitleAndDescriptionOnly,
                 IncludeSections = includeSections,
                 SourceId = sourceId,
-                LastUpdated = DateTime.Now,
-                DateImported = DateTime.Now,
+                LastUpdated = DateTime.UtcNow,
+                DateImported = DateTime.UtcNow,
                 Log = log
             });
         }
@@ -45,7 +52,7 @@ namespace ProgramInformationV2.Data.DataHelpers {
                 IncludeTitleAndDescriptionOnly = false,
                 IncludeSections = true,
                 SourceId = sourceId,
-                LastUpdated = DateTime.Now,
+                LastUpdated = DateTime.UtcNow,
                 DateImported = null,
                 Log = sourceCode
             });
@@ -58,7 +65,7 @@ namespace ProgramInformationV2.Data.DataHelpers {
         public async Task<int> UpdatePending(CourseImportEntry entry, string log) {
             if (entry != null) {
                 entry.Log = log;
-                entry.DateImported = DateTime.Now;
+                entry.DateImported = DateTime.UtcNow;
                 return await _programRepository.UpdateAsync(entry);
             } else {
                 return 0;

@@ -8,14 +8,14 @@ namespace ProgramInformationV2.Data.DataContext {
 
         public int Create<T>(T item) where T : BaseDataItem {
             using var context = _factory.CreateDbContext();
-            item.LastUpdated = DateTime.Now;
+            item.LastUpdated = DateTime.UtcNow;
             _ = context.Add(item);
             return context.SaveChanges();
         }
 
         public async Task<int> CreateAsync<T>(T item) where T : BaseDataItem {
             using var context = _factory.CreateDbContext();
-            item.LastUpdated = DateTime.Now;
+            item.LastUpdated = DateTime.UtcNow;
             _ = context.Add(item);
             return await context.SaveChangesAsync();
         }
@@ -50,14 +50,14 @@ namespace ProgramInformationV2.Data.DataContext {
 
         public int Update<T>(T item) where T : BaseDataItem {
             using var context = _factory.CreateDbContext();
-            item.LastUpdated = DateTime.Now;
+            item.LastUpdated = DateTime.UtcNow;
             _ = context.Update(item);
             return context.SaveChanges();
         }
 
         public int UpdateActive<T>(T item, bool active) where T : BaseDataItem {
             using var context = _factory.CreateDbContext();
-            item.LastUpdated = DateTime.Now;
+            item.LastUpdated = DateTime.UtcNow;
             item.IsActive = active;
             _ = context.Update(item);
             return context.SaveChanges();
@@ -65,7 +65,7 @@ namespace ProgramInformationV2.Data.DataContext {
 
         public async Task<int> UpdateActiveAsync<T>(T item, bool active) where T : BaseDataItem {
             using var context = _factory.CreateDbContext();
-            item.LastUpdated = DateTime.Now;
+            item.LastUpdated = DateTime.UtcNow;
             item.IsActive = active;
             _ = context.Update(item);
             return await context.SaveChangesAsync();
@@ -73,7 +73,7 @@ namespace ProgramInformationV2.Data.DataContext {
 
         public async Task<int> UpdateAsync<T>(T item) where T : BaseDataItem {
             using var context = _factory.CreateDbContext();
-            item.LastUpdated = DateTime.Now;
+            item.LastUpdated = DateTime.UtcNow;
             _ = context.Update(item);
             return await context.SaveChangesAsync();
         }
