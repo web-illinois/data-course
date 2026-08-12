@@ -78,8 +78,14 @@ namespace ProgramInformationV2.Data.DataContext {
             return await context.SaveChangesAsync();
         }
 
+        public async Task<int> DeleteCourseImportLogs(int sourceId) {
+            using var context = _factory.CreateDbContext();
+            return context.Database.ExecuteSqlInterpolated($"DELETE FROM dbo.CourseImportEntries WHERE SourceId = {sourceId}");
+        }
+
         public async Task<int> DeleteSource(int sourceId) {
             using var context = _factory.CreateDbContext();
+            context.Database.ExecuteSqlInterpolated($"DELETE FROM dbo.CourseImportEntries WHERE SourceId = {sourceId}");
             context.Database.ExecuteSqlInterpolated($"DELETE FROM dbo.FieldSources WHERE SourceId = {sourceId}");
             context.Database.ExecuteSqlInterpolated($"DELETE FROM dbo.Logs WHERE SourceId = {sourceId}");
             context.Database.ExecuteSqlInterpolated($"DELETE FROM dbo.SecurityEntries WHERE SourceId = {sourceId}");

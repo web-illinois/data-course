@@ -14,6 +14,12 @@ namespace ProgramInformationV2.Data.DataHelpers {
             return await _programRepository.ReadAsync(pr => pr.CourseImportEntries.OrderBy(c => c.LastUpdated).FirstOrDefault(c => c.DateImported == null));
         }
 
+        public async Task<int> ClearLog(string sourceCode) {
+            var sourceId = _programRepository.Read(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode))?.Id ?? 0;
+            return await _programRepository.DeleteCourseImportLogs(sourceId);
+        }
+
+
         public async Task<IEnumerable<CourseImportEntry>> GetLog(string sourceCode, string rubric, int importType) {
             var sourceId = _programRepository.Read(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode))?.Id ?? 0;
             if (importType == 1) {
