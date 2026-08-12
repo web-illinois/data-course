@@ -28,6 +28,13 @@ namespace ProgramInformationV2.Components.Pages.Audit {
             _ = await Search();
         }
 
+        public async Task<bool> RemoveLogs() {
+            _ = await CourseImportHelper.ClearLog(await Layout.CheckSource());
+            LogItems = [];
+            LastItemImported = await CourseImportHelper.GetLastItemUpdated();
+            NumberItemsPending = await CourseImportHelper.NumberItemsPending();
+            return true;
+        }
         public async Task<bool> Search() {
             LogItems = await CourseImportHelper.GetLog(await Layout.CheckSource(), Rubric, ImportType);
             LastItemImported = await CourseImportHelper.GetLastItemUpdated();
