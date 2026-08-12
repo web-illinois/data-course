@@ -5,25 +5,21 @@
 
 <ilw-content>
     <h1>Course Import Logs</h1>
-
+    <div style="display: grid; grid-template-columns: auto auto;column-gap: 10px; ">
     <div class="ils-input-entry">
         <label for="rubric">Rubric</label>
         <input id="rubric" type="text" @bind="Rubric" />
     </div>
     <div class="ils-input-entry">
-        <div class="ils-input-entry-compact">
-            <label for="sections">Import Type?</label>
-            <div class="ils-toggle-slider">
-                <input id="sections" type="checkbox" @bind="PendingOnly" role="switch" />
-                <span>
-                    <span class="ils-container"></span>
-                    <span aria-hidden="true" class="ils-text-on">Pending</span>
-                    <span aria-hidden="true" class="ils-text-off">Completed</span>
-                </span>
-            </div>
-        </div>
+        <label for="department">Import Type</label>
+        <select id="department" class="ils-input-long" @bind="ImportType">
+            <option value="0">All Items</option>
+            <option value="1">Pending</option>
+            <option value="2">Completed</option>
+            <option value="3">Not Found</option>
+        </select>
     </div>
-
+    </div>
     <button class="ilw-button ilw-theme-orange-solid" @onclick="Search">Search</button>
 
 

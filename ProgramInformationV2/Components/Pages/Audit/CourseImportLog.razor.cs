@@ -18,7 +18,7 @@ namespace ProgramInformationV2.Components.Pages.Audit {
 
         public IEnumerable<CourseImportEntry> LogItems { get; set; } = [];
         public int NumberItemsPending { get; set; }
-        public bool PendingOnly { get; set; } = false;
+        public int ImportType { get; set; } = 0;
 
         public string Rubric { get; set; } = "";
 
@@ -29,7 +29,7 @@ namespace ProgramInformationV2.Components.Pages.Audit {
         }
 
         public async Task<bool> Search() {
-            LogItems = await CourseImportHelper.GetLog(await Layout.CheckSource(), Rubric, PendingOnly);
+            LogItems = await CourseImportHelper.GetLog(await Layout.CheckSource(), Rubric, ImportType);
             LastItemImported = await CourseImportHelper.GetLastItemUpdated();
             NumberItemsPending = await CourseImportHelper.NumberItemsPending();
             return true;
