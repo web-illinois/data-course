@@ -86,7 +86,8 @@
             { SidebarEnum.ProgramCredential, [
                     new("Programs And Credentials", "/programcred"),
                     new("Programs", "/programs"),
-                    new("Credentials", "/credentials")
+                    new("Credentials", "/credentials"),
+                    new("Transfer Courses to Credential", "/credentials/transfercourse")
                 ]
             },
             { SidebarEnum.Program, [
@@ -131,7 +132,9 @@
             { SidebarEnum.Courses, [
                     new("Courses", "/courses"),
                     new("Import Campus Courses", "/courses/import"),
-                    new("Import Coursera Courses", "/courses/courseraimport")
+                    new("Import Coursera Courses", "/courses/courseraimport"),
+                    new("Import Canvas Courses", "/courses/canvasimport")
+
                 ]
             },
             { SidebarEnum.Course, [
@@ -182,6 +185,7 @@
                     new("Manage Filters", "/configuration/filters"),
                     new("Manage Note Templates", "/configuration/notetemplates"),
                     new("Security", "/configuration/security"),
+                    new("Settings", "/configuration/settings"),
                     new("Delete Source", "/configuration/deletion"),
                     new("Testing Access", "/configuration/testing")
                 ]

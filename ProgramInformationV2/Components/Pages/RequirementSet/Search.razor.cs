@@ -46,7 +46,11 @@ namespace ProgramInformationV2.Components.Pages.RequirementSet {
             _sourceCode = await Layout.CheckSource();
             _useRequirementSets = await SourceHelper.DoesSourceUseItem(_sourceCode, CategoryType.RequirementSet);
             _useCredentials = await SourceHelper.DoesSourceUseItem(_sourceCode, CategoryType.Credential);
-            await GetRequirementSet();
+            if (await SourceHelper.GetStartWithSearchFromSource(_sourceCode)) {
+                await GetRequirementSet();
+            } else {
+                RequirementSetList = [];
+            }
             await base.OnInitializedAsync();
         }
 

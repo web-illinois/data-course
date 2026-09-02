@@ -115,5 +115,26 @@ namespace ProgramInformationV2.Search.Models {
         }
 
         public override string ToString() => JsonSerializer.Serialize(this);
+
+        public Credential ConvertToCredential() {
+            return new Credential() {
+                Id = Id + "-cred",
+                Title = Title,
+                Source = Source,
+                Cost = Cost,
+                CostOnline = Cost,
+                CredentialType = PlatformType.ConvertPlatformToCredentialType(),
+                Description = Description,
+                Notes = Details,
+                Url = Url,
+                ImageUrl = ImageUrl,
+                ImageAltText = ImageAltText,
+                SkillList = SkillList,
+                FormatType = FormatValues.FirstOrDefault(),
+                IsActive = IsActive,
+                DepartmentList = DepartmentList,
+                TagList = TagList
+            };
+        }
     }
 }

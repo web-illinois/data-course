@@ -1,0 +1,46 @@
+﻿@page "/courses/canvasimport"
+@layout SidebarLayout
+
+<PageTitle>Import a Canvas Course</PageTitle>
+<ilw-content>
+    <h1>Import a Canvas Course</h1>
+    @if (_useCourses.HasValue && _useCourses.Value) {
+        <p>Note that this will overwrite any changes you made to the existing item.</p>
+        <div class="ils-input-entry">
+            <label for="search">Search Term</label>
+            <input id="search" type="text" @bind="SearchTerm" class="ils-input-long" />
+        </div>
+        <button class="ilw-button" @onclick="Search">Search for Courses</button>
+        @if (ListOfCanvasCourses != null && ListOfCanvasCoursesSelected != null) {
+            <div class="container-canvas">
+                <div class="ils-input-entry">
+                    <label for="options">Canvas Courses</label>
+                    <select id="options" type="text" @bind="ListOfCanvasCourseId" size="10" style="width: 100%;">
+                        @foreach (var course in ListOfCanvasCourses) {
+                            <option value="@course.Key">@course.Value</option>
+                        }
+                    </select>
+                    <div style="display: flex;">
+                        <button class="ilw-button" @onclick="Transfer">Add To Selected List</button>
+                        <button class="ilw-button" @onclick="TransferAll">Add All</button>
+                    </div>
+                </div>
+            </div>
+            <div class="container-canvas">
+                <div class="ils-input-entry">
+                    <label for="optionsselected">Selected Courses</label>
+                    <select id="optionsselected" type="text" @bind="ListOfCanvasCourseIdSelected" size="10" style="width: 100%;">
+                        @foreach (var course in ListOfCanvasCoursesSelected) {
+                            <option value="@course.Key">@course.Value</option>
+                        }
+                    </select>
+                    <div style="display: flex;">
+                        <button class="ilw-button" @onclick="Remove">Remove From Selected List</button>
+                        <button class="ilw-button" @onclick="RemoveAll">Remove All</button>
+                    </div>
+                </div>
+            </div>
+            <button class="ilw-button ilw-theme-orange-solid" @onclick="SendImport" @onblur="Layout.RemoveMessage">Import Courses</button>
+        }
+    }
+</ilw-content>
