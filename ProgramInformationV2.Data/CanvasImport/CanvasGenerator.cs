@@ -4,7 +4,7 @@ using System.Text.Json;
 namespace ProgramInformationV2.Data.CanvasImport {
     public class CanvasGenerator(string? apiKey) {
 
-        private readonly string _apiKey = apiKey ?? throw new ArgumentNullException(nameof(apiKey));
+        private readonly string _apiKey = apiKey ?? "";
 
         public async Task<Dictionary<string, string>> GetCourses(string search) {
             var page = 1;
