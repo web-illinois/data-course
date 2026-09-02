@@ -1,0 +1,27 @@
+﻿@page "/configuration/settings"
+@layout SidebarLayout
+
+<PageTitle>Configuration - Settings</PageTitle>
+
+<ilw-content>
+    <h1>Settings</h1>
+    <p>If you are attempting to set fields inside a particular item (like programs, credentials, courses, etc.), you can do so in their respective section under Fields Used.</p>
+</ilw-content>
+
+<ilw-content>
+    <h2>URL Information</h2>
+    <div class="ils-input-entry">
+        <label for="url-search">Initiate Search</label>
+        <input id="url-search" type="checkbox" @bind="InitiateSearch" @bind:after="Layout.SetDirty" />
+        <p>Set to true to start a search automatically. Turn this off if you have a lot of courses or credentials.</p>
+    </div>
+
+    <h2>URL Information</h2>
+    <div class="ils-input-entry">
+        <label for="url-base">Base URL</label>
+        <input id="url-base" type="text" @bind="BaseUrl" @bind:after="Layout.SetDirty" class="ils-input-long" />
+        <p>If you are using relative paths for your URL, you can set this to allow this application to view your program.</p>
+    </div>
+
+    <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+</ilw-content>

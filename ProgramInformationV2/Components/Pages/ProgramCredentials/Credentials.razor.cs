@@ -63,7 +63,11 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
             _useCredentials = await SourceHelper.DoesSourceUseItem(_sourceCode, CategoryType.Credential);
             _usePrograms = await SourceHelper.DoesSourceUseItem(_sourceCode, CategoryType.Program);
             (_isRestricted, _restrictedIds) = await SecurityHelper.GetRestrictions(await Layout.GetNetId(), _sourceCode);
-            await GetCredentials();
+            if (await SourceHelper.GetStartWithSearchFromSource(_sourceCode)) {
+                await GetCredentials();
+            } else {
+                CredentialList = [];
+            }
             var (tagSources, _) = await FilterHelper.GetFilters(_sourceCode, TagType.Department);
             DepartmentList = [.. tagSources.Select(t => t.Title).OrderBy(t => t)];
             await base.OnInitializedAsync();

@@ -20,6 +20,7 @@ namespace ProgramInformationV2.Data.DataModels {
         public bool IsTest { get; set; } = false;
         public bool RequestDeletion { get; set; }
         public string RequestDeletionByEmail { get; set; } = "";
+        public bool StartWithSearch { get; set; } = true;
         public string Title { get; set; } = "";
         public string UrlTemplate { get; set; } = "";
         public bool UseCourses { get; set; }

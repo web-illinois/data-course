@@ -47,9 +47,17 @@ namespace ProgramInformationV2.Data.DataHelpers {
             return false;
         }
 
+        public async Task<Source> GetSource(string sourceCode) => await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant())) ?? new Source();
+
+        public async Task<bool> SaveSource(Source source) => await _programRepository.UpdateAsync(source) > 0;
+
         public async Task<string> GetBaseUrlFromSource(string sourceCode) {
             var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
             return source?.BaseUrl ?? "";
+        }
+        public async Task<bool> GetStartWithSearchFromSource(string sourceCode) {
+            var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
+            return source?.StartWithSearch ?? true;
         }
 
         public async Task<int> GetSourceId(string sourceCode) {
@@ -95,16 +103,6 @@ namespace ProgramInformationV2.Data.DataHelpers {
             }
             _ = await _programRepository.DeleteSource(source.Id);
             return $"Code {sourceCode} has been deleted";
-        }
-
-        public async Task<bool> SaveBaseUrl(string sourceCode, string baseUrl) {
-            var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
-            if (source == null) {
-                return false;
-            }
-            source.BaseUrl = baseUrl;
-            var value = await _programRepository.UpdateAsync(source);
-            return true;
         }
 
         public async Task<bool> SaveUrlTemplate(string sourceCode, string urlTemplate) {

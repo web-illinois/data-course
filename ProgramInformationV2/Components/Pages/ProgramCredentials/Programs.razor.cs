@@ -70,7 +70,11 @@ namespace ProgramInformationV2.Components.Pages.ProgramCredentials {
             IsTest = _sourceCode.EndsWith('!');
             _usePrograms = await SourceHelper.DoesSourceUseItem(_sourceCode, CategoryType.Program);
             (_isRestricted, _restrictedIds) = await SecurityHelper.GetRestrictions(await Layout.GetNetId(), _sourceCode);
-            await GetPrograms();
+            if (await SourceHelper.GetStartWithSearchFromSource(_sourceCode)) {
+                await GetPrograms();
+            } else {
+                ProgramList = [];
+            }
             var (tagSources, _) = await FilterHelper.GetFilters(_sourceCode, TagType.Department);
             DepartmentList = [.. tagSources.Select(t => t.Title).OrderBy(t => t)];
             await base.OnInitializedAsync();

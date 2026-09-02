@@ -18,6 +18,13 @@
                 </select>
             </div>
         }
+        @if (GenericItems.Count() == 0 && SearchItem == "") {
+            <p>Please enter a search for an item.</p>
+        }
+        else if (GenericItems.Count() == 0)
+        {
+            <p>No @ItemTitle found for search string "@SearchItem". Please search for an item or leave the field blank to get all items. Note that pulling all items may take a while.</p>
+        } else {
         <div class="ils-input-entry">
             <label for="choose">Choose a @ItemTitle</label>
             <select id="choose" size="10" class="ils-input-long" @bind="SelectedItemId">
@@ -38,5 +45,6 @@
                 </li>
             }
         </ul>
+        }
     </ilw-content>
 }

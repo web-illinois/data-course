@@ -1,6 +1,6 @@
 ﻿namespace ProgramInformationV2.Search.Models {
 
-    public enum CredentialType { None, Base_Undergraduate, Undergraduate_Certificate, BA, BS, BALAS, BSLAS, BFA, BME, BMUS, BLS, BSW, BASA, Undergraduate_Minor = 19, Base_Graduate = 20, Graduate_Certificate, EdM, MBA, MA, MS, CAS, EdD, PhD, Graduate_Concentration, Graduate_Minor, Base_Certificate = 40, Certificate_of_Specialization, Endorsement, Specialty, MOOC_Specialization_Certificate, Illinois_Graduate_Certificate }
+    public enum CredentialType { None, Base_Undergraduate, Undergraduate_Certificate, BA, BS, BALAS, BSLAS, BFA, BME, BMUS, BLS, BSW, BASA, Undergraduate_Minor = 19, Base_Graduate = 20, Graduate_Certificate, EdM, MBA, MA, MS, CAS, EdD, PhD, Graduate_Concentration, Graduate_Minor, Base_Certificate = 40, Certificate_of_Specialization, Endorsement, Specialty, MOOC_Specialization_Certificate, Illinois_Graduate_Certificate, Canvas_Credential, Base_Course = 60, Banner_Course, Coursera_Course, Canvas_Course }
 
     [Flags]
     public enum FormatType { None = 0, Online = 1, On__Campus = 2, Off__Campus = 4, Hybrid = 8 }
@@ -9,7 +9,7 @@
 
     public enum UrlTypes { Programs, Courses, RequirementSets }
 
-    public enum PlatformTypes { None, Campus, Coursera, Custom, Moodle }
+    public enum PlatformTypes { None, Campus, Coursera, Canvas, Custom, Moodle }
 
     public enum NoteTemplateTypes { Programs = 1, Credentials = 2, Courses = 3 }
 
@@ -30,6 +30,13 @@
         private static readonly List<CredentialType> _undergraduateDegrees = [CredentialType.Undergraduate_Certificate, CredentialType.Base_Undergraduate, CredentialType.BA, CredentialType.BS, CredentialType.BALAS, CredentialType.BSLAS, CredentialType.BFA, CredentialType.BME, CredentialType.BMUS, CredentialType.BLS, CredentialType.BSW, CredentialType.BASA, CredentialType.Undergraduate_Minor];
 
         public static IEnumerable<CredentialType> Certificates(this IEnumerable<CredentialType> e) => e.Where(ct => _certificates.Contains(ct));
+
+        public static CredentialType ConvertPlatformToCredentialType(this PlatformTypes platformType) => platformType switch {
+            PlatformTypes.Coursera => CredentialType.Coursera_Course,
+            PlatformTypes.Canvas => CredentialType.Canvas_Course,
+            PlatformTypes.Campus => CredentialType.Banner_Course,
+            _ => CredentialType.None
+        };
 
         public static FormatType CombineFormatList(this IEnumerable<FormatType> e) {
             var format = new FormatType();
