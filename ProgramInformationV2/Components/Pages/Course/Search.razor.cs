@@ -48,17 +48,16 @@ namespace ProgramInformationV2.Components.Pages.Course {
             StateHasChanged();
         }
 
-        protected async Task ImportCourse() {
-            await Layout.ClearCacheId();
-            NavigationManager.NavigateTo("/courses/import");
-        }
-
         protected override async Task OnInitializedAsync() {
             Layout.SetSidebar(SidebarEnum.Courses, "Courses");
             _sourceCode = await Layout.CheckSource();
             (_isRestricted, _restrictedIds) = await SecurityHelper.GetRestrictions(await Layout.GetNetId(), _sourceCode);
             _useCourses = await SourceHelper.DoesSourceUseItem(_sourceCode, Data.DataModels.CategoryType.Course);
-            await GetCourses();
+            if (await SourceHelper.GetStartWithSearchFromSource(_sourceCode)) {
+                await GetCourses();
+            } else {
+                CourseList = [];
+            }
             await base.OnInitializedAsync();
         }
 

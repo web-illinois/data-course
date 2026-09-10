@@ -1,0 +1,62 @@
+﻿@page "/credentials/transfercourse"
+@layout SidebarLayout
+
+<PageTitle>Transfer Courses to Credential</PageTitle>
+
+<ilw-content>
+    <h1>Transfer Courses to Credential</h1>
+    @if (_useCredentials.HasValue && _useCredentials.Value) {
+        <p>
+            You can import courses into your credential list. Do this if you want to intermix courses and credentials into a single repository. Any courses assigned will be automatically marked "course" associated with the platform assigned, and it will transfer any tags, departments, or skills. If you use programs, this will generate a generic program connected to the credential, and it is your responsibility to update the program or reassign the credential to a program that is already in your system. 
+        </p>
+
+        <div class="ils-input-entry">
+            <label for="search">Search Term</label>
+            <input id="search" type="text" @bind="SearchTerm" class="ils-input-long" />
+        </div>
+        <button class="ilw-button" @onclick="Search">Search for Courses</button>
+        @if (ListOfCourses != null && ListOfCoursesSelected != null) {
+            <div class="container-canvas">
+                <div class="ils-input-entry">
+                    @if (ListOfCourses.Count == 0) {
+                        <p>No courses found. Please search.</p>
+                    } else
+                    {
+                    <label for="options">Courses</label>
+                    <select id="options" type="text" @bind="ListOfCourseId" size="10" style="width: 100%;">
+                        @foreach (var course in ListOfCourses) {
+                            <option value="@course.Key">@course.Value</option>
+                        }
+                    </select>
+                    <div style="display: flex;">
+                        <button class="ilw-button" @onclick="Transfer">Add To Selected List</button>
+                        <button class="ilw-button" @onclick="TransferAll">Add All</button>
+                    </div>
+                    }
+                    
+                </div>
+            </div>
+            <div class="container-canvas">
+                <div class="ils-input-entry">
+                    <label for="optionsselected">Selected Courses</label>
+                    <select id="optionsselected" type="text" @bind="ListOfCourseIdSelected" size="10" style="width: 100%;">
+                        @foreach (var course in ListOfCoursesSelected) {
+                            <option value="@course.Key">@course.Value</option>
+                        }
+                    </select>
+                    <div style="display: flex;">
+                        <button class="ilw-button" @onclick="Remove">Remove From Selected List</button>
+                        <button class="ilw-button" @onclick="RemoveAll">Remove All</button>
+                    </div>
+                </div>
+            </div>
+            <button class="ilw-button ilw-theme-orange-solid" @onclick="SendImport" @onblur="Layout.RemoveMessage">Import Courses to Credentials</button>
+        }
+
+
+    } else if (_useCredentials.HasValue && !_useCredentials.Value) {
+        <p>
+            Your area does not use credentials. <a href="/configuration/fieldsused/credentials">Go to the Configuration / Fields Used section to enable credentials.</a>
+        </p>
+    } 
+</ilw-content>
