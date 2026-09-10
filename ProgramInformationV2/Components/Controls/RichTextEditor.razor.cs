@@ -33,6 +33,10 @@ namespace ProgramInformationV2.Components.Controls {
                 return "";
             }
             var returnValue = await _quillItem.GetHTML();
+            if (string.IsNullOrWhiteSpace(returnValue)) {
+                return "";
+            }
+            returnValue = returnValue.Trim().Replace(" target=\"_blank\">", ">");
             if (!returnValue.Contains("<p")) {
                 return $"<p>{returnValue}</p>";
             }
