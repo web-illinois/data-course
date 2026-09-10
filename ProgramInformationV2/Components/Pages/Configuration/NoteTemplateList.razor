@@ -55,7 +55,7 @@
                     <option value="Tag">Tag</option>
                 </select>
             </div>
-            @if (NewNoteCriteriaType != "") {
+            @if (NewNoteCriteriaType != "" && CriteriaOptions != null && CriteriaOptions.Any()) {
                 <div class="ils-input-entry">
                     <label for="showfortext">Criteria Value</label>
                     <select id="showfortext" class="ils-input-long" @bind="NewNoteCriteriaText">
