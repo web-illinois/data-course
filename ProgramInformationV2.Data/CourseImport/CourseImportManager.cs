@@ -1,17 +1,21 @@
-﻿using ProgramInformationV2.Data.DataHelpers;
+﻿using ProgramInformationV2.Data.Agent;
+using ProgramInformationV2.Data.DataHelpers;
 using ProgramInformationV2.Search.Getters;
 using ProgramInformationV2.Search.Setters;
 
 namespace ProgramInformationV2.Data.CourseImport {
 
-    public class CourseImportManager(CourseGetter courseGetter, CourseSetter courseSetter, CourseImportHelper courseImportHelper, FacultyNameCourseHelper facultyNameCourseHelper, SourceHelper sourceHelper) {
+    public class CourseImportManager(CourseGetter courseGetter, CourseSetter courseSetter, CourseImportHelper courseImportHelper, FacultyNameCourseHelper facultyNameCourseHelper, SourceHelper sourceHelper, FullCourse fullCourse, FilterHelper filterHelper) {
         private readonly CourseGetter _courseGetter = courseGetter;
         private readonly CourseImportHelper _courseImportHelper = courseImportHelper;
         private readonly CourseSetter _courseSetter = courseSetter;
         private readonly FacultyNameCourseHelper _facultyNameCourseHelper = facultyNameCourseHelper;
         private readonly SourceHelper _sourceHelper = sourceHelper;
+        private readonly FullCourse _fullCourse = fullCourse;
+        private readonly FilterHelper _filterHelper = filterHelper;
 
         public async Task<string> ImportCourse(string rubric, string courseNumber, string source, bool includeSections, bool overwrite, bool createLog = true) {
+            var useAi = await _sourceHelper.UseAiFromSource(source);
             var url = await _sourceHelper.GetUrlTemplateFromSource(source);
             var log = "";
             rubric = rubric.Trim();
@@ -28,6 +32,14 @@ namespace ProgramInformationV2.Data.CourseImport {
             course = await _facultyNameCourseHelper.AddFaculty(course);
             course.Url = url.Replace("{rubric}", course.Rubric, StringComparison.OrdinalIgnoreCase).Replace("{coursenumber}", course.CourseNumber, StringComparison.OrdinalIgnoreCase);
             if (overwrite) {
+                var skills = await _filterHelper.GetFilters(source, DataModels.TagType.Skill);
+                if (useAi && _fullCourse.IsValid()) {
+                    var aiObject = await _fullCourse.GenerateInformation($"{course.Title} {course.SummaryText} {course.Description}", "", skills.TagSources.Select(a => a.Title));
+                    course.SkillList = aiObject.SkillList;
+                    course.SummaryText = aiObject.Summary;
+                    course.Details = aiObject.Details;
+                    log = "Processed through agent to add summary and details. ";
+                }
                 _ = await _courseSetter.SetCourse(course);
                 log = $"Course Imported: {rubric} {courseNumber} into {source} - Number of sections added: {course.Sections.Count}.";
                 if (createLog) {
