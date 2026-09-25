@@ -49,6 +49,10 @@
             <ul class="ilw-buttons" id="save-group">
                 <li>
                     <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+                    @if (ShowAutoGenerate)
+                    {
+                    <button class="ilw-button" @onclick="Autogenerate" @onblur="Layout.RemoveMessage">Autogenerate</button>
+                    }
                 </li>
                 @if (!string.IsNullOrWhiteSpace(QuickLinkUrl))
                 {

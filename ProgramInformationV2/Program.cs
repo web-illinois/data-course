@@ -4,6 +4,7 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using OpenSearch.Client;
 using ProgramInformationV2.Components;
+using ProgramInformationV2.Data.Agent;
 using ProgramInformationV2.Data.Cache;
 using ProgramInformationV2.Data.CanvasImport;
 using ProgramInformationV2.Data.CourseImport;
@@ -81,6 +82,9 @@ builder.Services.AddScoped<RequirementSetAudits>();
 builder.Services.AddScoped<ProgramAudits>();
 builder.Services.AddScoped<JsonHelper>();
 builder.Services.AddScoped<BulkEditor>();
+builder.Services.AddScoped(b => new TagCreator(builder.Configuration["AzureOpenAIEndpoint"], builder.Configuration["AzureOpenAIApiKey"]));
+builder.Services.AddScoped(b => new FullCourse(builder.Configuration["AzureOpenAIEndpoint"], builder.Configuration["AzureOpenAIApiKey"]));
+builder.Services.AddScoped(b => new FullProgram(builder.Configuration["AzureOpenAIEndpoint"], builder.Configuration["AzureOpenAIApiKey"]));
 
 var app = builder.Build();
 

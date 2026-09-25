@@ -12,6 +12,8 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
 
         public bool InitiateSearch { get; set; } = false;
 
+        public bool UseAI { get; set; } = false;
+
         [Inject]
         protected SourceHelper SourceHelper { get; set; } = default!;
 
@@ -21,6 +23,7 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
             var sourceItem = await SourceHelper.GetSource(source);
             BaseUrl = sourceItem.BaseUrl;
             InitiateSearch = sourceItem.StartWithSearch;
+            UseAI = sourceItem.IncludeAi;
             Layout.SetSidebar(SidebarEnum.Configuration, "Configuration");
         }
         protected async Task Save() {
@@ -28,6 +31,7 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
             var sourceItem = await SourceHelper.GetSource(source);
             sourceItem.BaseUrl = BaseUrl;
             sourceItem.StartWithSearch = InitiateSearch;
+            sourceItem.IncludeAi = UseAI;
             await SourceHelper.SaveSource(sourceItem);
             Layout.RemoveDirty();
             await Layout.AddMessage($"Settings have been saved.");
