@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProgramInformationV2.Data.Agent;
 using ProgramInformationV2.Data.CourseImport;
 using ProgramInformationV2.Data.DataContext;
 using ProgramInformationV2.Data.DataHelpers;
@@ -40,6 +41,7 @@ var host = new HostBuilder()
         _ = services.AddScoped<FacultyNameCourseHelper>();
         _ = services.AddScoped<SourceHelper>();
         _ = services.AddScoped(b => new FilterHelper(b.GetService<ProgramRepository>(), null));
+        _ = services.AddScoped(b => new FullCourse(hostContext.Configuration["Values:AzureOpenAIEndpoint"], hostContext.Configuration["Values:AzureOpenAIApiKey"]));
     })
     .Build();
 
