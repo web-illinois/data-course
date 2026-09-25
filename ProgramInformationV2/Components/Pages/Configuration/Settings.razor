@@ -9,11 +9,17 @@
 </ilw-content>
 
 <ilw-content>
-    <h2>URL Information</h2>
+    <h2>Settings</h2>
     <div class="ils-input-entry">
         <label for="url-search">Initiate Search</label>
         <input id="url-search" type="checkbox" @bind="InitiateSearch" @bind:after="Layout.SetDirty" />
         <p>Set to true to start a search automatically. Turn this off if you have a lot of courses or credentials.</p>
+    </div>
+
+    <div class="ils-input-entry">
+        <label for="url-search">Use AI to Import Information</label>
+        <input id="url-search" type="checkbox" @bind="UseAI" @bind:after="Layout.SetDirty" />
+        <p>Set to true if you want to use AI to auto-populate import information.</p>
     </div>
 
     <h2>URL Information</h2>

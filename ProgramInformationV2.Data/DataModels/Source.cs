@@ -18,6 +18,7 @@ namespace ProgramInformationV2.Data.DataModels {
         public override int Id { get; set; }
 
         public bool IsTest { get; set; } = false;
+        public bool IncludeAi { get; set; } = true;
         public bool RequestDeletion { get; set; }
         public string RequestDeletionByEmail { get; set; } = "";
         public bool StartWithSearch { get; set; } = true;

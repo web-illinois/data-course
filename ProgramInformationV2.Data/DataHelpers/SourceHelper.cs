@@ -55,6 +55,12 @@ namespace ProgramInformationV2.Data.DataHelpers {
             var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
             return source?.BaseUrl ?? "";
         }
+
+        public async Task<bool> UseAiFromSource(string sourceCode) {
+            var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
+            return source?.IncludeAi ?? false;
+        }
+
         public async Task<bool> GetStartWithSearchFromSource(string sourceCode) {
             var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
             return source?.StartWithSearch ?? true;

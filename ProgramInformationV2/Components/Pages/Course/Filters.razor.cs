@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using ProgramInformationV2.Components.Layout;
+using ProgramInformationV2.Data.Agent;
 using ProgramInformationV2.Data.DataHelpers;
 using ProgramInformationV2.Data.DataModels;
 using ProgramInformationV2.Data.FieldList;
@@ -14,6 +15,7 @@ namespace ProgramInformationV2.Components.Pages.Course {
         public IEnumerable<TagSource>? DepartmentTags => FilterTags?.Where(f => f.Key == TagType.Department).SelectMany(x => x);
         public IEnumerable<IGrouping<TagType, TagSource>> FilterTags { get; set; } = [];
 
+        public bool ShowAutoGenerate { get; set; }
         [CascadingParameter]
         public SidebarLayout Layout { get; set; } = default!;
 
@@ -43,6 +45,9 @@ namespace ProgramInformationV2.Components.Pages.Course {
         [Inject]
         protected SourceHelper SourceHelper { get; set; } = default!;
 
+        [Inject]
+        protected TagCreator TagCreator { get; set; } = default!;
+
         public async Task Save() {
             CourseItem.DepartmentList = DepartmentTags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
             CourseItem.SkillList = SkillTags?.Where(t => t.EnabledBySource).Select(t => t.Title).ToList() ?? [];
@@ -56,6 +61,23 @@ namespace ProgramInformationV2.Components.Pages.Course {
             await Layout.AddMessage("Course saved successfully.");
         }
 
+        public async Task Autogenerate() {
+            var allTags = FilterTags.FirstOrDefault(ft => ft.Key == TagType.Skill)?.Select(t => t.Title) ?? [];
+            var generatedTags = await TagCreator.CreateTag($"{CourseItem.Title} {CourseItem.SummaryText} {CourseItem.Description}", allTags);
+            foreach (var tag in SkillTags ?? []) {
+                if (generatedTags.Contains(tag.Title)) {
+                    tag.EnabledBySource = true;
+                }
+            }
+            if (TagCreator.GetErrorMessage() != "") {
+                await Layout.AddMessage($"Error generating tags: {TagCreator.GetErrorMessage()}");
+            } else if (generatedTags.Count() == 0) {
+                await Layout.AddMessage("No tags generated.");
+            } else {
+                await Layout.AddMessage($"Tags added: {string.Join(", ", generatedTags)}");
+            }
+        }
+
         protected override async Task OnInitializedAsync() {
             var sourceCode = await Layout.CheckSource();
             FilterTags = await FilterHelper.GetAllFilters(sourceCode);
@@ -63,6 +85,7 @@ namespace ProgramInformationV2.Components.Pages.Course {
             if (string.IsNullOrWhiteSpace(id)) {
                 NavigationManager.NavigateTo("/");
             }
+            ShowAutoGenerate = await SourceHelper.UseAiFromSource(sourceCode) && TagCreator.IsValid();
             CourseItem = await CourseGetter.GetCourse(id);
             var sidebar = await SourceHelper.DoesSourceUseItem(sourceCode, CategoryType.Section) ? SidebarEnum.CourseWithSection : SidebarEnum.Course;
             Layout.SetSidebar(sidebar, CourseItem.Title);
