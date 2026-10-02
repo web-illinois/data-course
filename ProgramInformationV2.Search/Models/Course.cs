@@ -127,6 +127,7 @@ namespace ProgramInformationV2.Search.Models {
                 Description = Description,
                 Notes = Details,
                 Url = Url,
+                Length = Length,
                 ImageUrl = ImageUrl,
                 ImageAltText = ImageAltText,
                 SkillList = SkillList,
@@ -135,6 +136,33 @@ namespace ProgramInformationV2.Search.Models {
                 DepartmentList = DepartmentList,
                 TagList = TagList
             };
+        }
+
+        public IEnumerable<Course> ExtractSeminarCourses() {
+            var returnValue = new List<Course>();
+            foreach (var section in Sections.Where(s => s.AlternateTitle != "" && s.Description != "" && s.BeginDate > DateTime.Now.AddYears(-1))) {
+                var newCourse = new Course() {
+                    Id = Id + "-" + section.CRN,
+                    Source = Source,
+                    Cost = Cost,
+                    Rubric = Rubric,
+                    MaximumCreditHours = MaximumCreditHours,
+                    MinimumCreditHours = MinimumCreditHours,
+                    PlatformType = PlatformType,
+                    CourseNumber = CourseNumber,
+                    CourseTitle = section.AlternateTitle,
+                    CreditHours = section.CreditHours,
+                    DaysOfWeekList = section.DaysOfWeekList,
+                    Description = section.Description,
+                    Details = Details,
+                    Url = Url,
+                    Sections = [section]
+                };
+                newCourse.SetId();
+                newCourse.CleanHtmlFields();
+                returnValue.Add(newCourse);
+            }
+            return returnValue;
         }
     }
 }

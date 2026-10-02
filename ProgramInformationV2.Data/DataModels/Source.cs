@@ -8,6 +8,7 @@ namespace ProgramInformationV2.Data.DataModels {
         public DateTime? ApiSecretLastChanged { get; set; }
         public string ApiSecretPrevious { get; set; } = "";
         public string BaseUrl { get; set; } = "";
+        public bool SplitSeminarClasses { get; set; } = false;
 
         public string Code { get; set; } = "";
 
