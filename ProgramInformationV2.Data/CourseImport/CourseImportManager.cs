@@ -54,7 +54,7 @@ namespace ProgramInformationV2.Data.CourseImport {
                         _ = await _courseSetter.SetCourse(additionalCourse);
                     }
                     if (additionalCourses.Any()) {
-                        log += $"Adding {additionalCourses.Count()} courses";
+                        log += $"Adding {additionalCourses.Count()} courses. ";
                     }
                 }
                 log += $"Course Imported: {rubric} {courseNumber} into {source} - Number of sections added: {course.Sections.Count}. ";
