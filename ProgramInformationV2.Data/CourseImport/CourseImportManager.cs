@@ -16,6 +16,7 @@ namespace ProgramInformationV2.Data.CourseImport {
 
         public async Task<string> ImportCourse(string rubric, string courseNumber, string source, bool includeSections, bool overwrite, bool createLog = true) {
             var useAi = await _sourceHelper.UseAiFromSource(source);
+            var splitSeminarClasses = await _sourceHelper.CreateSeminarsAsSeparateCourses(source);
             var url = await _sourceHelper.GetUrlTemplateFromSource(source);
             var log = "";
             rubric = rubric.Trim();
@@ -41,7 +42,22 @@ namespace ProgramInformationV2.Data.CourseImport {
                     log = "Processed through agent to add summary and details. ";
                 }
                 _ = await _courseSetter.SetCourse(course);
-                log = $"Course Imported: {rubric} {courseNumber} into {source} - Number of sections added: {course.Sections.Count}.";
+                if (splitSeminarClasses) {
+                    var additionalCourses = course.ExtractSeminarCourses();
+                    foreach (var additionalCourse in additionalCourses) {
+                        if (useAi) {
+                            var aiObject = await _fullCourse.GenerateInformation($"{additionalCourse.Title} {additionalCourse.SummaryText} {additionalCourse.Description}", "", skills.TagSources.Select(a => a.Title));
+                            additionalCourse.SkillList = aiObject.SkillList;
+                            additionalCourse.SummaryText = aiObject.Summary;
+                            additionalCourse.Details = aiObject.Details;
+                        }
+                        _ = await _courseSetter.SetCourse(additionalCourse);
+                    }
+                    if (additionalCourses.Any()) {
+                        log += $"Adding {additionalCourses.Count()} courses. ";
+                    }
+                }
+                log += $"Course Imported: {rubric} {courseNumber} into {source} - Number of sections added: {course.Sections.Count}. ";
                 if (createLog) {
                     _ = await _courseImportHelper.LoadComplete(rubric, courseNumber, url, overwrite, includeSections, source, log);
                 }

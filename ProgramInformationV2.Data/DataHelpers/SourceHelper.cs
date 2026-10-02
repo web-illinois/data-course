@@ -61,6 +61,11 @@ namespace ProgramInformationV2.Data.DataHelpers {
             return source?.IncludeAi ?? false;
         }
 
+        public async Task<bool> CreateSeminarsAsSeparateCourses(string sourceCode) {
+            var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
+            return source?.SplitSeminarClasses ?? false;
+        }
+
         public async Task<bool> GetStartWithSearchFromSource(string sourceCode) {
             var source = await _programRepository.ReadAsync(c => c.Sources.FirstOrDefault(s => s.Code == sourceCode.ToLowerInvariant()));
             return source?.StartWithSearch ?? true;

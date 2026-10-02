@@ -17,9 +17,15 @@
     </div>
 
     <div class="ils-input-entry">
-        <label for="url-search">Use AI to Import Information</label>
-        <input id="url-search" type="checkbox" @bind="UseAI" @bind:after="Layout.SetDirty" />
-        <p>Set to true if you want to use AI to auto-populate import information.</p>
+        <label for="use-ai">Use OpenAI to Modify Information</label>
+        <input id="use-ai" type="checkbox" @bind="UseAI" @bind:after="Layout.SetDirty" />
+        <p>Set to true if you want to use OpenAI to auto-populate import information.</p>
+    </div>
+
+    <div class="ils-input-entry">
+        <label for="split-seminar-classes">Split Up Seminar Classes</label>
+        <input id="split-seminar-classes" type="checkbox" @bind="SplitSeminarClasses" @bind:after="Layout.SetDirty" />
+        <p>Set to true if you want to split up sections that have distinct titles and descriptions.</p>
     </div>
 
     <h2>URL Information</h2>
