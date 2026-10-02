@@ -12,6 +12,8 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
 
         public bool InitiateSearch { get; set; } = false;
 
+        public bool SplitSeminarClasses { get; set; } = false;
+
         public bool UseAI { get; set; } = false;
 
         [Inject]
@@ -24,6 +26,7 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
             BaseUrl = sourceItem.BaseUrl;
             InitiateSearch = sourceItem.StartWithSearch;
             UseAI = sourceItem.IncludeAi;
+            SplitSeminarClasses = sourceItem.SplitSeminarClasses;
             Layout.SetSidebar(SidebarEnum.Configuration, "Configuration");
         }
         protected async Task Save() {
@@ -32,6 +35,7 @@ namespace ProgramInformationV2.Components.Pages.Configuration {
             sourceItem.BaseUrl = BaseUrl;
             sourceItem.StartWithSearch = InitiateSearch;
             sourceItem.IncludeAi = UseAI;
+            sourceItem.SplitSeminarClasses = SplitSeminarClasses;
             await SourceHelper.SaveSource(sourceItem);
             Layout.RemoveDirty();
             await Layout.AddMessage($"Settings have been saved.");

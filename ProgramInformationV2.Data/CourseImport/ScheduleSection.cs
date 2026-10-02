@@ -8,6 +8,7 @@ namespace ProgramInformationV2.Data.CourseImport {
             Crn = xml.Attribute("id")?.Value ?? "";
             Term = term;
             SectionNumber = xml.Descendants("sectionNumber").FirstOrDefault()?.Value?.Trim() ?? "";
+            SectionTitle = xml.Descendants("sectionTitle").FirstOrDefault()?.Value?.Trim() ?? "";
             StatusCode = xml.Descendants("statusCode").FirstOrDefault()?.Value?.Trim() ?? "";
             CreditHours = xml.Descendants("creditHours").FirstOrDefault()?.Value?.Trim() ?? "";
             SectionText = xml.Descendants("sectionText").FirstOrDefault()?.Value?.Trim() ?? "";
@@ -43,6 +44,7 @@ namespace ProgramInformationV2.Data.CourseImport {
         public string StartTime { get; set; } = "";
         public string StatusCode { get; set; } = "";
         public string Term { get; set; } = "";
+        public string SectionTitle { get; set; } = "";
         public string Type { get; set; } = "";
     }
 }

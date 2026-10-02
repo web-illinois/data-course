@@ -28,6 +28,7 @@ namespace ProgramInformationV2.Data.CourseImport {
                 course.Sections = [.. scheduleCourse.Sections.Select(s => new Section {
                     Term = _termTranslation.TryGetValue(s.Term, out var value) ? value : Terms.None,
                     SectionCode = s.SectionNumber,
+                    AlternateTitle = s.SectionTitle,
                     CreditHours = string.IsNullOrWhiteSpace(s.CreditHours) ? course.CreditHours.Replace(" hours.", "") : scheduleCourse.CreditHours.Replace(" hours.", ""),
                     Description = s.SectionText + " " + s.SectionNotes,
                     BeginDate = DateTime.TryParse(s.Start?.Replace("Z", ""), out _) ? DateTime.Parse(s.Start?.Replace("Z", "") ?? "") : default,
