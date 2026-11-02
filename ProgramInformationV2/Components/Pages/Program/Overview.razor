@@ -1,13 +1,16 @@
 ﻿@page "/program/overview"
 @layout SidebarLayout
 
-<PageTitle>Programs - Overview</PageTitle>
+<PageTitle>Program Overview | Illinois</PageTitle>
 
 <ilw-content>
     <h1>Overview</h1>
 
     <RichTextEditor @ref="@_rteDescription" Title="Description" FieldItems="_fieldItems"></RichTextEditor>
     <RichTextEditor @ref="@_rteWhoShouldApply" Title="Who Should Apply" FieldItems="_fieldItems"></RichTextEditor>
+    <RichTextEditor @ref="@_rteJobTypeInformation" Title="Job Type Information" FieldItems="_fieldItems"></RichTextEditor>
+    <RichTextEditor @ref="@_rteProfessionalInformation" Title="Professional Information" FieldItems="_fieldItems"></RichTextEditor>
+    <RichTextEditor @ref="@_rteSkills" Title="Skills" FieldItems="_fieldItems"></RichTextEditor>
     <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
     <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
 </ilw-content>

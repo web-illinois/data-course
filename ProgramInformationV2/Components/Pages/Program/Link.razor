@@ -1,7 +1,7 @@
 ﻿@page "/program/link"
 @layout SidebarLayout
 
-<PageTitle>Programs - Link and Image</PageTitle>
+<PageTitle>Program Link and Image | Illinois</PageTitle>
 
 <ilw-content>
     <h1>Link and Image</h1>
@@ -13,12 +13,12 @@
     <UrlText Title="Alternate Link URL" FieldItems="FieldItems" @bind-Value="ProgramItem.AlternateUrl"></UrlText>
     <MediumText Title="Alternate Link Text" FieldItems="FieldItems" @bind-Value="ProgramItem.AlternateUrlTitle"></MediumText>
     <div class="image-box">
-    <ImageControl Title="Program Image" @ref="@_imageProgramImage" FieldItems="FieldItems" @bind-Value="ProgramItem.SummaryImageUrl" ItemId="@ProgramItem.Id"></ImageControl>
-    <MediumText Title="Program Image Alternative Text" FieldItems="FieldItems" @bind-Value="ProgramItem.SummaryImageAltText"></MediumText>
+        <ImageControl Title="Program Image" @ref="@_imageProgramImage" FieldItems="FieldItems" @bind-Value="ProgramItem.SummaryImageUrl" ItemId="@ProgramItem.Id"></ImageControl>
+        <MediumText Title="Program Image Alternative Text" FieldItems="FieldItems" @bind-Value="ProgramItem.SummaryImageAltText"></MediumText>
     </div>
     <div class="image-box">
-    <ImageControl Title="Detail Program Image" @ref="@_imageDetailProgramImage" FieldItems="FieldItems" @bind-Value="ProgramItem.DetailImageUrl" ItemId="@ProgramItem.Id"></ImageControl>
-    <MediumText Title="Detail Program Image Alternative Text" FieldItems="FieldItems" @bind-Value="ProgramItem.DetailImageAltText"></MediumText>
+        <ImageControl Title="Detail Program Image" @ref="@_imageDetailProgramImage" FieldItems="FieldItems" @bind-Value="ProgramItem.DetailImageUrl" ItemId="@ProgramItem.Id"></ImageControl>
+        <MediumText Title="Detail Program Image Alternative Text" FieldItems="FieldItems" @bind-Value="ProgramItem.DetailImageAltText"></MediumText>
     </div>
     <MediumText Title="Video URL" FieldItems="FieldItems" @bind-Value="ProgramItem.VideoUrl"></MediumText>
     <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>

@@ -47,8 +47,6 @@ namespace ProgramInformationV2.Search.Models {
         public IEnumerable<string> Formats => FormatValues.Select(t => t.ConvertToSingleString());
 
         public IEnumerable<FormatType> FormatValues { get; set; } = [];
-        public string ImageAltText { get; set; } = "";
-        public string ImageUrl { get; set; } = "";
         public string Information { get; set; } = "";
         public bool IsCurrent => Sections.Any(s => s.IsCurrent);
         public bool IsUpcoming => Sections.Any(s => s.IsUpcoming);
@@ -67,15 +65,12 @@ namespace ProgramInformationV2.Search.Models {
 
         public List<Section> Sections { get; set; }
 
-        public string SummaryText { get; set; } = "";
-
         public Terms Term { get; set; }
 
         [Keyword]
         public IEnumerable<string> Terms => TermValues.Select(t => t.ConvertToSingleString());
 
         public IEnumerable<Terms> TermValues { get; set; } = [];
-        public string VideoUrl { get; set; } = "";
         internal override string CreateId => Id = string.IsNullOrWhiteSpace(Rubric) && string.IsNullOrWhiteSpace(CourseNumber) ? Source + "-" + Guid.NewGuid().ToString() : Source + "-" + Rubric + "-" + CourseNumber;
 
         public override void ChangeId(string newSource) {
@@ -88,9 +83,7 @@ namespace ProgramInformationV2.Search.Models {
         public override void CleanHtmlFields() {
             SummaryText = CleanHtml(SummaryText);
             Details = CleanHtml(Details);
-            Description = CleanHtml(Description);
             ExternalDetails = CleanHtml(ExternalDetails);
-            VideoUrl = ConvertVideoToEmbed(VideoUrl);
             TermValues = [Term];
             ProcessLists();
             if (Sections != null && Sections?.Count > 0) {
@@ -105,6 +98,7 @@ namespace ProgramInformationV2.Search.Models {
                 }
                 Sections?.ForEach(s => s.CleanHtmlFields());
             }
+            ProcessBaseItems();
             Faculty = FacultyNameList == null || FacultyNameList.Count == 0 ? "" : string.Join("; ", FacultyNameList.Distinct().OrderBy(s => s.Name).Select(s => s.ToString()));
         }
 

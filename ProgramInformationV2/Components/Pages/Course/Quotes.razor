@@ -1,0 +1,34 @@
+﻿@page "/course/quote"
+@layout SidebarLayout
+
+<PageTitle>Course Quote Information | Illinois</PageTitle>
+
+<ilw-content>
+    <h1>Quote Information</h1>
+</ilw-content>
+
+@if (CourseItem != null && FieldItems != null) {
+    <MediumText Title="Quote Title" FieldItems="FieldItems" @bind-Value="CourseItem.StudentQuoteTitle"></MediumText>
+    <MediumText Title="Quote Subtitle" FieldItems="FieldItems" @bind-Value="CourseItem.Fragment"></MediumText>
+    <LargeText Title="Quote" FieldItems="FieldItems" @bind-Value="CourseItem.StudentQuoteText"></LargeText>
+    <div class="image-box">
+        <ImageControl @ref="@_imageUrl" Title="Quote Image" FieldItems="FieldItems" @bind-Value="CourseItem.StudentQuoteImageUrl" ItemId="@CourseItem.Id"></ImageControl>
+        <MediumText Title="Quote Image Alternative Text" FieldItems="FieldItems" @bind-Value="CourseItem.StudentQuoteImageAltText"></MediumText>
+    </div>
+
+    <ilw-content>
+        <ul class="ilw-buttons" id="save-group">
+            <li>
+                <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+            </li>
+            <li>
+                <ViewLink Title="Course" Url="@CourseItem.UrlFull"></ViewLink>
+            </li>
+            @if (!string.IsNullOrWhiteSpace(QuickLinkUrl)) {
+                <li>
+                    <a class="ilw-button" href="@QuickLinkUrl">Back</a>
+                </li>
+            }
+        </ul>
+    </ilw-content>
+}

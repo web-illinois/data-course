@@ -1,0 +1,28 @@
+﻿@page "/course/admissions"
+@layout SidebarLayout
+
+<PageTitle>Course Admissions | Illinois</PageTitle>
+
+<ilw-content>
+    <h1>Admissions</h1>
+    <RichTextEditor @ref="@_rteAdmissions" Title="Admission Requirements" FieldItems="_fieldItems"></RichTextEditor>
+    <RichTextEditor @ref="@_rteTransferStudent" Title="Transfer Student Requirements" FieldItems="_fieldItems"></RichTextEditor>
+    <RichTextEditor @ref="@_rteProgramTracks" Title="Program Tracks" FieldItems="_fieldItems"></RichTextEditor>
+    @if (CourseItem != null) {
+        <ilw-content>
+            <ul class="ilw-buttons" id="save-group">
+                <li>
+                    <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+                </li>
+                <li>
+                    <ViewLink Title="Course" Url="@CourseItem.UrlFull"></ViewLink>
+                </li>
+                @if (!string.IsNullOrWhiteSpace(QuickLinkUrl)) {
+                    <li>
+                        <a class="ilw-button" href="@QuickLinkUrl">Back</a>
+                    </li>
+                }
+            </ul>
+        </ilw-content>
+    }
+</ilw-content>
