@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Configuration Knowledge Base | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="configuration-knowledge-base">Configuration Knowledge Base</h1>
+<p><a href="../index.html">Back to Documentation Home</a></p>
+<p>End-user documentation for the <strong>Configuration</strong> section of the Program Information application (pages under <code>/configuration</code>).</p>
+<h2 id="what-is-a-source">What is a source?</h2>
+<p>A <strong>source</strong> is a separate, self-contained workspace for one college, department, or unit. Each source has its own:</p>
+<ul>
+<li>Programs, credentials, courses, sections, and requirement sets</li>
+<li>Filters (departments, skills, lengths, tags)</li>
+<li>Note templates</li>
+<li>Fields Used choices and instructions</li>
+<li>Security (the list of users and their access)</li>
+<li>API key</li>
+<li>Settings and logs</li>
+</ul>
+<p>Each source has a <strong>Source Name</strong> and a short <strong>Source Code</strong>. The code is the prefix used on the IDs of everything in the source.</p>
+<h3 id="updating-one-source-does-not-affect-other-sources">Updating one source does not affect other sources</h3>
+<blockquote>
+<p><strong>Every change you make applies only to the source you are currently working in.</strong> Updating, adding, or deleting data or settings in one source does <strong>not</strong> change any other source. The same is true for filters, note templates, fields used, security, settings, and deletions.</p>
+</blockquote>
+<p>Because of this:</p>
+<ul>
+<li>Always confirm which source is selected before you make changes, especially before deleting.</li>
+<li>Choose the source you want to edit on the <strong>home page</strong>. Creating a new source switches your selection to that new source.</li>
+<li>Copying data to another source requires the Transfer pages (see the Transfer documentation).</li>
+<li>A test source (source code ending in <code>!</code>) is separate from its production source. Data only moves between them through the Technical Information copy and transfer actions.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Article</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><a href="01-sources.html">Sources</a></td>
+<td>Create a source and find source owners</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="../FieldsUsed/index.html">Fields Used</a></td>
+<td>Turn features on or off, hide unused fields, and add instructions for each field (Programs, Credentials, Courses, Sections, Requirement Sets)</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="03-manage-filters.html">Manage Filters</a></td>
+<td>Departments, skills, lengths, tags</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="04-note-templates.html">Manage Note Templates</a></td>
+<td>Shared FAQ-style notes</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="05-security.html">Security</a></td>
+<td>Users, restricted access, API key</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="06-settings.html">Settings</a></td>
+<td>Search, AI, seminar splitting, base URL</td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="07-delete-source.html">Delete Source</a></td>
+<td>Delete source data or the whole source</td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="08-testing-access.html">Testing Access</a></td>
+<td>Access to the testing area</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sidebar">Sidebar</h2>
+<p><strong>Sources</strong>, <strong>Fields Used</strong>, <strong>Manage Filters</strong>, <strong>Manage Note Templates</strong>, <strong>Security</strong>, <strong>Settings</strong>, <strong>Delete Source</strong>, <strong>Testing Access</strong>.</p>
+<p>Before a source is selected, only <strong>Sources</strong> and <strong>Testing Access</strong> appear.</p>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

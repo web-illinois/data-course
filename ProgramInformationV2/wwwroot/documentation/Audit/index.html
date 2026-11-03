@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Audit Reports Knowledge Base | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="audit-reports-knowledge-base">Audit Reports Knowledge Base</h1>
+<p><a href="../index.html">Back to Documentation Home</a></p>
+<p>End-user documentation for the <strong>Audit</strong> section of the Program Information application (pages under <code>/audit</code>).</p>
+<p>The Audit reports help you review changes, check data quality, and find clean-up work. They are read only: viewing a report does not change any data, except <strong>Remove Logs</strong> on the Course Import Log.</p>
+<blockquote>
+<p>Reports show information for the <strong>source</strong> you are working in. A source is a separate workspace for a college, department, or unit. The one exception is a pending-import count on the Course Import Log, which is a total across all sources.</p>
+</blockquote>
+<h2 id="reports-at-a-glance">Reports at a glance</h2>
+<table>
+<thead>
+<tr>
+<th>Sidebar item</th>
+<th>Route</th>
+<th>What it shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="01-recently-changed-items.html">Access Logs</a></td>
+<td><code>/audit/changed</code></td>
+<td>The most recent manual changes to items in your source.</td>
+</tr>
+<tr>
+<td><a href="02-unused-requirement-sets.html">Unused Requirement Sets</a></td>
+<td><code>/audit/unusedrequirementsets</code></td>
+<td>Requirement sets that no credential uses.</td>
+</tr>
+<tr>
+<td><a href="03-public-requirement-sets.html">Public Requirement Sets</a></td>
+<td><code>/audit/publicrequirementsets</code></td>
+<td>Shared requirement sets that only one credential uses.</td>
+</tr>
+<tr>
+<td><a href="04-list-of-requirement-sets.html">List of Requirement Sets</a></td>
+<td><code>/audit/listrequirementsets</code></td>
+<td>Every public requirement set with the courses it contains.</td>
+</tr>
+<tr>
+<td><a href="05-courses-by-requirement-sets.html">Courses By Requirement Sets</a></td>
+<td><code>/audit/coursebyrequirementset</code></td>
+<td>Every course with the requirement sets that contain it.</td>
+</tr>
+<tr>
+<td><a href="06-requirement-sets-with-invalid-courses.html">Requirement Sets with Invalid Courses</a></td>
+<td><code>/audit/requirementsetswithinvalidcourses</code></td>
+<td>Requirement sets that contain courses flagged as invalid.</td>
+</tr>
+<tr>
+<td><a href="07-all-programs-and-credentials.html">All Programs and Credentials</a></td>
+<td><code>/audit/allprograms</code></td>
+<td>A downloadable list of every program and credential.</td>
+</tr>
+<tr>
+<td><a href="08-course-import-log.html">Course Import Log</a></td>
+<td><code>/audit/courseimportlog</code></td>
+<td>The status of course imports.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Not every report applies to every source.</strong> Some reports may not be used if your source does not use the associated item (for example, Programs, Credentials, Courses, or Requirement Sets). For instance, the requirement set reports have nothing to show if your source does not use requirement sets. Features are turned on or off in <strong>Configuration &gt; Fields Used</strong>.</p>
+</blockquote>
+<p>Report titles on the pages differ</p>
+<h2 id="item-level-audit-pages">Item-level audit pages</h2>
+<p>Each program, credential, and course also has its own <strong>Audits and Changes</strong> page showing the change history for that single item. See the Program, Credential, and Course documentation.</p>
+<blockquote>
+<p>Audits cover manual changes only. Loading JSON files and API updates are not recorded in change logs.</p>
+</blockquote>
+<h2 id="clicking-through">Clicking through</h2>
+<p>In reports that list requirement sets or courses, select a title to open that item for editing.</p>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

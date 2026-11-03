@@ -9,7 +9,7 @@
 
 @if (CourseItem != null && FieldItems != null) {
     <MediumText Title="Quote Title" FieldItems="FieldItems" @bind-Value="CourseItem.StudentQuoteTitle"></MediumText>
-    <MediumText Title="Quote Subtitle" FieldItems="FieldItems" @bind-Value="CourseItem.Fragment"></MediumText>
+    <MediumText Title="Quote Subtitle" FieldItems="FieldItems" @bind-Value="CourseItem.StudentQuoteSubtitle"></MediumText>
     <LargeText Title="Quote" FieldItems="FieldItems" @bind-Value="CourseItem.StudentQuoteText"></LargeText>
     <div class="image-box">
         <ImageControl @ref="@_imageUrl" Title="Quote Image" FieldItems="FieldItems" @bind-Value="CourseItem.StudentQuoteImageUrl" ItemId="@CourseItem.Id"></ImageControl>

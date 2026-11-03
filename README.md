@@ -6,6 +6,12 @@ A comprehensive Blazor-based management system for organizing and maintaining ed
 
 ProgramInformationV2 is a modern web application designed to manage academic program information, course catalogs, credentials, and associated data. The system provides a complete solution for educational institutions to organize, search, and maintain their course and program offerings.
 
+### Help Documentation
+
+Documentation is in markdown files in the `documentation` folder. The documentation is generated into HTML files in the `docs` folder using a PowerShell script.
+
+**Regenerating**: The Markdown stays the source of truth. After editing a .md file, run pwsh .\Documentation\Build-Documentation.ps1 from the repo root and commit the regenerated HTML. The script deletes and rebuilds the folder each time, so don't put hand-edited files there.
+
 ## Architecture
 
 The solution consists of four main projects:

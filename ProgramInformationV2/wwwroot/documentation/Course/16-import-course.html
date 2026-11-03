@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Import a Course | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="import-a-course">Import a Course</h1>
+<p><a href="index.html">Back to Courses Knowledge Base</a></p>
+<p><strong>Where:</strong> <strong>Courses &gt; Import Campus Courses</strong> (<code>/courses/import</code>)</p>
+<p>Runs or schedules a course import from the Electronic Data Warehouse. Requires that your area uses both courses and sections; otherwise the page links to Configuration to enable them.</p>
+<h2 id="options">Options</h2>
+<ol>
+<li><strong>By Rubric</strong>: loads all courses of a rubric. <strong>This always overwrites existing course information.</strong> It runs asynchronously and may take a while; view progress in the course import log (<code>/audit/courseimportlog</code>). Enter several rubrics as a comma-delimited list.</li>
+<li><strong>By Rubric and Course Number</strong>: loads one course immediately. Two switches appear:
+<ul>
+<li><strong>Include Sections?</strong></li>
+<li><strong>Overwrite existing data?</strong>: off means only new sections are loaded.</li>
+</ul>
+</li>
+</ol>
+<p>The import looks back five years and forward one year from the current date.</p>
+<h2 id="steps">Steps</h2>
+<ol>
+<li>Enter <strong>Rubric</strong> (and optionally <strong>Course Number</strong>).</li>
+<li>Set the switches if shown.</li>
+<li>Select <strong>Import Course</strong>.</li>
+</ol>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

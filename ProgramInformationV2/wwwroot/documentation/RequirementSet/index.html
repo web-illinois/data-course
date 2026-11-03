@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Requirement Sets Knowledge Base | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="requirement-sets-knowledge-base">Requirement Sets Knowledge Base</h1>
+<p><a href="../index.html">Back to Documentation Home</a></p>
+<p>End-user documentation for the <strong>Requirement Sets</strong> section of the Program Information application (pages under <code>/requirementset</code> and <code>/requirementsets</code>).</p>
+<h2 id="what-is-a-requirement-set">What is a Requirement Set?</h2>
+<p>A Requirement Set is a group of courses that a student needs to take in order to earn a credential. The requirement can be &quot;take all of these courses&quot; or &quot;take 12 hours of some of these courses.&quot; This text is added manually in the <strong>Description</strong> field.</p>
+<h2 id="how-credentials-requirement-sets-and-courses-connect">How Credentials, Requirement Sets, and Courses connect</h2>
+<pre><code>Program
+  └── Credential            (a degree, certificate, or endorsement)
+		└── Requirement Set (0 to many per credential)
+			  └── Course    (0 to many per requirement set)
+					└── Section
+</code></pre>
+<ul>
+<li>A <strong>Credential</strong> can contain <strong>0 to many Requirement Sets</strong>.</li>
+<li>A <strong>Requirement Set</strong> can contain <strong>0 to many Courses</strong>.</li>
+<li>A Requirement Set describes a rule a student must satisfy, for example:
+<ul>
+<li><strong>Must take all of these courses</strong></li>
+<li><strong>Must take one of these courses</strong></li>
+<li><strong>Must take 9 credit hours from the following courses</strong></li>
+</ul>
+</li>
+<li>Together, a credential's requirement sets form its <strong>plan of study</strong> (see the Credential <strong>Course List</strong> page).</li>
+<li>A requirement set is normally <strong>private</strong> to one credential. It can be marked <strong>shared</strong> so other credentials can reuse it.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Article</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><a href="01-finding-and-creating.html">Finding and Creating Requirement Sets</a></td>
+<td>The Requirement Sets list page</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="02-general-information.html">General Information</a></td>
+<td>Titles, description, credit hours, and how rules are expressed</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="03-courses.html">Courses</a></td>
+<td>Adding and removing courses</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="04-technical-information.html">Technical Information</a></td>
+<td>Status, shared/private, credentials in use, delete</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="05-connecting-credentials-and-courses.html">How Credentials, Requirement Sets, and Courses Work Together</a></td>
+<td>Step-by-step examples</td>
+</tr>
+</tbody>
+</table>
+<h2 id="basics">Basics</h2>
+<ul>
+<li>Each page has an orange <strong>Save</strong> button. Changes are not stored until you select it.</li>
+<li>A <strong>Back</strong> button appears when you arrived from another page, such as a credential's Course List.</li>
+<li>Requirement sets must be enabled in <strong>Configuration &gt; Fields Used &gt; Requirement Sets</strong>. Connecting courses also requires courses to be enabled, and using requirement sets requires credentials to be enabled.</li>
+</ul>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>
