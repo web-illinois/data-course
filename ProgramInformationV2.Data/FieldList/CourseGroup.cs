@@ -67,8 +67,6 @@ namespace ProgramInformationV2.Data.FieldList {
                 new() { Title = "Term", CategoryType = CategoryType.Course, FieldType = FieldType.Location_Time },
                 new() { Title = "Days", CategoryType = CategoryType.Course, FieldType = FieldType.Location_Time },
                 new() { Title = "Time", CategoryType = CategoryType.Course, FieldType = FieldType.Location_Time },
-                new() { Title = "Filters", CategoryType = CategoryType.Course, InitialDescription = "", FieldType = FieldType.Filters },
-                new() { Title = "Note List", CategoryType = CategoryType.Course, InitialDescription = "", FieldType = FieldType.NotesList },
                 new() { Title = "Internal Search Text", CategoryType = CategoryType.Course, InitialDescription = "Internal text used to manage search fields. Not displayed to the end user but used in search.", FieldType = FieldType.Technical },
                 new() { Title = "Id", CategoryType = CategoryType.Course, FieldType = FieldType.Technical, InitialDescription = "The ID of the item, which may be used in a CMS to pull the item and display it on a webpage." },
                 new() { Title = "Edit Link", CategoryType = CategoryType.Course, FieldType = FieldType.Technical, InitialDescription = "This is a quick link to edit this item directly." }
