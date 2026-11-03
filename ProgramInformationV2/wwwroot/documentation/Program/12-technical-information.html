@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Technical Information | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="technical-information">Technical Information</h1>
+<p><a href="index.html">Back to Programs Knowledge Base</a></p>
+<p><strong>Where:</strong> Program sidebar &gt; <strong>Technical Information</strong> (<code>/program/technical</code>)</p>
+<h2 id="status-on-site">Status on Site</h2>
+<p>Controls whether the program is active (published) on your site. Set it, then select <strong>Save</strong>.</p>
+<h2 id="internal-search-text">Internal Search Text</h2>
+<p>Text that helps editors find this program when searching. It is for internal use and is not meant for display. Enter synonyms, old names, or abbreviations, then select <strong>Save</strong>.</p>
+<h2 id="information-to-copy">Information to Copy</h2>
+<p>Read-only values you can copy for integrations or support:</p>
+<ul>
+<li><strong>Id</strong>: the program's unique ID. You need this to copy the program from production.</li>
+<li><strong>Edit Link</strong>: a direct link to edit this program.</li>
+</ul>
+<h2 id="test-environment-tools">Test environment tools</h2>
+<p>These sections appear <strong>only if your source is a test environment</strong> (the source code ends with <code>!</code>).</p>
+<h3 id="copy-program-from-production">Copy Program From Production</h3>
+<p>Refreshes the test program from production, discarding your test changes.</p>
+<ol>
+<li>Select <strong>Copy Program from Production</strong>.</li>
+<li>The program <strong>and all credentials under it</strong> are overwritten in the test environment.</li>
+<li>If production has no matching program, you see &quot;No corresponding program found in production.&quot;</li>
+<li>On success, you can start editing immediately.</li>
+</ol>
+<h3 id="transfer-program-to-production">Transfer Program To Production</h3>
+<p>Sends the test program to production.</p>
+<ol>
+<li>Make sure the same requirement sets exist in both test and production.</li>
+<li>Select <strong>Transfer Program To Production</strong>.</li>
+<li>The production program <strong>and all credentials under it</strong> are overwritten.</li>
+</ol>
+<blockquote>
+<p>Both actions overwrite data. Neither can be undone.</p>
+</blockquote>
+<h2 id="delete">Delete</h2>
+<p>At the bottom of the page is a delete notice for the program. Deleting is automatic and cannot be undone. After deletion you are returned to the Programs page.</p>
+<p>Consider saving a backup first (Transfer &gt; <strong>Save JSON File</strong>).</p>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

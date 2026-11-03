@@ -17,6 +17,12 @@ namespace ProgramInformationV2.Components.Pages.Program {
 
         private RichTextEditor _rteWhoShouldApply = default!;
 
+        private RichTextEditor _rteJobTypeInformation = default!;
+
+        private RichTextEditor _rteProfessionalInformation = default!;
+
+        private RichTextEditor _rteSkills = default!;
+
         [CascadingParameter]
         public SidebarLayout Layout { get; set; } = default!;
 
@@ -46,6 +52,15 @@ namespace ProgramInformationV2.Components.Pages.Program {
             if (_rteWhoShouldApply != null) {
                 ProgramItem.WhoShouldApply = await _rteWhoShouldApply.GetValue();
             }
+            if (_rteJobTypeInformation != null) {
+                ProgramItem.JobTypeInformation = await _rteJobTypeInformation.GetValue();
+            }
+            if (_rteProfessionalInformation != null) {
+                ProgramItem.ProfessionalInformation = await _rteProfessionalInformation.GetValue();
+            }
+            if (_rteSkills != null) {
+                ProgramItem.Skills = await _rteSkills.GetValue();
+            }
             _ = await ProgramSetter.SetProgram(ProgramItem);
             await Layout.Log(CategoryType.Program, FieldType.Overview, ProgramItem);
             await Layout.AddMessage("Program saved successfully.");
@@ -57,6 +72,9 @@ namespace ProgramInformationV2.Components.Pages.Program {
             ProgramItem = await ProgramGetter.GetProgram(id);
             _rteDescription.InitialValue = ProgramItem.Description;
             _rteWhoShouldApply.InitialValue = ProgramItem.WhoShouldApply;
+            _rteJobTypeInformation.InitialValue = ProgramItem.JobTypeInformation;
+            _rteProfessionalInformation.InitialValue = ProgramItem.ProfessionalInformation;
+            _rteSkills.InitialValue = ProgramItem.Skills;
             var sidebar = await SourceHelper.DoesSourceUseItem(sourceCode, CategoryType.Credential) ? SidebarEnum.ProgramWithCredential : SidebarEnum.Program;
             Layout.SetSidebar(sidebar, ProgramItem.Title);
             _fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new ProgramGroup(), FieldType.Overview);

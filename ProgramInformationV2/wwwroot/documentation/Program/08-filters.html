@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Filters and Filter List | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="filters-and-filter-list">Filters and Filter List</h1>
+<p><a href="index.html">Back to Programs Knowledge Base</a></p>
+<p>Filters let website visitors search for programs by department, skill, length, and tag.</p>
+<p>There are two versions of this page. Which one you see depends on whether your source uses credentials.</p>
+<table>
+<thead>
+<tr>
+<th>Your source</th>
+<th>Menu item</th>
+<th>Page type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Does <strong>not</strong> use credentials</td>
+<td><strong>Filters</strong> (<code>/program/filters</code>)</td>
+<td>Editable</td>
+</tr>
+<tr>
+<td><strong>Uses</strong> credentials</td>
+<td><strong>Filter List</strong> (<code>/program/filtersread</code>)</td>
+<td>Read only</td>
+</tr>
+</tbody>
+</table>
+<h2 id="editable-filters-page">Editable Filters page</h2>
+<p><strong>Where:</strong> Program sidebar &gt; <strong>Filters</strong></p>
+<p>Toggle each filter on or off for this program. Filters are grouped:</p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Departments</strong></td>
+<td>Academic units inside your area, such as Astronomy, Electrical Engineering, or Linguistics. They may be official units or informal categories.</td>
+</tr>
+<tr>
+<td><strong>Skills/Topics</strong></td>
+<td>What a student expects to gain. These should be student-focused and may span departments (for example, Financial Management).</td>
+</tr>
+<tr>
+<td><strong>Lengths</strong></td>
+<td>Expected time to complete the credential, from a few weeks to several years. If a program has several options, select all that apply.</td>
+</tr>
+<tr>
+<td><strong>Tags</strong></td>
+<td>Defined by your college or department, such as self-paced degrees or certifications.</td>
+</tr>
+</tbody>
+</table>
+<p>Steps:</p>
+<ol>
+<li>Toggle the filters that apply.</li>
+<li>Select <strong>Save</strong>.</li>
+</ol>
+<p>If your source administrator added instructions for this page, they appear under <strong>Instructions</strong>.</p>
+<h2 id="filter-list-read-only">Filter List (read only)</h2>
+<p><strong>Where:</strong> Program sidebar &gt; <strong>Filter List</strong></p>
+<p>When credentials are in use, a program's filters are <strong>compiled from its credentials' filters</strong>. You cannot change them here. The page lists each department, skill, length, and tag as <strong>enabled</strong> (bold) or <strong>disabled</strong>.</p>
+<p>To change them, go to <a href="09-credential-list.html">Credential List</a>, open a credential, and edit its <strong>Filters</strong>.</p>
+<h2 id="if-you-see-a-message-instead-of-filters">If you see a message instead of filters</h2>
+<ul>
+<li><strong>&quot;No filters are available for this source&quot;</strong>: nobody has created filters yet. A source administrator can add them in <strong>Configuration &gt; Manage Filters</strong>.</li>
+<li><strong>&quot;Filters are not currently being used for this source&quot;</strong>: filters are turned off. Enable them in <strong>Configuration &gt; Fields Used &gt; Programs</strong>.</li>
+</ul>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

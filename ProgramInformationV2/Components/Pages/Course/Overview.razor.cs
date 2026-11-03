@@ -12,8 +12,10 @@ namespace ProgramInformationV2.Components.Pages.Course {
 
     public partial class Overview {
         private RichTextEditor _rteDescription = default!;
-
         private RichTextEditor _rteWhoShouldApply = default!;
+        private RichTextEditor _rteJobTypeInformation = default!;
+        private RichTextEditor _rteProfessionalInformation = default!;
+        private RichTextEditor _rteSkills = default!;
 
         public ProgramInformationV2.Search.Models.Course CourseItem { get; set; } = default!;
 
@@ -47,6 +49,15 @@ namespace ProgramInformationV2.Components.Pages.Course {
             if (_rteWhoShouldApply != null) {
                 CourseItem.ExternalDetails = await _rteWhoShouldApply.GetValue();
             }
+            if (_rteJobTypeInformation != null) {
+                CourseItem.JobTypeInformation = await _rteJobTypeInformation.GetValue();
+            }
+            if (_rteProfessionalInformation != null) {
+                CourseItem.ProfessionalInformation = await _rteProfessionalInformation.GetValue();
+            }
+            if (_rteSkills != null) {
+                CourseItem.Skills = await _rteSkills.GetValue();
+            }
             _ = await CourseSetter.SetCourse(CourseItem);
             await Layout.Log(CategoryType.Course, FieldType.Overview, CourseItem);
             await Layout.AddMessage("Course saved successfully.");
@@ -62,6 +73,9 @@ namespace ProgramInformationV2.Components.Pages.Course {
             CourseItem = await CourseGetter.GetCourse(id);
             _rteDescription.InitialValue = CourseItem.Details;
             _rteWhoShouldApply.InitialValue = CourseItem.ExternalDetails;
+            _rteJobTypeInformation.InitialValue = CourseItem.JobTypeInformation;
+            _rteProfessionalInformation.InitialValue = CourseItem.ProfessionalInformation;
+            _rteSkills.InitialValue = CourseItem.Skills;
             _fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new CourseGroup(), FieldType.Overview);
             var sidebar = await SourceHelper.DoesSourceUseItem(sourceCode, CategoryType.Section) ? SidebarEnum.CourseWithSection : SidebarEnum.Course;
             Layout.SetSidebar(sidebar, CourseItem.Title);

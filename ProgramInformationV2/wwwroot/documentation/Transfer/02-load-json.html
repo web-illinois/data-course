@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Load JSON Information to the Server | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="load-json-information-to-the-server">Load JSON Information to the Server</h1>
+<p><a href="index.html">Back to Transfer Knowledge Base</a></p>
+<p><strong>Where:</strong> Transfer sidebar &gt; <strong>Load JSON Information to the Server</strong> (<code>/transfer/loadjson</code>)</p>
+<p>Uploads a JSON file to your source. Use it to make bulk changes, restore a backup, or bring in data from another source.</p>
+<blockquote>
+<p><strong>Loading overwrites data.</strong> If an item in the file has the same ID as an existing item, the existing item is <strong>overwritten</strong>. Items with new IDs are <strong>added</strong>. Save a backup first. See <a href="01-save-json.html">Save Information to JSON</a>.</p>
+</blockquote>
+<h2 id="what-you-can-load">What you can load</h2>
+<ul>
+<li><strong>Programs</strong> (including credentials)</li>
+<li><strong>Courses</strong> (including sections)</li>
+<li><strong>Requirement Sets</strong></li>
+<li><strong>Configuration</strong>: loads the filters in the file.</li>
+</ul>
+<blockquote>
+<p><strong>Configuration can only be loaded into a blank source.</strong> If the source already has any data, you cannot load configuration to it. Load configuration first, before creating or loading any programs, courses, or requirement sets.</p>
+</blockquote>
+<h2 id="steps">Steps</h2>
+<ol>
+<li>Open <strong>Load JSON Information to the Server</strong>.</li>
+<li>In <strong>File type</strong>, choose the type that matches your file.</li>
+<li>Choose the file with the file picker. Messages show &quot;Starting to upload file.&quot; then &quot;Uploaded file.&quot;</li>
+<li>Select <strong>Load JSON File</strong>.</li>
+<li>Wait. The message &quot;JSON file being prepared -- this may take a while.&quot; appears, followed by the result.</li>
+</ol>
+<h2 id="rules-and-limits">Rules and limits</h2>
+<ul>
+<li><strong>Maximum file size:</strong> the file must be under about 2 MB (2,048,000 bytes). Larger files are rejected with &quot;File size needs to be under 2048000&quot;. Split large files into several smaller ones and load each.</li>
+<li><strong>IDs must start with the source.</strong> Each item's ID must begin with your source code. If the data came from another source, you must <strong>manually change the ID and source</strong> in the file to match the source you are loading into.</li>
+<li><strong>Choose the right type.</strong> Loading a file under the wrong type may fail or give unexpected results.</li>
+<li>If you do not choose a file type, you see &quot;Please choose a file type to download.&quot;</li>
+<li>Loading takes a while. Wait for the result message.</li>
+</ul>
+<h2 id="after-loading">After loading</h2>
+<p>Check a few items on the Programs, Courses, or Requirement Sets pages to confirm the changes. Manual JSON loads are <strong>not</strong> listed in an item's Audit page.</p>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

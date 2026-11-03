@@ -1,14 +1,16 @@
 ﻿@page "/course/overview"
 @layout SidebarLayout
 
-<PageTitle>Course - Overview</PageTitle>
+<PageTitle>Course Overview | Illinois</PageTitle>
 
 <ilw-content>
     <h1>Overview</h1>
     <RichTextEditor @ref="_rteDescription" Title="Details" FieldItems="_fieldItems"></RichTextEditor>
     <RichTextEditor @ref="_rteWhoShouldApply" Title="External Details" FieldItems="_fieldItems"></RichTextEditor>
-    @if (CourseItem != null)
-    {
+    <RichTextEditor @ref="@_rteJobTypeInformation" Title="Job Type Information" FieldItems="_fieldItems"></RichTextEditor>
+    <RichTextEditor @ref="@_rteProfessionalInformation" Title="Professional Information" FieldItems="_fieldItems"></RichTextEditor>
+    <RichTextEditor @ref="@_rteSkills" Title="Skills" FieldItems="_fieldItems"></RichTextEditor>
+    @if (CourseItem != null)   {
         <ilw-content>
             <ul class="ilw-buttons" id="save-group">
                 <li>

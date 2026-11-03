@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Save Information to JSON | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="save-information-to-json">Save Information to JSON</h1>
+<p><a href="index.html">Back to Transfer Knowledge Base</a></p>
+<p><strong>Where:</strong> Transfer sidebar &gt; <strong>Save Information to JSON</strong> (<code>/transfer/savejson</code>)</p>
+<p>Downloads your source's data as a JSON file. Use it to back up data or to export data for editing.</p>
+<h2 id="steps">Steps</h2>
+<ol>
+<li>Open <strong>Save Information to JSON</strong>.</li>
+<li>In <strong>File type</strong>, choose one:
+<ul>
+<li><strong>Programs</strong> (includes credentials)</li>
+<li><strong>Courses</strong> (includes sections)</li>
+<li><strong>Requirement Sets</strong></li>
+<li><strong>Configuration</strong></li>
+</ul>
+</li>
+<li>Select <strong>Save JSON File</strong>.</li>
+<li>Wait for the messages: &quot;JSON file being prepared -- this may take a while.&quot; then &quot;JSON file downloaded successfully: <em>filename</em>&quot;.</li>
+<li>Find the file in your browser's <strong>Downloads</strong> folder.</li>
+</ol>
+<p>If you do not choose a file type, the message &quot;Please choose a file type to download&quot; appears.</p>
+<h2 id="file-names">File names</h2>
+<p>Files are named <code>source_date_filetype.json</code>, for example <code>abc_2026_03_15_programs.json</code>, where the source is your source code and the date is the day you saved.</p>
+<h2 id="large-files">Large files</h2>
+<p>If the data is very large (about 4 MB or more), it is split into several files named with a number at the end (for example <code>..._programs_1.json</code>, <code>..._programs_2.json</code>). The message says &quot;split into parts because of size.&quot; Your browser may ask permission to download multiple files. Keep all the parts.</p>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Saving does not change any data in the application.</li>
+<li>Saving takes a while for large sources. Do not close the page until the download message appears.</li>
+</ul>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

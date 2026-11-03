@@ -12,6 +12,7 @@ namespace ProgramInformationV2.Components.Pages.Credential {
 
     public partial class Link {
         private ImageControl _imageUrl = default!;
+        private ImageControl _imageDetailUrl = default!;
         public Search.Models.Credential CredentialItem { get; set; } = new Search.Models.Credential();
         public IEnumerable<FieldItem> FieldItems { get; set; } = default!;
 
@@ -48,6 +49,9 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             CredentialItem.SetFullUrl(await Layout.GetBaseUrl());
             if (_imageUrl != null) {
                 _ = await _imageUrl.SaveFileToPermanent();
+            }
+            if (_imageDetailUrl != null) {
+                _ = await _imageDetailUrl.SaveFileToPermanent();
             }
             _ = await ProgramSetter.SetCredential(CredentialItem);
             await Layout.Log(CategoryType.Credential, FieldType.Link, CredentialItem);

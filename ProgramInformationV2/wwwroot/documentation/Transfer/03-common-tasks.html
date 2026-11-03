@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Common Tasks | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="common-tasks">Common Tasks</h1>
+<p><a href="index.html">Back to Transfer Knowledge Base</a></p>
+<h2 id="back-up-before-making-many-changes">Back up before making many changes</h2>
+<ol>
+<li>Go to <strong>Save Information to JSON</strong>.</li>
+<li>Save <strong>Programs</strong>, <strong>Courses</strong>, and <strong>Requirement Sets</strong> (and <strong>Configuration</strong> to keep a copy of your filters; configuration can only be loaded back into a blank source).</li>
+<li>Store the files somewhere safe.</li>
+<li>If something goes wrong, restore with <strong>Load JSON Information to the Server</strong> using the same file types. Items with the same IDs are overwritten with the backed-up versions.</li>
+</ol>
+<blockquote>
+<p>Items created after the backup remain. Loading a backup does not delete them.</p>
+</blockquote>
+<h2 id="make-many-changes-with-a-text-editor">Make many changes with a text editor</h2>
+<ol>
+<li>Save the file type you want to change.</li>
+<li>Open the <code>.json</code> file in a text editor (for example, Visual Studio Code or Notepad).</li>
+<li>Edit the values. Keep the structure, quotation marks, commas, and brackets intact. Do <strong>not</strong> change IDs unless you mean to create a new item.</li>
+<li>Save the file.</li>
+<li>Load it back with <strong>Load JSON Information to the Server</strong>.</li>
+</ol>
+<p>Tip: Save a backup before loading edits.</p>
+<h2 id="copy-data-from-one-source-to-another">Copy data from one source to another</h2>
+<ol>
+<li>In the original source, save the file types you need.</li>
+<li>Open each file in a text editor.</li>
+<li>Change every ID and source value so they begin with the <strong>new</strong> source code.</li>
+<li>Switch to the new source.</li>
+<li>Load each file with the matching file type.</li>
+</ol>
+<p>The new source must be <strong>blank</strong> to load <strong>Configuration</strong>. If it already has any data, configuration cannot be loaded and the filters must be created manually.</p>
+<p>Load in this order so connected items resolve properly:</p>
+<ol>
+<li><strong>Configuration</strong> (filters, blank source only)</li>
+<li><strong>Courses</strong></li>
+<li><strong>Requirement Sets</strong></li>
+<li><strong>Programs</strong> (including credentials)</li>
+</ol>
+<h2 id="restore-from-a-backup">Restore from a backup</h2>
+<p>Use <strong>Load JSON Information to the Server</strong> with the saved file and matching file type. Existing items with the same IDs are overwritten.</p>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

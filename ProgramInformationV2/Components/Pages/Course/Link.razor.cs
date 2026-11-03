@@ -13,6 +13,7 @@ namespace ProgramInformationV2.Components.Pages.Course {
 
     public partial class Link {
         private ImageControl _imageCourseImage = default!;
+        private ImageControl _imageDetailCourseImage = default!;
         private string _oldUrl = "";
         public ProgramInformationV2.Search.Models.Course CourseItem { get; set; } = default!;
         public IEnumerable<FieldItem> FieldItems { get; set; } = default!;
@@ -45,6 +46,9 @@ namespace ProgramInformationV2.Components.Pages.Course {
             CourseItem.SetFullUrl(await Layout.GetBaseUrl());
             if (_imageCourseImage != null) {
                 _ = await _imageCourseImage.SaveFileToPermanent();
+            }
+            if (_imageDetailCourseImage != null) {
+                _ = await _imageDetailCourseImage.SaveFileToPermanent();
             }
             _ = await CourseSetter.SetCourse(CourseItem);
             if (_oldUrl != CourseItem.Url) {

@@ -1,0 +1,21 @@
+﻿@page "/program/quote"
+@layout SidebarLayout
+
+<PageTitle>Program Quote Information | Illinois</PageTitle>
+
+<ilw-content>
+    <h1>Quote Information</h1>
+</ilw-content>
+
+@if (ProgramItem != null && FieldItems != null) {
+    <MediumText Title="Quote Title" FieldItems="FieldItems" @bind-Value="ProgramItem.StudentQuoteTitle"></MediumText>
+    <MediumText Title="Quote Subtitle" FieldItems="FieldItems" @bind-Value="ProgramItem.Fragment"></MediumText>
+    <LargeText Title="Quote" FieldItems="FieldItems" @bind-Value="ProgramItem.StudentQuoteText"></LargeText>
+    <div class="image-box">
+        <ImageControl @ref="@_imageUrl" Title="Quote Image" FieldItems="FieldItems" @bind-Value="ProgramItem.StudentQuoteImageUrl" ItemId="@ProgramItem.Id"></ImageControl>
+        <MediumText Title="Quote Image Alternative Text" FieldItems="FieldItems" @bind-Value="ProgramItem.StudentQuoteImageAltText"></MediumText>
+    </div>
+    <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+    <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
+}
+

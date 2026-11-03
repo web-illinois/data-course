@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>How Fields Used Works | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="how-fields-used-works">How Fields Used Works</h1>
+<p><a href="index.html">Back to Fields Used Knowledge Base</a></p>
+<p>All five Fields Used pages (Programs, Credentials, Courses, Sections, Requirement Sets) work the same way. Only the list of fields differs.</p>
+<blockquote>
+<p>Settings apply only to the current source and never change other sources.</p>
+</blockquote>
+<h2 id="turn-the-feature-on-or-off">1. Turn the feature on or off</h2>
+<p>Each page starts with a yes/no question:</p>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Programs</td>
+<td>Would you like to add Programs to your source?</td>
+</tr>
+<tr>
+<td>Credentials</td>
+<td>Would you like to add credentials to your source?</td>
+</tr>
+<tr>
+<td>Courses</td>
+<td>Would you like to add courses to your source?</td>
+</tr>
+<tr>
+<td>Sections</td>
+<td>Would you like to add sections to your source?</td>
+</tr>
+<tr>
+<td>Requirement Sets</td>
+<td>Would you like to add requirement sets to your source?</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Yes</strong>: the feature's pages are available and the field list appears below.</li>
+<li><strong>No</strong>: the field list is hidden. Pages for that feature show a message that your area does not use it, with a link back to the matching Fields Used page.</li>
+</ul>
+<h2 id="hide-fields-that-you-do-not-use">2. Hide fields that you do not use</h2>
+<p>When a feature is on, fields are listed in groups. Each group has a heading (&quot;<em>Group</em> Fields&quot;) and a short explanation.</p>
+<p>Each field has a <strong>Show Item</strong> switch:</p>
+<ul>
+<li><strong>On</strong>: the field appears on the editing page.</li>
+<li><strong>Off</strong>: the field is <strong>hidden</strong> from editors.</li>
+</ul>
+<p><strong>Required fields</strong> have no switch and always appear.</p>
+<p>Hiding unused fields gives editors simpler pages. If a field is missing from an editing page, it was most likely hidden here.</p>
+<h2 id="add-instructions-for-each-item">3. Add instructions for each item</h2>
+<p>Next to every field is a text box. Enter <strong>instructions</strong> for editors, such as formatting rules, length limits, or where the information comes from.</p>
+<p>Examples:</p>
+<ul>
+<li>Contact Email: &quot;Use the department's shared address.&quot;</li>
+<li>Summary Text: &quot;Keep under 200 characters.&quot;</li>
+</ul>
+<p>Instructions can be added to every field, including required ones.</p>
+<h2 id="save">4. Save</h2>
+<p>Select <strong>Save</strong>. &quot;Information saved&quot; confirms the change. Unsaved changes are not applied, and the page tracks unsaved edits.</p>
+<h2 id="tips">Tips</h2>
+<ul>
+<li>Turn a feature on before creating items of that type.</li>
+<li>Hide fields only after checking that editors do not need them. Hidden fields are not shown, but existing data stays in the item.</li>
+<li>Revisit Fields Used when you create a new source; each source has its own settings.</li>
+<li>Filters, Related Links, and Notes are controlled here as well. If an editing page says one &quot;is not currently being used for this source&quot;, turn it on on the matching page.</li>
+</ul>
+<h2 id="dependencies">Dependencies</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Needs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Requirement Sets</td>
+<td>Credentials</td>
+</tr>
+<tr>
+<td>Requirement Set &gt; Courses</td>
+<td>Courses</td>
+</tr>
+<tr>
+<td>Sections</td>
+<td>Courses</td>
+</tr>
+<tr>
+<td>Course import</td>
+<td>Courses and Sections</td>
+</tr>
+</tbody>
+</table>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

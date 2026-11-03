@@ -12,8 +12,11 @@ namespace ProgramInformationV2.Components.Pages.Credential {
 
     public partial class Overview {
         private RichTextEditor _rteDescription = default!;
-
         private RichTextEditor _rteProgramNotes = default!;
+        private RichTextEditor _rteWhoShouldApply = default!;
+        private RichTextEditor _rteJobTypeInformation = default!;
+        private RichTextEditor _rteProfessionalInformation = default!;
+        private RichTextEditor _rteSkills = default!;
 
         public Search.Models.Credential CredentialItem { get; set; } = new Search.Models.Credential();
         public IEnumerable<FieldItem> FieldItems { get; set; } = default!;
@@ -54,6 +57,18 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             if (_rteProgramNotes != null) {
                 CredentialItem.Notes = await _rteProgramNotes.GetValue();
             }
+            if (_rteWhoShouldApply != null) {
+                CredentialItem.WhoShouldApply = await _rteWhoShouldApply.GetValue();
+            }
+            if (_rteJobTypeInformation != null) {
+                CredentialItem.JobTypeInformation = await _rteJobTypeInformation.GetValue();
+            }
+            if (_rteProfessionalInformation != null) {
+                CredentialItem.ProfessionalInformation = await _rteProfessionalInformation.GetValue();
+            }
+            if (_rteSkills != null) {
+                CredentialItem.Skills = await _rteSkills.GetValue();
+            }
             _ = await ProgramSetter.SetCredential(CredentialItem);
             await Layout.Log(CategoryType.Credential, FieldType.Overview, CredentialItem);
             await Layout.AddMessage("Credential saved successfully.");
@@ -68,6 +83,10 @@ namespace ProgramInformationV2.Components.Pages.Credential {
             CredentialItem = await CredentialGetter.GetCredential(id);
             _rteDescription.InitialValue = CredentialItem.Description;
             _rteProgramNotes.InitialValue = CredentialItem.Notes;
+            _rteWhoShouldApply.InitialValue = CredentialItem.WhoShouldApply;
+            _rteJobTypeInformation.InitialValue = CredentialItem.JobTypeInformation;
+            _rteProfessionalInformation.InitialValue = CredentialItem.ProfessionalInformation;
+            _rteSkills.InitialValue = CredentialItem.Skills;
             UsePrograms = await SourceHelper.DoesSourceUseItem(sourceCode, CategoryType.Program);
             FieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new CredentialGroup(), FieldType.Overview);
             Layout.SetSidebar(SidebarEnum.Credential, CredentialItem.TitlePlusCredential);

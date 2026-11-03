@@ -1,7 +1,7 @@
 ﻿@page "/course/link"
 @layout SidebarLayout
 
-<PageTitle>Course - Link and Image</PageTitle>
+<PageTitle>Course Link and Image | Illinois</PageTitle>
 
 <ilw-content>
     <h1>Link and Image</h1>
@@ -12,8 +12,12 @@
     <UrlText Title="Summary Link (URL)" FieldItems="FieldItems" @bind-Value="CourseItem.Url"></UrlText>
     <UrlText Title="Apply Now / Get More Information Link (URL)" FieldItems="FieldItems" @bind-Value="CourseItem.ExternalUrl"></UrlText>
     <div class="image-box">
-    <ImageControl @ref="@_imageCourseImage" Title="Image URL" FieldItems="FieldItems" @bind-Value="CourseItem.ImageUrl" ItemId="@CourseItem.Id"></ImageControl>
-    <MediumText Title="Image Alt Text" FieldItems="FieldItems" @bind-Value="CourseItem.ImageAltText"></MediumText>
+        <ImageControl @ref="@_imageCourseImage" Title="Image URL" FieldItems="FieldItems" @bind-Value="CourseItem.ImageUrl" ItemId="@CourseItem.Id"></ImageControl>
+        <MediumText Title="Image Alt Text" FieldItems="FieldItems" @bind-Value="CourseItem.ImageAltText"></MediumText>
+    </div>
+    <div class="image-box">
+        <ImageControl Title="Detail Course Image" @ref="@_imageDetailCourseImage" FieldItems="FieldItems" @bind-Value="CourseItem.DetailImageUrl" ItemId="@CourseItem.Id"></ImageControl>
+        <MediumText Title="Detail Course Image Alternative Text" FieldItems="FieldItems" @bind-Value="CourseItem.DetailImageAltText"></MediumText>
     </div>
     <UrlText Title="Video URL" FieldItems="FieldItems" @bind-Value="CourseItem.VideoUrl"></UrlText>
     <ilw-content>

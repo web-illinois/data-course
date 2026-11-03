@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Manage Note Templates | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="manage-note-templates">Manage Note Templates</h1>
+<p><a href="index.html">Back to Configuration Knowledge Base</a></p>
+<p><strong>Where:</strong> Configuration &gt; <strong>Manage Note Templates</strong> (<code>/configuration/notetemplates</code>)</p>
+<p>&quot;Notes&quot; are FAQ-like entries with a heading or question, a text area, and a link to extra information. You can write notes on an individual program, credential, or course, or create <strong>note templates</strong> here that apply to many at once.</p>
+<blockquote>
+<p>Templates apply only within this source.</p>
+</blockquote>
+<h2 id="choose-a-type">Choose a type</h2>
+<p>Select <strong>Programs</strong>, <strong>Credentials</strong>, or <strong>Courses</strong> to see that type's templates.</p>
+<h2 id="template-list">Template list</h2>
+<p>Each template has buttons to move up or down (change order), <strong>Edit</strong>, or <strong>Remove</strong>.</p>
+<h2 id="add-or-edit-a-template">Add or edit a template</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Criteria: Show Only For</strong></td>
+<td>Limit the template to a Department, Degree, Format, Skill, or Tag. Leave blank to apply to all.</td>
+</tr>
+<tr>
+<td><strong>Criteria Value</strong></td>
+<td>The specific value for the criteria. For Credential Degree, choose <code>Base_Undergraduate</code>, <code>Base_Graduate</code>, or <code>Base_Certificate</code> to apply to all undergraduate, graduate, or certificate credentials.</td>
+</tr>
+<tr>
+<td><strong>Title</strong></td>
+<td>The note heading.</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>The note text. Accepts Markdown links <code>[name](url)</code>, bullet lists <code>*</code>, and converts links automatically. Use <code>[title]</code> to insert the program / credential / course title.</td>
+</tr>
+<tr>
+<td><strong>Link Name</strong></td>
+<td>Text of the link.</td>
+</tr>
+<tr>
+<td><strong>Link URL</strong></td>
+<td>Web address of the link.</td>
+</tr>
+</tbody>
+</table>
+<p>Select <strong>Add</strong> (or <strong>Edit</strong>), then <strong>Save</strong> at the bottom of the page.</p>
+<h2 id="overriding-a-template-on-one-item">Overriding a template on one item</h2>
+<p>Give a note on the specific program, credential, or course the <strong>same title</strong> as the template. It replaces the template for that item.</p>
+<p>Notes on an item display at the end of the list, unless they override a template. To control position, create a <strong>placeholder</strong> with a blank description, link text, and link URL. Notes with all three blank are never displayed.</p>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>
