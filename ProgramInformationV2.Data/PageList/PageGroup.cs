@@ -107,9 +107,9 @@
             { SidebarEnum.ProgramWithCredential, [
                     new("General Information", "/program/general"),
                     new("Link and Image", "/program/link"),
+                    new("Overview", "/program/overview"),
                     new("Admissions", "/program/admissions"),
                     new("Quote Information", "/program/quote"),
-                    new("Overview", "/program/overview"),
                     new("Filter List", "/program/filtersread"),
                     new("Credential List", "/program/credentiallist"),
                     new("Related Links", "/program/relatedlinks"),
