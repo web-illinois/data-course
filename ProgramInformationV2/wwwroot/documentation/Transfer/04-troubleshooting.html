@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Troubleshooting | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="troubleshooting">Troubleshooting</h1>
+<p><a href="index.html">Back to Transfer Knowledge Base</a></p>
+<p><strong>&quot;Please choose a file type to download.&quot;</strong>
+Pick a value in <strong>File type</strong> before selecting the button.</p>
+<p><strong>The download didn't start.</strong>
+Large sources take time. Wait for the &quot;downloaded successfully&quot; message. Check your browser's download settings and pop-up/multiple download blocking.</p>
+<p><strong>I received several files.</strong>
+The data was large and was split into parts. Keep all parts and load each one.</p>
+<p><strong>&quot;File size needs to be under 2048000.&quot;</strong>
+The file is too large to load. Split it into smaller files, each with a complete valid list of items, and load each separately.</p>
+<p><strong>My items were added instead of replacing existing ones.</strong>
+IDs did not match existing items. IDs must start with your source code and must match exactly to overwrite.</p>
+<p><strong>My items overwrote existing ones unexpectedly.</strong>
+Items with the same ID are always overwritten. Restore from a backup if needed.</p>
+<p><strong>Loading from another source didn't work.</strong>
+Change the ID and source values in the file to the new source before loading.</p>
+<p><strong>I can't load Configuration.</strong>
+Configuration can only be loaded into a blank source. If the source already has any data, the load is not allowed. Use a blank source, or create the filters manually on <strong>Configuration &gt; Filters</strong>.</p>
+<p><strong>Changes from a JSON load aren't in the audit.</strong>
+Audit pages only list manual edits, not JSON loads or API updates.</p>
+<p><strong>The page says it is taking a while.</strong>
+Large loads and saves are slow. Wait for the result message before navigating away.</p>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

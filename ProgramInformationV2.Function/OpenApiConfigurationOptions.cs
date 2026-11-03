@@ -15,8 +15,8 @@ namespace ProgramInformationV2.Function {
 
         public OpenApiInfo Info { get; set; } = new OpenApiInfo() {
             Version = "1.0.0",
-            Title = "IT Partners Program/Course Repository API",
-            Description = "<p>List of APIs that allow users to pull information from the IT Partners Program / Course Repository. Use this with the IT Partners Program / Course Repository at <a href='https://course.wigg.illinois.edu'>https://course.wigg.illinois.edu</a>.</p> \n\r\n\r",
+            Title = "WIGG Course Application API",
+            Description = "<p>List of APIs that allow users to pull information from the WIGG Course Application. Use this with the WIGG Course Application at <a href='https://course.wigg.illinois.edu'>https://course.wigg.illinois.edu</a>.</p> \n\r\n\r",
             Contact = new OpenApiContact() {
                 Name = "Bryan Jonker",
                 Email = "jonker@illinios.edu",

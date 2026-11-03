@@ -1,0 +1,13 @@
+﻿@page "/program/admissions"
+@layout SidebarLayout
+
+<PageTitle>Program Admissions | Illinois</PageTitle>
+
+<ilw-content>
+    <h1>Admissions</h1>
+    <RichTextEditor @ref="@_rteAdmissions" Title="Admission Requirements" FieldItems="_fieldItems"></RichTextEditor>
+    <RichTextEditor @ref="@_rteTransferStudent" Title="Transfer Student Requirements" FieldItems="_fieldItems"></RichTextEditor>
+    <RichTextEditor @ref="@_rteProgramTracks" Title="Program Tracks" FieldItems="_fieldItems"></RichTextEditor>
+    <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
+    <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
+</ilw-content>

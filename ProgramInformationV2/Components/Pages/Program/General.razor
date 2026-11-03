@@ -1,7 +1,7 @@
 ﻿@page "/program/general"
 @layout SidebarLayout
 
-<PageTitle>Programs - General Information</PageTitle>
+<PageTitle>Program General Information | Illinois</PageTitle>
 
 <ilw-content>
     <h1>General Information</h1>
@@ -9,7 +9,10 @@
 
 @if (ProgramItem != null && FieldItems != null) {
     <MediumText Title="Title" FieldItems="FieldItems" @bind-Value="ProgramItem.Title"></MediumText>
+    <MediumText Title="Summary Title" FieldItems="FieldItems" @bind-Value="ProgramItem.SummaryTitle"></MediumText>
     <LargeText Title="Summary Text" FieldItems="FieldItems" @bind-Value="ProgramItem.SummaryText"></LargeText>
+    <MediumText Title="Contact" FieldItems="FieldItems" @bind-Value="ProgramItem.ContactName"></MediumText>
+    <MediumText Title="Contact Email" FieldItems="FieldItems" @bind-Value="ProgramItem.ContactEmail"></MediumText>
     <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
     <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
 }

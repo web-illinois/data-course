@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Security | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="security">Security</h1>
+<p><a href="index.html">Back to Configuration Knowledge Base</a></p>
+<p><strong>Where:</strong> Configuration &gt; <strong>Security</strong> (<code>/configuration/security</code>)</p>
+<p>Controls who can use <strong>this source</strong> and generates an API key for it. Access in one source does not give access to other sources.</p>
+<blockquote>
+<p>This page is not available to restricted users. Contact the source owner for unrestricted access.</p>
+</blockquote>
+<h2 id="existing-names">Existing Names</h2>
+<p>Each user is listed by email, with buttons:</p>
+<table>
+<thead>
+<tr>
+<th>Button</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Deactivate User</strong> / <strong>Activate User</strong></td>
+<td>Turns the user's access off or back on.</td>
+</tr>
+<tr>
+<td><strong>Restrict User Access</strong> / <strong>Allow User To Access Everything</strong></td>
+<td>Restricted users can only edit programs and credentials assigned to them (see each program's Security page).</td>
+</tr>
+<tr>
+<td><strong>Remove User</strong></td>
+<td>Removes the user from the source.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="adding-a-new-name">Adding a New Name</h2>
+<ol>
+<li>Enter the <strong>New Net ID</strong>. The <code>@illinois.edu</code> part is optional.</li>
+<li>Select <strong>Add Net ID</strong>.</li>
+</ol>
+<h2 id="api-updates">API Updates</h2>
+<p>An <strong>API key</strong> lets a program add, update, and delete items in this source.</p>
+<ul>
+<li>If a key is active, the page shows when it was last changed.</li>
+<li><strong>Create a New API key</strong>: generates a key and shows it once. <strong>Record it immediately; you cannot see it again after leaving the page.</strong></li>
+<li><strong>Invalidate the API key</strong>: deactivates the key.</li>
+<li>Creating a new key does not disable an old valid key. If a key may be compromised, <strong>invalidate first</strong>, then create a new one.</li>
+</ul>
+<p>Changes made through the API are not listed in item audit pages.</p>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

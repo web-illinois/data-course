@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Program Information Documentation | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="program-information-documentation">Program Information Documentation</h1>
+<h2 id="introduction">Introduction</h2>
+<p>The Program Information application is where colleges, departments, and units maintain the information that appears on their public websites about <strong>programs</strong>, <strong>credentials</strong>, <strong>courses</strong>, <strong>sections</strong>, and <strong>requirement sets</strong>. This documentation is written for the people who edit that information. It explains each screen, what each field is for, and what happens when you save, transfer, or delete.</p>
+<h2 id="key-concept-sources">Key concept: sources</h2>
+<p>A <strong>source</strong> is a separate workspace for one college, department, or unit. Each source has its own data, filters, note templates, settings, security, and API key.</p>
+<blockquote>
+<p><strong>Updating one source does not affect any other source.</strong> Always confirm which source you are working in before making changes, especially before deleting.</p>
+</blockquote>
+<h2 id="how-the-information-fits-together">How the information fits together</h2>
+<ul>
+<li>A <strong>program</strong> groups one or more credentials. It is used to group credentials (for example, in &quot;Astronomy&quot;, you can get a BS, MS, or PhD).</li>
+<li>A <strong>credential</strong> can contain 0 to many requirement sets. It is your degree or certificate.</li>
+<li>A <strong>requirement set</strong> can contain 0 to many courses. It describes a rule such as &quot;must take all of these courses&quot;, &quot;must take one of these courses&quot;, or &quot;must take 9 credit hours from the following courses&quot;. A requirement set may be shared among multiple credentials.</li>
+<li>A <strong>course</strong> has one or more sections. A course may have one section called &quot;Online&quot; that covers everything, or it may have multiple sections.</li>
+</ul>
+<h2 id="documentation-summary">Documentation summary</h2>
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="Program/index.html">Program</a></td>
+<td>Editing a program: general information, links and images, overview, admissions, quote, filters, credential list, related links, notes, technical information, security, and audit history.</td>
+</tr>
+<tr>
+<td><a href="Credential/index.html">Credential</a></td>
+<td>Editing a credential: general information, filters, course list (requirement sets), transcript information, technical information, security, and audit history.</td>
+</tr>
+<tr>
+<td><a href="RequirementSet/index.html">Requirement Set</a></td>
+<td>Creating requirement sets (groups of courses needed for a credential), writing the rule in the Description field, setting credit hours, adding courses, shared and private sets, and how credentials, requirement sets, and courses connect.</td>
+</tr>
+<tr>
+<td><a href="Course/index.html">Course</a></td>
+<td>Editing a course: general information, faculty, location and time, section list, importing courses from the Electronic Data Warehouse, Canvas, and Coursera.</td>
+</tr>
+<tr>
+<td><a href="Section/index.html">Section</a></td>
+<td>Editing a section: general information, location and time, faculty, and technical information.</td>
+</tr>
+<tr>
+<td><a href="Transfer/index.html">Transfer</a></td>
+<td>Saving data to JSON files and loading them back, to copy data between sources, back up before large changes, or make bulk edits in a text editor.</td>
+</tr>
+<tr>
+<td><a href="Configuration/index.html">Configuration</a></td>
+<td>Source-level setup: sources, filters, note templates, security and API keys, settings, deleting a source, and testing access.</td>
+</tr>
+<tr>
+<td><a href="FieldsUsed/index.html">FieldsUsed</a></td>
+<td>Turning features on or off for your source, hiding fields you do not use, and adding instructions for each field.</td>
+</tr>
+<tr>
+<td><a href="Audit/index.html">Audit</a></td>
+<td>Reports for reviewing changes and checking data quality, such as unused requirement sets and the course import log.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="where-to-start">Where to start</h2>
+<ul>
+<li><strong>New to the application?</strong> Read this page, then the <a href="Configuration/index.html">Configuration</a> and <a href="FieldsUsed/index.html">FieldsUsed</a> overviews.
+or <a href="Course/index.html">Course</a>.</li>
+<li><strong>Building a plan of study?</strong> Read <a href="RequirementSet/index.html">Requirement Set</a>.</li>
+<li><strong>Making a backup or bulk change?</strong> Read <a href="Transfer/index.html">Transfer</a>.</li>
+<li><strong>Checking for problems?</strong> Read <a href="Audit/index.html">Audit</a>.</li>
+</ul>
+<h2 id="conventions-used">Conventions used</h2>
+<ul>
+<li><strong>Bold text</strong> is a button, field, or menu item as it appears on screen.</li>
+<li>Routes such as <code>/program/general</code> show the page address within the application.</li>
+<li>Most pages have a <strong>Save</strong> button. Changes are not stored until you select it. Security pages are the exception and save immediately.</li>
+<li>Fields and pages may differ between sources because features can be turned on or off, and fields hidden, in <strong>Fields Used</strong>.</li>
+</ul>
+<h2 id="getting-help">Getting help</h2>
+<p>Go to <a href="https://go.illinois.edu/course-toolkit-help">https://go.illinois.edu/course-toolkit-help</a> to report a bug, request an enhancement, or ask a question.</p>
+<h2 id="resources">Resources</h2>
+<p>The API for this is through a function app that is hosted at the WIGG Course API, and has search and ID options. Request information through an HTTP Get or Post and get JSON back.</p>
+<p>To report a bug or request an enhancement, go to our GitHub repository and create an issue. This will log the issue so we can review it. Note that this application is meant for campus, which means we cannot customize it to a specific unit unless others will benefit from the change.</p>
+<p>This application is meant to be used with the Illinois Toolkit, although there's no reason why you cannot use this application alone. The Toolkit Builder will have examples of how this can be integrated with the toolkit.</p>
+<h3 id="can-i-get-access-to-this">Can I get access to this?</h3>
+<p>You have three options:</p>
+<ul>
+<li>Go to the Source Code listing and create a source code. Once you create a new source code, you can start adding information through the editing interface and start pulling data using your programming language of choice by referencing the source code.</li>
+<li>Go to the Source Code listing and create a source code. Once you have created a new source code, go to the Security tab and add an API key. This will allow you to programatically add and edit courses, programs, etc. from your site via API calls.</li>
+<li>Take the existing code and point it to your own AWS OpenSearch instance. Go to our GitHub repository to see the code.</li>
+</ul>
+<h2 id="about-this-project">About This Project</h2>
+<p>This started in 2019 (with Bryan Jonker, Myranda Crist, and Elaine Robbins) as a way to organize the various programs that we have in the College of Education. The first incarnation worked but was skewed towards larger programs.</p>
+<p>In 2022, Gies College of Business needed a way to organize their online portfolio. At the same time, IT Partners @ Education needed an easier way to maintain our existing program list and make it more agile. At the same time as that, other areas on campus needed to organize their program and course information. This was built to meet those needs, with the emphasis on making it extensible to other areas of campus. Courtney Fleeger helped immensely with the user interface for this.</p>
+<p>In 2026, we transferred the tool to WIGG and the University Website Management Center of Expertise group.</p>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

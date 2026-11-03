@@ -27,6 +27,9 @@ namespace ProgramInformationV2.Search.Models {
 
         public string Enrollment { get; set; } = "";
         public string EnrollmentOnline { get; set; } = "";
+        public string EnrollmentOnlineFall { get; set; } = "";
+        public string EnrollmentOnlineSpring { get; set; } = "";
+        public string EnrollmentOnlineSummer { get; set; } = "";
 
         public string ExternalUrl { get; set; } = "";
 
@@ -36,10 +39,6 @@ namespace ProgramInformationV2.Search.Models {
         public IEnumerable<string> FormatTypeString => FormatType.ConvertFormatList();
 
         public string HourText { get; set; } = "";
-
-        public string ImageAltText { get; set; } = "";
-
-        public string ImageUrl { get; set; } = "";
 
         public override string InternalTitle => string.IsNullOrWhiteSpace(Title) ? $"{ProgramTitle} / {CredentialTypeString}" : string.IsNullOrWhiteSpace(ProgramTitle) || ProgramTitle == Title ? $"{Title} ({CredentialTypeString})" : $"{Title} ({ProgramTitle} / {CredentialTypeString})";
         public bool IsTranscriptable { get; set; }
@@ -65,19 +64,14 @@ namespace ProgramInformationV2.Search.Models {
         [Keyword]
         public IEnumerable<string> RequirementSetIds { get; set; }
 
-        public string SummaryText { get; set; } = "";
-
-        public string SummaryTitle { get; set; } = "";
-
         public string TitlePlusCredential => string.IsNullOrWhiteSpace(Title) ? (string.IsNullOrWhiteSpace(ProgramTitle) ? "" : $"{ProgramTitle} ({CredentialTypeString})") : $"{Title} ({CredentialTypeString})";
 
         public string TranscriptableName { get; set; } = "";
 
         public override void CleanHtmlFields() {
-            SummaryText = CleanHtml(SummaryText);
-            Description = CleanHtml(Description);
             Notes = CleanHtml(Notes);
             ProcessLists();
+            ProcessBaseItems();
         }
         public override void ChangeId(string newSource) {
             var oldSource = Source;

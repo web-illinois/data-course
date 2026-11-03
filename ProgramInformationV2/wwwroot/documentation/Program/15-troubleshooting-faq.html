@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Troubleshooting and FAQ | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="troubleshooting-and-faq">Troubleshooting and FAQ</h1>
+<p><a href="index.html">Back to Programs Knowledge Base</a></p>
+<p><strong>The Programs page says &quot;Your area does not use programs.&quot;</strong>
+Programs are off for your source. Ask a source owner to enable them in <strong>Configuration &gt; Fields Used &gt; Programs</strong>.</p>
+<p><strong>I can't find my program in the list.</strong></p>
+<ul>
+<li>Run a search; the list may not load automatically.</li>
+<li>Clear the <strong>Department</strong> filter.</li>
+<li>If you are a restricted user, you only see programs assigned to you. Ask a source owner to assign it on the program's <a href="13-security.html">Security</a> page.</li>
+</ul>
+<p><strong>The Create Program button is disabled.</strong>
+Restricted users cannot create programs. Ask a source owner for unrestricted access.</p>
+<p><strong>My changes weren't saved.</strong>
+Select <strong>Save</strong> before leaving a page. Look for &quot;Program saved successfully.&quot; Only the Security page saves automatically.</p>
+<p><strong>I can't edit the program's filters.</strong>
+Your source uses credentials, so the page is a read-only <strong>Filter List</strong>. Edit filters on each credential.</p>
+<p><strong>It says no filters are available.</strong>
+Ask a source administrator to add filters in <strong>Configuration &gt; Manage Filters</strong>.</p>
+<p><strong>A field is missing from a page.</strong>
+It has been hidden for your source in <strong>Configuration &gt; Fields Used &gt; Programs</strong>.</p>
+<p><strong>The Filters, Related Links, or Notes page says the feature is not used.</strong>
+Enable the feature in <strong>Fields Used &gt; Programs</strong>.</p>
+<p><strong>I don't see Copy or Transfer buttons.</strong>
+They appear only in a test environment (source code ending in <code>!</code>).</p>
+<p><strong>My test changes disappeared.</strong>
+<strong>Copy Program from Production</strong> overwrites the test program and its credentials. Check <a href="14-audits-and-changes.html">Audits and Changes</a>.</p>
+<p><strong>I deleted a program by mistake.</strong>
+Deletion cannot be undone. Restore it from a JSON backup, or contact IT Partners @ Education.</p>
+<p><strong>The public page doesn't show my changes.</strong>
+Confirm you saved, then use <strong>View Program</strong>. Also check <strong>Status on Site</strong> in <a href="12-technical-information.html">Technical Information</a>.</p>
+<p><strong>Who do I contact for more help?</strong>
+IT Partners @ Education.</p>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

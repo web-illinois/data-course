@@ -31,6 +31,7 @@
     <PackageReference Include="Microsoft.Identity.Web" Version="4.13.1" />
     <PackageReference Include="Microsoft.Identity.Web.UI" Version="4.13.1" />
     <PackageReference Include="OpenSearch.Client" Version="2.0.0" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.14" />
   </ItemGroup>
 
   <ItemGroup>

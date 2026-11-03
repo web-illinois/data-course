@@ -22,7 +22,9 @@
         CourseList,
         RelatedLinks,
         Security,
-        NotesList
+        NotesList,
+        QuoteOption,
+        Admissions
     }
 
     public enum ScreenType {

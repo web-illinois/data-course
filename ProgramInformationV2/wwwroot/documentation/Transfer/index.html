@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Transfer Knowledge Base | Documentation | Illinois</title>
+	<link rel="dns-prefetch" href="//cdn.brand.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.toolkit.illinois.edu">
+	<link rel="dns-prefetch" href="//cdn.disability.illinois.edu">
+	<link rel="shortcut icon" href="https://cdn.brand.illinois.edu/favicon.ico">
+	<link rel="apple-touch-icon" href="https://cdn.brand.illinois.edu/touch-icon-40x40.png">
+	<link rel="stylesheet" href="//cdn.toolkit.illinois.edu/3/toolkit.css">
+	<script type="module" src="//cdn.toolkit.illinois.edu/3/toolkit.js" async></script>
+	<script src="https://cdn.disability.illinois.edu/skipto.min.js"></script>
+	<script>var SkipToConfig = { 'settings': { 'skipTo': { displayOption: 'static', colorTheme: 'illinois', headings: 'h1, h2, h3', } } };</script>
+	<link href="/css/site.css?cache=1" rel="stylesheet" />
+</head>
+<body>
+<ilw-page>
+	<ilw-header slot="header">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="links">
+			<a href="/">Back to the Application</a>
+		</div>
+	</ilw-header>
+
+	<main id="app-main">
+		<ilw-content width="page">
+<h1 id="transfer-knowledge-base">Transfer Knowledge Base</h1>
+<p><a href="../index.html">Back to Documentation Home</a></p>
+<p>End-user documentation for the <strong>Transfer Information</strong> section of the Program Information application (pages under <code>/transfer</code>).</p>
+<p>The Transfer pages let you move data out of the application as <strong>JSON files</strong> and load it back in. Use them to:</p>
+<ul>
+<li><strong>Copy data from one source to another.</strong></li>
+<li><strong>Back up your data</strong> before making a lot of changes.</li>
+<li><strong>Make many changes at once</strong> using a text editor, then load the edited file back.</li>
+</ul>
+<p>JSON (JavaScript Object Notation) is an open standard format that stores data as human-readable text.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Article</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><a href="01-save-json.html">Save Information to JSON</a></td>
+<td>Download a backup or export</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="02-load-json.html">Load JSON Information to the Server</a></td>
+<td>Upload an edited or backed-up file</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="03-common-tasks.html">Common Tasks</a></td>
+<td>Backups, bulk edits, copying to another source</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="04-troubleshooting.html">Troubleshooting</a></td>
+<td>Common problems</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-sidebar">The sidebar</h2>
+<table>
+<thead>
+<tr>
+<th>Menu item</th>
+<th>Route</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Save Information to JSON</strong></td>
+<td><code>/transfer/savejson</code></td>
+</tr>
+<tr>
+<td><strong>Load JSON Information to the Server</strong></td>
+<td><code>/transfer/loadjson</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-can-be-transferred">What can be transferred</h2>
+<table>
+<thead>
+<tr>
+<th>File type</th>
+<th>Includes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Programs</strong></td>
+<td>Program data <strong>including credentials</strong></td>
+</tr>
+<tr>
+<td><strong>Courses</strong></td>
+<td>Course data <strong>including sections</strong></td>
+</tr>
+<tr>
+<td><strong>Requirement Sets</strong></td>
+<td>Requirement sets and the courses they reference</td>
+</tr>
+<tr>
+<td><strong>Configuration</strong></td>
+<td>Filters. Can be <strong>loaded only into a blank source</strong> (see <a href="02-load-json.html">Load JSON</a>)</td>
+</tr>
+</tbody>
+</table>
+<p>Programs, credentials, requirement sets, and courses are connected (a credential contains requirement sets, and a requirement set contains courses). When moving a full plan of study, save and load all of the related file types.</p>
+
+		</ilw-content>
+		<ilw-spacer></ilw-spacer>
+	</main>
+
+	<ilw-footer slot="footer">
+		<a slot="primary-unit" href="https://wigg.illinois.edu/">Web Implementation Guidelines Group</a>
+		<a slot="site-name" href="/">WIGG Course Application</a>
+		<div slot="actions">
+			<a href="https://go.illinois.edu/course-toolkit-help">Report a Problem</a>
+		</div>
+	</ilw-footer>
+</ilw-page>
+</body>
+</html>

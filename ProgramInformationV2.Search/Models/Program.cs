@@ -41,39 +41,15 @@ namespace ProgramInformationV2.Search.Models {
         [Keyword]
         public IEnumerable<string> CredentialsOnlineList => Credentials.Where(c => (c.FormatType & FormatType.Online) == FormatType.Online && c.IsActive).Distinct().Select(c => c.CredentialType.ConvertToSingleString());
 
-        public string DetailImageAltText { get; set; } = "";
-
-        public string DetailImageUrl { get; set; } = "";
-
         [Keyword]
         public override string EditLink => _editLink + "program/" + Id;
 
         [Keyword]
         public IEnumerable<string> Formats => Credentials.Where(c => c.CredentialType != CredentialType.None && c.IsActive).SelectMany(c => c.FormatType.ConvertFormatList()).Distinct();
 
-        public string ProgramGroupDescription { get; set; } = "";
-
-        public string ProgramGroupTitle { get; set; } = "";
-
-        public string ProgramGroupUrl { get; set; } = "";
-
         public IEnumerable<string> RequirementSetIds => Credentials.SelectMany(c => c.RequirementSetIds).Distinct();
 
-        public string SummaryImageAltText { get; set; } = "";
-
-        public string SummaryImageUrl { get; set; } = "";
-
-        public string SummaryText { get; set; } = "";
-
-        public string VideoUrl { get; set; } = "";
-
-        public string WhoShouldApply { get; set; } = "";
-
         public override void CleanHtmlFields() {
-            SummaryText = CleanHtml(SummaryText);
-            WhoShouldApply = CleanHtml(WhoShouldApply);
-            Description = CleanHtml(Description);
-            VideoUrl = ConvertVideoToEmbed(VideoUrl);
             ProcessLists();
             if (Credentials != null && Credentials?.Count > 0) {
                 Credentials = [.. Credentials.OrderBy(c => c.CredentialType).ThenBy(c => c.Title)];
@@ -87,6 +63,7 @@ namespace ProgramInformationV2.Search.Models {
                     c.CleanHtmlFields();
                 });
             }
+            ProcessBaseItems();
         }
 
         public override void ChangeId(string newSource) {
