@@ -231,13 +231,8 @@ ProgramInformationV2.Function/
 ??? Functions/            # Azure Function endpoints
 ```
 
-## Contributing
-
-This is a project by IT Partners at the University of Illinois. For contribution guidelines or questions, please contact the development team.
-
 ## Support
 
 For issues or questions:
 - Check the Swagger API documentation at https://courseapi.wigg.illinois.edu/api/swagger/ui
-- Contact the IT Partners development team
 - Review audit logs in the application for troubleshooting

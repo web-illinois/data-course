@@ -17,7 +17,6 @@ Shows a history of manual changes made to this program.
 ## Limitations
 - Only changes made manually in the application are recorded.
 - Loading JSON files and updates through the API are **not** included.
-- For details on exactly what changed, contact IT Partners @ Education.
 
 ## Related reports
 Source-wide change lists are in the Audit area, such as **Recently Changed Items** (`/audit/changed`).

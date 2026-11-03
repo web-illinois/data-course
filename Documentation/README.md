@@ -9,18 +9,11 @@ A **source** is a separate workspace for one college, department, or unit. Each 
 > **Updating one source does not affect any other source.** Always confirm which source you are working in before making changes, especially before deleting.
 
 ## How the information fits together
-```
-Program
-  └── Credential            (degree, certificate, or endorsement)
-		└── Requirement Set (0 to many per credential)
-			  └── Course    (0 to many per requirement set)
-					└── Section (term-based class)
-```
 
-- A **program** groups one or more credentials.
-- A **credential** can contain 0 to many requirement sets.
-- A **requirement set** can contain 0 to many courses. It describes a rule such as "must take all of these courses", "must take one of these courses", or "must take 9 credit hours from the following courses".
-- A **course** has one or more sections.
+- A **program** groups one or more credentials. It is used to group credentials (for example, in "Astronomy", you can get a BS, MS, or PhD). 
+- A **credential** can contain 0 to many requirement sets. It is your degree or certificate. 
+- A **requirement set** can contain 0 to many courses. It describes a rule such as "must take all of these courses", "must take one of these courses", or "must take 9 credit hours from the following courses". A requirement set may be shared among multiple credentials. 
+- A **course** has one or more sections. A course may have one section called "Online" that covers everything, or it may have multiple sections. 
 
 ## Documentation summary
 | Folder | What it covers |

@@ -11,5 +11,5 @@
 | **Field Type** | Which page was changed. |
 | **Raw Data** | Expand **Notes** for details. |
 
-Only manual changes are listed. Loading JSON files and API updates are not included. For exact details, contact IT Partners @ Education.
+Only manual changes are listed. Loading JSON files and API updates are not included.
 

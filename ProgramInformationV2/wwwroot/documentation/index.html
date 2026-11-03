@@ -36,17 +36,11 @@
 <p><strong>Updating one source does not affect any other source.</strong> Always confirm which source you are working in before making changes, especially before deleting.</p>
 </blockquote>
 <h2 id="how-the-information-fits-together">How the information fits together</h2>
-<pre><code>Program
-  └── Credential            (degree, certificate, or endorsement)
-		└── Requirement Set (0 to many per credential)
-			  └── Course    (0 to many per requirement set)
-					└── Section (term-based class)
-</code></pre>
 <ul>
-<li>A <strong>program</strong> groups one or more credentials.</li>
-<li>A <strong>credential</strong> can contain 0 to many requirement sets.</li>
-<li>A <strong>requirement set</strong> can contain 0 to many courses. It describes a rule such as &quot;must take all of these courses&quot;, &quot;must take one of these courses&quot;, or &quot;must take 9 credit hours from the following courses&quot;.</li>
-<li>A <strong>course</strong> has one or more sections.</li>
+<li>A <strong>program</strong> groups one or more credentials. It is used to group credentials (for example, in &quot;Astronomy&quot;, you can get a BS, MS, or PhD).</li>
+<li>A <strong>credential</strong> can contain 0 to many requirement sets. It is your degree or certificate.</li>
+<li>A <strong>requirement set</strong> can contain 0 to many courses. It describes a rule such as &quot;must take all of these courses&quot;, &quot;must take one of these courses&quot;, or &quot;must take 9 credit hours from the following courses&quot;. A requirement set may be shared among multiple credentials.</li>
+<li>A <strong>course</strong> has one or more sections. A course may have one section called &quot;Online&quot; that covers everything, or it may have multiple sections.</li>
 </ul>
 <h2 id="documentation-summary">Documentation summary</h2>
 <table>
@@ -111,7 +105,22 @@ or <a href="Course/index.html">Course</a>.</li>
 <li>Fields and pages may differ between sources because features can be turned on or off, and fields hidden, in <strong>Fields Used</strong>.</li>
 </ul>
 <h2 id="getting-help">Getting help</h2>
-<p>Contact IT Partners @ Education for questions about changes that are not shown in the audit pages or for problems not covered here.</p>
+<p>Go to <a href="https://go.illinois.edu/course-toolkit-help">https://go.illinois.edu/course-toolkit-help</a> to report a bug, request an enhancement, or ask a question.</p>
+<h2 id="resources">Resources</h2>
+<p>The API for this is through a function app that is hosted at the WIGG Course API, and has search and ID options. Request information through an HTTP Get or Post and get JSON back.</p>
+<p>To report a bug or request an enhancement, go to our GitHub repository and create an issue. This will log the issue so we can review it. Note that this application is meant for campus, which means we cannot customize it to a specific unit unless others will benefit from the change.</p>
+<p>This application is meant to be used with the Illinois Toolkit, although there's no reason why you cannot use this application alone. The Toolkit Builder will have examples of how this can be integrated with the toolkit.</p>
+<h3 id="can-i-get-access-to-this">Can I get access to this?</h3>
+<p>You have three options:</p>
+<ul>
+<li>Go to the Source Code listing and create a source code. Once you create a new source code, you can start adding information through the editing interface and start pulling data using your programming language of choice by referencing the source code.</li>
+<li>Go to the Source Code listing and create a source code. Once you have created a new source code, go to the Security tab and add an API key. This will allow you to programatically add and edit courses, programs, etc. from your site via API calls.</li>
+<li>Take the existing code and point it to your own AWS OpenSearch instance. Go to our GitHub repository to see the code.</li>
+</ul>
+<h2 id="about-this-project">About This Project</h2>
+<p>This started in 2019 (with Bryan Jonker, Myranda Crist, and Elaine Robbins) as a way to organize the various programs that we have in the College of Education. The first incarnation worked but was skewed towards larger programs.</p>
+<p>In 2022, Gies College of Business needed a way to organize their online portfolio. At the same time, IT Partners @ Education needed an easier way to maintain our existing program list and make it more agile. At the same time as that, other areas on campus needed to organize their program and course information. This was built to meet those needs, with the emphasis on making it extensible to other areas of campus. Courtney Fleeger helped immensely with the user interface for this.</p>
+<p>In 2026, we transferred the tool to WIGG and the University Website Management Center of Expertise group.</p>
 
 		</ilw-content>
 		<ilw-spacer></ilw-spacer>
