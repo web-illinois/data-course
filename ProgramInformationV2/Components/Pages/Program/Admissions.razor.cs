@@ -56,9 +56,9 @@ namespace ProgramInformationV2.Components.Pages.Program {
             var sourceCode = await Layout.CheckSource();
             var id = await Layout.GetCachedId();
             ProgramItem = await ProgramGetter.GetProgram(id);
-            _rteAdmissions.InitialValue = ProgramItem.AdmissionRequirements;
-            _rteTransferStudent.InitialValue = ProgramItem.TransferStudentDetails;
-            _rteProgramTracks.InitialValue = ProgramItem.ProgramTracks;
+            _rteAdmissions.InitialValue = ProgramItem.AdmissionRequirements ?? "";
+            _rteTransferStudent.InitialValue = ProgramItem.TransferStudentDetails ?? "";
+            _rteProgramTracks.InitialValue = ProgramItem.ProgramTracks ?? "";
             var sidebar = await SourceHelper.DoesSourceUseItem(sourceCode, CategoryType.Credential) ? SidebarEnum.ProgramWithCredential : SidebarEnum.Program;
             Layout.SetSidebar(sidebar, ProgramItem.Title);
             _fieldItems = await FieldManager.GetMergedFieldItems(sourceCode, new ProgramGroup(), FieldType.Admissions);

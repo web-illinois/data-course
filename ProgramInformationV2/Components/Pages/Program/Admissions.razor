@@ -10,4 +10,5 @@
     <RichTextEditor @ref="@_rteProgramTracks" Title="Program Tracks" FieldItems="_fieldItems"></RichTextEditor>
     <button class="ilw-button ilw-theme-orange-solid" @onclick="Save" @onblur="Layout.RemoveMessage">Save</button>
     <ViewLink Title="Program" Url="@ProgramItem.UrlFull"></ViewLink>
+    <NothingDisplayed Screen="Data.DataModels.FieldType.Admissions" FieldItems="_fieldItems"></NothingDisplayed>
 </ilw-content>
