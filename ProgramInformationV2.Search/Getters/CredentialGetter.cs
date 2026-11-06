@@ -35,6 +35,7 @@ namespace ProgramInformationV2.Search.Getters {
 
         public async Task<SearchObject<Credential>> GetCredentials(string source, string search, IEnumerable<string> tags, IEnumerable<string> tags2, IEnumerable<string> tags3, IEnumerable<string> skills, IEnumerable<string> departments, IEnumerable<string> lengths, IEnumerable<string> formats, IEnumerable<string> credentials) {
             var response = await _programGetter.GetPrograms(source, search, tags, tags2, tags3, skills, departments, lengths, formats, credentials, 1000, 0);
+            response.Items.ForEach(p => p.TransferToCredentials());
             var credentialList = response.Items.SelectMany(p => p.Credentials).Where(c => c.IsActive).OrderBy(c => c.Title).ToList();
             if (tags.Any()) {
                 credentialList = [.. credentialList.Where(c => c.TagList.Any(t => tags.Contains(t)))];

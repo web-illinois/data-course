@@ -83,6 +83,25 @@ namespace ProgramInformationV2.Search.Models {
             Credentials.ForEach(c => { c.Source = Source; c.ProgramId = Id; c.ProgramTitle = Title; c.SetId(); });
         }
 
+        public void TransferToCredentials() {
+            if (Credentials != null) {
+                Credentials.ForEach(c => {
+                    if (!string.IsNullOrWhiteSpace(ImageUrl) && string.IsNullOrWhiteSpace(c.ImageUrl)) {
+                        c.ImageUrl = ImageUrl;
+                        c.ImageAltText = ImageAltText;
+                    }
+                    if (!string.IsNullOrWhiteSpace(DetailImageUrl) && string.IsNullOrWhiteSpace(c.DetailImageUrl)) {
+                        c.DetailImageUrl = DetailImageUrl;
+                        c.DetailImageAltText = DetailImageAltText;
+                    }
+                    if (!string.IsNullOrWhiteSpace(SummaryImageUrl) && string.IsNullOrWhiteSpace(c.SummaryImageUrl)) {
+                        c.SummaryImageUrl = SummaryImageUrl;
+                        c.SummaryImageAltText = SummaryImageAltText;
+                    }
+                });
+            }
+        }
+
         public override string ToString() => JsonSerializer.Serialize(this);
     }
 }
