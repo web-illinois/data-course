@@ -58,5 +58,36 @@ namespace ProgramInformationV2.Data.CourseraImport {
             return course;
         }
 
+        public async Task<Dictionary<string, string>> GetSpecialties(string s) {
+            return (await _courseraGenerator.GetSpecializations()).Where(c => c.Value.ToLowerInvariant().Contains(s.ToLowerInvariant()) || s == "").OrderBy(d => d.Value).ToDictionary(d => d.Key, d => d.Value);
+        }
+
+        public async Task<Program> GetSpecialty(string source, string id) {
+            var useAi = await _sourceHelper.UseAiFromSource(source);
+            var courseraSpecialty = await _courseraGenerator.GetSpecialization(id);
+            var program = new Program {
+                Source = source,
+                Title = courseraSpecialty.Title,
+                Url = "https://www.coursera.org" + courseraSpecialty.Url,
+                Id = source + "-" + courseraSpecialty.Id + "-program",
+                ImageUrl = courseraSpecialty.ImageUrl,
+                IsActive = true,
+                Credentials = [
+                    new Credential {
+                        ImageUrl = courseraSpecialty.ImageUrl,
+                        Title = courseraSpecialty.Title,
+                        Url = "https://www.coursera.org" + courseraSpecialty.Url,
+                        Id = source + "-" + courseraSpecialty.Id,
+                        IsActive = true,
+                        FormatType = FormatType.Online,
+                        CredentialType = CredentialType.Coursera_Specialization
+                    }
+                ]
+            };
+            program.CleanHtmlFields();
+            program.SetId();
+            return program;
+        }
+
     }
 }
