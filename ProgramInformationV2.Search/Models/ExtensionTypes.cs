@@ -1,6 +1,6 @@
 ﻿namespace ProgramInformationV2.Search.Models {
 
-    public enum CredentialType { None, Base_Undergraduate, Undergraduate_Certificate, BA, BS, BALAS, BSLAS, BFA, BME, BMUS, BLS, BSW, BASA, Undergraduate_Minor = 19, Base_Graduate = 20, Graduate_Certificate, EdM, MBA, MA, MS, CAS, EdD, PhD, Graduate_Concentration, Graduate_Minor, Base_Certificate = 40, Certificate_of_Specialization, Endorsement, Specialty, MOOC_Specialization_Certificate, Illinois_Graduate_Certificate, Canvas_Credential, Base_Course = 60, Banner_Course, Coursera_Course, Canvas_Course }
+    public enum CredentialType { None, Base_Undergraduate, Undergraduate_Certificate, BA, BS, BALAS, BSLAS, BFA, BME, BMUS, BLS, BSW, BASA, Undergraduate_Minor = 19, Base_Graduate = 20, Graduate_Certificate, EdM, MBA, MA, MS, CAS, EdD, PhD, Graduate_Concentration, Graduate_Minor, Base_Certificate = 40, Certificate_of_Specialization, Endorsement, Specialty, MOOC_Specialization_Certificate, Illinois_Graduate_Certificate, Canvas_Credential, Coursera_Specialization, Base_Course = 60, Banner_Course, Coursera_Course, Canvas_Course }
 
     [Flags]
     public enum FormatType { None = 0, Online = 1, On__Campus = 2, Off__Campus = 4, Hybrid = 8 }

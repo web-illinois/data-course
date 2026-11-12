@@ -87,6 +87,7 @@
                     new("Programs And Credentials", "/programcred"),
                     new("Programs", "/programs"),
                     new("Credentials", "/credentials"),
+                    new("Import Coursera Specializations", "/credentials/courseraimport"),
                     new("Transfer Courses to Credential", "/credentials/transfercourse")
                 ]
             },
