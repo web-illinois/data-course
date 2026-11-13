@@ -5,7 +5,7 @@
         <div class="ils-input-entry">
             <label for="@Id">@Title</label>
             <select id="@Id" type="text" @bind="Value" @bind:after="Layout.SetDirty">
-            @foreach (var enumtype in Enum.GetValues<CredentialType>())
+            @foreach (var enumtype in Enum.GetValues<CredentialType>().OrderBy(e => e.ConvertToSingleString()))
             {
                 <option value="@enumtype">@enumtype.ConvertToSingleString()</option>
             }
